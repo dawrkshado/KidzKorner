@@ -44,7 +44,11 @@ import W from "./pages/W.jsx";
 import X from "./pages/X.jsx";
 import Y from "./pages/Y.jsx";
 import Z from "./pages/Z.jsx";
-
+import ShapesEasylevel1 from "./pages/ShapesEasyLevel1.jsx"
+import ShapesEasylevel2 from "./pages/ShapesEasyLevel2.jsx"
+import ShapesEasylevel3 from "./pages/ShapesEasyLevel3.jsx"
+import ShapesEasylevel4 from "./pages/ShapesEasyLevel4.jsx"
+import ShapesEasylevel5 from "./pages/ShapesEasyLevel5.jsx"
 
 function App() {
   
@@ -70,7 +74,13 @@ function App() {
       <Route path="/alphabets" element={<Alphabets/>}/>
       <Route path="/shapes" element={<Shapes/>}/>
       <Route path="*" element={<NotFound/>}/>
-      <Route path="shapes/easy" element={<ShapesEasy />}/>
+      <Route path="shapes/easy" element={<ShapesEasy/>}/>
+        <Route path="Shapes/easy/easyLevel1" element={<ShapesEasylevel1/>}/>
+        <Route path="Shapes/easy/easyLevel2" element={<ShapesEasylevel2/>}/>
+        <Route path="Shapes/easy/easyLevel3" element={<ShapesEasylevel3/>}/>
+        <Route path="Shapes/easyLevel4" element={<ShapesEasylevel4/>}/>
+        <Route path="/Shapes/easy/easyLevel5" element={<ShapesEasylevel5/>}/>
+      
       <Route path="shapes/medium" element={<ShapesMedium/>}/>
       <Route path="shapes/hard" element={<ShapesHard/>}/>
       <Route path="numbers/easy" element={<numbersEasy/>}/>
@@ -102,7 +112,6 @@ function App() {
       <Route path="/X" element={<X/>}/>
       <Route path="/Y" element={<Y/>}/>
       <Route path="/Z" element={<Z/>}/>
-      
   </Routes>
   </>
   );
