@@ -28,13 +28,13 @@ import Z from "../assets/Alphabets/Z.webp";
 import Back from "../components/Back";
 import { Link } from 'react-router-dom'
 
-function Alphabets(){
-    
+
+function Alphabets(){   
     return(
-    <>  
+<>  
             <TopBar/>
             <Back/>
-    <div className="hidden w-full md:inline md:absolute h-[100%]">
+<div className="hidden w-full md:inline md:absolute h-[100%]">
         <img src="./Bg/Alphabets/alphabetbg.webp" alt="chalkBoard Background"/>
    <Link to="/A">
        <img src={A} alt="Button A" className="absolute top-[7%] left-[-3%] bottom-[43%] h-[21%] hover:opacity-85 motion-preset-pulse-sm motion-duration-2000" />
@@ -114,8 +114,10 @@ function Alphabets(){
    <Link to="/Z">
        <img src={Z} alt="Button Z" className="absolute top-[82%] left-[55%] bottom-[43%] h-[21%] hover:opacity-85 motion-preset-pulse-sm motion-duration-2000" />
    </Link>
-       </div>
-        </>
+
+   <Link to={"/alphabets/play"}><div className="h-[20%] w-[20%] bg-fuchsia-600 absolute bottom-0 right-25"><h1 className="text-9xl">PLAY</h1></div></Link>
+</div>
+</>
     );
 }
 export default Alphabets

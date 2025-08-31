@@ -7,7 +7,7 @@ import { Link } from 'react-router-dom'
 function Home(){
     return(
     <>
-    <div className="hidden md:inline md:absolute h-inherit ">
+    <div className="hidden md:inline md:absolute h-inherit overflow-y-hidden ">
         <TopBar/>
         <img src="./Bg/kidzBackground.webp" alt="background" className="w-full"/>
 

@@ -1,10 +1,10 @@
  import { useState } from "react"
 import {Route, Routes,Navigate} from "react-router-dom"
+import React from "react"
 import Home from "./pages/Home.jsx"
 import Login from "./pages/Login.jsx"
 import About from "./pages/About.jsx"
 import Shapes from "./pages/Shapes.jsx"
-import Alphabets from "./pages/Alphabets.jsx"
 import Number from "./pages/Number.jsx"
 import Stories from "./pages/Stories.jsx"
 import ScrollToTop from "./components/ScrollToTop.jsx"
@@ -49,7 +49,9 @@ import ShapesEasylevel2 from "./pages/ShapesEasyLevel2.jsx"
 import ShapesEasylevel3 from "./pages/ShapesEasyLevel3.jsx"
 import ShapesEasylevel4 from "./pages/ShapesEasyLevel4.jsx"
 import ShapesEasylevel5 from "./pages/ShapesEasyLevel5.jsx"
+import AlphabetsPlay from "./pages/AlphabetsPlay.jsx"
 
+const Alphabets = React.lazy(() => import("./pages/Alphabets.jsx"))
 function App() {
   
   return(
@@ -71,16 +73,16 @@ function App() {
       <Route path="/home" element={<Home/>}/> 
       <Route path="/about" element={<About/>}/>
       <Route path="/numbers" element={<Number/>}/>
-      <Route path="/alphabets" element={<Alphabets/>}/>
+      <Route path="/alphabets" element={<Alphabets/>}/> 
+        <Route path="/alphabets/play" element={<AlphabetsPlay/>}/>
       <Route path="/shapes" element={<Shapes/>}/>
       <Route path="*" element={<NotFound/>}/>
-      <Route path="shapes/easy" element={<ShapesEasy/>}/>
-        <Route path="Shapes/easy/easyLevel1" element={<ShapesEasylevel1/>}/>
-        <Route path="Shapes/easy/easyLevel2" element={<ShapesEasylevel2/>}/>
-        <Route path="Shapes/easy/easyLevel3" element={<ShapesEasylevel3/>}/>
-        <Route path="Shapes/easyLevel4" element={<ShapesEasylevel4/>}/>
-        <Route path="/Shapes/easy/easyLevel5" element={<ShapesEasylevel5/>}/>
-      
+      <Route path="/shapes/easy" element={<ShapesEasy/>}/>
+        <Route path="/shapes/easy/level1" element={<ShapesEasylevel1/>}/>
+        <Route path="/shapes/easy/level2" element={<ShapesEasylevel2/>}/>
+        <Route path="/shapes/easy/level3" element={<ShapesEasylevel3/>}/>
+        <Route path="/shapes/easy/level4" element={<ShapesEasylevel4/>}/>
+        <Route path="/shapes/easy/level5" element={<ShapesEasylevel5/>}/>
       <Route path="shapes/medium" element={<ShapesMedium/>}/>
       <Route path="shapes/hard" element={<ShapesHard/>}/>
       <Route path="numbers/easy" element={<numbersEasy/>}/>

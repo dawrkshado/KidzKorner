@@ -9,9 +9,7 @@ function Shapes(){
       <Back/>
       <Level/>
       </>
-     
     )
-
 }
 
 export default Shapes

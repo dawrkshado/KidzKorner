@@ -4,8 +4,9 @@ import { Link, useLocation } from 'react-router-dom'
 function Level({}){
 
   const location = useLocation();   
+  const currentPath = location.pathname;
       const getBasePath = () =>{
-          const currentPath = location.pathname;
+
 
           if(currentPath.includes("/shapes")){
             return '/shapes';
@@ -19,7 +20,11 @@ function Level({}){
           return '';
       };
            const basePath = getBasePath();
-    return(
+      if(currentPath.includes({basePath})){
+       return '';
+      }
+      else{
+         return(
       <>
       <div className="flex h-screen w-full  justify-center">
         <Link to={`${basePath}/easy`}><div className="bg-amber-200 h-20 w-20"> easy </div></Link>
@@ -28,6 +33,10 @@ function Level({}){
       </div>
       </>
     )
+      }
+    
+       
+    
 }
 
 export default Level

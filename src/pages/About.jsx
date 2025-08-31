@@ -1,6 +1,5 @@
 import TopBar from "../components/TopBar";
 function About(){
-    
     return(
         <>
         <TopBar/>
