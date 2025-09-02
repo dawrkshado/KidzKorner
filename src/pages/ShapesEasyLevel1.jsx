@@ -4,7 +4,7 @@ import { pointerWithin } from '@dnd-kit/core';
 import { useDroppable } from "@dnd-kit/core"
 import { useDraggable } from "@dnd-kit/core"
 
-function Droppable({ children,outline }){
+function Droppable({  id, placedShape, outline }){
   const {isOver,setNodeRef} = useDroppable({
     id:'droppable',
   });
@@ -17,6 +17,7 @@ function Droppable({ children,outline }){
       <div className={`flex h-30 w-30  items-center justify-center  border-2 border-gray-600 ${isOver ? "border-green-600" : ""}`} 
       ref={setNodeRef}
       style={style}>
+           {placedShape ? placedShape : outline}
         </div>
         </>)
 }
@@ -54,12 +55,18 @@ function ShapesEasyLevel1(){
 >
   
    {!isDropped && <Draggable/>}
-    <Droppable>
-       {isDropped && <Draggable disabled/>}
-      </Droppable>
 
-      <Droppable children={<div children="flex h-30 w-30  items-center justify-center  border-2 border-gray-600"></div>}></Droppable>
- 
+
+      <Droppable
+            id="circle"
+            outline={<div className="w-20 h-20 rounded-full border-2 border-gray-400"></div>}
+            placedShape={
+              isDropped["circle"] && (
+                <div className="w-20 h-20 rounded-full bg-red-500"></div>
+              )
+            }
+          />
+    
  </DndContext>
   </div>
   </>)
