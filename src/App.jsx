@@ -57,7 +57,10 @@ function App() {
   return(
    
   <>  
-  <ScrollToTop/>
+
+
+
+    <ScrollToTop/>
       <div className="bg-[#3DA8CC] font-[coiny] justify-items-center align-middle h-screen w-screen content-center md:hidden">
         <img src="/responsive.png" alt="rotate Phone Background"/> 
         <h1 className="text-white">Rotate Phone to experience</h1>
