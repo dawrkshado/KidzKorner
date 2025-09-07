@@ -13,13 +13,22 @@ function ShapesEasyLevel2() {
     Age:18
   }
   ]
+
+  const [index, setIndex] = useState(0);
+  const changeIndex = () => {
+    if (index != something.length - 1){
+           setIndex(index + 1)
+    }
+
+   
+  }
   
   
   return (
     <>
 <ul>
-  {something.map((listahan,i) =>(
-      <li key={i}>
+  {something.map((listahan,) =>(
+      <li >
           {listahan.Name} - {listahan.Age}
   </li>
   ))}
@@ -32,3 +41,4 @@ function ShapesEasyLevel2() {
 }
 
 export default ShapesEasyLevel2
+
