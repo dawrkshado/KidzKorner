@@ -13,20 +13,25 @@ function ShapesEasyLevel2() {
     Age:18
   }
   ]
-  
-  
+  const [index, setIndex] = useState(0)
+
+  const logic = () =>{
+    if (index != something.length - 1){
+      setIndex( index + 1)
+    }
+  }
+
   return (
     <>
 <ul>
-  {something.map((listahan,i) =>(
-      <li key={i}>
-          {listahan.Name} - {listahan.Age}
+
+  <li>
+    {something[index].Name} - {something[index].Age}
   </li>
-  ))}
 
 </ul>
 
-<button className="bg-amber-300" >click me</button>
+<button className="bg-amber-300" onClick={logic}>click me</button>
     </>
   )
 }
