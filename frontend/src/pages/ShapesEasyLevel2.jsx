@@ -1,16 +1,21 @@
-
 import { useState } from "react"
-
+import pizza from "../assets/Shapes/ShapesEasy/placeholderPizza.webp"
+import ball from "../assets/Shapes/ShapesEasy/basketballPlaceholder.webp"
 function ShapesEasyLevel2() {
   const something = [
     {
     Name: "Jp",
-    Age: 20
+    Age: 20,
+    Image : `${pizza}`,
+    Answer: "Triangle",
+    choices: ["Circle", "Triangle ","Square"]
   },
 
   {
     Name: "Glai",
-    Age:18
+    Age:18,
+    Image:`${ball}`,
+    Answer:"Circle"
   }
   ]
   const [index, setIndex] = useState(0)
@@ -26,12 +31,20 @@ function ShapesEasyLevel2() {
 <ul>
 
   <li>
-    {something[index].Name} - {something[index].Age}
+    {something[index].Name}
+  </li>
+
+  <li> 
+     {something[index].Age}
+  </li>
+  
+  <li>
+    <img className="h-40" src={something[index].Image} alt="" />
   </li>
 
 </ul>
 
-<button className="bg-amber-300" onClick={logic}>click me</button>
+<button className="bg-amber-300" onClick={logic}>{something[index].Answer}</button>
     </>
   )
 }
