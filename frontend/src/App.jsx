@@ -50,6 +50,12 @@ import ShapesEasylevel3 from "./pages/ShapesEasyLevel3.jsx"
 import ShapesEasylevel4 from "./pages/ShapesEasyLevel4.jsx"
 import ShapesEasylevel5 from "./pages/ShapesEasyLevel5.jsx"
 import AlphabetsPlay from "./pages/AlphabetsPlay.jsx"
+import TeacherHomePage from "./pages/TeacherHomePage.jsx"
+import UploadContents from "./pages/UploadContents.jsx"
+import DashBoard from "./pages/DashBoard.jsx"
+import StudentManagement from "./pages/StudentManagement.jsx"
+import Overview from "./pages/Overview.jsx"
+import UserAccControl from "./pages/UserAccControl.jsx"
 
 const Alphabets = React.lazy(() => import("./pages/Alphabets.jsx"))
 function App() {
@@ -117,6 +123,13 @@ function App() {
       <Route path="/X" element={<X/>}/>
       <Route path="/Y" element={<Y/>}/>
       <Route path="/Z" element={<Z/>}/>
+      <Route path="/teacher" element={<TeacherHomePage/>}/>
+      <Route path="/upload" element={<UploadContents/>}/>
+      <Route path="/dashboard" element={<DashBoard/>}/>
+      <Route path="/studentmanagement" element={<StudentManagement/>}/>
+      <Route path="/overview" element={<Overview/>}/>
+      <Route path="/UserAccControl" element={<UserAccControl/>}/>
+      
   </Routes>
   </>
   );
