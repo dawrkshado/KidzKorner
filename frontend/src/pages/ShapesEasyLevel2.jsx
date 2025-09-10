@@ -8,24 +8,39 @@ function ShapesEasyLevel2() {
     Age: 20,
     Image : `${pizza}`,
     Answer: "Triangle",
-    choices: ["Circle", "Triangle ","Square"]
+    choices: ["Circle", "Triangle","Square", "Oval"]
   },
 
   {
     Name: "Glai",
     Age:18,
     Image:`${ball}`,
-    Answer:"Circle"
+    Answer:"Circle",
+    choices: ["Circle", "Triangle","Square", "Oval"]
   }
   ]
-  
-  
+  const [index, setIndex] = useState(0)
+
+  const logic = (choice) =>{
+    if (choice === something[index].Answer && index < something.length - 1){
+      alert ("qorique!")
+      setIndex(index + 1);
+    }
+    else{
+      alert ("wrong!")
+    }
+  }
+
   return (
     <>
 <ul>
-  {something.map((listahan,i) =>(
-      <li key={i}>
-          {listahan.Name} - {listahan.Age}
+
+  <li>
+    {something[index].Name}
+  </li>
+
+  <li> 
+     {something[index].Age}
   </li>
   
   <li>
@@ -34,10 +49,17 @@ function ShapesEasyLevel2() {
 
 </ul>
 
-<button className="bg-amber-300" onClick={logic}>{something[index].Answer}</button>
+{something[index].choices.map((word,i) => (
+  <button key={i} className="bg-amber-300 m-2 px-4 py-2 rounded" onClick={() =>logic(word)}>
+    
+    {word}
+    
+    </button>
+))}
+
+
     </>
   )
 }
 
 export default ShapesEasyLevel2
-
