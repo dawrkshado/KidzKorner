@@ -2,14 +2,18 @@ import { useState } from "react";
 import api from "../api";
 import { useNavigate } from "react-router-dom";
 import { ACCESS_TOKEN, REFRESH_TOKEN } from "../constants";
-import "../styles/Form.css"
-import LoadingIndicator from "./LoadingIndicator";
+import "../components/Form.css"
+import { Link, useLocation } from 'react-router-dom'
+import LoadingIndicator from "./LoadingIndicator.jsx";
+
+
 
 function Form({ route, method }) {
     const [username, setUsername] = useState("");
     const [password, setPassword] = useState("");
     const [loading, setLoading] = useState(false);
     const navigate = useNavigate();
+
 
     const name = method === "login" ? "Login" : "Register";
 
@@ -22,7 +26,7 @@ function Form({ route, method }) {
             if (method === "login") {
                 localStorage.setItem(ACCESS_TOKEN, res.data.access);
                 localStorage.setItem(REFRESH_TOKEN, res.data.refresh);
-                navigate("/")
+                navigate("/home")
             } else {
                 navigate("/login")
             }
@@ -34,6 +38,7 @@ function Form({ route, method }) {
     };
 
     return (
+   
         <form onSubmit={handleSubmit} className="form-container">
             <h1>{name}</h1>
             <input

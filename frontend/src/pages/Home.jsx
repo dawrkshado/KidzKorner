@@ -4,7 +4,26 @@ import BlueMonster from "../assets/Home/blueMonster.webp";
 import RedMonster from "../assets/Home/redMonster.webp";
 import TvMonster from "../assets/Home/TvMonster.webp";
 import { Link } from 'react-router-dom'
+import { useNavigate } from "react-router-dom";
+import { useEffect, useState } from "react";
+import api from "../api";
+import { ACCESS_TOKEN } from "../constants";
 function Home(){
+
+
+  useEffect(() => {
+    const checkUser = async () => {
+      try {
+        const res = await api.get("/api/user-profile/");
+        console.log(res.data)
+      } catch (err) {
+        console.error("Not logged in:", err);
+      }
+    };
+
+    checkUser();
+  }, []);
+  
     return(
     <>
       

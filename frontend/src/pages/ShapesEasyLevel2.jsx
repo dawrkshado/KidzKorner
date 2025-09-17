@@ -4,16 +4,12 @@ import ball from "../assets/Shapes/ShapesEasy/basketballPlaceholder.webp"
 function ShapesEasyLevel2() {
   const something = [
     {
-    Name: "Jp",
-    Age: 20,
     Image : `${pizza}`,
     Answer: "Triangle",
     choices: ["Circle", "Triangle","Square", "Oval"]
   },
 
   {
-    Name: "Glai",
-    Age:18,
     Image:`${ball}`,
     Answer:"Circle",
     choices: ["Circle", "Triangle","Square", "Oval"]
@@ -22,11 +18,14 @@ function ShapesEasyLevel2() {
   const [index, setIndex] = useState(0)
 
   const logic = (choice) =>{
-    if (choice === something[index].Answer && index < something.length - 1){
+    if (choice === something[index].Answer && index != something.length - 1){
       alert ("qorique!")
       setIndex(index + 1);
     }
-    else{
+    else if(choice === something[index].Answer && index === something.length - 1){
+     alert ("qorique!")
+    }
+    else if(choice != something[index].Answer){
       alert ("wrong!")
     }
   }

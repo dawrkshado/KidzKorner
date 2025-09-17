@@ -56,15 +56,19 @@ import DashBoard from "./pages/DashBoard.jsx"
 import StudentManagement from "./pages/StudentManagement.jsx"
 import Overview from "./pages/Overview.jsx"
 import UserAccControl from "./pages/UserAccControl.jsx"
+import ProtectedRoute from "../src/components/ProtectedRoute.jsx"
+import Form from "./components/Forms.jsx"
 
 const Alphabets = React.lazy(() => import("./pages/Alphabets.jsx"))
+
+function Logout(){
+  localStorage.clear()
+  return(<Navigate to="/login" />)
+}
 function App() {
   
   return(
-   
   <>  
-
-
 
     <ScrollToTop/>
       <div className="bg-[#3DA8CC] font-[coiny] justify-items-center align-middle h-screen w-screen content-center md:hidden">
@@ -78,9 +82,10 @@ function App() {
       <Route path="/stories/story2" element={<Story2/>}/>
       <Route path="/stories/story3" element={<Story3/>}/>
       <Route path="/stories" element={<Stories/>}/>
+
       <Route path="/login" element={<Login/>}/>
       <Route path="/home" element={<Home/>}/> 
-      <Route path="/about" element={<About/>}/>
+      <Route path="/about" element={<Form/>}/>
       <Route path="/numbers" element={<Number/>}/>
       <Route path="/alphabets" element={<Alphabets/>}/> 
         <Route path="/alphabets/play" element={<AlphabetsPlay/>}/>
