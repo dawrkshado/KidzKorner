@@ -36,7 +36,7 @@ import NumberHard1 from "./pages/NumberHard1.jsx"
 
 
 import AlphabetsPlay from "./pages/AlphabetsPlay.jsx"
-const Alphabets = React.lazy(() => import("./pages/Alphabets.jsx"))
+
 import A from "./pages/A.jsx"
 import B from "./pages/B.jsx"
 import C from "./pages/C.jsx"
@@ -70,6 +70,9 @@ import DashBoard from "./pages/DashBoard.jsx"
 import StudentManagement from "./pages/StudentManagement.jsx"
 import Overview from "./pages/Overview.jsx"
 import UserAccControl from "./pages/UserAccControl.jsx"
+import ProtectedRoute from "../src/components/ProtectedRoute.jsx"
+import Form from "./components/Forms.jsx"
+
 
 import Color from "./pages/Color.jsx"
 import ColorEasy from "./pages/ColorEasy.jsx"
@@ -86,13 +89,21 @@ import ShapesGame from "./pages/ShapesGame.jsx"
 import ColorGame from "./pages/ColorGame.jsx"
 import NumberGame from "./pages/NumberGame.jsx"
 
+const Alphabets = React.lazy(() => import("./pages/Alphabets.jsx"))
+
+
+
 function App() {
-  return (
-    <>
-      <ScrollToTop />
+  
+  return(
+  <>  
+
+    <ScrollToTop/>
+
       <div className="bg-[#3DA8CC] font-[coiny] justify-items-center align-middle h-screen w-screen content-center md:hidden">
         <img src="/responsive.png" alt="rotate Phone Background" />
         <h1 className="text-white">Rotate Phone to experience</h1>
+
       </div>
 
       <Routes>
@@ -182,6 +193,7 @@ function App() {
       </Routes>
     </>
   )
+
 }
 
 export default App

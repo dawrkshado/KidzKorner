@@ -4,25 +4,29 @@ import ball from "../assets/Shapes/ShapesEasy/basketballPlaceholder.webp"
 function ShapesEasyLevel2() {
   const something = [
     {
-    Name: "Jp",
-    Age: 20,
     Image : `${pizza}`,
     Answer: "Triangle",
-    choices: ["Circle", "Triangle ","Square"]
+    choices: ["Circle", "Triangle","Square", "Oval"]
   },
 
   {
-    Name: "Glai",
-    Age:18,
     Image:`${ball}`,
-    Answer:"Circle"
+    Answer:"Circle",
+    choices: ["Circle", "Triangle","Square", "Oval"]
   }
   ]
   const [index, setIndex] = useState(0)
 
-  const logic = () =>{
-    if (index != something.length - 1){
-      setIndex( index + 1)
+  const logic = (choice) =>{
+    if (choice === something[index].Answer && index != something.length - 1){
+      alert ("qorique!")
+      setIndex(index + 1);
+    }
+    else if(choice === something[index].Answer && index === something.length - 1){
+     alert ("qorique!")
+    }
+    else if(choice != something[index].Answer){
+      alert ("wrong!")
     }
   }
 
@@ -44,7 +48,15 @@ function ShapesEasyLevel2() {
 
 </ul>
 
-<button className="bg-amber-300" onClick={logic}>{something[index].Answer}</button>
+{something[index].choices.map((word,i) => (
+  <button key={i} className="bg-amber-300 m-2 px-4 py-2 rounded" onClick={() =>logic(word)}>
+    
+    {word}
+    
+    </button>
+))}
+
+
     </>
   )
 }
