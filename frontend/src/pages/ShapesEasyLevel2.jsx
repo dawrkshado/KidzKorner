@@ -18,7 +18,7 @@ function Droppable({id, placedShape,shape}) {
     <div
       ref={setNodeRef}
       style={style}
-      className={`flex items-center justify-center h-[160px] w-[160px] `}
+      className={`flex items-center justify-center h-[160px] w-[160px]`}
     >
       {placedShape ? placedShape : shape}
 

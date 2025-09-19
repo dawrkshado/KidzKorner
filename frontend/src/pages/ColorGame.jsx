@@ -4,6 +4,7 @@ import coloreasy from "../assets/Color/coloreasy.png";
 import colormedium from "../assets/Color/colormedium.png";
 import colorhard from "../assets/Color/colorhard.png";
 
+
 function ColorGame(){
   return(
     <>
