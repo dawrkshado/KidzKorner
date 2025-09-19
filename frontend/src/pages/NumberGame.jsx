@@ -8,7 +8,7 @@ function NumberGame(){
 
   return(<>
 
-  <div className="hidden w-full md:inline md:absolute h-auto">
+  <div className="hidden w-full md:inline md:absolute overflow-x-hidden">
         <TopBar/>
         <img
         src="./Bg/Number/numbergamebg.png"
@@ -20,21 +20,21 @@ function NumberGame(){
             <img 
             src={numbereasy} 
             alt="Easy Button"
-            className="absolute left-[5%] top-[13%] w-auto cursor-pointer" />
+            className="absolute left-[5%] top-[13%] h-[25%] cursor-pointer" />
             </Link>
 
     <Link to="/numbermedium">
             <img 
             src={numbermedium} 
             alt="Easy Button"
-            className="absolute left-[30%] top-[43%] w-auto h-auto cursor-pointer" />
+            className="absolute left-[30%] top-[43%] w-auto h-[25%] cursor-pointer" />
             </Link>
     
     <Link to="/numberhard">
             <img 
             src={numberhard} 
             alt="Easy Button"
-            className="absolute left-[55%] top-[73%] w-auto h-auto cursor-pointer" />
+            className="absolute left-[55%] top-[73%] w-auto h-[25%] cursor-pointer" />
             </Link>
   </div>
   </>

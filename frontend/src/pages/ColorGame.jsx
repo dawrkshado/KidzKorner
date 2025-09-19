@@ -12,27 +12,27 @@ function ColorGame(){
         <img
         src="./Bg/Color/colorlevelbg.png"
         alt="background"
-        className="w-full"
+        className="w-full h-[25%]"
         />
 
         <Link to="/coloreasy">
         <img 
         src={coloreasy} 
         alt="Easy Button"
-        className="absolute left-[5%] top-[13%] w-auto cursor-pointer" />
+        className="absolute left-[5%] top-[13%] h-[25%] cursor-pointer" />
         </Link>
 
         <Link to="/colormedium">
         <img
         src={colormedium}
         alt="Medium Button"
-        className="absolute left-[30%] top-[43%] w-auto cursor pointer"/>
+        className="absolute left-[30%] top-[43%] h-[25%] cursor pointer"/>
         </Link>
         <Link to="/colorhard">
         <img
         src={colorhard}
         alt="Hard Button"
-        className="absolute left-[55%] top-[73%] w-auto cursor pointer"/>
+        className="absolute left-[55%] top-[73%] h-[25%] cursor pointer"/>
         </Link>
     </div>
   </>

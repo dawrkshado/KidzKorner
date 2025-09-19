@@ -18,7 +18,7 @@ function numbersEasy(){
           className="bg-amber-300 h-25 w-30 m-2 p-2"
           onClick={() => handleClick(number)}
         >
-          {clicked.includes(number) ? "done" : number}
+          {clicked.includes(number) ? " " : number}
         </div>
       ))}
     </>
