@@ -50,9 +50,7 @@ function ShapesEasyLevel2() {
 
 {something[index].choices.map((word,i) => (
   <button key={i} className="bg-amber-300 m-2 px-4 py-2 rounded" onClick={() =>logic(word)}>
-    
     {word}
-    
     </button>
 ))}
 

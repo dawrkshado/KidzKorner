@@ -58,6 +58,7 @@ import Overview from "./pages/Overview.jsx"
 import UserAccControl from "./pages/UserAccControl.jsx"
 import ProtectedRoute from "../src/components/ProtectedRoute.jsx"
 import Form from "./components/Forms.jsx"
+import AlphabetsEasy from "./pages/AlphabetsEasy.jsx"
 
 const Alphabets = React.lazy(() => import("./pages/Alphabets.jsx"))
 
@@ -82,13 +83,13 @@ function App() {
       <Route path="/stories/story2" element={<Story2/>}/>
       <Route path="/stories/story3" element={<Story3/>}/>
       <Route path="/stories" element={<Stories/>}/>
-
-      <Route path="/login" element={<Login/>}/>
-      <Route path="/home" element={<Home/>}/> 
+    
+      <Route path="/home" element={<ProtectedRoute><Home/></ProtectedRoute>}/> 
       <Route path="/about" element={<Form/>}/>
       <Route path="/numbers" element={<Number/>}/>
       <Route path="/alphabets" element={<Alphabets/>}/> 
         <Route path="/alphabets/play" element={<AlphabetsPlay/>}/>
+        <Route path="/alphabets/easy" element={<AlphabetsEasy/>}/>
       <Route path="/shapes" element={<Shapes/>}/>
       <Route path="*" element={<NotFound/>}/>
       <Route path="/shapes/easy" element={<ShapesEasy/>}/>
@@ -134,6 +135,7 @@ function App() {
       <Route path="/studentmanagement" element={<StudentManagement/>}/>
       <Route path="/overview" element={<Overview/>}/>
       <Route path="/UserAccControl" element={<UserAccControl/>}/>
+      <Route path="/login" element={<Login/>}/>
       
   </Routes>
   </>
