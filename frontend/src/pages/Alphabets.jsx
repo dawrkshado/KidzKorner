@@ -35,7 +35,7 @@ function Alphabets(){
             <TopBar/>
             <Back/>
 <div className="hidden w-full md:inline md:absolute h-[100%]">
-        <img src="./Bg/Alphabets/alphabetbg.webp" alt="chalkBoard Background"/>
+        <img src="./Bg/Alphabets/alphabetbg.webp" alt="chalkBoard Background" className="w-full"/>
    <Link to="/A">
        <img src={A} alt="Button A" className="absolute top-[7%] left-[-3%] bottom-[43%] h-[21%] hover:opacity-85 motion-preset-pulse-sm motion-duration-2000" />
    </Link>
