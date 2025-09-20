@@ -7,6 +7,7 @@ import diamondDraggable from "../assets/Shapes/ShapesEasy/diamondDraggable.webp"
 import diamondDropppable from "../assets/Shapes/ShapesEasy/diamondDropppable.webp"
 import pentagonDroppable from  "../assets/Shapes/ShapesEasy/diamondDroppable.webp"
 import pentagonDraggable from "../assets/Shapes/ShapesEasy/pentagonDraggable.webp"
+import bg from "../assets/Shapes/ShapesEasy/lvl3Bg.webp"
 function Droppable({id, placedShape,shape}) {
   const { isOver, setNodeRef } = useDroppable({ id });
   const style = {
@@ -18,7 +19,7 @@ function Droppable({id, placedShape,shape}) {
     <div
       ref={setNodeRef}
       style={style}
-      className={`flex items-center justify-center h-[160px] w-[160px] `}
+      className={`flex items-center justify-center h-[160px] w-[160px] ml-5`}
     >
       {placedShape ? placedShape : shape}
 
@@ -69,15 +70,15 @@ function ShapesEasyLevel3() {
 
   return (
     <div className="flex h-[100vh] w-[100vw]  [&>*]:flex absolute overflow-hidden">
-      
+      <img src={bg} alt="background" className="absolute w-[100vw]"/>
       <DndContext onDragEnd={handleDragEnd} collisionDetection={pointerWithin}>
 
 
-    <div className="h-[110px] w-[360px] justify-center">             
+    <div className="h-[110px] w-[360px] justify-center z-1 absolute top-100 right-135">             
  {!dropped ["heptagon"] && (
           <Draggable
               id = "heptagon"
-              shape={<img src={heptagonDraggable} alt="a heptagon shape" className=" hover:cursor-grab h-[100px]"/>}
+              shape={<img src={heptagonDraggable} alt="a heptagon shape" className=" hover:cursor-grab h-[70px]"/>}
           />
         )}
        
@@ -85,14 +86,14 @@ function ShapesEasyLevel3() {
          {!dropped ["diamond"] && (
           <Draggable
               id = "diamond"
-              shape={<img src={diamondDraggable} alt="diamond shape in green" className="h-[100px]"/>}
+              shape={<img src={diamondDraggable} alt="diamond shape in green" className="h-[70px]"/>}
           />
         )}
 
         {!dropped ["pentagon"] && (
           <Draggable
               id = "pentagon"
-              shape={<img src={pentagonDraggable} alt="image of shape of a heart" className=" h-[100px] hover:cursor-grab"/>}
+              shape={<img src={pentagonDraggable} alt="image of shape of a heart" className=" h-[70px] hover:cursor-grab"/>}
           />
         )}
     </div >
@@ -101,8 +102,9 @@ function ShapesEasyLevel3() {
 {/*Droppable*/}
 
       
+<div className="absolute top-50 right-120">
 
-           <Droppable
+    <Droppable
         id = "heptagon"
         shape={<img src={heptagonDroppable} alt="transparent heptagon"/>}
         placedShape={
@@ -134,6 +136,8 @@ function ShapesEasyLevel3() {
         />
 
 
+</div>
+         
 
 
       </DndContext>

@@ -7,6 +7,7 @@ import starDraggable from "../assets/Shapes/ShapesEasy/starDraggable.webp"
 import starDroppable from "../assets/Shapes/ShapesEasy/starDroppable.webp"
 import ovalDroppable from  "../assets/Shapes/ShapesEasy/ovalDroppable.webp"
 import ovalDraggable from "../assets/Shapes/ShapesEasy/ovalDraggable.webp"
+import bg from "../assets/Shapes/ShapesEasy/lvl2.webp"
 function Droppable({id, placedShape,shape}) {
   const { isOver, setNodeRef } = useDroppable({ id });
   const style = {
@@ -18,7 +19,7 @@ function Droppable({id, placedShape,shape}) {
     <div
       ref={setNodeRef}
       style={style}
-      className={`flex items-center justify-center h-[160px] w-[160px]`}
+      className={`flex items-center justify-center h-[160px] w-[160px] ml-10`}
     >
       {placedShape ? placedShape : shape}
 
@@ -67,15 +68,15 @@ function ShapesEasyLevel2() {
 
   return (
     <div className="flex h-[100vh] w-[100vw]  [&>*]:flex absolute overflow-hidden">
-      
+      <img src={bg} alt="background" className="absolute w-[100vw]"/>
       <DndContext onDragEnd={handleDragEnd} collisionDetection={pointerWithin}>
 
 
-    <div className="h-[110px] w-[360px] justify-center">             
+    <div className="h-[110px] w-[360px] justify-center z-1 absolute bottom-40 [&>*]:ml-5">             
  {!dropped ["star"] && (
           <Draggable
               id = "star"
-              shape={<img src={starDraggable} alt="a star shape" className=" hover:cursor-grab h-[100px]"/>}
+              shape={<img src={starDraggable} alt="a star shape" className=" hover:cursor-grab h-[70px]"/>}
           />
         )}
        
@@ -83,24 +84,22 @@ function ShapesEasyLevel2() {
          {!dropped ["oval"] && (
           <Draggable
               id = "oval"
-              shape={<img src={ovalDraggable} alt="oval shape in green" className="h-[100px]"/>}
+              shape={<img src={ovalDraggable} alt="oval shape in green" className="h-[70px]"/>}
           />
         )}
 
         {!dropped ["heart"] && (
           <Draggable
               id = "heart"
-              shape={<img src={heartDraggable} alt="image of shape of a heart" className=" h-[100px] hover:cursor-grab"/>}
+              shape={<img src={heartDraggable} alt="image of shape of a heart" className=" h-[70px] hover:cursor-grab"/>}
           />
         )}
     </div >
         
        
 {/*Droppable*/}
-
-      
-
-           <Droppable
+<div className="absolute left-90 top-50">
+    <Droppable
         id = "star"
         shape={<img src={starDroppable}/>}
         placedShape={
@@ -130,9 +129,10 @@ function ShapesEasyLevel2() {
           shape = {<img src={heartDraggable} alt="image of a transparent heart"/>}
           disabled={true}/>)}
         />
+</div>
+      
 
-
-
+         
 
       </DndContext>
     </div>

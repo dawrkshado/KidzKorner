@@ -6,6 +6,7 @@ import squareDraggable from "../assets/Shapes/ShapesEasy/squareDraggable.webp"
 import squareDroppable from "../assets/Shapes/ShapesEasy/squareDroppable.webp"
 import triangleDraggable from "../assets/Shapes/ShapesEasy/triangleDraggable.webp"
 import triangleDroppable from "../assets/Shapes/ShapesEasy/triangleDroppable.webp"
+import bg from "../assets/Shapes/ShapesEasy/lvl1Bg.webp"
 
 function Droppable({id, placedShape,shape}) {
   const { isOver, setNodeRef } = useDroppable({ id });
@@ -18,7 +19,7 @@ function Droppable({id, placedShape,shape}) {
     <div
       ref={setNodeRef}
       style={style}
-      className={`flex items-center justify-center h-[160px] w-[160px]`}
+      className={`flex items-center justify-center h-[160px] w-[160px] gap-10 `}
     >
       {placedShape ? placedShape : shape}
 
@@ -65,15 +66,17 @@ function ShapesEasyLevel1() {
     }
   }
 
-  return (
-    <div className="flex h-[100vh] w-[100vw]  [&>*]:flex absolute [& > *] overflow-hidden">
-      
+  return (<>
+    
+   <div className="flex h-[100vh] w-[100vw]  [&>*]:flex absolute [& > *] overflow-hidden">
+      <img src={bg} alt="background" className="absolute w-[100vw]" />
       <DndContext onDragEnd={handleDragEnd} collisionDetection={pointerWithin}>
-    <div className="h-[110px] w-[360px] justify-center">
+        
+    <div className="flex absolute gap-6 w-[460px] h-[300px] justify-center z-10 top-100 right-110  p-4 rounded-lg">
       {!dropped["circle"] && (
           <Draggable
             id="circle"
-            shape={<img src={circleDraggable} alt="circle shape" className="h-[100px]"/>}
+            shape={<img src={circleDraggable} alt="circle shape" className="h-[80px] "/>}
           />
         )}
 
@@ -81,7 +84,7 @@ function ShapesEasyLevel1() {
  {!dropped ["square"] && (
           <Draggable
               id = "square"
-              shape={<img src={squareDraggable} alt="square shape" className="h-[100px]"/>}
+              shape={<img src={squareDraggable} alt="square shape" className="h-[80px]"/>}
           />
         )}
        
@@ -89,14 +92,14 @@ function ShapesEasyLevel1() {
          {!dropped ["triangle"] && (
           <Draggable
               id = "triangle"
-              shape={<img src={triangleDraggable} alt="triangle shape" className="h-[100px]"/>}
+              shape={<img src={triangleDraggable} alt="triangle shape" className="h-[80px]"/>}
           />
         )}
     </div>
         
        
 {/*Droppable*/}
-        <div>
+        <div className="flex justify-center gap-6 absolute top-50 right-105">
         <Droppable
           id="circle"
           shape={<img src={circleDroppable} alt="transparent circle shape" />}
@@ -131,7 +134,10 @@ function ShapesEasyLevel1() {
 
       </DndContext>
     </div>
-  );
+  </>
+
+    
+  )
 }
 
 export default ShapesEasyLevel1;
