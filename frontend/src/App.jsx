@@ -36,6 +36,15 @@ import NumberHard1 from "./pages/NumberHard1.jsx"
 
 
 import AlphabetsPlay from "./pages/AlphabetsPlay.jsx"
+import AlphabetEasy from "./pages/AlphabetEasy.jsx"
+import AlphabetMedium from "./pages/AlphabetMedium.jsx"
+import AlphabetHard from "./pages/AlphabetHard.jsx"
+import AlphabetEasy1 from "./pages/AlphabetEasy1.jsx"
+import AlphabetEasy2 from "./pages/AlphabetEasy2.jsx"
+import AlphabetEasy3 from "./pages/AlphabetEasy3.jsx"
+import AlphabetMedium1 from "./pages/AlphabetMedium1.jsx"
+import AlphabetMedium2 from "./pages/AlphabetMedium2.jsx"
+import AlphabetHard1 from "./pages/AlphabetHard1.jsx"
 
 import A from "./pages/A.jsx"
 import B from "./pages/B.jsx"
@@ -141,6 +150,15 @@ function App() {
         <Route path="/numbergame" element={<NumberGame />} />
 
         <Route path="/alphabets" element={<Alphabets />} />
+        <Route path="/alphabeteasy" element={<AlphabetEasy/>}/>
+        <Route path="/alphabetmedium" element={<AlphabetMedium/>}/>
+        <Route path="/alphabethard" element={<AlphabetHard/>}/>
+        <Route path="/alphabets/easy/level1" element={<AlphabetEasy1/>}/>
+        <Route path="/alphabets/easy/level2" element={<AlphabetEasy2/>}/>
+        <Route path="/alphabets/easy/level3" element={<AlphabetEasy3/>}/>
+        <Route path="/alphabets/medium/level1" element={<AlphabetMedium1/>}/>
+        <Route path="/alphabets/medium/level2" element={<AlphabetMedium2/>}/>
+        <Route path="/alphabets/hard/level1" element={<AlphabetHard1/>}/>
         <Route path="/alphabets/play" element={<AlphabetsPlay />} />
         <Route path="/A" element={<A />} />
         <Route path="/B" element={<B />} />
@@ -176,17 +194,17 @@ function App() {
         <Route path="/overview" element={<Overview />} />
         <Route path="/usercontrol" element={<UserAccControl />} />
 
-        <Route path="/color" element={<Color />} />
+        <Route path="/color" element={<Color />}/>
         <Route path="/colorgame" element={<ColorGame />} />
-        <Route path="/coloreasy" element= {<ColorEasy/>}/>
+        <Route path="/color/easy" element= {<ColorEasy/>}/>
         <Route path="/color/easy/level1" element={<ColorGameEasyLevel1/>}/>
         <Route path="/color/easy/level2" element={<ColorGameEasyLevel2/>}/>
         <Route path="/color/easy/level3" element={<ColorGameEasyLevel3/>}/>
-        <Route path="/colormedium" element={<ColorMedium/>}/>
+        <Route path="/color/medium" element={<ColorMedium/>}/>
         <Route path="/color/medium/level1" element={<ColorGameMedLevel1/>}/>
         <Route path="/color/medium/level2" element={<ColorGameMedLevel2/>}/>
-        <Route path="/colorhard" element={<ColorHard/>}/>
-        <Route path="/color/hard/level1" element={<ColorGameHardLevel1/>}/>
+        <Route path="/color/hard" element={<ColorHard/>}/>
+        <Route path="/color/hardlevel1" element={<ColorGameHardLevel1/>}/>
 
 
         <Route path="*" element={<NotFound />} />

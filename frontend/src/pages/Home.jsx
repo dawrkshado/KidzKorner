@@ -1,5 +1,5 @@
 import TopBar from "../components/TopBar.jsx";
-import OrangeMonster from "../assets/Home/orangeMonster.webp";
+import OrangeMonster from "../assets/Home/shapemonster.png";
 import BlueMonster from "../assets/Home/blueMonster.webp";
 import bluemonster from "../assets/Home/bluemonster.png";
 import TvMonster from "../assets/Home/TvMonster.webp";
@@ -37,9 +37,9 @@ function Home(){
 
         <Link to="/number"><img src={bluemonster} alt="Monster Button for numbers page" className="absolute right-[10%] bottom-[0%] h-[35%] hover:opacity-85 motion-preset-pulse-sm motion-duration-2000 "/></Link>
         
-        <Link to="/alphabets"><img src={BlueMonster} alt="Monster Button for alphabet page" className="absolute left-[5%] bottom-[5%] h-[41%] hover:opacity-85 motion-preset-pulse-sm motion-duration-2000"/></Link>
+        <Link to="/alphabets"><img src={BlueMonster} alt="Monster Button for alphabet page" className="absolute left-[5%] bottom-[0%] h-[41%] hover:opacity-85 motion-preset-pulse-sm motion-duration-2000"/></Link>
 
-        <Link to="/shapes"><img id="ewan1" src={OrangeMonster} alt="Monster Button for shapes page" className="absolute left-[25%]   bottom-[0%] h-[35%] motion-preset-pulse-sm motion-duration-2000 hover:opacity-85"/></Link>
+        <Link to="/shapes"><img id="shapemonster" src={OrangeMonster} alt="Monster Button for shapes page" className="absolute left-[30%]   bottom-[0%] h-[35%] motion-preset-pulse-sm motion-duration-2000 hover:opacity-85"/></Link>
     </div>
     </>
 );
