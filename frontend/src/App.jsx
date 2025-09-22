@@ -81,6 +81,7 @@ import Overview from "./pages/Overview.jsx"
 import UserAccControl from "./pages/UserAccControl.jsx"
 import ProtectedRoute from "../src/components/ProtectedRoute.jsx"
 import Form from "./components/Forms.jsx"
+import AlphabetsEasy from "./pages/AlphabetsEasy.jsx"
 
 
 import Color from "./pages/Color.jsx"
@@ -109,6 +110,7 @@ function App() {
 
     <ScrollToTop/>
 
+
       <div className="bg-[#3DA8CC] font-[coiny] justify-items-center align-middle h-screen w-screen content-center md:hidden">
         <img src="/responsive.png" alt="rotate Phone Background" />
         <h1 className="text-white">Rotate Phone to experience</h1>
@@ -117,7 +119,7 @@ function App() {
 
       <Routes>
         <Route path="/" element={<Navigate to="/home" />} />
-        <Route path="/home" element={<Home />} />
+        <Route path="/home" element={<ProtectedRoute><Home/></ProtectedRoute>} />
         <Route path="/login" element={<Login />} />
         <Route path="/about" element={<About />} />
         <Route path="/stories" element={<Stories />} />

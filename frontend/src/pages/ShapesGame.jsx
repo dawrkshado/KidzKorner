@@ -7,7 +7,7 @@ import Shard from "../assets/Shapes/Shard.png";
 function ShapesGame() {
     return (
         <>
-        <div className="hidden w-full md:inline md:absolute h-auto">
+        <div className="hidden w-full md:inline md:absolute h-auto overflow-hidden">
         <TopBar/>
         <img
         src="./Bg/Shapes/shapegamebg.png"
