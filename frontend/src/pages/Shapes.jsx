@@ -16,7 +16,7 @@ const speak = (text) => {
 function Shapes() {
   return (
     <>
-      <div className="hidden w-full md:inline md:absolute h-[100%]">
+      <div className="hidden w-full md:inline md:absolute h-[100%] overflow-x-hidden">
         <TopBar />
         <img
           src="./Bg/Shapes/Shapesbg.png"

@@ -1,7 +1,359 @@
-function NumberHard1(){
+import { useState } from "react";
+import { DndContext, useDraggable, useDroppable, pointerWithin } from "@dnd-kit/core";
 
-  return(<>
-  </>)
+import draggableNumber1 from "../assets/Number/Hard/draggable1.webp"
+import draggableNumber2 from "../assets/Number/Hard/draggable2.webp"
+import draggableNumber3 from "../assets/Number/Hard/draggable3.webp"
+import draggableNumber4 from "../assets/Number/Hard/draggable4.webp"
+import draggableNumber5 from "../assets/Number/Hard/draggable5.webp"
+import draggableNumber6 from "../assets/Number/Hard/draggable6.webp"
+import draggableNumber7 from "../assets/Number/Hard/draggable7.webp"
+import draggableNumber8 from "../assets/Number/Hard/draggable8.webp"
+import draggableNumber9 from "../assets/Number/Hard/draggable9.webp"
+import draggableNumber10 from "../assets/Number/Hard/draggable10.webp"
 
+import droppablefish1 from "../assets/Number/Hard/droppable1.webp"
+import droppablefish2 from "../assets/Number/Hard/droppable2.webp"
+import droppablefish3 from "../assets/Number/Hard/droppable3.webp"
+import droppablefish4 from "../assets/Number/Hard/droppable4.webp"
+import droppablefish5 from "../assets/Number/Hard/droppable5.webp"
+import droppablefish6 from "../assets/Number/Hard/droppable6.webp"
+import droppablefish7 from "../assets/Number/Hard/droppable7.webp"
+import droppablefish8 from "../assets/Number/Hard/droppable8.webp"
+import droppablefish9 from "../assets/Number/Hard/droppable9.webp"
+import droppablefish10 from "../assets/Number/Hard/droppable10.webp"
+
+import droppedFish1 from "../assets/Number/Medium/mediumFishDropDone2.webp"
+import droppedFish2 from "../assets/Number/Medium/mediumFishDropDone1.webp"
+
+import bg from "../assets/Number/Hard/bg.webp";
+
+function Droppable({ id, placedShape, shape }) {
+  const { isOver, setNodeRef } = useDroppable({ id });
+  const style = {
+    opacity: isOver ? "0.5" : "1",
+    zIndex: isOver ? "10" : "1"
+  };
+
+  return (
+    <div
+      ref={setNodeRef}
+      style={style}
+      className="flex items-center justify-center h-[160px] w-[160px]"
+    >
+      {placedShape ? placedShape : shape}
+    </div>
+  );
 }
-export default NumberHard1
+
+function Draggable({ id, disabled = false, shape }) {
+  const { attributes, listeners, setNodeRef, transform } = useDraggable({
+    id,
+    disabled,
+  });
+
+  const style = transform
+    ? { transform: `translate3d(${transform.x}px, ${transform.y}px, 0)` }
+    : undefined;
+
+  return (
+    <div
+      ref={setNodeRef}
+      style={style}
+      {...(!disabled ? attributes : {})}
+      {...(!disabled ? listeners : {})}
+    >
+      {shape}
+    </div>
+  );
+}
+
+function NumberGameHard() {
+  const [dropped, setDropped] = useState({});
+
+  function handleDragEnd(event) {
+    if (event.over) {
+      const draggedId = event.active.id;
+      const droppedId = event.over.id;
+
+      if (draggedId === droppedId) {
+        setDropped((prev) => ({
+          ...prev,
+          [draggedId]: droppedId,
+        }));
+      }
+    }
+  }
+
+  return (
+    <>
+      <div className="flex h-[100vh] w-[100vw] absolute ">
+        
+        <img src={bg} alt="background" className="absolute w-[100vw] h-[100vh]" />
+        <DndContext onDragEnd={handleDragEnd} collisionDetection={pointerWithin}>
+          {/* Draggables */}
+
+          <div className="z-1 flex">
+              {!dropped["one"] && (
+            <div className="absolute bottom-40 left-[400px]">
+              <Draggable
+                id="one"
+                shape={<img src={draggableNumber1} alt="number 1" className="h-[60px] motion-preset-pulse-sm motion-duration-2000" />}
+              />
+            </div>
+          )}
+
+          {!dropped["two"] && (
+            <div className="absolute bottom-20 left-[175px] ">
+              <Draggable
+                id="two"
+                shape={<img src={draggableNumber2} alt="number 4" className="h-[60px] motion-preset-pulse-sm motion-duration-2000" />}
+              />
+            </div>
+          )}
+
+          {!dropped["three"] && (
+            <div className="absolute bottom-20 left-[320px]">
+              <Draggable
+                id="three"
+                shape={<img src={draggableNumber3} alt="number 5" className="h-[60px] motion-preset-pulse-sm motion-duration-2000" />}
+              />
+            </div>
+          )}
+
+           {!dropped["four"] && (
+            <div className="absolute bottom-20 left-[460px]">
+              <Draggable
+                id="four"
+                shape={<img src={draggableNumber4} alt="number 8" className="h-[60px] motion-preset-pulse-sm motion-duration-2000" />}
+              />
+            </div>
+          )}
+
+          {!dropped["five"] && (
+            <div className="absolute bottom-20 left-[35px] ">
+              <Draggable
+                id="five"
+                shape={<img src={draggableNumber5} alt="number 4" className="h-[60px] motion-preset-pulse-sm motion-duration-2000" />}
+              />
+            </div>
+          )}
+
+  {!dropped["six"] && (
+            <div className="absolute bottom-20 right-[35px]">
+              <Draggable
+                id="six"
+                shape={<img src={draggableNumber6} alt="number 1" className="h-[60px] motion-preset-pulse-sm motion-duration-2000" />}
+              />
+            </div>
+          )}
+
+          {!dropped["seven"] && (
+            <div className="absolute bottom-20 right-[175px] ">
+              <Draggable
+                id="seven"
+                shape={<img src={draggableNumber7} alt="number 4" className="h-[60px] motion-preset-pulse-sm motion-duration-2000" />}
+              />
+            </div>
+          )}
+
+          {!dropped["eight"] && (
+            <div className="absolute bottom-20 right-[320px]">
+              <Draggable
+                id="eight"
+                shape={<img src={draggableNumber8} alt="number 5" className="h-[60px] motion-preset-pulse-sm motion-duration-2000" />}
+              />
+            </div>
+          )}
+
+           {!dropped["nine"] && (
+            <div className="absolute bottom-20 right-[460px]">
+              <Draggable
+                id="nine"
+                shape={<img src={draggableNumber9} alt="number 8" className="h-[60px] motion-preset-pulse-sm motion-duration-2000" />}
+              />
+            </div>
+          )}
+
+          {!dropped["ten"] && (
+            <div className="absolute bottom-40 right-[400px]">
+              <Draggable
+                id="ten"
+                shape={<img src={draggableNumber10} alt="number 4" className="h-[60px] motion-preset-pulse-sm motion-duration-2000" />}
+              />
+            </div>
+          )}
+          
+          </div>
+        
+
+          {/* Droppables */}
+          <div className="h-90 w-full gap-6 top-25 right-25 z-0 ">
+
+            {/* First Row */}
+            <div className="flex justify-evenly w-full">
+               <div className="top-35 left-100 motion-preset-pulse-sm motion-duration-2000">
+              <Droppable
+              id="four"
+              shape={<img src={droppablefish4} alt="fish image" />}
+              placedShape={
+                dropped["four"] && (
+                  <Draggable
+                    id="four"
+                    disabled={true}
+                  />
+                )
+              }
+            />
+            </div>
+            
+              <div className="left-220 top-35 motion-preset-pulse-sm motion-duration-2000">
+                <Droppable
+              id="six"
+              shape={<img src={droppablefish6} alt="fish image" />}
+              placedShape={
+                dropped["six"] && (
+                  <Draggable
+                    id="six"
+                    disabled={true}
+                  />
+                )
+              }
+            />
+              </div>
+
+               <div className="top-35 left-100 motion-preset-pulse-sm motion-duration-2000">
+              <Droppable
+              id="nine"
+              shape={<img src={droppablefish9} alt="fish image" />}
+              placedShape={
+                dropped["nine"] && (
+                  <Draggable
+                    id="nine"
+                    disabled={true}
+                  />
+                )
+              }
+            />
+            </div>
+            
+              <div className="left-220 top-35 motion-preset-pulse-sm motion-duration-2000">
+                <Droppable
+              id="five"
+              shape={<img src={droppablefish5} alt="fish image" />}
+              placedShape={
+                dropped["five"] && (
+                  <Draggable
+                    id="five"
+                    disabled={true}
+                  />
+                )
+              }
+            />
+              </div>
+
+
+              
+            <div className="top-35 left-100 motion-preset-pulse-sm motion-duration-2000">
+              <Droppable
+              id="ten"
+              shape={<img src={droppablefish10} alt="fish image" />}
+              placedShape={
+                dropped["ten"] && (
+                  <Draggable
+                    id="ten"
+                    disabled={true}
+                  />
+                )
+              }
+            />
+            </div>
+            </div>
+
+           {/* Second Row */}
+            <div className="flex w-full  justify-evenly">
+               <div className="left-220 top-35 motion-preset-pulse-sm motion-duration-2000">
+                <Droppable
+              id="two"
+              shape={<img src={droppablefish2} alt="fish image" />}
+              placedShape={
+                dropped["two"] && (
+                  <Draggable
+                    id="two"
+                    disabled={true}
+                  />
+                )
+              }
+            />
+              </div>
+
+               <div className="top-35 left-100 motion-preset-pulse-sm motion-duration-2000">
+              <Droppable
+              id="one"
+              shape={<img src={droppablefish1} alt="fish image" />}
+              placedShape={
+                dropped["one"] && (
+                  <Draggable
+                    id="one"
+                    disabled={true}
+                  />
+                )
+              }
+            />
+            </div>
+            
+              <div className="left-220 top-35 motion-preset-pulse-sm motion-duration-2000">
+                <Droppable
+              id="three"
+              shape={<img src={droppablefish3} alt="fish image" />}
+              placedShape={
+                dropped["three"] && (
+                  <Draggable
+                    id="three"
+                    disabled={true}
+                  />
+                )
+              }
+            />
+              </div>
+                <div className="top-35 left-100 motion-preset-pulse-sm motion-duration-2000">
+              <Droppable
+              id="seven"
+              shape={<img src={droppablefish7} alt="fish image" />}
+              placedShape={
+                dropped["seven"] && (
+                  <Draggable
+                    id="seven"
+                    disabled={true}
+                  />
+                )
+              }
+            />
+            </div>
+            
+              <div className="left-220 top-35 motion-preset-pulse-sm motion-duration-2000">
+                <Droppable
+              id="eight"
+              shape={<img src={droppablefish8} alt="fish image" />}
+              placedShape={
+                dropped["eight"] && (
+                  <Draggable
+                    id="eight"
+                    disabled={true}
+                  />
+                )
+              }
+            />
+              </div>
+              
+            
+            </div>
+            
+          </div>
+        </DndContext>
+      </div>
+    </>
+  );
+}
+
+export default NumberGameHard;
