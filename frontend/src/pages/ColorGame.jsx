@@ -5,18 +5,19 @@ import colormedium from "../assets/Color/colormedium.png";
 import colorhard from "../assets/Color/colorhard.png";
 
 
+
 function ColorGame(){
   return(
     <>
     <div className="hidden w-full md:inline md:absolute h-auto">
         <TopBar/>
         <img
-        src="/Bg/Color/colorlevelbg.png"
+        src={"./Bg/Color/colorlevelbg.webp"}
         alt="background"
-        className="w-full h-[25%]"
+        className="w-full"
         />
 
-        <Link to="/coloreasy">
+        <Link to="/color/easy">
         <img 
         src={coloreasy} 
         alt="Easy Button"

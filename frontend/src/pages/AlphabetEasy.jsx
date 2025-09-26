@@ -12,7 +12,7 @@ function AlphabetEasy(){
    <div className="hidden w-full md:inline md:absolute h-auto">
   <TopBar/>
   <Back/>
-  <img src="./Bg/Alphabets/alphabeteasybg.png" 
+  <img src="./Bg/Alphabets/alphabeteasybg.webp" 
   alt="Easy game background" 
   className="w-full"/>
         <Link to="/alphabets/easy/level1">

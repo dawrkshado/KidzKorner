@@ -81,7 +81,6 @@ import Overview from "./pages/Overview.jsx"
 import UserAccControl from "./pages/UserAccControl.jsx"
 import ProtectedRoute from "../src/components/ProtectedRoute.jsx"
 import Form from "./components/Forms.jsx"
-import AlphabetsEasy from "./pages/AlphabetsEasy.jsx"
 
 
 import Color from "./pages/Color.jsx"
@@ -195,8 +194,8 @@ function App() {
         <Route path="/overview" element={<Overview />} />
         <Route path="/usercontrol" element={<UserAccControl />} />
 
-        <Route path="/color" element={<Color />}/>
-        <Route path="/colorgame" element={<ColorGame />} />
+        <Route path="/color" element={<Color/>}/>
+        <Route path="/colorgame" element={<ColorGame/>} />
         <Route path="/color/easy" element= {<ColorEasy/>}/>
         <Route path="/color/easy/level1" element={<ColorGameEasyLevel1/>}/>
         <Route path="/color/easy/level2" element={<ColorGameEasyLevel2/>}/>

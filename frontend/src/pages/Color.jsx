@@ -22,7 +22,7 @@ function Color(){
         <> <div className="hidden w-full md:inline md:absolute h-auto ">
       <TopBar/>
       <img 
-      src="./Bg/Color/colorgamebg.png"
+      src="./Bg/Color/colorgamebg.webp"
       alt="background"
       className="w-full"/>
 

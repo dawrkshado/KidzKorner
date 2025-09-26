@@ -11,7 +11,7 @@ function AlphabetsPlay(){
 <div className="hidden w-full md:inline md:absolute h-[100%]">
         <TopBar/>
         <img
-        src="/Bg/Alphabets/alphabetsgamepage.png"
+        src="/Bg/Alphabets/alphabetsgamepage.webp"
         alt="bg for Alpha"
         className="w-full"
         />

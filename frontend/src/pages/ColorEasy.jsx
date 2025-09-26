@@ -11,7 +11,7 @@ function ColorEasy(){
  <div className="hidden w-full md:inline md:absolute h-auto">
   <TopBar/>
   <Back/>
-  <img src="./Bg/Color/easycolor.png" 
+  <img src="/Bg/Color/easycolor.webp" 
   alt="Easy game background" 
   className="w-full"/>
 

@@ -19,7 +19,7 @@ function Shapes() {
       <div className="hidden w-full md:inline md:absolute h-[100%] overflow-x-hidden">
         <TopBar />
         <img
-          src="./Bg/Shapes/Shapesbg.png"
+          src="./Bg/Shapes/Shapesbg.webp"
           alt="background"
           className="w-full"
         />
@@ -28,35 +28,35 @@ function Shapes() {
           src={circle}
           alt="Circle"
           onClick={() => speak("Circle")}
-          className="absolute left-[10%] top-[15%] w-24 cursor-pointer h-auto w-auto"
+          className="absolute left-[10%] top-[15%] w-auto cursor-pointer h-auto "
         />
 
         <img
           src={square}
           alt="Square"
           onClick={() => speak("Square")}
-          className="absolute left-[38%] top-[19%] w-24 cursor-pointer h-auto w-auto"
+          className="absolute left-[38%] top-[19%] w-auto cursor-pointer h-auto "
         />
 
         <img
           src={triangle}
           alt="Triangle"
           onClick={() => speak("Triangle")}
-          className="absolute left-[20%] top-[60%] w-24 cursor-pointer h-auto w-auto"
+          className="absolute left-[20%] top-[60%] w-auto cursor-pointer h-auto "
         />
 
         <img
           src={rectangle}
           alt="Rectangle"
           onClick={() => speak("Rectangle")}
-          className="absolute left-[60%] top-[18%] w-28 cursor-pointer h-auto w-auto"
+          className="absolute left-[60%] top-[18%] w-auto cursor-pointer h-auto "
         />
 
         <img
           src={star}
           alt="Star"
           onClick={() => speak("Star")}
-          className="absolute left-[45%] top-[58%] w-24 cursor-pointer h-auto w-auto"
+          className="absolute left-[45%] top-[58%] w-auto cursor-pointer h-auto "
         />
 
         <Link to="/shapesgame">
