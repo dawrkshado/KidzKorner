@@ -10,8 +10,13 @@ function ShapesEasyLevel3() {
       choices: [
         { value: "yellow", img: yellow },
         { value: "green", img: green },
+        { value: "", img: "" }
 
       ]
+    },
+
+    {
+      
     }
   ];
 
