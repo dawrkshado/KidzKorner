@@ -1,4 +1,4 @@
-import { useState } from "react";
+import { useState,useEffect } from "react";
 import bg from "../assets/Number/Easy/bglvl1.webp";
 import one from "../assets/Number/Easy/One.webp";
 import two from "../assets/Number/Easy/two.webp";
@@ -10,6 +10,10 @@ import seven from "../assets/Number/Easy/seven.webp";
 import eight from "../assets/Number/Easy/eight.webp";
 import nine from "../assets/Number/Easy/nine.webp";
 import ten from "../assets/Number/Easy/ten.webp";
+
+import OneStar from "../assets/Done/OneStar.webp"; 
+import TwoStar from "../assets/Done/TwoStar.webp"; 
+import ThreeStar from "../assets/Done/ThreeStar.webp"; 
 
 function NumberGameEasy3() {
   const [clicked, setClicked] = useState([]);
@@ -34,9 +38,25 @@ function NumberGameEasy3() {
     }
   };
 
+  const isGameFinished = clicked.length === numbers.length;
+  
+     const [count, setCount] = useState(0);
+        
+          useEffect(() => {
+            if (isGameFinished) return; 
+        
+            const interval = setInterval(() => {
+              setCount((prev) => prev + 1);
+            }, 1000);
+        
+            return () => clearInterval(interval); 
+          }, [isGameFinished]);
+
   return (
-    <div className="relative w-[100vw] h-[100vh]">
+    <div className="absolute w-[100vw] h-[100vh] font-[coiny]">
       <img src={bg} alt="background" className="absolute w-full h-full" />
+        {!isGameFinished && (<>
+            <div className="absolute top-0 right-0 text-white">Your Time: {count}</div>
       {numbers.map((num, i) => (
         <div
           key={i}
@@ -51,11 +71,47 @@ function NumberGameEasy3() {
             style={{ width: num.width, height: num.height }}
             className="object-contain"
             />
-
           )}
         </div>
       ))}
+      </>)}
+
+
+
+
+      {isGameFinished && count < 10 && count <= 20  &&(
+                          <div className="absolute inset-0 flex items-center justify-center bg-opacity-50 z-20">
+                            <img
+                              src={ThreeStar}
+                              alt="Game Completed!"
+                              className="h-[300px] animate-bounce"
+                            />
+                          </div>
+                        )}
+              
+                          {isGameFinished && count >= 20 && count <= 30 &&(
+                          <div className="absolute inset-0 flex items-center justify-center bg-opacity-50 z-20">
+                            <img
+                              src={TwoStar}
+                              alt="Game Completed!"
+                              className="h-[300px] animate-bounce"
+                            />
+                          </div>
+                        )}
+              
+                        {isGameFinished && count > 30 &&  (
+                          <div className="absolute inset-0 flex items-center justify-center bg-opacity-50 z-20">
+                            <img
+                              src={OneStar}
+                              alt="Game Completed!"
+                              className="h-[300px] animate-bounce"
+                            />
+                          </div>
+                        )}
+            
     </div>
+
+
   );
 }
 

@@ -1,9 +1,14 @@
-import { useState } from "react"
+import { useState, useEffect} from "react"
 import i from "../assets/Alphabets/Easy/letterI.webp";
 import j from "../assets/Alphabets/Easy/letterJ.webp";
 import k from "../assets/Alphabets/Easy/letterK.webp";
 import l from "../assets/Alphabets/Easy/letterL.webp";
+
+
 import bg from "../assets/Alphabets/Easy/bg.webp";
+import OneStar from "../assets/Done/OneStar.webp"; 
+import TwoStar from "../assets/Done/TwoStar.webp"; 
+import ThreeStar from "../assets/Done/ThreeStar.webp"; 
 
 function ShapesEasyLevel3() {
   const clickables = [
@@ -18,24 +23,39 @@ function ShapesEasyLevel3() {
     }
   ];
 
-  const [index, setIndex] = useState(0);
+  const [isGameFinished,setGameFinished]= useState(false);
+  
+    const [count, setCount] = useState(0);
+          
+            useEffect(() => {
+              if (isGameFinished) return; 
+          
+              const interval = setInterval(() => {
+                setCount((prev) => prev + 1);
+              }, 1000);
+          
+              return () => clearInterval(interval); 
+            }, [isGameFinished]);
+    
+
+  const [index] = useState(0);
 
   const logic = (choice) => {
     if (choice === clickables[index].Answer) {
-      alert("qorique!");
-    } else if (choice === clickables[index].Answer) {
-      alert("Finished!");
-    } else {
+         setGameFinished(true);
+    }
+    else {
       alert("wrong!");
     }
   };
 
   return (
-    <>
+    <><div className="font-[coiny]">
   
     <img src={bg} alt="background" className="w-full h-full"  />
      <h1 className="absolute top-15 right-112 text-3xl text-white font-[coiny]">Can You Find Letter {clickables[index].Answer}</h1>
- 
+  {!isGameFinished && (<>
+    <div className="absolute top-0 right-0 text-white">Your Time: {count}</div>
       <div className="flex justify-evenly justify-self-center w-150  absolute top-40">
         {clickables[index].choices.map((choice, i) => (
           <img
@@ -46,6 +66,36 @@ function ShapesEasyLevel3() {
             alt={choice.value}
           />
         ))}
+      </div>
+      </>)}
+       {isGameFinished && count < 10 && count <= 20  &&(
+                              <div className="absolute inset-0 flex items-center justify-center bg-opacity-50 z-20">
+                                <img
+                                  src={ThreeStar}
+                                  alt="Game Completed!"
+                                  className="h-[300px] animate-bounce"
+                                />
+                              </div>
+                            )}
+                  
+                              {isGameFinished && count >= 20 && count <= 30 &&(
+                              <div className="absolute inset-0 flex items-center justify-center bg-opacity-50 z-20">
+                                <img
+                                  src={TwoStar}
+                                  alt="Game Completed!"
+                                  className="h-[300px] animate-bounce"
+                                />
+                              </div>
+                            )}
+                  
+                            {isGameFinished && count > 30 &&  (
+                              <div className="absolute inset-0 flex items-center justify-center bg-opacity-50 z-20">
+                                <img
+                                  src={OneStar}
+                                  alt="Game Completed!"
+                                  className="h-[300px] animate-bounce"
+                                />
+                              </div>)}
       </div>
     </>
   );

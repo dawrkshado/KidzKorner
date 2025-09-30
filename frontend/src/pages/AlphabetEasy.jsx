@@ -7,6 +7,8 @@ import 'react-router-dom'
 
 import { Link } from 'react-router-dom'
 
+
+
 function AlphabetEasy(){
   return(<>
    <div className="hidden w-full md:inline md:absolute h-auto">

@@ -1,4 +1,4 @@
-import React, { useState } from "react";
+import React, { useState,useEffect } from "react";
 import { DndContext, useDraggable, useDroppable, pointerWithin } from "@dnd-kit/core";
 
 import heptagonDroppable from "../assets/Shapes/ShapesEasy/heptagonDroppable.webp"
@@ -8,6 +8,11 @@ import diamondDropppable from "../assets/Shapes/ShapesEasy/diamondDropppable.web
 import pentagonDroppable from  "../assets/Shapes/ShapesEasy/diamondDroppable.webp"
 import pentagonDraggable from "../assets/Shapes/ShapesEasy/pentagonDraggable.webp"
 import bg from "../assets/Shapes/ShapesEasy/lvl3Bg.webp"
+
+import OneStar from "../assets/Done/OneStar.webp"; 
+import TwoStar from "../assets/Done/TwoStar.webp"; 
+import ThreeStar from "../assets/Done/ThreeStar.webp"; 
+
 function Droppable({id, placedShape,shape}) {
   const { isOver, setNodeRef } = useDroppable({ id });
   const style = {
@@ -68,13 +73,29 @@ function ShapesEasyLevel3() {
     }
   }
 
+   const isGameFinished =
+        dropped["heptagon"] && dropped["diamond"] && dropped["pentagon"];
+    
+       const [count, setCount] = useState(0);
+    
+      useEffect(() => {
+        if (isGameFinished) return; 
+    
+        const interval = setInterval(() => {
+          setCount((prev) => prev + 1);
+        }, 1000);
+    
+        return () => clearInterval(interval); 
+      }, [isGameFinished]);
+    
   return (
-    <div className="flex h-[100vh] w-[100vw]  [&>*]:flex absolute overflow-hidden">
+    <div className="flex h-[100vh] w-[100vw]  [&>*]:flex absolute overflow-hidden [&>*]:font-[coiny] ">
       <img src={bg} alt="background" className="absolute w-[100vw]"/>
       <DndContext onDragEnd={handleDragEnd} collisionDetection={pointerWithin}>
 
-
-    <div className="h-[110px] w-[360px] justify-center z-1 absolute top-100 right-135">             
+{!isGameFinished && ( 
+  <>
+    <div className="h-[110px] w-[360px] justify-center z-1 absolute top-100 right-135 [&>*]:mx-5 [&>*]:font-[coiny]">             
  {!dropped ["heptagon"] && (
           <Draggable
               id = "heptagon"
@@ -82,7 +103,6 @@ function ShapesEasyLevel3() {
           />
         )}
        
-
          {!dropped ["diamond"] && (
           <Draggable
               id = "diamond"
@@ -101,7 +121,6 @@ function ShapesEasyLevel3() {
        
 {/*Droppable*/}
 
-      
 <div className="absolute top-50 right-120">
 
     <Droppable
@@ -134,12 +153,41 @@ function ShapesEasyLevel3() {
           shape = {<img src={pentagonDraggable} alt="image of a transparent heart"/>}
           disabled={true}/>)}
         />
-
-
 </div>
+  <div className="absolute top-0 right-0 text-white">Your Time: {count}</div>
          
 
+</>)}
 
+ {isGameFinished && count < 10 && count <= 20  &&(
+                  <div className="absolute inset-0 flex items-center justify-center bg-opacity-50 z-20">
+                    <img
+                      src={ThreeStar}
+                      alt="Game Completed!"
+                      className="h-[300px] animate-bounce"
+                    />
+                  </div>
+                )}
+      
+                  {isGameFinished && count >= 20 && count <= 30 &&(
+                  <div className="absolute inset-0 flex items-center justify-center bg-opacity-50 z-20">
+                    <img
+                      src={TwoStar}
+                      alt="Game Completed!"
+                      className="h-[300px] animate-bounce"
+                    />
+                  </div>
+                )}
+      
+                {isGameFinished && count > 30 &&  (
+                  <div className="absolute inset-0 flex items-center justify-center bg-opacity-50 z-20">
+                    <img
+                      src={OneStar}
+                      alt="Game Completed!"
+                      className="h-[300px] animate-bounce"
+                    />
+                  </div>
+                )}
       </DndContext>
     </div>
   );

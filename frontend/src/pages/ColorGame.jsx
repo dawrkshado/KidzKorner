@@ -12,7 +12,7 @@ function ColorGame(){
     <div className="hidden w-full md:inline md:absolute h-auto">
         <TopBar/>
         <img
-        src={"./Bg/Color/colorlevelbg.webp"}
+        src="/Bg/Color/colorlevelbg.webp"
         alt="background"
         className="w-full"
         />
@@ -24,13 +24,13 @@ function ColorGame(){
         className="absolute left-[5%] top-[13%] h-[25%] cursor-pointer" />
         </Link>
 
-        <Link to="/colormedium">
+        <Link to="/color/medium">
         <img
         src={colormedium}
         alt="Medium Button"
         className="absolute left-[30%] top-[43%] h-[25%] cursor pointer"/>
         </Link>
-        <Link to="/colorhard">
+        <Link to="/color/hard">
         <img
         src={colorhard}
         alt="Hard Button"

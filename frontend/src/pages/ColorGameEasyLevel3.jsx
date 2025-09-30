@@ -1,7 +1,12 @@
-import { useState } from "react"
+import { useState,useEffect } from "react"
 import yellow from "../assets/Color/Easy/yellowDuckling.webp";
 import green from "../assets/Color/Easy/green.webp";
 import bg from "../assets/Color/Easy/bg3.webp";
+
+
+import OneStar from "../assets/Done/OneStar.webp"; 
+import TwoStar from "../assets/Done/TwoStar.webp"; 
+import ThreeStar from "../assets/Done/ThreeStar.webp"; 
 
 function ShapesEasyLevel3() {
   const clickables = [
@@ -14,19 +19,28 @@ function ShapesEasyLevel3() {
 
       ]
     },
-
-    {
-      
-    }
   ];
+
+   const [isGameFinished,setGameFinished]= useState(false);
+  
+    const [count, setCount] = useState(0);
+          
+            useEffect(() => {
+              if (isGameFinished) return; 
+          
+              const interval = setInterval(() => {
+                setCount((prev) => prev + 1);
+              }, 1000);
+          
+              return () => clearInterval(interval); 
+            }, [isGameFinished]);
+    
 
   const [index] = useState(0);
 
   const logic = (choice) => {
     if (choice === clickables[index].Answer) {
-      alert("qorique!");
-    } else if (choice === clickables[index].Answer) {
-      alert("Finished!");
+      setGameFinished(true);
     } else {
       alert("wrong!");
     }
@@ -34,8 +48,11 @@ function ShapesEasyLevel3() {
 
   return (
     <>
+    <div className="font-[coiny]">
     <img src={bg} alt="background" className="w-full "/>
-      <div className="flex justify-evenly justify-self-center w-150 gap-20 absolute top-55 right-35">
+      {!isGameFinished && (<>
+        <div className="absolute top-0 right-0 text-white">Your Time: {count}</div>
+      <div className="flex justify-evenly justify-self-center w-150 gap-20 absolute top-55 right-35"> 
         {clickables[index].choices.map((choice, i) => (
           <img
             key={i}
@@ -46,6 +63,37 @@ function ShapesEasyLevel3() {
           />
         ))}
       </div>
+      </>)}
+      </div>
+
+        {isGameFinished && count < 10 && count <= 20  &&(
+                                          <div className="absolute inset-0 flex items-center justify-center bg-opacity-50 z-20">
+                                            <img
+                                              src={ThreeStar}
+                                              alt="Game Completed!"
+                                              className="h-[300px] animate-bounce"
+                                            />
+                                          </div>
+                                        )}
+                              
+                                          {isGameFinished && count >= 20 && count <= 30 &&(
+                                          <div className="absolute inset-0 flex items-center justify-center bg-opacity-50 z-20">
+                                            <img
+                                              src={TwoStar}
+                                              alt="Game Completed!"
+                                              className="h-[300px] animate-bounce"
+                                            />
+                                          </div>
+                                        )}
+                              
+                                        {isGameFinished && count > 30 &&  (
+                                          <div className="absolute inset-0 flex items-center justify-center bg-opacity-50 z-20">
+                                            <img
+                                              src={OneStar}
+                                              alt="Game Completed!"
+                                              className="h-[300px] animate-bounce"
+                                            />
+                                          </div>)}
     </>
   );
 }

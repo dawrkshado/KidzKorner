@@ -1,10 +1,13 @@
-import { useState } from "react"
+import { useState,useEffect } from "react"
 import a from "../assets/Alphabets/Easy/letterA.webp";
 import b from "../assets/Alphabets/Easy/letterB.webp";
 import c from "../assets/Alphabets/Easy/letterC.webp";
 import d from "../assets/Alphabets/Easy/letterD.webp";
 import bg from "../assets/Alphabets/Easy/bg.webp";
 
+import OneStar from "../assets/Done/OneStar.webp"; 
+import TwoStar from "../assets/Done/TwoStar.webp"; 
+import ThreeStar from "../assets/Done/ThreeStar.webp"; 
 function ShapesEasyLevel1() {
   const clickables = [
     {
@@ -18,23 +21,39 @@ function ShapesEasyLevel1() {
     }
   ];
 
+
+  const [isGameFinished,setGameFinished]= useState(false);
+
+  const [count, setCount] = useState(0);
+        
+          useEffect(() => {
+            if (isGameFinished) return; 
+        
+            const interval = setInterval(() => {
+              setCount((prev) => prev + 1);
+            }, 1000);
+        
+            return () => clearInterval(interval); 
+          }, [isGameFinished]);
+  
+
   const [index] = useState(0);
 
   const logic = (choice) => {
     if (choice === clickables[index].Answer) {
-      alert("qorique!");
-    } else if (choice === clickables[index].Answer) {
-      alert("Finished!");
+      setGameFinished(true);
     } else {
       alert("wrong!");
     }
   };
 
   return (
-    <>
+    <><div className="font-[coiny]">
     <img src={bg} alt="background" className="w-full"/>
-   
-      <h1 className="absolute top-15 right-112 text-3xl text-white font-[coiny]">Can You Find Letter  {clickables[index].Answer}</h1>
+    <h1 className="absolute top-15 right-112 text-3xl text-white">Can You Find Letter  {clickables[index].Answer}</h1>
+    {!isGameFinished && (<>
+
+    <div className="absolute top-0 right-0 text-white">Your Time: {count}</div>
       <div className="flex justify-evenly justify-self-center w-150  absolute top-40">
         {clickables[index].choices.map((choice, i) => (
           <img
@@ -45,7 +64,37 @@ function ShapesEasyLevel1() {
             alt={choice.value}
           />
         ))}
-      </div>
+        </div>
+    </>)}
+    {isGameFinished && count < 10 && count <= 20  &&(
+                        <div className="absolute inset-0 flex items-center justify-center bg-opacity-50 z-20">
+                          <img
+                            src={ThreeStar}
+                            alt="Game Completed!"
+                            className="h-[300px] animate-bounce"
+                          />
+                        </div>
+                      )}
+            
+                        {isGameFinished && count >= 20 && count <= 30 &&(
+                        <div className="absolute inset-0 flex items-center justify-center bg-opacity-50 z-20">
+                          <img
+                            src={TwoStar}
+                            alt="Game Completed!"
+                            className="h-[300px] animate-bounce"
+                          />
+                        </div>
+                      )}
+            
+                      {isGameFinished && count > 30 &&  (
+                        <div className="absolute inset-0 flex items-center justify-center bg-opacity-50 z-20">
+                          <img
+                            src={OneStar}
+                            alt="Game Completed!"
+                            className="h-[300px] animate-bounce"
+                          />
+                        </div>)}
+    </div>
     </>
   );
 }

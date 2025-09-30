@@ -10,8 +10,11 @@ import triangleDraggable from "../assets/Shapes/ShapesEasy/triangleDraggable.web
 import triangleDroppable from "../assets/Shapes/ShapesEasy/triangleDroppable.webp";
 import bg from "../assets/Shapes/ShapesEasy/lvl1Bg.webp";
 
-// ✅ new image to show when game is finished
-import successImg from "../assets/Done/Onestar.webp"; 
+
+import OneStar from "../assets/Done/OneStar.webp"; 
+import TwoStar from "../assets/Done/TwoStar.webp"; 
+import ThreeStar from "../assets/Done/ThreeStar.webp"; 
+
 
 function Droppable({ id, placedShape, shape }) {
   const { isOver, setNodeRef } = useDroppable({ id });
@@ -53,8 +56,6 @@ function Draggable({ id, disabled = false, shape }) {
   );
 }
 
-
-
 function ShapesEasyLevel1() {
   const [dropped, setDropped] = useState({});
 
@@ -76,20 +77,26 @@ function ShapesEasyLevel1() {
   const isGameFinished =
     dropped["circle"] && dropped["square"] && dropped["triangle"];
 
-  const [count,setCount]=useState(0);
+   const [count, setCount] = useState(0);
 
   useEffect(() => {
-    setTimeout(() => {
-      setCount((count) => count + 1);
+    if (isGameFinished) return; 
+
+    const interval = setInterval(() => {
+      setCount((prev) => prev + 1);
     }, 1000);
-  });
+
+    return () => clearInterval(interval); 
+  }, [isGameFinished]);
 
 
   return (
     <>
       <div className="flex h-[100vh] w-[100vw] [&>*]:flex absolute [&>*]:font-[coiny] overflow-hidden">
         <img src={bg} alt="background" className="absolute w-[100vw]" />
-        <DndContext onDragEnd={handleDragEnd} collisionDetection={pointerWithin}>
+         <DndContext onDragEnd={handleDragEnd} collisionDetection={pointerWithin}>
+         
+         
           {!isGameFinished && (
             <>
               {/* Draggables */}
@@ -163,7 +170,6 @@ function ShapesEasyLevel1() {
                     )
                   }
                 />
-
                 <Droppable
                   id="triangle"
                   shape={<img src={triangleDroppable} alt="transparent triangle" />}
@@ -177,26 +183,42 @@ function ShapesEasyLevel1() {
                     )
                   }
                 />
-            
               </div>
-                  <div className="absolute top-0 right-0">
-                         {count}
-                  </div>
+                <div className="absolute top-0 right-0 text-white">Your Time: {count}</div>
                 
             </>
           )}
        
-
-    
-          {isGameFinished && (
+          {isGameFinished && count < 10 && count <= 20  &&(
             <div className="absolute inset-0 flex items-center justify-center bg-opacity-50 z-20">
               <img
-                src={successImg}
+                src={ThreeStar}
                 alt="Game Completed!"
                 className="h-[300px] animate-bounce"
               />
             </div>
           )}
+
+            {isGameFinished && count >= 20 && count <= 30 &&(
+            <div className="absolute inset-0 flex items-center justify-center bg-opacity-50 z-20">
+              <img
+                src={TwoStar}
+                alt="Game Completed!"
+                className="h-[300px] animate-bounce"
+              />
+            </div>
+          )}
+
+          {isGameFinished && count > 30 &&(
+            <div className="absolute inset-0 flex items-center justify-center bg-opacity-50 z-20">
+              <img
+                src={OneStar}
+                alt="Game Completed!"
+                className="h-[300px] animate-bounce"
+              />
+            </div>
+          )}
+
         </DndContext>
       </div>
     </>
