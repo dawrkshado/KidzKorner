@@ -1,5 +1,6 @@
 import { useState,useEffect } from "react";
 import bg from "../assets/Number/Easy/bglvl2.webp";
+
 import one from "../assets/Number/Easy/One.webp";
 import two from "../assets/Number/Easy/two.webp";
 import three from "../assets/Number/Easy/three.webp";

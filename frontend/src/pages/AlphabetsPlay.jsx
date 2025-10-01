@@ -3,13 +3,16 @@ import { Link } from "react-router-dom"
 import easyalpha from "../assets/Alphabets/easyalpha.png";
 import mediumalpha from "../assets/Alphabets/mediumalpha.png";
 import alphahard from "../assets/Alphabets/alphahard.png";
+import Back from "../components/Back";
 
 function AlphabetsPlay(){
   return(
     <>
-    
+
 <div className="hidden w-full md:inline md:absolute h-[100%]">
+
         <TopBar/>
+          <Back/>
         <img
         src="/Bg/Alphabets/alphabetsgamepage.webp"
         alt="bg for Alpha"
