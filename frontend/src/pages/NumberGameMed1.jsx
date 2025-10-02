@@ -1,4 +1,4 @@
-import { useState } from "react";
+import { useState,useEffect } from "react";
 import { DndContext, useDraggable, useDroppable, pointerWithin } from "@dnd-kit/core";
 
 import draggableNumber2 from "../assets/Number/Medium/draggableNumber2.webp"
@@ -12,6 +12,12 @@ import droppedFish1 from "../assets/Number/Medium/droppedFish1.webp"
 import droppedFish2 from "../assets/Number/Medium/droppedFish2.webp"
 
 import bg from "../assets/Number/Medium/bg.webp";
+
+import OneStar from "../assets/Done/OneStar.webp"; 
+import TwoStar from "../assets/Done/TwoStar.webp"; 
+import ThreeStar from "../assets/Done/ThreeStar.webp"; 
+
+import Back from "../components/Back";
 
 function Droppable({ id, placedShape, shape }) {
   const { isOver, setNodeRef } = useDroppable({ id });
@@ -31,6 +37,7 @@ function Droppable({ id, placedShape, shape }) {
   );
 }
 
+ 
 function Draggable({ id, disabled = false, shape }) {
   const { attributes, listeners, setNodeRef, transform } = useDraggable({
     id,
@@ -56,6 +63,11 @@ function Draggable({ id, disabled = false, shape }) {
 function NumberGameMed1() {
   const [dropped, setDropped] = useState({});
 
+  function refreshPage (){
+
+     window.location.reload();
+  }
+
   function handleDragEnd(event) {
     if (event.over) {
       const draggedId = event.active.id;
@@ -70,11 +82,27 @@ function NumberGameMed1() {
     }
   }
 
+  const isGameFinished =
+    dropped["two"] && dropped["four"];
+
+   const [count, setCount] = useState(0);
+
+  useEffect(() => {
+    if (isGameFinished) return; 
+
+    const interval = setInterval(() => {
+      setCount((prev) => prev + 1);
+    }, 1000);
+
+    return () => clearInterval(interval); 
+  }, [isGameFinished]);
+
+
   return (
     <>
-      <div className="flex h-[100vh] w-[100vw] absolute overflow-hidden">
-        
+      <div className="flex h-[100vh] w-[100vw] absolute font-[coiny] text-white">
         <img src={bg} alt="background" className="absolute w-[100vw] h-[100vh]" />
+         <div className="absolute top-0 right-0">Your Time: {count}</div>
         <DndContext onDragEnd={handleDragEnd} collisionDetection={pointerWithin}>
           {/* Draggables */}
 
@@ -106,7 +134,7 @@ function NumberGameMed1() {
             </div>
           )}
           </div>
-        
+      
 
           {/* Droppables */}
           <div className="flex h-120 w-250 gap-6 absolute top-25 right-25 z-0">
@@ -125,7 +153,7 @@ function NumberGameMed1() {
               }
             />
             </div>
-            
+
               <div className="absolute left-170 motion-preset-pulse-sm motion-duration-2000">
                 <Droppable
               id="four"
@@ -141,10 +169,55 @@ function NumberGameMed1() {
               }
             />
               </div>
-            
-            
           </div>
         </DndContext>
+
+        {/*Results*/}
+        {isGameFinished && count < 10 && count <= 20  &&(
+          <div className="absolute inset-0 flex items-center h-full w-full justify-center bg-opacity-50 z-20  ">
+            <img
+              src={ThreeStar}
+              alt="Game Completed!"
+              className="h-[300px] animate-bounce"
+            />
+
+            <div className="absolute bottom-35 gap-20 flex h-25  w-50 ">
+              <Back/>
+              <button className="absolute bg-amber-200 h-10 w-25 justify- right-0" onClick={refreshPage}>Restart</button>
+            </div>
+
+     
+          </div>
+        )}
+
+    {isGameFinished && count >= 20 && count <= 30 &&(
+        <div className="absolute inset-0 flex items-center justify-center bg-opacity-50 z-20">
+          <img
+            src={TwoStar}
+            alt="Game Completed!"
+            className="h-[300px] animate-bounce"
+          />
+          <div className="absolute bottom-35 gap-20 flex h-25  w-50 ">
+              <Back/>
+              <button className="absolute bg-amber-200 h-10 w-25 justify- right-0" onClick={refreshPage}>Restart</button>
+            </div>
+        </div>
+    )}
+
+    {isGameFinished && count > 30 &&(
+    <div className="absolute inset-0 flex items-center justify-center bg-opacity-50 z-20">
+    <img
+      src={OneStar}
+      alt="Game Completed!"
+      className="h-[300px] animate-bounce"
+    />
+      <div className="absolute bottom-35 gap-20 flex h-25  w-50 ">
+              <Back/>
+              <button className="absolute bg-amber-200 h-10 w-25 justify- right-0" onClick={refreshPage}>Restart</button>
+            </div>
+    </div>
+    )}
+
       </div>
     </>
   );

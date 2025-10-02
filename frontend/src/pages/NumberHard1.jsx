@@ -1,4 +1,4 @@
-import { useState } from "react";
+import { useState,useEffect } from "react";
 import { DndContext, useDraggable, useDroppable, pointerWithin } from "@dnd-kit/core";
 
 import draggableNumber1 from "../assets/Number/Hard/draggable1.webp"
@@ -23,8 +23,12 @@ import droppablefish8 from "../assets/Number/Hard/droppable8.webp"
 import droppablefish9 from "../assets/Number/Hard/droppable9.webp"
 import droppablefish10 from "../assets/Number/Hard/droppable10.webp"
 
-import droppedFish1 from "../assets/Number/Medium/mediumFishDropDone2.webp"
-import droppedFish2 from "../assets/Number/Medium/mediumFishDropDone1.webp"
+
+import OneStar from "../assets/Done/OneStar.webp"; 
+import TwoStar from "../assets/Done/TwoStar.webp"; 
+import ThreeStar from "../assets/Done/ThreeStar.webp"; 
+
+import Back from "../components/Back";
 
 import bg from "../assets/Number/Hard/bg.webp";
 
@@ -70,6 +74,10 @@ function Draggable({ id, disabled = false, shape }) {
 
 function NumberGameHard() {
   const [dropped, setDropped] = useState({});
+    function refreshPage (){
+
+     window.location.reload();
+  }
 
   function handleDragEnd(event) {
     if (event.over) {
@@ -83,13 +91,31 @@ function NumberGameHard() {
         }));
       }
     }
-  }
+}
+
+const isGameFinished =
+    dropped["one"] && dropped["two"] && dropped["three"]&& dropped["four"]&& dropped["five"]&& dropped["six"]
+    && dropped["seven"]&& dropped["eight"]&& dropped["nine"]&& dropped["ten"];
+
+   const [count, setCount] = useState(0);
+
+  useEffect(() => {
+    if (isGameFinished) return; 
+
+    const interval = setInterval(() => {
+      setCount((prev) => prev + 1);
+    }, 1000);
+
+    return () => clearInterval(interval); 
+  }, [isGameFinished]);
+
 
   return (
     <>
-      <div className="flex h-[100vh] w-[100vw] absolute ">
-        
+      <div className="flex h-[100vh] w-[100vw] absolute font-[coiny] text-white ">
+         
         <img src={bg} alt="background" className="absolute w-[100vw] h-[100vh]" />
+        <div className="absolute top-0 right-0">Your Time: {count}</div>
         <DndContext onDragEnd={handleDragEnd} collisionDetection={pointerWithin}>
           {/* Draggables */}
 
@@ -182,47 +208,35 @@ function NumberGameHard() {
                 shape={<img src={draggableNumber10} alt="number 4" className="h-[60px] motion-preset-pulse-sm motion-duration-2000" />}
               />
             </div>
-          )}
-          
-          </div>
+          )}</div>
         
 
           {/* Droppables */}
-          <div className="h-90 w-full gap-6 top-25 right-25 z-0 ">
-
-            {/* First Row */}
+          <div className="absolute h-90 w-full gap-6 top-12 z-0 ">
             <div className="flex justify-evenly w-full">
                <div className="top-35 left-100 motion-preset-pulse-sm motion-duration-2000">
-              <Droppable
-              id="four"
-              shape={<img src={droppablefish4} alt="fish image" />}
-              placedShape={
-                dropped["four"] && (
-                  <Draggable
-                    id="four"
-                    disabled={true}
-                  />
-                )
-              }
-            />
-            </div>
+                  <Droppable
+                  id="four"
+                  shape={<img src={droppablefish4} alt="fish image" />}
+                  placedShape={
+                    dropped["four"] && (
+                      <Draggable
+                        id="four"
+                        disabled={true}/>)}/>
+                </div>
             
               <div className="left-220 top-35 motion-preset-pulse-sm motion-duration-2000">
                 <Droppable
-              id="six"
-              shape={<img src={droppablefish6} alt="fish image" />}
-              placedShape={
-                dropped["six"] && (
-                  <Draggable
-                    id="six"
-                    disabled={true}
-                  />
-                )
-              }
-            />
+                id="six"
+                shape={<img src={droppablefish6} alt="fish image" />}
+                placedShape={
+                  dropped["six"] && (
+                    <Draggable
+                      id="six"
+                      disabled={true}/>)}/>
               </div>
 
-               <div className="top-35 left-100 motion-preset-pulse-sm motion-duration-2000">
+            <div className="top-35 left-100 motion-preset-pulse-sm motion-duration-2000">
               <Droppable
               id="nine"
               shape={<img src={droppablefish9} alt="fish image" />}
@@ -230,26 +244,18 @@ function NumberGameHard() {
                 dropped["nine"] && (
                   <Draggable
                     id="nine"
-                    disabled={true}
-                  />
-                )
-              }
-            />
+                    disabled={true}/>)}/>
             </div>
             
               <div className="left-220 top-35 motion-preset-pulse-sm motion-duration-2000">
-                <Droppable
-              id="five"
-              shape={<img src={droppablefish5} alt="fish image" />}
-              placedShape={
-                dropped["five"] && (
-                  <Draggable
-                    id="five"
-                    disabled={true}
-                  />
-                )
-              }
-            />
+                  <Droppable
+                id="five"
+                shape={<img src={droppablefish5} alt="fish image" />}
+                placedShape={
+                  dropped["five"] && (
+                    <Draggable
+                      id="five"
+                      disabled={true}/>)}/>
               </div>
 
 
@@ -262,11 +268,7 @@ function NumberGameHard() {
                 dropped["ten"] && (
                   <Draggable
                     id="ten"
-                    disabled={true}
-                  />
-                )
-              }
-            />
+                    disabled={true}/> ) } />
             </div>
             </div>
 
@@ -280,14 +282,10 @@ function NumberGameHard() {
                 dropped["two"] && (
                   <Draggable
                     id="two"
-                    disabled={true}
-                  />
-                )
-              }
-            />
+                    disabled={true}/> ) } />
               </div>
 
-               <div className="top-35 left-100 motion-preset-pulse-sm motion-duration-2000">
+            <div className="top-35 left-100 motion-preset-pulse-sm motion-duration-2000">
               <Droppable
               id="one"
               shape={<img src={droppablefish1} alt="fish image" />}
@@ -295,27 +293,20 @@ function NumberGameHard() {
                 dropped["one"] && (
                   <Draggable
                     id="one"
-                    disabled={true}
-                  />
-                )
-              }
-            />
+                    disabled={true}/>)}/>
             </div>
             
               <div className="left-220 top-35 motion-preset-pulse-sm motion-duration-2000">
-                <Droppable
-              id="three"
-              shape={<img src={droppablefish3} alt="fish image" />}
-              placedShape={
-                dropped["three"] && (
-                  <Draggable
+                  <Droppable
                     id="three"
-                    disabled={true}
-                  />
-                )
-              }
-            />
+                    shape={<img src={droppablefish3} alt="fish image" />}
+                    placedShape={
+                      dropped["three"] && (
+                        <Draggable
+                          id="three"
+                          disabled={true}/>)}/>
               </div>
+
                 <div className="top-35 left-100 motion-preset-pulse-sm motion-duration-2000">
               <Droppable
               id="seven"
@@ -324,11 +315,7 @@ function NumberGameHard() {
                 dropped["seven"] && (
                   <Draggable
                     id="seven"
-                    disabled={true}
-                  />
-                )
-              }
-            />
+                    disabled={true}/>)}/>
             </div>
             
               <div className="left-220 top-35 motion-preset-pulse-sm motion-duration-2000">
@@ -339,18 +326,59 @@ function NumberGameHard() {
                 dropped["eight"] && (
                   <Draggable
                     id="eight"
-                    disabled={true}
-                  />
-                )
-              }
-            />
+                    disabled={true}/> ) } />
               </div>
-              
-            
+           
             </div>
-            
           </div>
         </DndContext>
+
+        
+     {/*Results*/}
+        {isGameFinished && count < 10 && count <= 20  &&(
+          <div className="absolute inset-0 flex items-center h-full w-full justify-center bg-opacity-50 z-20  ">
+            <img
+              src={ThreeStar}
+              alt="Game Completed!"
+              className="h-[300px] animate-bounce"
+            />
+
+            <div className="absolute bottom-35 gap-20 flex h-25  w-50 ">
+              <Back/>
+              <button className="absolute bg-amber-200 h-10 w-25 justify- right-0" onClick={refreshPage}>Restart</button>
+            </div>
+
+     
+          </div>
+        )}
+
+    {isGameFinished && count >= 20 && count <= 30 &&(
+        <div className="absolute inset-0 flex items-center justify-center bg-opacity-50 z-20">
+          <img
+            src={TwoStar}
+            alt="Game Completed!"
+            className="h-[300px] animate-bounce"
+          />
+          <div className="absolute bottom-35 gap-20 flex h-25  w-50 ">
+              <Back/>
+              <button className="absolute bg-amber-200 h-10 w-25 justify- right-0" onClick={refreshPage}>Restart</button>
+            </div>
+        </div>
+    )}
+
+    {isGameFinished && count > 30 &&(
+    <div className="absolute inset-0 flex items-center justify-center bg-opacity-50 z-20">
+    <img
+      src={OneStar}
+      alt="Game Completed!"
+      className="h-[300px] animate-bounce"
+    />
+      <div className="absolute bottom-35 gap-20 flex h-25  w-50 ">
+              <Back/>
+              <button className="absolute bg-amber-200 h-10 w-25 justify- right-0" onClick={refreshPage}>Restart</button>
+            </div>
+    </div>
+    )}
       </div>
     </>
   );

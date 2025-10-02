@@ -97,7 +97,7 @@ function ShapesEasyLevel1() {
          <DndContext onDragEnd={handleDragEnd} collisionDetection={pointerWithin}>
          
          
-          {!isGameFinished && (
+      
             <>
               {/* Draggables */}
               <div className="flex absolute gap-6 w-[460px] h-[300px] justify-center z-10 top-100 right-110 p-4 rounded-lg">
@@ -187,37 +187,48 @@ function ShapesEasyLevel1() {
                 <div className="absolute top-0 right-0 text-white">Your Time: {count}</div>
                 
             </>
-          )}
+
        
-          {isGameFinished && count < 10 && count <= 20  &&(
-            <div className="absolute inset-0 flex items-center justify-center bg-opacity-50 z-20">
-              <img
-                src={ThreeStar}
-                alt="Game Completed!"
-                className="h-[300px] animate-bounce"
-              />
-            </div>
-          )}
-
-            {isGameFinished && count >= 20 && count <= 30 &&(
-            <div className="absolute inset-0 flex items-center justify-center bg-opacity-50 z-20">
-              <img
-                src={TwoStar}
-                alt="Game Completed!"
-                className="h-[300px] animate-bounce"
-              />
-            </div>
-          )}
-
-          {isGameFinished && count > 30 &&(
-            <div className="absolute inset-0 flex items-center justify-center bg-opacity-50 z-20">
-              <img
-                src={OneStar}
-                alt="Game Completed!"
-                className="h-[300px] animate-bounce"
-              />
-            </div>
-          )}
+          
+         {isGameFinished && count < 10 && count <= 20  &&(
+                    <div className="absolute inset-0 flex items-center h-full w-full justify-center bg-opacity-50 z-20  ">
+                      <img
+                        src={ThreeStar}
+                        alt="Game Completed!"
+                        className="h-[300px] animate-bounce"
+                      />
+                      <div className="absolute bottom-40">
+                        <Back/>
+                      </div>
+                        
+                    </div>
+                  )}
+        
+                    {isGameFinished && count >= 20 && count <= 30 &&(
+                    <div className="absolute inset-0 flex items-center justify-center bg-opacity-50 z-20">
+                      <img
+                        src={TwoStar}
+                        alt="Game Completed!"
+                        className="h-[300px] animate-bounce"
+                      />
+                        <div className="absolute bottom-40">
+                        <Back/>
+                      </div>
+                    </div>
+                  )}
+        
+                  {isGameFinished && count > 30 &&(
+                    <div className="absolute inset-0 flex items-center justify-center bg-opacity-50 z-20">
+                      <img
+                        src={OneStar}
+                        alt="Game Completed!"
+                        className="h-[300px] animate-bounce"
+                      />
+                      <div className="absolute bottom-40">
+                        <Back/>
+                      </div>
+                    </div>
+                  )}
 
         </DndContext>
       </div>
