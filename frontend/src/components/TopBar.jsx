@@ -15,6 +15,7 @@ function TopBar(){
           <Link to="/login"><p className="hover:text-amber-300">Login</p></Link>
           <Link to="/about" className="hover:text-amber-300"><p>About</p></Link>
           <Link to="/teacher"><p>Teacher</p></Link>
+          <Link to="/parentskorner"><p>Parents</p></Link>
           
         </div>
         <div className="mr-[1%]"><img src={Menu} alt="Menu button" /></div>

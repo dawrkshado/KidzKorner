@@ -28,8 +28,8 @@ function Color(){
 
       <img
       src={apple}
-      alt="Apple"
-      onClick={()=> speak("Apple")}
+      alt="Apple is Red"
+      onClick={()=> speak("Apple is Red")}
       className="absolute left-[10%] top-[10%] w-auto cursor pointer h-auto"/>
 
       <img

@@ -99,6 +99,9 @@ import ShapesGame from "./pages/ShapesGame.jsx"
 import ColorGame from "./pages/ColorGame.jsx"
 import NumberGame from "./pages/NumberGame.jsx"
 
+import ParentsKorner from "./pages/ParentsKorner.jsx"
+import ParentsOverview from "./pages/ParentsOverview.jsx"
+
 const Alphabets = React.lazy(() => import("./pages/Alphabets.jsx"))
 
 
@@ -119,7 +122,7 @@ function App() {
 
       <Routes>
         <Route path="/" element={<Navigate to="/home" />} />
-        <Route path="/home" element={<ProtectedRoute><Home/></ProtectedRoute>} />
+        <Route path="/home" element={<Home/>} />
         <Route path="/login" element={<Login />} />
         <Route path="/about" element={<About />} />
         <Route path="/stories" element={<Stories />} />
@@ -207,6 +210,9 @@ function App() {
         <Route path="/color/medium/level2" element={<ColorGameMedLevel2/>}/>
         <Route path="/color/hard" element={<ColorHard/>}/>
         <Route path="/color/hardlevel1" element={<ColorGameHardLevel1/>}/>
+
+        <Route path="/parentskorner" element={<ParentsKorner/>}/>
+        <Route path="/parentsoverview" element={<ParentsOverview/>}/>
 
 
         <Route path="*" element={<NotFound />} />
