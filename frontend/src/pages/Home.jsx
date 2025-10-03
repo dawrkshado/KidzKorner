@@ -1,9 +1,9 @@
 import TopBar from "../components/TopBar.jsx";
-import OrangeMonster from "../assets/Home/shapemonster.png";
+import OrangeMonster from "../assets/Home/shapemonster.webp";
 import BlueMonster from "../assets/Home/blueMonster.webp";
-import bluemonster from "../assets/Home/bluemonster.png";
+import bluemonster from "../assets/Home/numberMonster.webp";
 import TvMonster from "../assets/Home/TvMonster.webp";
-import redmonster from "../assets/Home/redmonster.png"
+import redmonster from "../assets/Home/redmonster.webp"
 import { Link } from 'react-router-dom'
 import { useNavigate } from "react-router-dom";
 import { useEffect, useState } from "react";

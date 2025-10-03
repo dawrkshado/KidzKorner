@@ -11,7 +11,7 @@ function AlphabetMedium(){
    <div className="hidden w-full md:inline md:absolute h-auto">
   <TopBar/>
   <Back/>
-  <img src="./Bg/Alphabets/alphabetmediumbg.png" 
+  <img src="./Bg/Alphabets/alphabetmediumbg.webp" 
   alt="Easy game background" 
   className="w-full"/>
         <Link to="/alphabets/medium/level1">

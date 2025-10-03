@@ -10,7 +10,7 @@ function ShapesGame() {
         <div className="hidden w-full md:inline md:absolute h-auto overflow-hidden">
         <TopBar/>
         <img
-        src="./Bg/Shapes/shapegamebg.png"
+        src="./Bg/Shapes/shapegamebg.webp"
         alt="background"
         className="w-full"
         />

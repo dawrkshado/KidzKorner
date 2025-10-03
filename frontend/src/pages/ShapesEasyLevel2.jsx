@@ -1,4 +1,4 @@
-import React, { useState } from "react";
+import React, { useState, useEffect} from "react";
 import { DndContext, useDraggable, useDroppable, pointerWithin } from "@dnd-kit/core";
 
 import heartDroppable from "../assets/Shapes/ShapesEasy/heartDroppable.webp"
@@ -8,6 +8,12 @@ import starDroppable from "../assets/Shapes/ShapesEasy/starDroppable.webp"
 import ovalDroppable from  "../assets/Shapes/ShapesEasy/ovalDroppable.webp"
 import ovalDraggable from "../assets/Shapes/ShapesEasy/ovalDraggable.webp"
 import bg from "../assets/Shapes/ShapesEasy/lvl2.webp"
+
+
+import OneStar from "../assets/Done/OneStar.webp"; 
+import TwoStar from "../assets/Done/TwoStar.webp"; 
+import ThreeStar from "../assets/Done/ThreeStar.webp"; 
+
 function Droppable({id, placedShape,shape}) {
   const { isOver, setNodeRef } = useDroppable({ id });
   const style = {
@@ -66,13 +72,30 @@ function ShapesEasyLevel2() {
     }
   }
 
+  const isGameFinished =
+      dropped["star"] && dropped["oval"] && dropped["heart"];
+  
+     const [count, setCount] = useState(0);
+  
+    useEffect(() => {
+      if (isGameFinished) return; 
+  
+      const interval = setInterval(() => {
+        setCount((prev) => prev + 1);
+      }, 1000);
+  
+      return () => clearInterval(interval); 
+    }, [isGameFinished]);
+  
+
   return (
-    <div className="flex h-[100vh] w-[100vw]  [&>*]:flex absolute overflow-hidden">
+    <div className="flex h-[100vh] w-[100vw]  [&>*]:flex absolute overflow-hidden [&>*]:font-[coiny]">
       <img src={bg} alt="background" className="absolute w-[100vw]"/>
       <DndContext onDragEnd={handleDragEnd} collisionDetection={pointerWithin}>
 
-
-    <div className="h-[110px] w-[360px] justify-center z-1 absolute bottom-40 [&>*]:ml-5">             
+{!isGameFinished && (
+   <>
+    <div className="h-[110px] w-[360px] justify-center z-1 absolute bottom-40 [&>*]:ml-5  ">             
  {!dropped ["star"] && (
           <Draggable
               id = "star"
@@ -128,11 +151,42 @@ function ShapesEasyLevel2() {
           id="heart"
           shape = {<img src={heartDraggable} alt="image of a transparent heart"/>}
           disabled={true}/>)}
-        />
-</div>
-      
+        /> 
+        </div>
 
-         
+                  <div className="absolute top-0 right-0 text-white">Your Time: {count}</div>
+      </>)}
+
+      
+                {isGameFinished && count < 10 && count <= 20  &&(
+                  <div className="absolute inset-0 flex items-center justify-center bg-opacity-50 z-20">
+                    <img
+                      src={ThreeStar}
+                      alt="Game Completed!"
+                      className="h-[300px] animate-bounce"
+                    />
+                  </div>
+                )}
+      
+                  {isGameFinished && count >= 20 && count <= 30 &&(
+                  <div className="absolute inset-0 flex items-center justify-center bg-opacity-50 z-20">
+                    <img
+                      src={TwoStar}
+                      alt="Game Completed!"
+                      className="h-[300px] animate-bounce"
+                    />
+                  </div>
+                )}
+      
+                {isGameFinished && count > 30 &&(
+                  <div className="absolute inset-0 flex items-center justify-center bg-opacity-50 z-20">
+                    <img
+                      src={OneStar}
+                      alt="Game Completed!"
+                      className="h-[300px] animate-bounce"
+                    />
+                  </div>
+                )}
 
       </DndContext>
     </div>

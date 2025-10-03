@@ -81,7 +81,6 @@ import Overview from "./pages/Overview.jsx"
 import UserAccControl from "./pages/UserAccControl.jsx"
 import ProtectedRoute from "../src/components/ProtectedRoute.jsx"
 import Form from "./components/Forms.jsx"
-import AlphabetsEasy from "./pages/AlphabetsEasy.jsx"
 
 
 import Color from "./pages/Color.jsx"
@@ -117,9 +116,8 @@ function App() {
       <div className="bg-[#3DA8CC] font-[coiny] justify-items-center align-middle h-screen w-screen content-center md:hidden">
         <img src="/responsive.png" alt="rotate Phone Background" />
         <h1 className="text-white">Rotate Phone to experience</h1>
-
       </div>
-
+<div className="hidden md:block">
       <Routes>
         <Route path="/" element={<Navigate to="/home" />} />
         <Route path="/home" element={<Home/>} />
@@ -199,8 +197,8 @@ function App() {
         <Route path="/overview" element={<Overview />} />
         <Route path="/usercontrol" element={<UserAccControl />} />
 
-        <Route path="/color" element={<Color />}/>
-        <Route path="/colorgame" element={<ColorGame />} />
+        <Route path="/color" element={<Color/>}/>
+        <Route path="/colorgame" element={<ColorGame/>} />
         <Route path="/color/easy" element= {<ColorEasy/>}/>
         <Route path="/color/easy/level1" element={<ColorGameEasyLevel1/>}/>
         <Route path="/color/easy/level2" element={<ColorGameEasyLevel2/>}/>
@@ -217,6 +215,7 @@ function App() {
 
         <Route path="*" element={<NotFound />} />
       </Routes>
+</div>
     </>
   )
 

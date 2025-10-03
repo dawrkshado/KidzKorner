@@ -94,7 +94,7 @@ function Number(){
     <img
     src={numberplay}
     alt="Buttons for Number Game"
-    className="absolute left-[37%] top-[84%] w-auto cursor pointer h-auto"/>
+    className="absolute left-[35%] top-[81%] w-auto cursor pointer h-auto"/>
 
     </Link>
   </div>

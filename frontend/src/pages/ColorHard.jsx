@@ -10,8 +10,8 @@ function ColorHard(){
  <div className="hidden w-full md:inline md:absolute h-auto">
   <TopBar/>
   <Back/>
-  <img src="./Bg/Color/hardcolorbg.png" 
-  alt="Medium game background" 
+  <img src="/Bg/Color/hardcolorbg.webp" 
+  alt="Hard game background" 
   className="w-full"/>
 
    <Link to={"/color/hard/level1"}>

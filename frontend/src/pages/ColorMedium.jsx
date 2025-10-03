@@ -10,7 +10,7 @@ function ColorMedium(){
    <div className="hidden w-full md:inline md:absolute h-auto">
   <TopBar/>
   <Back/>
-  <img src="./Bg/Color/averagecolorbg.png" 
+  <img src="/Bg/Color/averagecolorbg.webp" 
   alt="Medium game background" 
   className="w-full"/>
 
