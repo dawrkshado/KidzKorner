@@ -1,7 +1,7 @@
 function ColorGameHardLevel1(){
 
   return(<>
-  <h1>A</h1>
+  <h1></h1>
   </>)
 
 }

@@ -8,6 +8,9 @@ import bg from "../assets/Alphabets/Easy/bg.webp";
 import OneStar from "../assets/Done/OneStar.webp"; 
 import TwoStar from "../assets/Done/TwoStar.webp"; 
 import ThreeStar from "../assets/Done/ThreeStar.webp"; 
+
+import Back from "../components/Back";
+import Restart from "../components/Restart";
 function ShapesEasyLevel1() {
   const clickables = [
     {
@@ -53,6 +56,7 @@ function ShapesEasyLevel1() {
     <h1 className="absolute top-15 right-112 text-3xl text-white">Can You Find Letter  {clickables[index].Answer}</h1>
     {!isGameFinished && (<>
 
+
     <div className="absolute top-0 right-0 text-white">Your Time: {count}</div>
       <div className="flex justify-evenly justify-self-center w-150  absolute top-40">
         {clickables[index].choices.map((choice, i) => (
@@ -66,34 +70,65 @@ function ShapesEasyLevel1() {
         ))}
         </div>
     </>)}
-    {isGameFinished && count < 10 && count <= 20  &&(
-                        <div className="absolute inset-0 flex items-center justify-center bg-opacity-50 z-20">
-                          <img
-                            src={ThreeStar}
-                            alt="Game Completed!"
-                            className="h-[300px] animate-bounce"
-                          />
-                        </div>
-                      )}
-            
-                        {isGameFinished && count >= 20 && count <= 30 &&(
-                        <div className="absolute inset-0 flex items-center justify-center bg-opacity-50 z-20">
-                          <img
-                            src={TwoStar}
-                            alt="Game Completed!"
-                            className="h-[300px] animate-bounce"
-                          />
-                        </div>
-                      )}
-            
-                      {isGameFinished && count > 30 &&  (
-                        <div className="absolute inset-0 flex items-center justify-center bg-opacity-50 z-20">
-                          <img
-                            src={OneStar}
-                            alt="Game Completed!"
-                            className="h-[300px] animate-bounce"
-                          />
-                        </div>)}
+    {/*Results*/}
+       {isGameFinished && count < 10 && count <= 20  &&(
+          <div className="absolute inset-0 flex items-center justify-center bg-opacity-50 z-20">
+                <img
+                src={ThreeStar}
+                alt="Game Completed!"
+                className="h-[300px] animate-bounce"
+                />
+                <div  className="absolute bottom-35 gap-20 flex h-25  w-50 ">
+                    <div>
+                      <Back/>
+                    </div>
+
+                    <div>
+                      <Restart/>
+                    </div>
+
+                </div>
+          </div>
+)}
+              
+{isGameFinished && count >= 20 && count <= 30 &&(
+          <div className="absolute inset-0 flex items-center justify-center bg-opacity-50 z-20">
+                <img
+                src={TwoStar}
+                alt="Game Completed!"
+                className="h-[300px] animate-bounce"
+                />
+                <div  className="absolute bottom-35 gap-20 flex h-25  w-50 ">
+                    <div>
+                      <Back/>
+                    </div>
+                    <div>
+                      <Restart/>
+                    </div>
+
+                </div>
+          </div>
+          )}
+
+{isGameFinished && count > 30 &&  (
+          <div className="absolute inset-0 flex items-center justify-center bg-opacity-50 z-20">
+                <img
+                src={OneStar}
+                alt="Game Completed!"
+                className="h-[300px] animate-bounce"
+                />
+                <div  className="absolute bottom-35 gap-20 flex h-25  w-50 ">
+                    <div>
+                      <Back/>
+                    </div>
+
+                    <div>
+                      <Restart/>
+                    </div>
+
+                </div>
+          </div>
+)}
     </div>
     </>
   );

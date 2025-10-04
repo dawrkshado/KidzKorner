@@ -1,8 +1,6 @@
 import { useState,useEffect } from "react";
 import { DndContext, useDraggable, useDroppable, pointerWithin } from "@dnd-kit/core";
 
-
-
 import Mdraggable from "../assets/Alphabets/Medium/draggableM.webp";
 import Ndraggable from "../assets/Alphabets/Medium/draggableN.webp";
 import Odraggable from "../assets/Alphabets/Medium/draggableO.webp";
@@ -16,6 +14,8 @@ import OneStar from "../assets/Done/OneStar.webp";
 import TwoStar from "../assets/Done/TwoStar.webp"; 
 import ThreeStar from "../assets/Done/ThreeStar.webp"; 
 
+import Back from "../components/Back";
+import Restart from "../components/Restart";
 
 function Droppable({ id, placedShape, shape }) {
   const { isOver, setNodeRef } = useDroppable({ id });
@@ -93,27 +93,17 @@ function AlphabetMedium1() {
 
   return (
     <>
-      <div className="flex h-[100vh] w-[100vw] [&>*]:flex absolute [&>*]:font-[coiny] overflow-hidden">
+      <div className="flex h-[100vh] w-[100vw] [&>*]:flex absolute font-[coiny] overflow-hidden">
         <img src={bg} alt="background" className="absolute w-[100vw]" />
+    <div className="absolute top-0 right-0 text-white">Your Time: {count}</div>
+                
          <DndContext onDragEnd={handleDragEnd} collisionDetection={pointerWithin}>
          
          
-          {!isGameFinished && (
-            <>
+      
               {/* Draggables */}
-              <div className="flex absolute  gap-30 mt-10 w-[100vw] h-[300px] justify-center z-10 top-100 p-4 rounded-lg">
-                {!dropped["m"] && (
-                  <Draggable
-                    id="m"
-                    shape={
-                      <img
-                        src={Mdraggable}
-                        alt="letter M"
-                        className="h-[80px]"
-                      />
-                    }
-                  />
-                )}
+              <div className="flex absolute  gap-30 mt-10 w-[100vw] h-[300px] justify-center z-10 top-100 lg:top-115 p-4 rounded-lg ">
+            
 
                 {!dropped["n"] && (
                   <Draggable
@@ -141,18 +131,20 @@ function AlphabetMedium1() {
                   />
                 )}
 
-                 {!dropped["p"] && (
+                    {!dropped["m"] && (
                   <Draggable
-                    id="p"
+                    id="m"
                     shape={
                       <img
-                        src={Pdraggable}
-                        alt="letter p"
+                        src={Mdraggable}
+                        alt="letter M"
                         className="h-[80px]"
                       />
                     }
                   />
                 )}
+
+                 
 
                 {!dropped["q"] && (
                   <Draggable
@@ -166,11 +158,24 @@ function AlphabetMedium1() {
                     }
                   />
                 )}
+
+                {!dropped["p"] && (
+                  <Draggable
+                    id="p"
+                    shape={
+                      <img
+                        src={Pdraggable}
+                        alt="letter p"
+                        className="h-[80px]"
+                      />
+                    }
+                  />
+                )}
               </div>
               
 
               {/* Droppables */}
-              <div className="flex justify-center gap-20 absolute top-70 left-40 ">
+              <div className="flex justify-center gap-30 absolute top-70 left-40 lg:top-85 lg:left-58">
                 <Droppable
                   id="m"
                   shape={<img src={droppableImage} alt="Where you will drop the smaller letter" />}
@@ -241,41 +246,68 @@ function AlphabetMedium1() {
                 
                 
               </div>
-                <div className="absolute top-0 right-0 text-white">Your Time: {count}</div>
-                
-            </>
-          )}
+
+
        
-          {isGameFinished && count < 10 && count <= 20  &&(
-            <div className="absolute inset-0 flex items-center justify-center bg-opacity-50 z-20">
-              <img
+          
+     {isGameFinished && count < 10 && count <= 20  &&(
+          <div className="absolute inset-0 flex items-center justify-center bg-opacity-50 z-20">
+                <img
                 src={ThreeStar}
                 alt="Game Completed!"
                 className="h-[300px] animate-bounce"
-              />
-            </div>
-          )}
+                />
+                <div  className="absolute bottom-35 gap-20 flex h-25  w-50 ">
+                    <div>
+                      <Back/>
+                    </div>
 
-            {isGameFinished && count >= 20 && count <= 30 &&(
-            <div className="absolute inset-0 flex items-center justify-center bg-opacity-50 z-20">
-              <img
+                    <div>
+                      <Restart/>
+                    </div>
+
+                </div>
+          </div>
+)}
+              
+{isGameFinished && count >= 20 && count <= 30 &&(
+          <div className="absolute inset-0 flex items-center justify-center bg-opacity-50 z-20">
+                <img
                 src={TwoStar}
                 alt="Game Completed!"
                 className="h-[300px] animate-bounce"
-              />
-            </div>
+                />
+                <div  className="absolute bottom-35 gap-20 flex h-25  w-50 ">
+                    <div>
+                      <Back/>
+                    </div>
+                    <div>
+                      <Restart/>
+                    </div>
+
+                </div>
+          </div>
           )}
 
-          {isGameFinished && count > 30 &&(
-            <div className="absolute inset-0 flex items-center justify-center bg-opacity-50 z-20">
-              <img
+{isGameFinished && count > 30 &&  (
+          <div className="absolute inset-0 flex items-center justify-center bg-opacity-50 z-20">
+                <img
                 src={OneStar}
                 alt="Game Completed!"
                 className="h-[300px] animate-bounce"
-              />
-            </div>
-          )}
+                />
+                <div  className="absolute bottom-35 gap-20 flex h-25  w-50 ">
+                    <div>
+                      <Back/>
+                    </div>
 
+                    <div>
+                      <Restart/>
+                    </div>
+
+                </div>
+          </div>
+)}
         </DndContext>
       </div>
     </>

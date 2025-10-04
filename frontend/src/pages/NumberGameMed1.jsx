@@ -18,6 +18,7 @@ import TwoStar from "../assets/Done/TwoStar.webp";
 import ThreeStar from "../assets/Done/ThreeStar.webp"; 
 
 import Back from "../components/Back";
+import Restart from "../components/Restart";
 
 function Droppable({ id, placedShape, shape }) {
   const { isOver, setNodeRef } = useDroppable({ id });
@@ -105,10 +106,10 @@ function NumberGameMed1() {
          <div className="absolute top-0 right-0">Your Time: {count}</div>
         <DndContext onDragEnd={handleDragEnd} collisionDetection={pointerWithin}>
           {/* Draggables */}
-
-          <div className="z-1">
+  
+      <div className="absolute lg:bottom-0 lg:right-105  lg:h-25 lg:w-120 z-1 flex ">
               {!dropped["two"] && (
-            <div className="absolute bottom-5 left-[530px]">
+            <div className="absolute lg:left-7">
               <Draggable
                 id="two"
                 shape={<img src={draggableNumber2} alt="number 2" className="h-[80px] motion-preset-pulse-sm motion-duration-2000" />}
@@ -117,7 +118,7 @@ function NumberGameMed1() {
           )}
 
           {!dropped["four"] && (
-            <div className="absolute bottom-5 left-[670px] ">
+            <div className="absolute lg:right-7">
               <Draggable
                 id="four"
                 shape={<img src={draggableNumber4} alt="number 4" className="h-[80px] motion-preset-pulse-sm motion-duration-2000" />}
@@ -126,7 +127,7 @@ function NumberGameMed1() {
           )}
 
           {!dropped["six"] && (
-            <div className="absolute bottom-5 left-[825px]">
+            <div className="absolute lg:right-53">
               <Draggable
                 id="six"
                 shape={<img src={draggableNumber6} alt="number 6" className="h-[80px] motion-preset-pulse-sm motion-duration-2000" />}
@@ -136,9 +137,11 @@ function NumberGameMed1() {
           </div>
       
 
+          
+
           {/* Droppables */}
-          <div className="flex h-120 w-250 gap-6 absolute top-25 right-25 z-0">
-            <div className="absolute top-55 left-60 motion-preset-pulse-sm motion-duration-2000">
+          <div className="flex h-120 w-250 gap-6 absolute top-25 right-25 z-0 lg:right-45">
+            <div className="absolute top-55 left-60 motion-preset-pulse-sm motion-duration-2000 lg:left-30 lg:top-65">
               <Droppable
               id="two"
               shape={<img src={droppableFish1} alt="fish image" />}
@@ -154,7 +157,7 @@ function NumberGameMed1() {
             />
             </div>
 
-              <div className="absolute left-170 motion-preset-pulse-sm motion-duration-2000">
+              <div className="absolute left-170 motion-preset-pulse-sm motion-duration-2000 ">
                 <Droppable
               id="four"
               shape={<img src={droppableFish2} alt="fish image" />}
@@ -172,52 +175,65 @@ function NumberGameMed1() {
           </div>
         </DndContext>
 
-        {/*Results*/}
-        {isGameFinished && count < 10 && count <= 20  &&(
-          <div className="absolute inset-0 flex items-center h-full w-full justify-center bg-opacity-50 z-20  ">
-            <img
-              src={ThreeStar}
-              alt="Game Completed!"
-              className="h-[300px] animate-bounce"
-            />
+{/*Results*/}
+       {isGameFinished && count < 10 && count <= 20  &&(
+          <div className="absolute inset-0 flex items-center justify-center bg-opacity-50 z-20">
+                <img
+                src={ThreeStar}
+                alt="Game Completed!"
+                className="h-[300px] animate-bounce"
+                />
+                <div  className="absolute bottom-35 gap-20 flex h-25  w-50 ">
+                    <div>
+                      <Back/>
+                    </div>
 
-            <div className="absolute bottom-35 gap-20 flex h-25  w-50 ">
-              <Back/>
-              <button className="absolute bg-amber-200 h-10 w-25 justify- right-0" onClick={refreshPage}>Restart</button>
-            </div>
+                    <div>
+                      <Restart/>
+                    </div>
 
-     
+                </div>
           </div>
-        )}
+)}
+              
+{isGameFinished && count >= 20 && count <= 30 &&(
+          <div className="absolute inset-0 flex items-center justify-center bg-opacity-50 z-20">
+                <img
+                src={TwoStar}
+                alt="Game Completed!"
+                className="h-[300px] animate-bounce"
+                />
+                <div  className="absolute bottom-35 gap-20 flex h-25  w-50 ">
+                    <div>
+                      <Back/>
+                    </div>
+                    <div>
+                      <Restart/>
+                    </div>
 
-    {isGameFinished && count >= 20 && count <= 30 &&(
-        <div className="absolute inset-0 flex items-center justify-center bg-opacity-50 z-20">
-          <img
-            src={TwoStar}
-            alt="Game Completed!"
-            className="h-[300px] animate-bounce"
-          />
-          <div className="absolute bottom-35 gap-20 flex h-25  w-50 ">
-              <Back/>
-              <button className="absolute bg-amber-200 h-10 w-25 justify- right-0" onClick={refreshPage}>Restart</button>
-            </div>
-        </div>
-    )}
+                </div>
+          </div>
+          )}
 
-    {isGameFinished && count > 30 &&(
-    <div className="absolute inset-0 flex items-center justify-center bg-opacity-50 z-20">
-    <img
-      src={OneStar}
-      alt="Game Completed!"
-      className="h-[300px] animate-bounce"
-    />
-      <div className="absolute bottom-35 gap-20 flex h-25  w-50 ">
-              <Back/>
-              <button className="absolute bg-amber-200 h-10 w-25 justify- right-0" onClick={refreshPage}>Restart</button>
-            </div>
-    </div>
-    )}
+{isGameFinished && count > 30 &&  (
+          <div className="absolute inset-0 flex items-center justify-center bg-opacity-50 z-20">
+                <img
+                src={OneStar}
+                alt="Game Completed!"
+                className="h-[300px] animate-bounce"
+                />
+                <div  className="absolute bottom-35 gap-20 flex h-25  w-50 ">
+                    <div>
+                      <Back/>
+                    </div>
 
+                    <div>
+                      <Restart/>
+                    </div>
+
+                </div>
+          </div>
+)}
       </div>
     </>
   );

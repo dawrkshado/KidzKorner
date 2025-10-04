@@ -10,7 +10,7 @@ import { Link } from 'react-router-dom'
           return(
           
             <>
-             <div className="hidden w-[100vw] md:inline md:absolute h-[100%]">
+             <div className="hidden w-[100vw] md:inline md:absolute h-[100%] overflow-x-hidden">
               <TopBar/>
               <Back/>
               <img src="./Bg/storiesbg.png" alt="LibraryBackground" className="w-[100vw] h-[100%]" />

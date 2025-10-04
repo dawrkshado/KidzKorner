@@ -117,7 +117,7 @@ function App() {
         <img src="/responsive.png" alt="rotate Phone Background" />
         <h1 className="text-white">Rotate Phone to experience</h1>
       </div>
-<div className="hidden md:block">
+<div className="hidden md:block font-[coiny]">
       <Routes>
         <Route path="/" element={<Navigate to="/home" />} />
         <Route path="/home" element={<Home/>} />
@@ -207,7 +207,7 @@ function App() {
         <Route path="/color/medium/level1" element={<ColorGameMedLevel1/>}/>
         <Route path="/color/medium/level2" element={<ColorGameMedLevel2/>}/>
         <Route path="/color/hard" element={<ColorHard/>}/>
-        <Route path="/color/hardlevel1" element={<ColorGameHardLevel1/>}/>
+        <Route path="/color/hard/level1" element={<ColorGameHardLevel1/>}/>
 
         <Route path="/parentskorner" element={<ParentsKorner/>}/>
         <Route path="/parentsoverview" element={<ParentsOverview/>}/>

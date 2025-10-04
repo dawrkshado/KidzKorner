@@ -3,12 +3,15 @@ import { Link } from "react-router-dom";
 import Seasy from "../assets/Shapes/Seasy.png";
 import Smedium from "../assets/Shapes/Smedium.png";
 import Shard from "../assets/Shapes/Shard.png";
+import Back from "../components/Back.jsx";
 
 function ShapesGame() {
     return (
         <>
+         <TopBar/>
+         <Back/>
         <div className="hidden w-full md:inline md:absolute h-auto overflow-hidden">
-        <TopBar/>
+       
         <img
         src="./Bg/Shapes/shapegamebg.webp"
         alt="background"

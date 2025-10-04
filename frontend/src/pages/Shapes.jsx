@@ -7,6 +7,8 @@ import square from "../assets/Shapes/square.png";
 import sbuttons from "../assets/Shapes/sbuttons.png";
 import { Link } from "react-router-dom";
 
+import Back from "../components/Back.jsx";
+
 const speak = (text) => {
   const utterance = new SpeechSynthesisUtterance(text);
   window.speechSynthesis.cancel();
@@ -16,8 +18,14 @@ const speak = (text) => {
 function Shapes() {
   return (
     <>
-      <div className="hidden w-full md:inline md:absolute h-[100%] overflow-x-hidden">
-        <TopBar />
+      <TopBar />
+
+      <div className=" absolute  hidden w-full md:inline md:absolute h-[100%] overflow-x-hidden">
+        <div className="top-0">
+             <Back/>
+        </div>
+     
+      
         <img
           src="./Bg/Shapes/Shapesbg.webp"
           alt="background"
@@ -67,6 +75,7 @@ function Shapes() {
           />
         </Link>
       </div>
+
     </>
   );
 }

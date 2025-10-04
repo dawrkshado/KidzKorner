@@ -7,6 +7,9 @@ import OneStar from "../assets/Done/OneStar.webp";
 import TwoStar from "../assets/Done/TwoStar.webp"; 
 import ThreeStar from "../assets/Done/ThreeStar.webp"; 
 
+import Back from "../components/Back";
+import Restart from "../components/Restart";
+
 function ShapesEasyLevel1() {
   const clickables = [
     {
@@ -50,7 +53,7 @@ function ShapesEasyLevel1() {
 
     <div className="font-[coiny]">
     <img src={bg} alt="background" className="w-full "/>
-        {!isGameFinished && (<>
+
        <div className="absolute top-0 right-0 text-white">Your Time: {count}</div>
       <div className="flex justify-evenly justify-self-center w-150 gap-20 absolute top-55 right-35">
         {clickables[index].choices.map((choice, i) => (
@@ -64,36 +67,65 @@ function ShapesEasyLevel1() {
         ))}
       </div>
 
-      </>)}
 
-       {isGameFinished && count < 10 && count <= 20  &&(
-                              <div className="absolute inset-0 flex items-center justify-center bg-opacity-50 z-20">
-                                <img
-                                  src={ThreeStar}
-                                  alt="Game Completed!"
-                                  className="h-[300px] animate-bounce"
-                                />
-                              </div>
-                            )}
-                  
-                              {isGameFinished && count >= 20 && count <= 30 &&(
-                              <div className="absolute inset-0 flex items-center justify-center bg-opacity-50 z-20">
-                                <img
-                                  src={TwoStar}
-                                  alt="Game Completed!"
-                                  className="h-[300px] animate-bounce"
-                                />
-                              </div>
-                            )}
-                  
-                            {isGameFinished && count > 30 &&  (
-                              <div className="absolute inset-0 flex items-center justify-center bg-opacity-50 z-20">
-                                <img
-                                  src={OneStar}
-                                  alt="Game Completed!"
-                                  className="h-[300px] animate-bounce"
-                                />
-                              </div>)}
+     {isGameFinished && count < 10 && count <= 20  &&(
+          <div className="absolute inset-0 flex items-center justify-center bg-opacity-50 z-20">
+                <img
+                src={ThreeStar}
+                alt="Game Completed!"
+                className="h-[300px] animate-bounce"
+                />
+                <div  className="absolute bottom-35 gap-20 flex h-25  w-50 ">
+                    <div>
+                      <Back/>
+                    </div>
+
+                    <div>
+                      <Restart/>
+                    </div>
+
+                </div>
+          </div>
+)}
+              
+{isGameFinished && count >= 20 && count <= 30 &&(
+          <div className="absolute inset-0 flex items-center justify-center bg-opacity-50 z-20">
+                <img
+                src={TwoStar}
+                alt="Game Completed!"
+                className="h-[300px] animate-bounce"
+                />
+                <div  className="absolute bottom-35 gap-20 flex h-25  w-50 ">
+                    <div>
+                      <Back/>
+                    </div>
+                    <div>
+                      <Restart/>
+                    </div>
+
+                </div>
+          </div>
+          )}
+
+{isGameFinished && count > 30 &&  (
+          <div className="absolute inset-35 flex items-center justify-center bg-opacity-50 z-20">
+                <img
+                src={OneStar}
+                alt="Game Completed!"
+                className="h-[300px] animate-bounce"
+                />
+                <div  className="absolute bottom-35 gap-20 flex h-25  w-50 ">
+                    <div>
+                      <Back/>
+                    </div>
+
+                    <div>
+                      <Restart/>
+                    </div>
+
+                </div>
+          </div>
+)}
       </div>
     </>
   );

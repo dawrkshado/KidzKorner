@@ -10,6 +10,9 @@ import five from "../assets/Number/Easy/five.webp";
 import OneStar from "../assets/Done/OneStar.webp"; 
 import TwoStar from "../assets/Done/TwoStar.webp"; 
 import ThreeStar from "../assets/Done/ThreeStar.webp"; 
+
+import Back from "../components/Back";
+import Restart from "../components/Restart";
     
 function NumberGameEasy1() {
   const [clicked, setClicked] = useState([]);
@@ -49,7 +52,7 @@ function NumberGameEasy1() {
     <div className="absolute w-[100vw] h-[100vh] font-[coiny]">
       <img src={bg} alt="background" className="absolute w-full h-full" />
       
-  {!isGameFinished && (<>
+ 
        <div className="absolute top-0 right-0 text-white">Your Time: {count}</div>
   {numbers.map((num, i) => (
         <div
@@ -70,7 +73,7 @@ function NumberGameEasy1() {
         </div>
       ))}
 
-  </>)}
+{/*Result*/}
 
   {isGameFinished && count < 10 && count <= 20  &&(
                     <div className="absolute inset-0 flex items-center justify-center bg-opacity-50 z-20">
@@ -79,6 +82,18 @@ function NumberGameEasy1() {
                         alt="Game Completed!"
                         className="h-[300px] animate-bounce"
                       />
+
+                      <div  className="absolute bottom-35 gap-20 flex h-25  w-50 ">
+                        <div>
+                          <Back/>
+                        </div>
+                        <div>
+                          <Restart/>
+                        </div>
+                      </div>
+
+     
+
                     </div>
                   )}
         
@@ -89,6 +104,16 @@ function NumberGameEasy1() {
                         alt="Game Completed!"
                         className="h-[300px] animate-bounce"
                       />
+                      <div  className="absolute bottom-35 gap-20 flex h-25  w-50 ">
+               <div>
+              <Back/>
+            </div>
+
+            <div>
+               <Restart/>
+            </div>
+
+          </div>
                     </div>
                   )}
         
@@ -99,6 +124,16 @@ function NumberGameEasy1() {
                         alt="Game Completed!"
                         className="h-[300px] animate-bounce"
                       />
+                      <div  className="absolute bottom-35 gap-20 flex h-25  w-50 ">
+               <div>
+              <Back/>
+            </div>
+
+            <div>
+               <Restart/>
+            </div>
+
+          </div>
                     </div>
                   )}
       

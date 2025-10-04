@@ -29,6 +29,7 @@ import TwoStar from "../assets/Done/TwoStar.webp";
 import ThreeStar from "../assets/Done/ThreeStar.webp"; 
 
 import Back from "../components/Back";
+import Restart from "../components/Restart";
 
 import bg from "../assets/Number/Hard/bg.webp";
 
@@ -74,10 +75,7 @@ function Draggable({ id, disabled = false, shape }) {
 
 function NumberGameHard() {
   const [dropped, setDropped] = useState({});
-    function refreshPage (){
-
-     window.location.reload();
-  }
+  
 
   function handleDragEnd(event) {
     if (event.over) {
@@ -272,7 +270,7 @@ const isGameFinished =
             </div>
             </div>
 
-           {/* Second Row */}
+          
             <div className="flex w-full  justify-evenly">
                <div className="left-220 top-35 motion-preset-pulse-sm motion-duration-2000">
                 <Droppable
@@ -343,10 +341,16 @@ const isGameFinished =
               className="h-[300px] animate-bounce"
             />
 
-            <div className="absolute bottom-35 gap-20 flex h-25  w-50 ">
+            <div  className="absolute bottom-35 gap-20 flex h-25  w-50 ">
+               <div>
               <Back/>
-              <button className="absolute bg-amber-200 h-10 w-25 justify- right-0" onClick={refreshPage}>Restart</button>
             </div>
+
+            <div>
+               <Restart/>
+            </div>
+
+          </div>
 
      
           </div>
@@ -359,10 +363,16 @@ const isGameFinished =
             alt="Game Completed!"
             className="h-[300px] animate-bounce"
           />
-          <div className="absolute bottom-35 gap-20 flex h-25  w-50 ">
+          <div  className="absolute bottom-35 gap-20 flex h-25  w-50 ">
+               <div>
               <Back/>
-              <button className="absolute bg-amber-200 h-10 w-25 justify- right-0" onClick={refreshPage}>Restart</button>
             </div>
+
+            <div>
+               <Restart/>
+            </div>
+
+          </div>
         </div>
     )}
 
@@ -373,10 +383,16 @@ const isGameFinished =
       alt="Game Completed!"
       className="h-[300px] animate-bounce"
     />
-      <div className="absolute bottom-35 gap-20 flex h-25  w-50 ">
+      <div  className="absolute bottom-35 gap-20 flex h-25  w-50 ">
+               <div>
               <Back/>
-              <button className="absolute bg-amber-200 h-10 w-25 justify- right-0" onClick={refreshPage}>Restart</button>
             </div>
+
+            <div>
+               <Restart/>
+            </div>
+
+          </div>
     </div>
     )}
       </div>

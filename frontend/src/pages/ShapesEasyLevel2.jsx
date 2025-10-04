@@ -10,6 +10,9 @@ import ovalDraggable from "../assets/Shapes/ShapesEasy/ovalDraggable.webp"
 import bg from "../assets/Shapes/ShapesEasy/lvl2.webp"
 
 
+import Back from "../components/Back"; 
+import Restart from "../components/Restart.jsx";
+
 import OneStar from "../assets/Done/OneStar.webp"; 
 import TwoStar from "../assets/Done/TwoStar.webp"; 
 import ThreeStar from "../assets/Done/ThreeStar.webp"; 
@@ -93,9 +96,8 @@ function ShapesEasyLevel2() {
       <img src={bg} alt="background" className="absolute w-[100vw]"/>
       <DndContext onDragEnd={handleDragEnd} collisionDetection={pointerWithin}>
 
-{!isGameFinished && (
-   <>
-    <div className="h-[110px] w-[360px] justify-center z-1 absolute bottom-40 [&>*]:ml-5  ">             
+{/*Draggables*/}
+    <div className="h-[110px] w-[360px] justify-center z-1 absolute bottom-40 [&>*]:ml-5  lg:left-10">             
  {!dropped ["star"] && (
           <Draggable
               id = "star"
@@ -121,7 +123,7 @@ function ShapesEasyLevel2() {
         
        
 {/*Droppable*/}
-<div className="absolute left-90 top-50">
+<div className="absolute left-90 top-50 lg:left-110">
     <Droppable
         id = "star"
         shape={<img src={starDroppable}/>}
@@ -155,38 +157,74 @@ function ShapesEasyLevel2() {
         </div>
 
                   <div className="absolute top-0 right-0 text-white">Your Time: {count}</div>
-      </>)}
+  
 
       
-                {isGameFinished && count < 10 && count <= 20  &&(
-                  <div className="absolute inset-0 flex items-center justify-center bg-opacity-50 z-20">
-                    <img
-                      src={ThreeStar}
-                      alt="Game Completed!"
-                      className="h-[300px] animate-bounce"
-                    />
-                  </div>
-                )}
-      
-                  {isGameFinished && count >= 20 && count <= 30 &&(
-                  <div className="absolute inset-0 flex items-center justify-center bg-opacity-50 z-20">
-                    <img
-                      src={TwoStar}
-                      alt="Game Completed!"
-                      className="h-[300px] animate-bounce"
-                    />
-                  </div>
-                )}
-      
-                {isGameFinished && count > 30 &&(
-                  <div className="absolute inset-0 flex items-center justify-center bg-opacity-50 z-20">
-                    <img
-                      src={OneStar}
-                      alt="Game Completed!"
-                      className="h-[300px] animate-bounce"
-                    />
-                  </div>
-                )}
+                  
+        
+      {/*Results*/}
+        {isGameFinished && count < 10 && count <= 20  &&(
+          <div className="absolute inset-0 flex items-center h-full w-full justify-center bg-opacity-50 z-20  ">
+            <img
+              src={ThreeStar}
+              alt="Game Completed!"
+              className="h-[300px] animate-bounce"
+            />
+
+            <div  className="absolute bottom-35 gap-20 flex h-25  w-50 ">
+               <div>
+              <Back/>
+            </div>
+
+            <div>
+               <Restart/>
+            </div>
+
+          </div>
+
+     
+          </div>
+        )}
+
+    {isGameFinished && count >= 20 && count <= 30 &&(
+        <div className="absolute inset-0 flex items-center justify-center bg-opacity-50 z-20">
+          <img
+            src={TwoStar}
+            alt="Game Completed!"
+            className="h-[300px] animate-bounce"
+          />
+         <div  className="absolute bottom-35 gap-20 flex h-25  w-50 ">
+               <div>
+              <Back/>
+            </div>
+
+            <div>
+               <Restart/>
+            </div>
+
+          </div>
+        </div>
+    )}
+
+    {isGameFinished && count > 30 &&(
+    <div className="absolute inset-0 flex items-center justify-center bg-opacity-50 z-20">
+    <img
+      src={OneStar}
+      alt="Game Completed!"
+      className="h-[300px] animate-bounce"
+    />
+      <div  className="absolute bottom-35 gap-20 flex h-25  w-50 ">
+               <div>
+              <Back/>
+            </div>
+
+            <div>
+               <Restart/>
+            </div>
+
+          </div>
+    </div>
+    )}
 
       </DndContext>
     </div>

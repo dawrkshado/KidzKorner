@@ -1,7 +1,7 @@
 import { Link } from 'react-router-dom'
 `~`
 import Menu from '../assets/Menu.png';
-import Logo from '../assets/Logo1.png';
+import Logo from '../assets/Logo1.webp';
 
 
 function TopBar(){
