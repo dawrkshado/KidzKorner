@@ -2,8 +2,6 @@
 @plugin "tailwindcss-motion";
 @theme{
     --breakpoint-xs: 29.688rem;
-    --breakpoint-md: 37.5rem;
-    --breakpoint-lg: 67.5rem;
     
 }
 

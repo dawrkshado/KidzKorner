@@ -107,9 +107,9 @@ function NumberGameMed1() {
         <DndContext onDragEnd={handleDragEnd} collisionDetection={pointerWithin}>
           {/* Draggables */}
   
-      <div className="absolute lg:bottom-0 lg:right-105  lg:h-25 lg:w-120 z-1 flex ">
+      <div className="absolute xl:h-20 xl:w-100 xl:bottom-5 xl:right-100  xl2:bg-pink-400 xl2:bottom-0 xl2:right-105  xl2:h-25 xl2:w-120 z-1 flex ">
               {!dropped["two"] && (
-            <div className="absolute lg:left-7">
+            <div className="absolute xl:left-5 xl2:left-7">
               <Draggable
                 id="two"
                 shape={<img src={draggableNumber2} alt="number 2" className="h-[80px] motion-preset-pulse-sm motion-duration-2000" />}
@@ -118,7 +118,7 @@ function NumberGameMed1() {
           )}
 
           {!dropped["four"] && (
-            <div className="absolute lg:right-7">
+            <div className="absolute xl:right-0 xl2:right-7">
               <Draggable
                 id="four"
                 shape={<img src={draggableNumber4} alt="number 4" className="h-[80px] motion-preset-pulse-sm motion-duration-2000" />}
@@ -127,7 +127,7 @@ function NumberGameMed1() {
           )}
 
           {!dropped["six"] && (
-            <div className="absolute lg:right-53">
+            <div className="absolute xl:right-40 xl2:right-53">
               <Draggable
                 id="six"
                 shape={<img src={draggableNumber6} alt="number 6" className="h-[80px] motion-preset-pulse-sm motion-duration-2000" />}
@@ -140,8 +140,8 @@ function NumberGameMed1() {
           
 
           {/* Droppables */}
-          <div className="flex h-120 w-250 gap-6 absolute top-25 right-25 z-0 lg:right-45">
-            <div className="absolute top-55 left-60 motion-preset-pulse-sm motion-duration-2000 lg:left-30 lg:top-65">
+          <div className="flex h-120 w-250 gap-6 absolute xl:top-30 xl:right-40 z-0 xl2:right-45">
+            <div className="absolute top-55 left-60 motion-preset-pulse-sm motion-duration-2000 xl2:left-30 xl2:top-65">
               <Droppable
               id="two"
               shape={<img src={droppableFish1} alt="fish image" />}

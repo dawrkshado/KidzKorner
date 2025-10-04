@@ -100,7 +100,7 @@ function ShapesEasyLevel1() {
          <DndContext onDragEnd={handleDragEnd} collisionDetection={pointerWithin}>
             <>
               {/* Draggables */}
-              <div className="absolute gap-6 w-[460px]   justify-center z-10 top-100 right-180 lg:right-130 p-4 rounded-lg">
+              <div className="absolute gap-6 w-[460px]   justify-center z-10 top-100 right-110 xl2:right-130 p-4 rounded-lg">
                 {!dropped["circle"] && (
                   <Draggable
                     id="circle"
@@ -142,7 +142,7 @@ function ShapesEasyLevel1() {
               </div>
 
               {/* Droppables */}
-              <div className="justify-center gap-6 absolute top-50 right-105 lg:right-120">
+              <div className="justify-center gap-6 absolute top-50 right-105 xl2:right-120">
                 <Droppable
                   id="circle"
                   shape={<img src={circleDroppable} alt="transparent circle" />}

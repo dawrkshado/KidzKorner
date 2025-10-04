@@ -104,9 +104,9 @@ function NumberGameMed2() {
         <DndContext onDragEnd={handleDragEnd} collisionDetection={pointerWithin}>
           {/* Draggables */}
 
-          <div className="z-1">
+          <div >
               {!dropped["one"] && (
-            <div className="absolute top-10 left-[320px] lg:left-100">
+            <div className="absolute xl:top-10 xl:left-[350px] xl2:left-100">
               <Draggable
                 id="one"
                 shape={<img src={draggableNumber1} alt="number 1" className="h-[60px] motion-preset-pulse-sm motion-duration-2000" />}
@@ -115,7 +115,7 @@ function NumberGameMed2() {
           )}
 
           {!dropped["two"] && (
-            <div className="absolute top-10 left-[480px] lg:left-150">
+            <div className="absolute xl:top-10 xl:left-[530px] xl2:left-150">
               <Draggable
                 id="two"
                 shape={<img src={draggableNumber2} alt="number 4" className="h-[60px] motion-preset-pulse-sm motion-duration-2000" />}
@@ -124,7 +124,7 @@ function NumberGameMed2() {
           )}
 
           {!dropped["five"] && (
-            <div className="absolute top-12 left-[650px] lg:left-200">
+            <div className="absolute xl:top-12 xl:left-[720px] xl2:left-200">
               <Draggable
                 id="five"
                 shape={<img src={draggableNumber5} alt="number 5" className="h-[60px] motion-preset-pulse-sm motion-duration-2000" />}
@@ -133,7 +133,7 @@ function NumberGameMed2() {
           )}
 
            {!dropped["eight"] && (
-            <div className="absolute top-10 right-[400px] lg:left-250">
+            <div className="absolute xl:top-10 xl:right-[435px] xl2:left-250">
               <Draggable
                 id="eight"
                 shape={<img src={draggableNumber8} alt="number 8" className="h-[60px] motion-preset-pulse-sm motion-duration-2000" />}
@@ -142,7 +142,7 @@ function NumberGameMed2() {
           )}
 
           {!dropped["ten"] && (
-            <div className="absolute top-10 right-[200px] lg:left-295">
+            <div className="absolute xl:top-10 xl:right-[230px] xl2:left-295">
               <Draggable
                 id="ten"
                 shape={<img src={draggableNumber10} alt="number 4" className="h-[60px] motion-preset-pulse-sm motion-duration-2000" />}
@@ -153,10 +153,10 @@ function NumberGameMed2() {
         
 
           {/* Droppables */}
-          <div className="flex h-120 w-250 gap-6 absolute top-25 right-25 z-0">
+          <div className="flex xl:h-120 xl:w-250  gap-6 absolute xl:top-33 xl:right-0 z-0">
 
 
-            <div className="absolute top-35 lg:top-45 left-100 lg:left-75 motion-preset-pulse-sm motion-duration-2000">
+            <div className="absolute xl:top-35 xl2:top-45 xl:left-65 xl2:left-75 motion-preset-pulse-sm motion-duration-2000">
               <Droppable
               id="eight"
               shape={<img src={droppableFish2} alt="fish image" />}
@@ -172,7 +172,7 @@ function NumberGameMed2() {
             />
             </div>
             
-              <div className="absolute left-220 lg:left-215 top-35 lg:top-45 motion-preset-pulse-sm motion-duration-2000">
+              <div className="absolute xl:right-15 xl2:left-215 xl:top-35 xl2:top-45 motion-preset-pulse-sm motion-duration-2000">
                 <Droppable
               id="ten"
               shape={<img src={droppableFish1} alt="fish image" />}
