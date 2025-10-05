@@ -3,6 +3,7 @@ import { Link } from "react-router-dom"
 import coloreasy from "../assets/Color/coloreasy.png";
 import colormedium from "../assets/Color/colormedium.png";
 import colorhard from "../assets/Color/colorhard.png";
+import Back from "../components/Back";
 
 
 
@@ -10,7 +11,9 @@ function ColorGame(){
   return(
     <>
     <div className="hidden w-full md:inline md:absolute h-auto">
+
         <TopBar/>
+        <Back/>
         <img
         src="/Bg/Color/colorlevelbg.webp"
         alt="background"

@@ -1,14 +1,18 @@
 import { Link } from "react-router-dom"
 import Medium1 from "../assets/Shapes/ShapesMedium/level1.webp"
 import Medium2 from "../assets/Shapes/ShapesMedium/level2.webp"
-
+import Back from "../components/Back"
+import TopBar from "../components/TopBar"
 
 
 function ShapesMedium(){
 
   return(<>
 
-  <div className="absolute overflow-y-hidden">
+
+  <div className="absolute overflow-y-hidden h-full w-full">
+    <TopBar/>
+    <Back/>
     <img src="/Bg/Shapes/shapesMediumBg.webp" alt="" className="w-[100vw]"/>
     <Link to="level1">
     <img src={Medium1} alt="Button for level1" 

@@ -8,10 +8,9 @@ import Back from "../components/Back.jsx";
 function ShapesGame() {
     return (
         <>
-         <TopBar/>
-         <Back/>
-        <div className="hidden w-full md:inline md:absolute h-auto overflow-hidden">
-       
+        <TopBar/>
+        <div className="hidden w-full h-full md:inline md:absolute h-auto overflow-hidden">
+        <div > <Back/></div>
         <img
         src="./Bg/Shapes/shapegamebg.webp"
         alt="background"

@@ -10,6 +10,8 @@ import colorbutton from "../assets/Color/colorbutton.png"
 import { Link } from "react-router-dom";
 import 'react-router-dom'
 
+import Back from "../components/Back.jsx";
+
 const speak = (text) => {
     const utterance = new SpeechSynthesisUtterance(text);
     window.speechSynthesis.cancel();
@@ -19,12 +21,13 @@ const speak = (text) => {
 
 function Color(){
     return(
-        <> <div className="hidden w-full md:inline md:absolute h-auto ">
+        <> <div className="hidden w-full md:inline md:absolute h-full ">
       <TopBar/>
+      <Back/>
       <img 
       src="./Bg/Color/colorgamebg.webp"
       alt="background"
-      className="w-full"/>
+      className="w-full h-full"/>
 
       <img
       src={apple}

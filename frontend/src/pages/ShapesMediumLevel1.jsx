@@ -11,8 +11,7 @@ import triangleDraggable from "../assets/Shapes/ShapesMedium/level1/draggableTri
 import triangleDroppable from "../assets/Shapes/ShapesMedium/level1/droppableTriangle.webp";
 
 
-import Back from "../components/Back"; 
-import Restart from "../components/Restart.jsx";
+import ReplayNBack from "../components/ReplayNBack.jsx";
 
 import OneStar from "../assets/Done/OneStar.webp"; 
 import TwoStar from "../assets/Done/TwoStar.webp"; 
@@ -201,26 +200,16 @@ function ShapesMediumLevel1() {
 
        
          {/*Results*/}
-        {isGameFinished && count < 10 && count <= 20  &&(
+        {isGameFinished && count <= 20  &&(
           <div className="absolute inset-0 flex items-center h-full w-full justify-center bg-opacity-50 z-20  ">
             <img
               src={ThreeStar}
               alt="Game Completed!"
               className="h-[300px] animate-bounce"
             />
-
-          <div  className="absolute bottom-35 gap-20 flex h-25  w-50 ">
-               <div>
-              <Back/>
+            <div className="absolute bottom-[20%] ">
+              <ReplayNBack/>
             </div>
-
-            <div>
-               <Restart/>
-            </div>
-
-          </div>
-
-     
           </div>
         )}
 
@@ -231,16 +220,9 @@ function ShapesMediumLevel1() {
             alt="Game Completed!"
             className="h-[300px] animate-bounce"
           />
-          <div  className="absolute bottom-35 gap-20 flex h-25  w-50 ">
-               <div>
-              <Back/>
+            <div className="absolute bottom-[20%] ">
+              <ReplayNBack/>
             </div>
-
-            <div>
-               <Restart/>
-            </div>
-
-          </div>
           
         </div>
     )}
@@ -252,16 +234,9 @@ function ShapesMediumLevel1() {
       alt="Game Completed!"
       className="h-[300px] animate-bounce"
     />
-    <div  className="absolute bottom-35 gap-20 flex h-25  w-50 ">
-            <div>
-              <Back/>
-            </div>
-
-            <div>
-               <Restart/>
-            </div>
-
-          </div>
+        <div className="absolute bottom-[20%] ">
+              <ReplayNBack/>
+        </div>
     </div>
     )}
 

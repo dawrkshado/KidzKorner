@@ -3,6 +3,8 @@ import { Link } from "react-router-dom"
 import numbereasy from "../assets/Number/numbereasy.png";
 import numbermedium from "../assets/Number/numbermedium.png";
 import numberhard from "../assets/Number/numberhard.png";
+import Back from "../components/Back";
+import ReplayNBack from "../components/ReplayNBack";
 
 function NumberGame(){
 
@@ -10,6 +12,7 @@ function NumberGame(){
 
   <div className="hidden w-full md:inline md:absolute overflow-x-hidden">
         <TopBar/>
+        <Back/>
         <img
         src="./Bg/Number/numbergamebg.png"
         alt="background"

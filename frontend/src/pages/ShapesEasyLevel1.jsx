@@ -11,8 +11,7 @@ import triangleDroppable from "../assets/Shapes/ShapesEasy/triangleDroppable.web
 
 import bg from "../assets/Shapes/ShapesEasy/lvl1Bg.webp";
 
-import Back from "../components/Back"; 
-import Restart from "../components/Restart.jsx";
+import ReplayNBack from "../components/ReplayNBack";
 
 import OneStar from "../assets/Done/OneStar.webp"; 
 import TwoStar from "../assets/Done/TwoStar.webp"; 
@@ -198,16 +197,9 @@ function ShapesEasyLevel1() {
               className="h-[300px] animate-bounce"
             />
 
-          <div  className="absolute bottom-35 gap-20 flex h-25  w-50 ">
-               <div>
-              <Back/>
+            <div className="absolute bottom-[20%] ">
+                <ReplayNBack/>
             </div>
-
-            <div>
-               <Restart/>
-            </div>
-
-          </div>
 
      
           </div>
@@ -220,17 +212,9 @@ function ShapesEasyLevel1() {
             alt="Game Completed!"
             className="h-[300px] animate-bounce"
           />
-          <div  className="absolute bottom-35 gap-20 flex h-25  w-50 ">
-               <div>
-              <Back/>
+             <div className="absolute bottom-[20%] ">
+                <ReplayNBack/>
             </div>
-
-            <div>
-               <Restart/>
-            </div>
-
-          </div>
-          
         </div>
     )}
 
@@ -241,16 +225,9 @@ function ShapesEasyLevel1() {
       alt="Game Completed!"
       className="h-[300px] animate-bounce"
     />
-    <div  className="absolute bottom-35 gap-20 flex h-25  w-50 ">
-            <div>
-              <Back/>
+            <div className="absolute bottom-[20%] ">
+                <ReplayNBack/>
             </div>
-
-            <div>
-               <Restart/>
-            </div>
-
-          </div>
     </div>
     )}
 

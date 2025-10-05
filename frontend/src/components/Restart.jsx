@@ -1,9 +1,11 @@
+import Replayimg from "../assets/Back n Replay/Replay.webp"
+
 function Restart (){
 const Replay = () =>{window.location.reload();}
 
 
      return(<>
-     <div><button className="bg-amber-200 hover:cursor-pointer" onClick={Replay}>Replay</button></div>
+     <div onClick={Replay}><img src={Replayimg} alt="restart button" className="h-15 w-30 hover:cursor-pointer"/></div>
      </>)
 
 }

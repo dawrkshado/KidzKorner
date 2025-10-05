@@ -13,6 +13,8 @@ import nine from "../assets/Number/nine.png"
 import ten from "../assets/Number/ten.png"
 import numberplay from "../assets/Number/numberplay.png";
 
+import Back from "../components/Back"
+
 
 const speak = (text) => {
   const utterance = new SpeechSynthesisUtterance(text);
@@ -23,12 +25,13 @@ const speak = (text) => {
 function Number(){
 
   return(
-  <><div className="hidden w-full md:inline md:absolute h-auto">
+  <><div className="hidden w-full h-full md:inline md:absolute">
     <TopBar/>
+    <Back/>
     <img
     src="./Bg/Number/numberpagebg.png"
     alt="background"
-    className="w-full"/>
+    className="w-full h-full"/>
 
     <img
     src={one}

@@ -7,6 +7,7 @@ import square from "../assets/Shapes/square.png";
 import sbuttons from "../assets/Shapes/sbuttons.png";
 import { Link } from "react-router-dom";
 
+
 import Back from "../components/Back.jsx";
 
 const speak = (text) => {
@@ -20,16 +21,15 @@ function Shapes() {
     <>
       <TopBar />
 
-      <div className=" absolute  hidden w-full md:inline md:absolute h-[100%] overflow-x-hidden">
+      <div className=" absolute  hidden w-full h-full md:inline md:absolute overflow-x-hidden">
         <div className="top-0">
              <Back/>
         </div>
-     
       
         <img
           src="./Bg/Shapes/Shapesbg.webp"
           alt="background"
-          className="w-full"
+          className="w-full h-full"
         />
 
         <img
@@ -50,7 +50,7 @@ function Shapes() {
           src={triangle}
           alt="Triangle"
           onClick={() => speak("Triangle")}
-          className="absolute left-[20%] top-[60%] w-auto cursor-pointer h-auto "
+          className="absolute left-[20%] xl:top-[57%] xl2:[60%] w-auto cursor-pointer h-auto "
         />
 
         <img
@@ -64,7 +64,7 @@ function Shapes() {
           src={star}
           alt="Star"
           onClick={() => speak("Star")}
-          className="absolute left-[45%] top-[58%] w-auto cursor-pointer h-auto "
+          className="absolute left-[45%] xl:top-[50%] xl2:top[58%] w-auto cursor-pointer h-auto "
         />
 
         <Link to="/shapesgame">

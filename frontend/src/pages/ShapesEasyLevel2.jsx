@@ -10,8 +10,7 @@ import ovalDraggable from "../assets/Shapes/ShapesEasy/ovalDraggable.webp"
 import bg from "../assets/Shapes/ShapesEasy/lvl2.webp"
 
 
-import Back from "../components/Back"; 
-import Restart from "../components/Restart.jsx";
+import ReplayNBack from "../components/ReplayNBack";
 
 import OneStar from "../assets/Done/OneStar.webp"; 
 import TwoStar from "../assets/Done/TwoStar.webp"; 
@@ -109,7 +108,7 @@ function ShapesEasyLevel2() {
          {!dropped ["oval"] && (
           <Draggable
               id = "oval"
-              shape={<img src={ovalDraggable} alt="oval shape in green" className="h-[70px]"/>}
+              shape={<img src={ovalDraggable} alt="oval shape in green" className="h-[70px] hover:cursor-grab"/>}
           />
         )}
 
@@ -156,7 +155,7 @@ function ShapesEasyLevel2() {
         /> 
         </div>
 
-                  <div className="absolute top-0 right-0 text-white">Your Time: {count}</div>
+   <div className="absolute top-0 right-0 text-white">Your Time: {count}</div>
   
 
       
@@ -171,16 +170,9 @@ function ShapesEasyLevel2() {
               className="h-[300px] animate-bounce"
             />
 
-            <div  className="absolute bottom-35 gap-20 flex h-25  w-50 ">
-               <div>
-              <Back/>
+          <div className="absolute bottom-[20%] ">
+              <ReplayNBack/>
             </div>
-
-            <div>
-               <Restart/>
-            </div>
-
-          </div>
 
      
           </div>
@@ -193,16 +185,9 @@ function ShapesEasyLevel2() {
             alt="Game Completed!"
             className="h-[300px] animate-bounce"
           />
-         <div  className="absolute bottom-35 gap-20 flex h-25  w-50 ">
-               <div>
-              <Back/>
+          <div className="absolute bottom-[20%] ">
+              <ReplayNBack/>
             </div>
-
-            <div>
-               <Restart/>
-            </div>
-
-          </div>
         </div>
     )}
 
@@ -213,16 +198,9 @@ function ShapesEasyLevel2() {
       alt="Game Completed!"
       className="h-[300px] animate-bounce"
     />
-      <div  className="absolute bottom-35 gap-20 flex h-25  w-50 ">
-               <div>
-              <Back/>
+      <div className="absolute bottom-[20%] ">
+              <ReplayNBack/>
             </div>
-
-            <div>
-               <Restart/>
-            </div>
-
-          </div>
     </div>
     )}
 
