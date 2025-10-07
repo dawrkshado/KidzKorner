@@ -200,7 +200,7 @@ function ShapesMediumLevel1() {
 
        
          {/*Results*/}
-        {isGameFinished && count <= 20 && count > 20 &&(
+        {isGameFinished && count <= 10 && count > 20 &&(
           <div className="absolute inset-0 flex items-center h-full w-full justify-center bg-opacity-50 z-20  ">
             <img
               src={ThreeStar}

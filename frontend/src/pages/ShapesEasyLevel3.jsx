@@ -155,48 +155,50 @@ function ShapesEasyLevel3() {
 
       <div className="absolute top-0 right-0 text-white">Your Time: {count}</div>
       
-      {/*Results*/}
-      {isGameFinished && count < 10 && count < 20  &&(
-      <div className="absolute inset-0 flex items-center h-full w-full justify-center bg-opacity-50 z-20  ">
-        <img
-          src={ThreeStar}
-          alt="Game Completed!"
-          className="h-[300px] animate-bounce"
-        />
+                {/*Results*/}
+        {isGameFinished && count <= 10 &&(
+          <div className="absolute inset-0 flex items-center h-full w-full justify-center bg-opacity-50 z-20  ">
+            <img
+              src={ThreeStar}
+              alt="Game Completed!"
+              className="h-[300px] animate-bounce"
+            />
 
-        <div className="absolute bottom-[20%] ">
-          <ReplayNBack/>
-        </div>
+            <div className="absolute bottom-[20%] ">
+                <ReplayNBack/>
+            </div>
 
+     
+          </div>
+        )}
 
-      </div>
-      )}
-
-      {isGameFinished && count >= 20 && count <= 30 &&(
+    {isGameFinished && count <= 15 && count > 10 &&(
         <div className="absolute inset-0 flex items-center justify-center bg-opacity-50 z-20">
           <img
             src={TwoStar}
             alt="Game Completed!"
             className="h-[300px] animate-bounce"
           />
-          <div className="absolute bottom-[20%] ">
-            <ReplayNBack/>
-          </div>
+             <div className="absolute bottom-[20%] ">
+                <ReplayNBack/>
+            </div>
         </div>
-      )}
+    )}
 
-      {isGameFinished && count > 30 &&(
-      <div className="absolute inset-0 flex items-center justify-center bg-opacity-50 z-20">
-        <img
-          src={OneStar}
-          alt="Game Completed!"
-          className="h-[300px] animate-bounce"
-        />
-        <div className="absolute bottom-[20%] ">
-          <ReplayNBack/>
-        </div>
-      </div>
-      )}
+    {isGameFinished && count > 15 &&(
+    <div className="absolute inset-0 flex items-center justify-center bg-opacity-50 z-20">
+    <img
+      src={OneStar}
+      alt="Game Completed!"
+      className="h-[300px] animate-bounce"
+    />
+            <div className="absolute bottom-[20%] ">
+                <ReplayNBack/>
+            </div>
+    </div>
+    )}
+
+
       </DndContext>
     </div>
   );

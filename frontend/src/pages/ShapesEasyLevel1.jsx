@@ -188,8 +188,8 @@ function ShapesEasyLevel1() {
             </>
 
        
-         {/*Results*/}
-        {isGameFinished && count < 10 && count < 20  &&(
+              {/*Results*/}
+        {isGameFinished && count <= 10 &&(
           <div className="absolute inset-0 flex items-center h-full w-full justify-center bg-opacity-50 z-20  ">
             <img
               src={ThreeStar}
@@ -205,7 +205,7 @@ function ShapesEasyLevel1() {
           </div>
         )}
 
-    {isGameFinished && count >= 20 && count <= 30 &&(
+    {isGameFinished && count <= 15 && count > 10 &&(
         <div className="absolute inset-0 flex items-center justify-center bg-opacity-50 z-20">
           <img
             src={TwoStar}
@@ -218,7 +218,7 @@ function ShapesEasyLevel1() {
         </div>
     )}
 
-    {isGameFinished && count > 30 &&(
+    {isGameFinished && count > 15 &&(
     <div className="absolute inset-0 flex items-center justify-center bg-opacity-50 z-20">
     <img
       src={OneStar}
@@ -230,6 +230,7 @@ function ShapesEasyLevel1() {
             </div>
     </div>
     )}
+
 
         </DndContext>
       </div>

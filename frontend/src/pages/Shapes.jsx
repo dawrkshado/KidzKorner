@@ -19,9 +19,10 @@ const speak = (text) => {
 function Shapes() {
   return (
     <>
-      <TopBar />
+
 
       <div className=" absolute  hidden w-full h-full md:inline md:absolute overflow-x-hidden">
+             <TopBar />
         <div className="top-0">
              <Back/>
         </div>
@@ -36,42 +37,42 @@ function Shapes() {
           src={circle}
           alt="Circle"
           onClick={() => speak("Circle")}
-          className="absolute left-[10%] top-[15%] w-auto cursor-pointer h-auto "
+          className="absolute left-[10%] top-[13%] w-auto cursor-pointer h-auto "
         />
 
         <img
           src={square}
           alt="Square"
           onClick={() => speak("Square")}
-          className="absolute left-[38%] top-[19%] w-auto cursor-pointer h-auto "
+          className="absolute left-[38%] top-[16%] w-auto cursor-pointer h-auto "
         />
 
         <img
           src={triangle}
           alt="Triangle"
           onClick={() => speak("Triangle")}
-          className="absolute left-[20%] xl:top-[57%] xl2:[60%] w-auto cursor-pointer h-auto "
+          className="absolute left-[20%] xl:top-[50%] xl2:[60%] w-auto cursor-pointer h-auto "
         />
 
         <img
           src={rectangle}
           alt="Rectangle"
           onClick={() => speak("Rectangle")}
-          className="absolute left-[60%] top-[18%] w-auto cursor-pointer h-auto "
+          className="absolute left-[60%] top-[15%] w-auto cursor-pointer h-auto "
         />
 
         <img
           src={star}
           alt="Star"
           onClick={() => speak("Star")}
-          className="absolute left-[45%] xl:top-[50%] xl2:top[58%] w-auto cursor-pointer h-auto "
+          className="absolute left-[45%] xl:top-[47%] xl2:top[58%] w-auto cursor-pointer h-auto "
         />
 
         <Link to="/shapesgame">
           <img
             src={sbuttons}
             alt="Play Shapes Game"
-            className="absolute left-[70%] top-[70%] cursor-pointer"
+            className="absolute left-[70%] top-[67%] cursor-pointer"
           />
         </Link>
       </div>
