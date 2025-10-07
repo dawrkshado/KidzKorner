@@ -120,7 +120,7 @@ function App() {
 <div className="hidden md:block font-[coiny]">
       <Routes>
         <Route path="/" element={<Navigate to="/home" />} />
-        <Route path="/home" element={<Home/>} />
+        <Route path="/home" element={<ProtectedRoute><Home/></ProtectedRoute>} />
         <Route path="/login" element={<Login />} />
         <Route path="/about" element={<About />} />
         <Route path="/stories" element={<Stories />} />

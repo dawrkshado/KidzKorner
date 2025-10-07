@@ -110,9 +110,7 @@ const isGameFinished =
 
   return (
     <>
-      <div className="flex h-[100vh] w-[100vw] absolute font-[coiny] text-white ">
-         
-        <img src={bg} alt="background" className="absolute w-[100vw] h-[100vh]" />
+      <div className="flex h-[100vh] w-[100vw] absolute font-[coiny] text-white bg-cover bg-no-repeat bg-left" style={{backgroundImage:`url(${bg})`}}>
         <div className="absolute top-0 right-0">Your Time: {count}</div>
         <DndContext onDragEnd={handleDragEnd} collisionDetection={pointerWithin}>
           {/* Draggables */}

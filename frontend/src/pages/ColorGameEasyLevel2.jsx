@@ -50,7 +50,7 @@ function ShapesEasyLevel2() {
   return (
     <><div className="[&>*]font-[coiny]">
     <img src={bg} alt="background" className="w-full "/>
-      {!isGameFinished && (<>
+
      <div className="absolute top-0 right-0 text-white">Your Time: {count}</div>
       <div className="flex justify-evenly justify-self-center w-150 gap-20 absolute top-55 right-35">
         
@@ -64,46 +64,51 @@ function ShapesEasyLevel2() {
           />
         ))}
       </div>
-      </>)}
 
-{isGameFinished && count < 10 && count <= 20  &&(
-          <div className="absolute inset-0 flex items-center justify-center bg-opacity-50 z-20">
-                <img
-                src={ThreeStar}
-                alt="Game Completed!"
-                className="h-[300px] animate-bounce"
-                />
-                <div className="absolute bottom-[20%] ">
-                <ReplayNBack/>
-            </div>
-          </div>
-)}
-              
-{isGameFinished && count >= 20 && count <= 30 &&(
-          <div className="absolute inset-0 flex items-center justify-center bg-opacity-50 z-20">
-                <img
-                src={TwoStar}
-                alt="Game Completed!"
-                className="h-[300px] animate-bounce"
-                />
-              <div className="absolute bottom-[20%] ">
-                    <ReplayNBack/>
-              </div>
-          </div>
-          )}
 
-{isGameFinished && count >= 30 &&  (
-          <div className="absolute inset-0 flex items-center justify-center bg-opacity-50 z-20">
-                <img
-                src={OneStar}
-                alt="Game Completed!"
-                className="h-[300px] animate-bounce"
-                />
+{/*Results*/}
+        {isGameFinished && count <= 10 &&(
+          <div className="absolute inset-0 flex items-center h-full w-full justify-center bg-opacity-50 z-20  ">
+            <img
+              src={ThreeStar}
+              alt="Game Completed!"
+              className="h-[300px] animate-bounce"
+            />
+
             <div className="absolute bottom-[20%] ">
                 <ReplayNBack/>
             </div>
+
+     
           </div>
-)}
+        )}
+
+    {isGameFinished && count <= 15 && count > 10 &&(
+        <div className="absolute inset-0 flex items-center justify-center bg-opacity-50 z-20">
+          <img
+            src={TwoStar}
+            alt="Game Completed!"
+            className="h-[300px] animate-bounce"
+          />
+             <div className="absolute bottom-[20%] ">
+                <ReplayNBack/>
+            </div>
+        </div>
+    )}
+
+    {isGameFinished && count > 15 &&(
+    <div className="absolute inset-0 flex items-center justify-center bg-opacity-50 z-20">
+    <img
+      src={OneStar}
+      alt="Game Completed!"
+      className="h-[300px] animate-bounce"
+    />
+            <div className="absolute bottom-[20%] ">
+                <ReplayNBack/>
+            </div>
+    </div>
+    )}
+
       </div>
     </>
   );

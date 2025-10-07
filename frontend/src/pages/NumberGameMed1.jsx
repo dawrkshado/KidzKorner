@@ -17,8 +17,9 @@ import OneStar from "../assets/Done/OneStar.webp";
 import TwoStar from "../assets/Done/TwoStar.webp"; 
 import ThreeStar from "../assets/Done/ThreeStar.webp"; 
 
-import Back from "../components/Back";
-import Restart from "../components/Restart";
+import ReplayNBack from "../components/ReplayNBack";
+
+import wrongImage from "../assets/Alphabets/Hard/cross.gif" 
 
 function Droppable({ id, placedShape, shape }) {
   const { isOver, setNodeRef } = useDroppable({ id });
@@ -64,11 +65,6 @@ function Draggable({ id, disabled = false, shape }) {
 function NumberGameMed1() {
   const [dropped, setDropped] = useState({});
 
-  function refreshPage (){
-
-     window.location.reload();
-  }
-
   function handleDragEnd(event) {
     if (event.over) {
       const draggedId = event.active.id;
@@ -99,9 +95,10 @@ function NumberGameMed1() {
   }, [isGameFinished]);
 
 
+
   return (
     <>
-      <div className="flex h-[100vh] w-[100vw] absolute font-[coiny] text-white">
+      <div className="flex h-[100vh] w-[100vw] absolute font-[coiny] text-white overflow-hidden">
         <img src={bg} alt="background" className="absolute w-[100vw] h-[100vh]" />
          <div className="absolute top-0 right-0">Your Time: {count}</div>
         <DndContext onDragEnd={handleDragEnd} collisionDetection={pointerWithin}>
@@ -135,8 +132,7 @@ function NumberGameMed1() {
             </div>
           )}
           </div>
-      
-
+         
           
 
           {/* Droppables */}
@@ -175,64 +171,45 @@ function NumberGameMed1() {
           </div>
         </DndContext>
 
-{/*Results*/}
-       {isGameFinished && count < 10 && count <= 20  &&(
-          <div className="absolute inset-0 flex items-center justify-center bg-opacity-50 z-20">
-                <img
-                src={ThreeStar}
-                alt="Game Completed!"
-                className="h-[300px] animate-bounce"
-                />
-                <div  className="absolute bottom-35 gap-20 flex h-25  w-50 ">
-                    <div>
-                      <Back/>
-                    </div>
+ {/*Results*/}
+{isGameFinished && count <= 15 &&(
+  <div className="absolute inset-0 flex items-center h-full w-full justify-center bg-opacity-50 z-20  ">
+      <img src={ThreeStar}
+      alt="Game Completed!"
+      className="h-[300px] animate-bounce"
+  />
 
-                    <div>
-                      <Restart/>
-                    </div>
+      <div className="absolute bottom-[20%] ">
+        <ReplayNBack/>
+      </div>
 
-                </div>
-          </div>
+
+  </div>
 )}
-              
-{isGameFinished && count >= 20 && count <= 30 &&(
-          <div className="absolute inset-0 flex items-center justify-center bg-opacity-50 z-20">
-                <img
-                src={TwoStar}
-                alt="Game Completed!"
-                className="h-[300px] animate-bounce"
-                />
-                <div  className="absolute bottom-35 gap-20 flex h-25  w-50 ">
-                    <div>
-                      <Back/>
-                    </div>
-                    <div>
-                      <Restart/>
-                    </div>
 
-                </div>
-          </div>
-          )}
+{isGameFinished && count <= 20 && count > 15 &&(
+  <div className="absolute inset-0 flex items-center justify-center bg-opacity-50 z-20">
+      <img
+      src={TwoStar}
+      alt="Game Completed!"
+      className="h-[300px] animate-bounce"/>
+      <div className="absolute bottom-[20%] ">
+        <ReplayNBack/>
+      </div>
+  </div>
+)}
 
-{isGameFinished && count > 30 &&  (
-          <div className="absolute inset-0 flex items-center justify-center bg-opacity-50 z-20">
-                <img
-                src={OneStar}
-                alt="Game Completed!"
-                className="h-[300px] animate-bounce"
-                />
-                <div  className="absolute bottom-35 gap-20 flex h-25  w-50 ">
-                    <div>
-                      <Back/>
-                    </div>
-
-                    <div>
-                      <Restart/>
-                    </div>
-
-                </div>
-          </div>
+{isGameFinished && count > 20 &&(
+  <div className="absolute inset-0 flex items-center justify-center bg-opacity-50 z-20">
+    <img
+    src={OneStar}
+    alt="Game Completed!"
+    className="h-[300px] animate-bounce"
+    />
+    <div className="absolute bottom-[20%] ">
+      <ReplayNBack/>
+    </div>
+  </div>
 )}
       </div>
     </>

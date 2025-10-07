@@ -14,8 +14,7 @@ import droppedFish1 from "../assets/Number/Medium/mediumFishDropDone2.webp"
 import droppedFish2 from "../assets/Number/Medium/mediumFishDropDone1.webp"
 
 
-import Back from "../components/Back";
-import Restart from "../components/Restart";
+import ReplayNBack from "../components/ReplayNBack";
 
 import bg from "../assets/Number/Medium/bg2.webp";
 
@@ -190,64 +189,45 @@ function NumberGameMed2() {
           </div>
 
           
-{/*Results*/}
-       {isGameFinished && count < 10 && count <= 20  &&(
-          <div className="absolute inset-0 flex items-center justify-center bg-opacity-50 z-20">
-                <img
-                src={ThreeStar}
-                alt="Game Completed!"
-                className="h-[300px] animate-bounce"
-                />
-                <div  className="absolute bottom-35 gap-20 flex h-25  w-50 ">
-                    <div>
-                      <Back/>
-                    </div>
+ {/*Results*/}
+{isGameFinished && count <= 15 &&(
+  <div className="absolute inset-0 flex items-center h-full w-full justify-center bg-opacity-50 z-20  ">
+      <img src={ThreeStar}
+      alt="Game Completed!"
+      className="h-[300px] animate-bounce"
+  />
 
-                    <div>
-                      <Restart/>
-                    </div>
+      <div className="absolute bottom-[20%] ">
+        <ReplayNBack/>
+      </div>
 
-                </div>
-          </div>
+
+  </div>
 )}
-              
-{isGameFinished && count >= 20 && count <= 30 &&(
-          <div className="absolute inset-0 flex items-center justify-center bg-opacity-50 z-20">
-                <img
-                src={TwoStar}
-                alt="Game Completed!"
-                className="h-[300px] animate-bounce"
-                />
-                <div  className="absolute bottom-35 gap-20 flex h-25  w-50 ">
-                    <div>
-                      <Back/>
-                    </div>
-                    <div>
-                      <Restart/>
-                    </div>
 
-                </div>
-          </div>
-          )}
+{isGameFinished &&  count > 15 && count <= 20 &&(
+  <div className="absolute inset-0 flex items-center justify-center bg-opacity-50 z-20">
+      <img
+      src={TwoStar}
+      alt="Game Completed!"
+      className="h-[300px] animate-bounce"/>
+      <div className="absolute bottom-[20%] ">
+        <ReplayNBack/>
+      </div>
+  </div>
+)}
 
-{isGameFinished && count > 30 &&  (
-          <div className="absolute inset-0 flex items-center justify-center bg-opacity-50 z-20">
-                <img
-                src={OneStar}
-                alt="Game Completed!"
-                className="h-[300px] animate-bounce"
-                />
-                <div  className="absolute bottom-35 gap-20 flex h-25  w-50 ">
-                    <div>
-                      <Back/>
-                    </div>
-
-                    <div>
-                      <Restart/>
-                    </div>
-
-                </div>
-          </div>
+{isGameFinished && count > 20 &&(
+  <div className="absolute inset-0 flex items-center justify-center bg-opacity-50 z-20">
+    <img
+    src={OneStar}
+    alt="Game Completed!"
+    className="h-[300px] animate-bounce"
+    />
+    <div className="absolute bottom-[20%] ">
+      <ReplayNBack/>
+    </div>
+  </div>
 )}
         </DndContext>
       </div>
