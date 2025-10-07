@@ -2,15 +2,16 @@ import Back from "../components/Back"
 import Easy1 from "../assets/Shapes/ShapesEasy/Easy1.webp"
 import Easy2 from "../assets/Shapes/ShapesEasy/Easy2.webp"
 import Easy3 from "../assets/Shapes/ShapesEasy/Easy3.webp"
-
+import TopBar from "../components/TopBar"
 import { Link } from 'react-router-dom'
 
 function ShapesEasy(){
   return(<>
- 
-  <div className="absolute flex justify-around overflow-y-hidden h-[100vh] w-[100vw]">
-    <div className="absolute left-0 z-1"><Back/></div>
 
+  <div className="absolute flex justify-around overflow-y-hidden h-[100vh] w-[100vw]">
+    <div className="absolute top-0 left-0  w-full z-10"> <TopBar/></div>
+    <div className="absolute top-12.5 left-0 h-15 w-30 z-10"><Back/></div>
+      
     <img src="/Bg/Shapes/shapesEasyBg.webp" alt="" className="h-[100vh] w-[100vw] absolute" />
 
     <Link to="level1"><img src={Easy1} alt="Button to go to Level1" className="absolute h-[40%] w-[20%] left-[15%] bottom-[6%] hover:opacity-85 motion-preset-pulse-sm motion-duration-2000"/></Link>

@@ -1,6 +1,6 @@
 import { Link } from 'react-router-dom'
 `~`
-import Menu from '../assets/Menu.png';
+
 import Logo from '../assets/Logo1.webp';
 
 
@@ -18,7 +18,7 @@ function TopBar(){
           <Link to="/parentskorner"><p>Parents</p></Link>
           
         </div>
-        <div className="mr-[1%]"><img src={Menu} alt="Menu button" /></div>
+        <div className="mr-[1%]"></div>
         </div>
      </div>
     </>

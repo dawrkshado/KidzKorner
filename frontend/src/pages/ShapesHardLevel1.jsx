@@ -1,7 +1,119 @@
+import { useState,useEffect } from "react";
+import bg from "../assets/Shapes/ShapesHard/bg.webp";
+
+import triangle from "../assets/Shapes/ShapesMedium/level1/draggableTriangle.webp";
+import circle from "../assets/Shapes/ShapesMedium/level1/circleDraggable.webp";
+import square from "../assets/Shapes/ShapesMedium/level1/draggableSquare.webp";
+import oblong from "../assets/Shapes/ShapesMedium/level2/oblongDraggable.webp";
+import star from "../assets/Shapes/ShapesMedium/level2/starDraggable.webp";
+
+import OneStar from "../assets/Done/OneStar.webp"; 
+import TwoStar from "../assets/Done/TwoStar.webp"; 
+import ThreeStar from "../assets/Done/ThreeStar.webp"; 
+
+import ReplayNBack from "../components/ReplayNBack";
+    
 function ShapesHardLevel1() {
+  const [clicked, setClicked] = useState([]);
+
+  const numbers = [
+  { value: "triangle", img: triangle, top: 575, left: 395, width: 60, height: 60 },
+  { value: "circle", img: circle, top: 450, left: 20, width: 70, height: 70 },
+  { value: "oblong", img: oblong, top: 340, left: 850, width: 73, height: 73 },
+  { value: "star", img: star, top: 500, left: 480, width: 45, height: 45 },
+  { value:"quare", img: square, top: 490, left: 1150, width: 40, height: 40},
+  ];
+
+
+
+  const handleClick = (item) => {
+    if (!clicked.includes(item)) {
+      setClicked([...clicked, item]);
+    }
+  };
+
+  const isGameFinished = clicked.length === numbers.length;
+
+   const [count, setCount] = useState(0);
+      
+        useEffect(() => {
+          if (isGameFinished) return; 
+      
+          const interval = setInterval(() => {
+            setCount((prev) => prev + 1);
+          }, 1000);
+      
+          return () => clearInterval(interval); 
+        }, [isGameFinished]);
+
+
   return (
-    <div>
-      <h1>Shapes Hard Level 1</h1>
+    <div className="absolute w-[100vw] h-[100vh] font-[coiny]">
+      <img src={bg} alt="background" className="absolute w-full h-full" />
+      
+ 
+       <div className="absolute top-0 right-0 text-white">Your Time: {count}</div>
+  {numbers.map((num, i) => (
+        <div
+          key={i}
+          className="absolute cursor-pointer"
+          style={{ top: num.top, left: num.left }}
+          onClick={() => handleClick(num.value)}
+        >
+          {!clicked.includes(num.value) && (
+            <img
+            src={num.img}
+            alt={`Number ${num.value}`}
+            style={{ width: num.width, height: num.height }}
+            className="object-contain "
+            />
+
+          )}
+        </div>
+      ))}
+
+{/*Result*/}
+
+  {isGameFinished && count < 10 && count < 20  &&(
+                    <div className="absolute inset-0 flex items-center justify-center bg-opacity-50 z-20">
+                      <img
+                        src={ThreeStar}
+                        alt="Game Completed!"
+                        className="h-[300px] animate-bounce"
+                      />
+
+                      <div className="absolute bottom-[20%] ">
+                        <ReplayNBack/>
+                      </div>
+                    </div>
+                  )}
+        
+                    {isGameFinished && count >= 20 && count <30 &&(
+                    <div className="absolute inset-0 flex items-center justify-center bg-opacity-50 z-20">
+                      <img
+                        src={TwoStar}
+                        alt="Game Completed!"
+                        className="h-[300px] animate-bounce"
+                      />
+                      <div className="absolute bottom-[20%] ">
+                          <ReplayNBack/>
+                      </div>
+                    </div>
+                  )}
+        
+                  {isGameFinished && count > 30 &&  (
+                    <div className="absolute inset-0 flex items-center justify-center bg-opacity-50 z-20">
+                      <img
+                        src={OneStar}
+                        alt="Game Completed!"
+                        className="h-[300px] animate-bounce"
+                      />
+                      <div className="absolute bottom-[20%] ">
+                        <ReplayNBack/>
+                      </div>
+                    </div>
+                  )}
+      
     </div>
   );
 }
