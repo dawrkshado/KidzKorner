@@ -233,7 +233,7 @@ function NumberGameMed2() {
                 dropped["blue"] && (
                   <Draggable
                     id="blue"
-                    shape={<div className="h-[100vw] w-20 bg-[#0000FF]"></div>}
+                    shape={<div className="h-[100vw] w-20 bg-[#7dc2f0]"></div>}
                     disabled={true}
                   />
                 )
@@ -247,7 +247,7 @@ function NumberGameMed2() {
                 dropped["indigo"] && (
                   <Draggable
                     id="indigo"
-                    shape={<div className="h-[100vw] w-20 bg-[#4b0082]"></div>}
+                    shape={<div className="h-[100vw] w-20 bg-[#3113aa]"></div>}
                     disabled={true}
                   />
                 )
@@ -261,7 +261,7 @@ function NumberGameMed2() {
                 dropped["violet"] && (
                   <Draggable
                     id="violet"
-                    shape={<div className="h-[100vw] w-20 bg-[#8F00FF]"></div>}
+                    shape={<div className="h-[100vw] w-20 bg-[#603a96]"></div>}
                     disabled={true}
                   />
                 )
