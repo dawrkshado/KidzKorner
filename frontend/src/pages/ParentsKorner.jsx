@@ -2,16 +2,15 @@
 import TopBar from '../components/TopBar'
 import parentsoverview from "../assets/Parents/parentsoverview.png"
 import { Link } from 'react-router-dom';
+import bg from "../assets/Parents/parentsbg.png"
+
 
 function ParentsKorner(){
 
   return(<>
-  <div className="hidden md:inline md:absolute h-scren w-screen overflow-hidden">
-  <TopBar/>
-            <img src="./Bg/parentsbg.png" 
-            alt="background" 
-            className="w-full"
-            />
+
+  <div className="hidden md:inline md:absolute h-screen w-screen bg-cover bg-top bg-no-repeat" style={{backgroundImage:`url(${bg})`}}>
+    <TopBar/> 
             <Link to="/parentsoverview" >
             <img 
             src={parentsoverview}

@@ -70,7 +70,7 @@ function ShapesEasyLevel2() {
       </div>
 
 
-   {/*Results*/}
+    {/*Results*/}
         {isGameFinished && count <= 10 &&(
           <div className="absolute inset-0 flex items-center h-full w-full justify-center bg-opacity-50 z-20  ">
             <img

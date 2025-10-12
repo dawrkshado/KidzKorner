@@ -1,5 +1,6 @@
-import React, { useState } from "react"
+import React, { useState,useEffect } from "react"
 import { Route, Routes, Navigate } from "react-router-dom"
+import api from "./api.js"
 
 import Home from "./pages/Home.jsx"
 import Login from "./pages/Login.jsx"
@@ -106,7 +107,52 @@ const Alphabets = React.lazy(() => import("./pages/Alphabets.jsx"))
 
 
 function App() {
-  
+
+  const [role, setRole] = useState(() => localStorage.getItem("userRole"));
+  const [loading, setLoading] = useState(true);
+
+  useEffect(() => {
+  const checkUser = async () => {
+    const token = localStorage.getItem("access");
+    if (!token) {
+      setRole(null);
+      setLoading(false);
+      return;
+    }
+
+    try {
+      const res = await api.get("/api/user-profile/");
+      const userRole = res.data.role;
+      localStorage.setItem("userRole", userRole);
+      setRole(userRole);
+    } catch (err) {
+      console.error("Not logged in:", err);
+      localStorage.clear();
+      setRole(null);
+    } finally {
+      setLoading(false);
+    }
+  };
+
+  checkUser();
+
+  const handleStorageChange = () => {
+    const updatedRole = localStorage.getItem("userRole");
+    setRole(updatedRole);
+  };
+
+  window.addEventListener("storage", handleStorageChange);
+  return () => window.removeEventListener("storage", handleStorageChange);
+}, []);
+
+  if (loading && !role) {
+    return (
+      <div className="flex items-center justify-center h-screen text-xl text-[#3DA8CC] font-[coiny]">
+        Loading...
+      </div>
+    );
+  }
+
   return(
   <>  
 
@@ -190,12 +236,15 @@ function App() {
         <Route path="/Y" element={<Y />} />
         <Route path="/Z" element={<Z />} />
 
-        <Route path="/teacher" element={<TeacherHomePage />} />
+        {role === "Teacher" && <>
+            <Route path="/teacher" element={<TeacherHomePage />} />
         <Route path="/uploadcontents" element={<UploadContents />} />
         <Route path="/dashboard" element={<DashBoard />} />
         <Route path="/studentmanagement" element={<StudentManagement />} />
         <Route path="/overview" element={<Overview />} />
         <Route path="/usercontrol" element={<UserAccControl />} />
+        </>}
+      
 
         <Route path="/color" element={<Color/>}/>
         <Route path="/colorgame" element={<ColorGame/>} />
@@ -209,8 +258,11 @@ function App() {
         <Route path="/color/hard" element={<ColorHard/>}/>
         <Route path="/color/hard/level1" element={<ColorGameHardLevel1/>}/>
 
-        <Route path="/parentskorner" element={<ParentsKorner/>}/>
-        <Route path="/parentsoverview" element={<ParentsOverview/>}/>
+          {role === "student" && <>
+              <Route path="/parentskorner" element={<ParentsKorner/>}/>
+              <Route path="/parentsoverview" element={<ParentsOverview/>}/>
+          </>}
+
 
 
         <Route path="*" element={<NotFound />} />

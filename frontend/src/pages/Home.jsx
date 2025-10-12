@@ -5,11 +5,12 @@ import bluemonster from "../assets/Home/numberMonster.webp";
 import TvMonster from "../assets/Home/TvMonster.webp";
 import redmonster from "../assets/Home/redmonster.webp"
 import { Link } from 'react-router-dom'
-import { useNavigate } from "react-router-dom";
 import { useEffect, useState } from "react";
 import api from "../api";
-import { ACCESS_TOKEN } from "../constants";
+
 function Home(){
+
+
 
 
   useEffect(() => {
@@ -24,11 +25,14 @@ function Home(){
 
     checkUser();
   }, []);
+
+
+  
   
     return(
     <>
       
-    <div className="hidden w-full md:inline md:absolute h-[100%]">
+    <div className="hidden w-[100vw] md:inline md:absolute h-[100%] overflow-hidden">
       <TopBar/>
         <img src="./Bg/kidzBackground.webp" alt="background" className="w-full"/>
         <Link to="/color"><img src={redmonster} alt="Monster Button for color page" className="absolute right-[22%] bottom-[10%] h-[35%] hover:opacity-85 motion-preset-pulse-sm motion-duration-2000 "/></Link>

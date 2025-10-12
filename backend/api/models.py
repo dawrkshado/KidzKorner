@@ -13,7 +13,7 @@ class TimeCompletion(models.Model):
 
     def __str__(self):
         return f'{self.game.game}: {self.time} seconds {self.star} star'
-    
+        
 
 class Roles(models.Model):
     role = models.CharField()
