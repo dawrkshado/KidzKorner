@@ -62,7 +62,7 @@ function TopBar() {
             <Link to="/teacher"><p>Teacher</p></Link>
           )}
 
-          {role === "student" && (
+          {role === "Parent" && (
             <Link to="/parentskorner"><p>Parents</p></Link>
           )}
         </div>

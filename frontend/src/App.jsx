@@ -153,12 +153,13 @@ function App() {
     );
   }
 
+
+
   return(
   <>  
 
     <ScrollToTop/>
-
-
+ 
       <div className="bg-[#3DA8CC] font-[coiny] justify-items-center align-middle h-screen w-screen content-center md:hidden">
         <img src="/responsive.png" alt="rotate Phone Background" />
         <h1 className="text-white">Rotate Phone to experience</h1>
@@ -238,12 +239,21 @@ function App() {
 
         {role === "Teacher" && <>
             <Route path="/teacher" element={<TeacherHomePage />} />
-        <Route path="/uploadcontents" element={<UploadContents />} />
-        <Route path="/dashboard" element={<DashBoard />} />
-        <Route path="/studentmanagement" element={<StudentManagement />} />
-        <Route path="/overview" element={<Overview />} />
-        <Route path="/usercontrol" element={<UserAccControl />} />
+            <Route path="/uploadcontents" element={<UploadContents />} />
+            <Route path="/dashboard" element={<DashBoard />} />
+            <Route path="/studentmanagement" element={<StudentManagement />} />
+            <Route path="/overview" element={<Overview />} />
+            <Route path="/usercontrol" element={<UserAccControl />} />
         </>}
+
+         {role === "Parent" && <>
+              <Route path="/parentskorner" element={<ParentsKorner/>}/>
+              <Route path="/parentsoverview" element={<ParentsOverview/>}/>
+          </>}
+
+          
+
+
       
 
         <Route path="/color" element={<Color/>}/>
@@ -258,12 +268,7 @@ function App() {
         <Route path="/color/hard" element={<ColorHard/>}/>
         <Route path="/color/hard/level1" element={<ColorGameHardLevel1/>}/>
 
-          {role === "student" && <>
-              <Route path="/parentskorner" element={<ParentsKorner/>}/>
-              <Route path="/parentsoverview" element={<ParentsOverview/>}/>
-          </>}
-
-
+         
 
         <Route path="*" element={<NotFound />} />
       </Routes>

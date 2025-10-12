@@ -1,6 +1,6 @@
 from django.db import models
 from django.contrib.auth.models import AbstractUser
-
+from django.conf import settings
 
 class Game(models.Model):
     game = models.CharField()
@@ -21,26 +21,16 @@ class Roles(models.Model):
     role = models.CharField()
     def __str__(self):
         return self.role
-    
-    
-class UserLevel(models.Model):
-    user = models.ForeignKey("auth.User", on_delete= models.CASCADE)
-    role = models.ForeignKey(Roles, related_name="userLevel", on_delete=models.CASCADE)
-
-    def __str__(self):
-        return f'User: {self.user} Role: {self.role.role}'
-    
-
 
 
 class CustomUser(AbstractUser):
-    ROLE_CHOICES = (
-        ('Teacher', 'Teacher'),
-        ('Parent', 'Parent'),
-        ('Student', 'Student'),
+    role = models.ForeignKey(
+        Roles, 
+        related_name='users', 
+        on_delete=models.SET_NULL, 
+        null=True, 
+        blank=True
     )
 
-    role = models.CharField(max_length=20, choices=ROLE_CHOICES, default='Student')
-
     def __str__(self):
-        return self.username
+        return f"{self.username} ({self.role})"

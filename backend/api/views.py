@@ -15,12 +15,16 @@ def login_view(request):
 
     if user is not None:
         refresh = RefreshToken.for_user(user)
+
+        role = user.role.role if user.role else 'Student'
+
         return Response({
             "access": str(refresh.access_token),
             "refresh": str(refresh),
             "user": {
                 "id": user.id,
                 "username": user.username,
+                "role": role,  
             }
         })
     return Response({"error": "Invalid credentials"}, status=status.HTTP_401_UNAUTHORIZED)
@@ -48,15 +52,15 @@ def logout_api(request):
 @permission_classes([IsAuthenticated])
 def user_profile(request):
     user = request.user
-    try:
-        user_level = user.userlevel_set.first()
-        role = user_level.role.role if user_level else 'student'
-    except:
-        role = 'student'
+ 
+    role = user.role.role if user.role else 'Student'
 
     return Response({
         "id": user.id,
+        "first_name": user.first_name,
+        "last_name": user.last_name,
         "username": user.username,
         "email": user.email,
-        "role": role
+        "role": role,
+      
     })
