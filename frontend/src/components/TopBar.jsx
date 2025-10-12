@@ -66,6 +66,8 @@ function TopBar() {
             <Link to="/parentskorner"><p>Parents</p></Link>
           )}
         </div>
+        <div className="ml-[1%]">
+        </div>
       </div>
     </div>
   );

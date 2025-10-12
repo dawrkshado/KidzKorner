@@ -1,4 +1,6 @@
 from django.db import models
+from django.contrib.auth.models import AbstractUser
+
 
 class Game(models.Model):
     game = models.CharField()
@@ -27,3 +29,18 @@ class UserLevel(models.Model):
 
     def __str__(self):
         return f'User: {self.user} Role: {self.role.role}'
+    
+
+
+
+class CustomUser(AbstractUser):
+    ROLE_CHOICES = (
+        ('Teacher', 'Teacher'),
+        ('Parent', 'Parent'),
+        ('Student', 'Student'),
+    )
+
+    role = models.CharField(max_length=20, choices=ROLE_CHOICES, default='Student')
+
+    def __str__(self):
+        return self.username
