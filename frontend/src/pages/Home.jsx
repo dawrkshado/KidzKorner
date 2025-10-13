@@ -7,11 +7,9 @@ import redmonster from "../assets/Home/redmonster.webp"
 import { Link } from 'react-router-dom'
 import { useEffect, useState } from "react";
 import api from "../api";
+import Back from "../components/Back.jsx";
 
 function Home(){
-
-
-
 
   useEffect(() => {
     const checkUser = async () => {
@@ -31,10 +29,12 @@ function Home(){
   
     return(
     <>
-      
+
+    
     <div className="hidden w-[100vw] md:inline md:absolute h-[100%] overflow-hidden">
-      <TopBar/>
+      <Link to="/parentskorner"><div className="bg-black flex  h-30 w-30 justify-center items-center text-white absolute">To Parent</div></Link>
         <img src="./Bg/kidzBackground.webp" alt="background" className="w-full"/>
+          
         <Link to="/color"><img src={redmonster} alt="Monster Button for color page" className="absolute right-[22%] bottom-[10%] h-[35%] hover:opacity-85 motion-preset-pulse-sm motion-duration-2000 "/></Link>
 
         <Link to="/stories"><img src={TvMonster} alt="Monster Button for stories page" className="absolute left-[15%] bottom-[42%] h-[25%] hover:opacity-85 motion-preset-pulse-sm motion-duration-2000" /></Link>

@@ -24,9 +24,8 @@ class CustomUserAdmin(UserAdmin):
     get_role.short_description = 'Role'
 
 
-
 admin.site.register(Game)
 admin.site.register(TimeCompletion)
 admin.site.register(Roles)
-
+admin.site.register(UserChild)
 admin.site.register(CustomUser, CustomUserAdmin)

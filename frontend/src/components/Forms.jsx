@@ -33,9 +33,9 @@ function Form({ route, method }) {
 
 
       if (role === "Teacher") {
-        navigate("/home");
-      } else if (role === "student") {
-        navigate("/home");
+        navigate("/teacher");
+      } else if (role === "Parent") {
+        navigate("/parentskorner");
       } else {
         navigate("/home");
       }
