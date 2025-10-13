@@ -101,6 +101,7 @@ import NumberGame from "./pages/NumberGame.jsx"
 
 import ParentsKorner from "./pages/ParentsKorner.jsx"
 import ParentsOverview from "./pages/ParentsOverview.jsx"
+import ChildRegistration from "./pages/ParentsChildRegistration.jsx"
 
 const Alphabets = React.lazy(() => import("./pages/Alphabets.jsx"))
 
@@ -242,15 +243,15 @@ function App() {
             <Route path="/uploadcontents" element={<UploadContents />} />
             <Route path="/dashboard" element={<DashBoard />} />
             <Route path="/studentmanagement" element={<StudentManagement />} />
-            <Route path="/overview" element={<Overview />} />
             <Route path="/usercontrol" element={<UserAccControl />} />
         </>}
 
          {role === "Parent" && <>
               <Route path="/parentskorner" element={<ParentsKorner/>}/>
-              <Route path="/parentsoverview" element={<ParentsOverview/>}/>
+            
+              <Route path="/childRegistration" element={<ChildRegistration/>}/>
           </>}
-
+            <Route path="/overview" element={<ParentsOverview/>}/>
           
 
 

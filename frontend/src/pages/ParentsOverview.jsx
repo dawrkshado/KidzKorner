@@ -19,7 +19,7 @@ function ParentsOverview(){
   return (
     <>
       <Back/>
-      <div className="hidden md:flex md:absolute items-center justify-center h-screen w-screen " style={{backgroundImage:`url("./Bg/parentsoverviewbg.png")`}}>
+      <div className="hidden md:flex md:absolute items-center justify-center h-screen w-screen bg-cover bg-no-repeat" style={{backgroundImage:`url("./Bg/parentsoverviewbg.png")`}}>
 
         <div className='h-[100vh] w-fit items-center justify-center'>
           <img src={alphabetButton} onClick={handleClick} alt="Alphabet Button for Parents" className=" cursor-pointer"/>
@@ -37,7 +37,7 @@ function ParentsOverview(){
             className=" w-[85%]"
           /> 
 
-          <div className='h-fit w-fit bg-amber-600 absolute  top-0 z-10 hover:cursor-pointer' onClick={handleClose}><h1 className='text-3xl'>X</h1></div>
+          <div className='h-fit w-fit bg-amber-600 absolute  top-0 z-10 ' onClick={handleClose}><h1 className='text-3xl'>X</h1></div>
           </div>
           
         
