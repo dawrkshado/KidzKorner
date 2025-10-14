@@ -1,6 +1,5 @@
-import { useState,useEffect } from "react";
+import { useState, useEffect } from "react";
 import { DndContext, useDraggable, useDroppable, pointerWithin } from "@dnd-kit/core";
-
 
 import circleDroppable from "../assets/Shapes/ShapesEasy/circleDroppable.webp";
 import circleDraggable from "../assets/Shapes/ShapesEasy/circleDraggable.webp";
@@ -13,9 +12,15 @@ import bg from "../assets/Shapes/ShapesEasy/lvl1Bg.webp";
 
 import ReplayNBack from "../components/ReplayNBack";
 
-import OneStar from "../assets/Done/OneStar.webp"; 
-import TwoStar from "../assets/Done/TwoStar.webp"; 
-import ThreeStar from "../assets/Done/ThreeStar.webp"; 
+import OneStar from "../assets/Done/OneStar.webp";
+import TwoStar from "../assets/Done/TwoStar.webp";
+import ThreeStar from "../assets/Done/ThreeStar.webp";
+
+import { motion } from "framer-motion";
+
+
+import applause from "../assets/Sounds/applause.wav"
+import { useWithSound } from "../components/useWithSound";
 
 
 function Droppable({ id, placedShape, shape }) {
@@ -29,7 +34,7 @@ function Droppable({ id, placedShape, shape }) {
     <div
       ref={setNodeRef}
       style={style}
-      className={`flex items-center justify-center h-[160px] w-[160px] gap-10`}
+      className="flex items-center justify-center h-[160px] w-[160px] gap-10"
     >
       {placedShape ? placedShape : shape}
     </div>
@@ -38,7 +43,7 @@ function Droppable({ id, placedShape, shape }) {
 
 function Draggable({ id, disabled = false, shape }) {
   const { attributes, listeners, setNodeRef, transform } = useDraggable({
-    id,
+    id,   
     disabled,
   });
 
@@ -59,180 +64,190 @@ function Draggable({ id, disabled = false, shape }) {
 }
 
 function ShapesEasyLevel1() {
+
   const [dropped, setDropped] = useState({});
+  const [count, setCount] = useState(0);
+  
+
+  const isGameFinished =
+    dropped["circle"] && dropped["square"] && dropped["triangle"];
 
   function handleDragEnd(event) {
     if (event.over) {
       const draggedId = event.active.id;
       const droppedId = event.over.id;
 
-      if (draggedId === droppedId) {
-        setDropped((prev) => ({
-          ...prev,
-          [draggedId]: droppedId,
-        }));
-      }
+      setDropped((prev) => ({
+        ...prev,
+        [draggedId]: droppedId,
+      }));
     }
   }
-
-
-  const isGameFinished =
-    dropped["circle"] && dropped["square"] && dropped["triangle"];
-
-   const [count, setCount] = useState(0);
+{/*Sound Effect*/}
+ const { playSound } = useWithSound(applause);
 
   useEffect(() => {
-    if (isGameFinished) return; 
+    if (isGameFinished) {
+      playSound();
+    }
+  }, [isGameFinished]);
+  {/*Sound Effect*/}
+
+  useEffect(() => {
+    if (isGameFinished) return;
 
     const interval = setInterval(() => {
       setCount((prev) => prev + 1);
     }, 1000);
 
-    return () => clearInterval(interval); 
+    return () => clearInterval(interval);
   }, [isGameFinished]);
 
 
   return (
     <>
-      <div className="flex h-[100vh] w-[100vw] [&>*]:flex absolute [&>*]:font-[coiny] overflow-hidden ">
+      <div className="flex h-[100vh] w-[100vw] [&>*]:flex absolute [&>*]:font-[coiny] overflow-hidden">
         <img src={bg} alt="background" className="absolute w-[100vw]" />
-         <DndContext onDragEnd={handleDragEnd} collisionDetection={pointerWithin}>
-            <>
-              {/* Draggables */}
-              <div className="absolute gap-6 w-[460px]   justify-center z-10 top-100 right-110 xl2:right-130 p-4 rounded-lg">
-                {!dropped["circle"] && (
-                  <Draggable
-                    id="circle"
-                    shape={
-                      <img
-                        src={circleDraggable}
-                        alt="circle shape"
-                        className="h-[80px]"
-                      />
-                    }
-                  />
-                )}
 
-                {!dropped["square"] && (
-                  <Draggable
-                    id="square"
-                    shape={
-                      <img
-                        src={squareDraggable}
-                        alt="square shape"
-                        className="h-[80px]"
-                      />
-                    }
-                  />
-                )}
+        
 
-                {!dropped["triangle"] && (
-                  <Draggable
-                    id="triangle"
-                    shape={
-                      <img
-                        src={triangleDraggable}
-                        alt="triangle shape"
-                        className="h-[80px]"
-                      />
-                    }
-                  />
-                )}
-              </div>
-
-              {/* Droppables */}
-              <div className="justify-center gap-6 absolute top-50 right-105 xl2:right-120">
-                <Droppable
+        <DndContext onDragEnd={handleDragEnd} collisionDetection={pointerWithin}>
+          <>
+            {/* Draggables */}
+            <div className="absolute gap-6 w-[460px] justify-center z-10 top-100 right-110 xl2:right-130 p-4 rounded-lg">
+              {!dropped["circle"] && (
+                <Draggable
                   id="circle"
-                  shape={<img src={circleDroppable} alt="transparent circle" />}
-                  placedShape={
-                    dropped["circle"] && (
-                      <Draggable
-                        id="circle"
-                        shape={<img src={circleDraggable} alt="circle shape" />}
-                        disabled={true}
-                      />
-                    )
+                  shape={
+                    <img
+                      src={circleDraggable}
+                      alt="circle shape"
+                      className="h-[80px]"
+                    />
                   }
                 />
+              )}
 
-                <Droppable
+              {!dropped["square"] && (
+                <Draggable
                   id="square"
-                  shape={<img src={squareDroppable} alt="transparent square" />}
-                  placedShape={
-                    dropped["square"] && (
-                      <Draggable
-                        id="square"
-                        shape={<img src={squareDraggable} alt="square shape" />}
-                        disabled={true}
-                      />
-                    )
+                  shape={
+                    <img
+                      src={squareDraggable}
+                      alt="square shape"
+                      className="h-[80px]"
+                    />
                   }
                 />
-                <Droppable
+              )}
+
+              {!dropped["triangle"] && (
+                <Draggable
                   id="triangle"
-                  shape={<img src={triangleDroppable} alt="transparent triangle" />}
-                  placedShape={
-                    dropped["triangle"] && (
-                      <Draggable
-                        id="triangle"
-                        shape={<img src={triangleDraggable} alt="triangle shape" />}
-                        disabled={true}
-                      />
-                    )
+                  shape={
+                    <img
+                      src={triangleDraggable}
+                      alt="triangle shape"
+                      className="h-[80px]"
+                    />
                   }
                 />
-              </div>
-                <div className="absolute top-0 right-0 text-white">Your Time: {count}</div>
-                
-            </>
-
-       
-              {/*Results*/}
-        {isGameFinished && count <= 10 &&(
-          <div className="absolute inset-0 flex items-center h-full w-full justify-center bg-opacity-50 z-20  ">
-            <img
-              src={ThreeStar}
-              alt="Game Completed!"
-              className="h-[300px] animate-bounce"
-            />
-
-            <div className="absolute bottom-[20%] ">
-                <ReplayNBack/>
+              )}
             </div>
 
-     
+            {/* Droppables */}
+            <div className="justify-center gap-6 absolute top-50 right-105 xl2:right-120">
+              <Droppable
+                id="circle"
+                shape={<img src={circleDroppable} alt="transparent circle" />}
+                placedShape={
+                  dropped["circle"] && (
+                    <Draggable
+                      id="circle"
+                      shape={<img src={circleDraggable} alt="circle shape" />}
+                      disabled={true}
+                    />
+                  )
+                }
+              />
+
+              <Droppable
+                id="square"
+                shape={<img src={squareDroppable} alt="transparent square" />}
+                placedShape={
+                  dropped["square"] && (
+                    <Draggable
+                      id="square"
+                      shape={<img src={squareDraggable} alt="square shape" />}
+                      disabled={true}
+                    />
+                  )
+                }
+              />
+
+              <Droppable
+                id="triangle"
+                shape={<img src={triangleDroppable} alt="transparent triangle" />}
+                placedShape={
+                  dropped["triangle"] && (
+                    <Draggable
+                      id="triangle"
+                      shape={<img src={triangleDraggable} alt="triangle shape" />}
+                      disabled={true}
+                    />
+                  )
+                }
+              />
+            </div>
+
+            <div className="absolute top-0 right-0 text-white">
+              Your Time: {count}
+            </div>
+          </>
+        </DndContext>
+
+        {/* Results */}
+        {isGameFinished && count <= 10 && (
+          <div className="absolute inset-0 flex items-center h-full w-full justify-center bg-opacity-50 z-20">
+            
+            <motion.img
+              src={ThreeStar}
+              alt="Game Completed!"
+              className="h-[300px]"
+              initial={{ scale: 0, opacity: 0 }}
+              animate={{ scale: 1, opacity: 1 }}
+              transition={{ duration: 0.8, ease: "easeOut" }}
+            />
+             <div className="absolute bottom-[20%]">
+              <ReplayNBack /></div>
           </div>
         )}
 
-    {isGameFinished && count <= 15 && count > 10 &&(
-        <div className="absolute inset-0 flex items-center justify-center bg-opacity-50 z-20">
-          <img
-            src={TwoStar}
-            alt="Game Completed!"
-            className="h-[300px] animate-bounce"
-          />
-             <div className="absolute bottom-[20%] ">
-                <ReplayNBack/>
+        {isGameFinished && count <= 15 && count > 10 && (
+          <div className="absolute inset-0 flex items-center justify-center bg-opacity-50 z-20">
+            <img
+              src={TwoStar}
+              alt="Game Completed!"
+              className="h-[300px] animate-bounce"
+            />
+            <div className="absolute bottom-[20%]">
+              <ReplayNBack />
             </div>
-        </div>
-    )}
+          </div>
+        )}
 
-    {isGameFinished && count > 15 &&(
-    <div className="absolute inset-0 flex items-center justify-center bg-opacity-50 z-20">
-    <img
-      src={OneStar}
-      alt="Game Completed!"
-      className="h-[300px] animate-bounce"
-    />
-            <div className="absolute bottom-[20%] ">
-                <ReplayNBack/>
+        {isGameFinished && count > 15 && (
+          <div className="absolute inset-0 flex items-center justify-center bg-opacity-50 z-20">
+            <img
+              src={OneStar}
+              alt="Game Completed!"
+              className="h-[300px] animate-bounce"
+            />
+            <div className="absolute bottom-[20%]">
+              <ReplayNBack />
             </div>
-    </div>
-    )}
-
-
-        </DndContext>
+          </div>
+        )}
       </div>
     </>
   );
