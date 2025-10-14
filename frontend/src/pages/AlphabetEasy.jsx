@@ -2,7 +2,7 @@ import Back from "../components/Back"
 import easyalphabutton1 from "../assets/Alphabets/easyalphabutton1.png";
 import easyalphabutton2 from "../assets/Alphabets/easyalphabutton2.png";
 import easyalphabutton3 from "../assets/Alphabets/easyalphabutton3.png";
-import TopBar from "../components/TopBar";
+
 import 'react-router-dom'
 
 import { Link } from 'react-router-dom'
@@ -12,7 +12,6 @@ import { Link } from 'react-router-dom'
 function AlphabetEasy(){
   return(<>
    <div className="hidden w-full md:inline md:absolute h-auto">
-  <TopBar/>
   <Back/>
   <img src="./Bg/Alphabets/alphabeteasybg.webp" 
   alt="Easy game background" 
