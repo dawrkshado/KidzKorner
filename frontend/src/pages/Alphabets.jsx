@@ -26,6 +26,8 @@ import X from "../assets/Alphabets/X.webp";
 import Y from "../assets/Alphabets/Y.webp";
 import Z from "../assets/Alphabets/Z.webp";
 import Back from "../components/Back";
+import colorbutton from "../assets/Color/colorbutton.png"
+
 import { Link } from 'react-router-dom'
 
 
@@ -115,7 +117,13 @@ function Alphabets(){
        <img src={Z} alt="Button Z" className="absolute top-[82%] left-[55%] bottom-[43%] h-[21%] hover:opacity-85 motion-preset-pulse-sm motion-duration-2000" />
    </Link>
 
-   <Link to={"/alphabets/play"}><div className="h-[20%] w-[20%] bg-fuchsia-600 absolute bottom-0 right-25"><h1 className="text-9xl">PLAY</h1></div></Link>
+     <Link to={"/alphabets/play"}>
+   
+         <img
+         src={colorbutton}
+         alt="Buttons for Alpha Game"
+         className="absolute left-[70%] top-[82%] w-auto cursor pointer h-auto"/>
+         </Link>
 </div>
 </>
     );

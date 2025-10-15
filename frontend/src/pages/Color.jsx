@@ -21,7 +21,7 @@ const speak = (text) => {
 
 function Color(){
     return(
-        <> <div className="hidden w-full md:inline md:absolute h-full ">
+        <> <div className="hidden w-full md:inline md:absolute h-[100%]">
       <TopBar/>
       <Back/>
       <img 

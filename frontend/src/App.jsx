@@ -149,7 +149,6 @@ function App() {
         <Route path="/number/medium/level2" element={<NumberGameMed2 />} />
         <Route path="/numberhard" element={<NumbersHard />} />
         <Route path="/number/hard/level1" element={<NumberHard1 />} />
-
         <Route path="/numbergame" element={<NumberGame />} />
 
         <Route path="/alphabets" element={<Alphabets />} />
@@ -211,6 +210,7 @@ function App() {
 
         <Route path="/parentskorner" element={<ParentsKorner/>}/>
         <Route path="/parentsoverview" element={<ParentsOverview/>}/>
+  
 
 
         <Route path="*" element={<NotFound />} />

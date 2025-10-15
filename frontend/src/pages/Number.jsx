@@ -25,7 +25,7 @@ const speak = (text) => {
 function Number(){
 
   return(
-  <><div className="hidden w-full h-full md:inline md:absolute">
+  <><div className="hidden w-full md:inline md:absolute h-[100%]">
     <TopBar/>
     <Back/>
     <img

@@ -1,5 +1,5 @@
 import 'react-router-dom'
-import TopBar from '../components/TopBar'
+
 function UploadContents(){
     return(
         <div className="hidden md:inline md:absolute h-scren w-screen overflow-hidden">

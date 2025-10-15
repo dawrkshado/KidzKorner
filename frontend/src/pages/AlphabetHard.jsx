@@ -9,7 +9,7 @@ import { Link } from 'react-router-dom'
 function AlphabetHard(){
   return(<>
    <div className="hidden w-full md:inline md:absolute h-auto">
-  <TopBar/>
+
   <Back/>
   <img src="./Bg/Alphabets/alphabethardbg.webp" 
   alt="Easy game background" 
