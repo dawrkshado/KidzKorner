@@ -6,12 +6,14 @@ import overview from "../assets/Teacherhomepage/panglima.png";
 import usercontrol from "../assets/Teacherhomepage/pangapat.png";
 import UploadContents from "../assets/Teacherhomepage/pangatlo.png";
 import { Link } from 'react-router-dom'
+import Logout from "../components/Logout";
 
 function TeacherHomePage() {
   return (
        
-    <div className="hidden md:inline md:absolute h-screen w-screen overflow-hidden ">
-      <TopBar/>
+    <div className="hidden md:inline md:absolute h-screen w-screen overflow-x-hidden ">
+      <div className="md:absolute"><Logout/></div>
+      
         <img src="./Bg/bground.png" alt="background" className="w-full"/>
 
         <Link to="/dashboard">
@@ -40,6 +42,7 @@ function TeacherHomePage() {
         className="absolute left-[40%] top-[70%]"/></Link>
         
     </div>
+    
   );
 }
 

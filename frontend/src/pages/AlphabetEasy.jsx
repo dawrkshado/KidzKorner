@@ -11,7 +11,8 @@ import { Link } from 'react-router-dom'
 
 function AlphabetEasy(){
   return(<>
-   <div className="hidden w-full md:inline md:absolute h-[100%]">
+
+   <div className="hidden w-full md:inline md:absolute h-auto">
 
   <Back/>
   <img src="./Bg/Alphabets/alphabeteasybg.webp" 

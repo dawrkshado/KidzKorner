@@ -156,8 +156,6 @@ function ShapesEasyLevel2() {
         </div>
 
    <div className="absolute top-0 right-0 text-white">Your Time: {count}</div>
-  
-
       
                   
         

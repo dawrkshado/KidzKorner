@@ -1,5 +1,7 @@
 import { useState,useEffect } from "react";
 import bg from "../assets/Number/Easy/bglvl2.webp";
+import wrongImage from "../assets/Alphabets/Hard/cross.gif" 
+
 import one from "../assets/Number/Easy/One.webp";
 import two from "../assets/Number/Easy/two.webp";
 import three from "../assets/Number/Easy/three.webp";
@@ -20,6 +22,7 @@ import ReplayNBack from "../components/ReplayNBack";
 
 function NumberGameEasy3() {
   const [clicked, setClicked] = useState([]);
+  const [showWrong, setShowWrong] = useState(false);
 
   const numbers = [
   { value: 1, img: one, top: 550, left: 700, width: 40, height: 40 },
@@ -35,7 +38,15 @@ function NumberGameEasy3() {
 
   ];
 
-  const handleClick = (item) => {
+   const handleBackgroundClick = () => {
+    if (!isGameFinished) {
+      setShowWrong(true);
+      setTimeout(() => setShowWrong(false), 2500);
+    }
+  };
+
+ const handleClick = (item, e) => {
+    e.stopPropagation();
     if (!clicked.includes(item)) {
       setClicked([...clicked, item]);
     }
@@ -56,7 +67,7 @@ function NumberGameEasy3() {
           }, [isGameFinished]);
 
   return (
-    <div className="absolute w-[100vw] h-[100vh] font-[coiny]">
+    <div className="absolute w-[100vw] h-[100vh] font-[coiny]" onClick={handleBackgroundClick}>
       <img src={bg} alt="background" className="absolute w-full h-full" />
             <div className="absolute top-0 right-0 text-white">Your Time: {count}</div>
       {numbers.map((num, i) => (
@@ -64,7 +75,7 @@ function NumberGameEasy3() {
           key={i}
           className="absolute cursor-pointer"
           style={{ top: num.top, left: num.left }}
-          onClick={() => handleClick(num.value)}
+          onClick={(e) => handleClick(num.value, e)}
         >
           {!clicked.includes(num.value) && (
             <img
@@ -77,53 +88,64 @@ function NumberGameEasy3() {
         </div>
       ))}
 
+      {/* Wrong Image*/}
+                          {showWrong && (
+                            <div className="absolute inset-0 flex items-center justify-center  z-30 pointer-events-none h-[100vh] w-[100vw]">
+                              <img
+                                src={wrongImage}
+                                alt="Wrong"
+                                className="h-[300px]"
+                              />
+                            </div>
+                          )}
+            
 
 
 
-{/*Result*/}
 
-  {isGameFinished && count <= 20  && count <= 30 &&(
-                    <div className="absolute inset-0 flex items-center justify-center bg-opacity-50 z-20">
-                      <img
-                        src={ThreeStar}
-                        alt="Game Completed!"
-                        className="h-[300px] animate-bounce"
-                      />
+{/*Results*/}
+        {isGameFinished && count <= 10 &&(
+          <div className="absolute inset-0 flex items-center h-full w-full justify-center bg-opacity-50 z-20  ">
+            <img
+              src={ThreeStar}
+              alt="Game Completed!"
+              className="h-[300px] animate-bounce"
+            />
 
-                         <div className="absolute bottom-[20%] ">
-                           <ReplayNBack/>
-                          </div>
+            <div className="absolute bottom-[20%] ">
+                <ReplayNBack/>
+            </div>
+
      
+          </div>
+        )}
 
-                    </div>
-                  )}
-        
-                    {isGameFinished && count >= 20 &&(
-                    <div className="absolute inset-0 flex items-center justify-center bg-opacity-50 z-20">
-                      <img
-                        src={TwoStar}
-                        alt="Game Completed!"
-                        className="h-[300px] animate-bounce"
-                      />
+    {isGameFinished && count <= 15 && count > 10 &&(
+        <div className="absolute inset-0 flex items-center justify-center bg-opacity-50 z-20">
+          <img
+            src={TwoStar}
+            alt="Game Completed!"
+            className="h-[300px] animate-bounce"
+          />
+             <div className="absolute bottom-[20%] ">
+                <ReplayNBack/>
+            </div>
+        </div>
+    )}
 
-                      <div className="absolute bottom-[20%] ">
-                           <ReplayNBack/>
-                      </div>
-                </div>
-                  )}
-        
-                  {isGameFinished && count > 30 &&  (
-                    <div className="absolute inset-0 flex items-center justify-center bg-opacity-50 z-20">
-                      <img
-                        src={OneStar}
-                        alt="Game Completed!"
-                        className="h-[300px] animate-bounce"
-                      />
-                    <div className="absolute bottom-[20%] ">
-                           <ReplayNBack/>
-                          </div>
-                    </div>
-                  )}
+    {isGameFinished && count > 15 &&(
+    <div className="absolute inset-0 flex items-center justify-center bg-opacity-50 z-20">
+    <img
+      src={OneStar}
+      alt="Game Completed!"
+      className="h-[300px] animate-bounce"
+    />
+            <div className="absolute bottom-[20%] ">
+                <ReplayNBack/>
+            </div>
+    </div>
+    )}
+
     </div>
 
 

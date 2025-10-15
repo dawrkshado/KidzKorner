@@ -31,7 +31,7 @@ function Droppable({ id, placedShape, shape }) {
     <div
       ref={setNodeRef}
       style={style}
-      className={`flex items-center justify-center h-[300px] w-[300px] gap-10 `}
+      className={`flex items-center justify-center h-[200px] w-[300px] gap-10 `}
     >
       {placedShape ? placedShape : shape}
     </div>
@@ -97,8 +97,8 @@ function ShapesMediumLevel1() {
   return (
     <>
      
-      <div className="flex h-[100vh] w-[100vw] [&>*]:flex absolute [&>*]:font-[coiny] overflow-hidden ">
-       <img src={bg} alt="background" className="absolute w-[100vw] h-[100vh] z-0" />
+      <div className="flex h-[100vh] w-[100vw] [&>*]:flex absolute [&>*]:font-[coiny] overflow-hidden bg-no-repeat bg-cover bg-bottom" style={{backgroundImage:`url(${bg})`}}>
+     
          <DndContext onDragEnd={handleDragEnd} collisionDetection={pointerWithin}>
             <>
           <img src={Bone} alt="image of a bone for design" className="absolute h-15 bottom-50 z-10 left-20" />
@@ -145,7 +145,7 @@ function ShapesMediumLevel1() {
               </div>
 
               {/* Droppables */}
-                <div className="absolute xl:top-0 xl:h-fit xl:right-28 ">
+                <div className="absolute xl:bottom-125  xl:right-28 ">
                   <Droppable
                   id="circle"
                   shape={<img src={circleDroppable} alt="transparent circle" className="xl:h-33"/>}
@@ -161,7 +161,7 @@ function ShapesMediumLevel1() {
                 />
                 </div>
 
-                <div className="absolute xl:bottom-8 xl:left-7  h-60 w-60 ">
+                <div className="absolute xl:bottom-0 xl:left-7  h-60 w-60 ">
                   <Droppable
                   id="square"
                   shape={<img src={squareDroppable} alt="transparent square" className="h-60 w-200" />}
@@ -177,7 +177,7 @@ function ShapesMediumLevel1() {
                 />
                 </div>
 
-                <div className="absolute xl:bottom-50 bg">
+                <div className="absolute xl:bottom-72 ">
                    <Droppable
                   id="triangle"
                   shape={<img src={triangleDroppable} alt="transparent triangle" />}
@@ -199,46 +199,47 @@ function ShapesMediumLevel1() {
             </>
 
        
-         {/*Results*/}
-        {isGameFinished && count <= 10 && count > 20 &&(
-          <div className="absolute inset-0 flex items-center h-full w-full justify-center bg-opacity-50 z-20  ">
-            <img
-              src={ThreeStar}
-              alt="Game Completed!"
-              className="h-[300px] animate-bounce"
-            />
-            <div className="absolute bottom-[20%] ">
-              <ReplayNBack/>
-            </div>
-          </div>
-        )}
-
-    {isGameFinished && count >= 20 && count <= 30 &&(
-        <div className="absolute inset-0 flex items-center justify-center bg-opacity-50 z-20">
-          <img
-            src={TwoStar}
-            alt="Game Completed!"
-            className="h-[300px] animate-bounce"
-          />
-            <div className="absolute bottom-[20%] ">
-              <ReplayNBack/>
-            </div>
-          
-        </div>
-    )}
-
-    {isGameFinished && count > 30 &&(
-    <div className="absolute inset-0 flex items-center justify-center bg-opacity-50 z-20">
-    <img
-      src={OneStar}
+                 
+     {/*Results*/}
+{isGameFinished && count <= 15 &&(
+  <div className="absolute inset-0 flex items-center h-full w-full justify-center bg-opacity-50 z-20  ">
+      <img src={ThreeStar}
       alt="Game Completed!"
       className="h-[300px] animate-bounce"
+  />
+
+      <div className="absolute bottom-[20%] ">
+        <ReplayNBack/>
+      </div>
+
+
+  </div>
+)}
+
+{isGameFinished && count <= 20 && count > 15 &&(
+  <div className="absolute inset-0 flex items-center justify-center bg-opacity-50 z-20">
+      <img
+      src={TwoStar}
+      alt="Game Completed!"
+      className="h-[300px] animate-bounce"/>
+      <div className="absolute bottom-[20%] ">
+        <ReplayNBack/>
+      </div>
+  </div>
+)}
+
+{isGameFinished && count > 25 &&(
+  <div className="absolute inset-0 flex items-center justify-center bg-opacity-50 z-20">
+    <img
+    src={OneStar}
+    alt="Game Completed!"
+    className="h-[300px] animate-bounce"
     />
-        <div className="absolute bottom-[20%] ">
-              <ReplayNBack/>
-        </div>
+    <div className="absolute bottom-[20%] ">
+      <ReplayNBack/>
     </div>
-    )}
+  </div>
+)}
 
         </DndContext>
       </div>

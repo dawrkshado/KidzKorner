@@ -1,6 +1,7 @@
 import { useState, useEffect } from "react";
 import { DndContext, useDraggable, useDroppable, pointerWithin } from "@dnd-kit/core";
 import bg from "../assets/Color/Medium/bg.webp"
+import ReplayNBack from "./ReplayNBack";
 
 function Draggable({ id, img, x, y }) {
   const { attributes, listeners, setNodeRef, transform } = useDraggable({ id });
@@ -98,22 +99,47 @@ function SortingGame({ itemsData, jars, starImages }) {
         </div>
       </DndContext>
 
-      {/* rating */}
-      {isGameFinished && count < 20 && (
-        <div className="absolute inset-0 flex items-center justify-center bg-opacity-50 z-20">
-          <img src={starImages.three} alt="3 Stars" className="h-[300px] animate-bounce" />
-        </div>
-      )}
-      {isGameFinished && count >= 20 && count <= 30 && (
-        <div className="absolute inset-0 flex items-center justify-center bg-opacity-50 z-20">
-          <img src={starImages.two} alt="2 Stars" className="h-[300px] animate-bounce" />
-        </div>
-      )}
-      {isGameFinished && count > 30 && (
-        <div className="absolute inset-0 flex items-center justify-center bg-opacity-50 z-20">
-          <img src={starImages.one} alt="1 Star" className="h-[300px] animate-bounce" />
-        </div>
-      )}
+            
+     {/*Results*/}
+{isGameFinished && count <= 15 &&(
+  <div className="absolute inset-0 flex items-center h-full w-full justify-center bg-opacity-50 z-20  ">
+      <img src={starImages.three}
+      alt="Game Completed!"
+      className="h-[300px] animate-bounce"
+  />
+
+      <div className="absolute bottom-[20%] ">
+        <ReplayNBack/>
+      </div>
+
+
+  </div>
+)}
+
+{isGameFinished && count <= 20 && count > 15 &&(
+  <div className="absolute inset-0 flex items-center justify-center bg-opacity-50 z-20">
+      <img
+      src={starImages.two}
+      alt="Game Completed!"
+      className="h-[300px] animate-bounce"/>
+      <div className="absolute bottom-[20%] ">
+        <ReplayNBack/>
+      </div>
+  </div>
+)}
+
+{isGameFinished && count > 25 &&(
+  <div className="absolute inset-0 flex items-center justify-center bg-opacity-50 z-20">
+    <img
+    src={starImages.one}
+    alt="Game Completed!"
+    className="h-[300px] animate-bounce"
+    />
+    <div className="absolute bottom-[20%] ">
+      <ReplayNBack/>
+    </div>
+  </div>
+)}
     </div>
   );
 }
