@@ -168,6 +168,7 @@ function App() {
 <div className="hidden md:block font-[coiny]">
   
       <Routes>
+
          {role === "Teacher" && <>
             <Route path="/teacher" element={<TeacherHomePage />} />
             <Route path="/uploadcontents" element={<UploadContents />} />
@@ -187,6 +188,7 @@ function App() {
         {!role && <Route path="/" element={<Navigate to="/login"/>} />}
        
         <Route path="/home" element={<ProtectedRoute><Home/></ProtectedRoute>} />
+
         <Route path="/login" element={<Login />} />
         <Route path="/about" element={<About />} />
         <Route path="/stories" element={<Stories />} />
@@ -215,7 +217,6 @@ function App() {
         <Route path="/number/medium/level2" element={<NumberGameMed2 />} />
         <Route path="/numberhard" element={<NumbersHard />} />
         <Route path="/number/hard/level1" element={<NumberHard1 />} />
-
         <Route path="/numbergame" element={<NumberGame />} />
 
         <Route path="/alphabets" element={<Alphabets />} />
@@ -268,6 +269,12 @@ function App() {
         <Route path="/color/medium/level2" element={<ColorGameMedLevel2/>}/>
         <Route path="/color/hard" element={<ColorHard/>}/>
         <Route path="/color/hard/level1" element={<ColorGameHardLevel1/>}/>
+<<<<<<< HEAD
+=======
+
+
+
+>>>>>>> cc5bc93387157521e2183be6519807f53d3eebda
         <Route path="*" element={<NotFound />} />
 
       </Routes>

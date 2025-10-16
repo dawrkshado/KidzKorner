@@ -10,7 +10,7 @@ import Back from "../components/Back";
 function ColorGame(){
   return(
     <>
-    <div className="hidden w-full md:inline md:absolute h-auto">
+    <div className="hidden w-full md:inline md:absolute h-[100%]">
 
         <TopBar/>
         <Back/>

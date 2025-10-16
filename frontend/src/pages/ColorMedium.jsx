@@ -7,7 +7,7 @@ import { Link } from 'react-router-dom'
 function ColorMedium(){
 
   return(<>
-   <div className="hidden w-full md:inline md:absolute h-auto">
+   <div className="hidden w-full md:inline md:absolute h-[100%]">
   <TopBar/>
   <Back/>
   <img src="/Bg/Color/averagecolorbg.webp" 
