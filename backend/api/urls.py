@@ -10,5 +10,5 @@ urlpatterns = [
     path("user-profile/", user_profile, name="user-profile"),
     path("roles", user_profile, name="roles"),
     path("logout", logout_api, name="logout"),
-    path("parent", parent_profile, name="parent-profile"),
+    path("parent/", parent_profile, name="parent-profile"),
 ]

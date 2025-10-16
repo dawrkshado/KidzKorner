@@ -166,8 +166,26 @@ function App() {
         <h1 className="text-white">Rotate Phone to experience</h1>
       </div>
 <div className="hidden md:block font-[coiny]">
+  
       <Routes>
-        <Route path="/" element={<Navigate to="/home" />} />
+         {role === "Teacher" && <>
+            <Route path="/teacher" element={<TeacherHomePage />} />
+            <Route path="/uploadcontents" element={<UploadContents />} />
+            <Route path="/dashboard" element={<DashBoard />} />
+            <Route path="/studentmanagement" element={<StudentManagement />} />
+            <Route path="/usercontrol" element={<UserAccControl />} />
+            <Route path="/" element={<Navigate to="/teacher"/>} />
+        </>}
+
+         {role === "Parent" && <>
+              <Route path="/parentskorner" element={<ParentsKorner/>}/>
+              <Route path="/overview" element={<ParentsOverview/>}/>
+              <Route path="/childRegistration" element={<ChildRegistration/>}/>
+              <Route path="/" element={<Navigate to="/parentsKorner"/>} />
+          </>}
+          
+        {!role && <Route path="/" element={<Navigate to="/login"/>} />}
+       
         <Route path="/home" element={<ProtectedRoute><Home/></ProtectedRoute>} />
         <Route path="/login" element={<Login />} />
         <Route path="/about" element={<About />} />
@@ -237,25 +255,7 @@ function App() {
         <Route path="/X" element={<X />} />
         <Route path="/Y" element={<Y />} />
         <Route path="/Z" element={<Z />} />
-
-        {role === "Teacher" && <>
-            <Route path="/teacher" element={<TeacherHomePage />} />
-            <Route path="/uploadcontents" element={<UploadContents />} />
-            <Route path="/dashboard" element={<DashBoard />} />
-            <Route path="/studentmanagement" element={<StudentManagement />} />
-            <Route path="/usercontrol" element={<UserAccControl />} />
-        </>}
-
-         {role === "Parent" && <>
-              <Route path="/parentskorner" element={<ParentsKorner/>}/>
-            
-              <Route path="/childRegistration" element={<ChildRegistration/>}/>
-          </>}
-            <Route path="/overview" element={<ParentsOverview/>}/>
           
-
-
-      
 
         <Route path="/color" element={<Color/>}/>
         <Route path="/colorgame" element={<ColorGame/>} />
@@ -268,10 +268,8 @@ function App() {
         <Route path="/color/medium/level2" element={<ColorGameMedLevel2/>}/>
         <Route path="/color/hard" element={<ColorHard/>}/>
         <Route path="/color/hard/level1" element={<ColorGameHardLevel1/>}/>
-
-         
-
         <Route path="*" element={<NotFound />} />
+
       </Routes>
 </div>
     </>
