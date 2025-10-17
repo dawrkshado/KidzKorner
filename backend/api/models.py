@@ -81,4 +81,4 @@ class UserChild(models.Model):
     birth_date = models.DateField(null=True, blank=True)
 
     def __str__(self):
-        return f"{self.first_name} {self.last_name} - Child of {self.parent.username}"
+        return f"{self.first_name} {self.last_name} - Child of {self.parent.first_name} {self.parent.last_name}"

@@ -12,3 +12,9 @@ class CustomUserSerializer(serializers.ModelSerializer):
     class Meta:
         model = CustomUser
         fields = ['first_name', 'last_name', 'email', 'children']
+
+
+class gameSerializer(serializers.ModelSerializer):
+    class Meta:
+        model = TimeCompletion
+        fields = ['game', 'time', 'star']

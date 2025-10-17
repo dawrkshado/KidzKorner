@@ -67,17 +67,15 @@ def user_profile(request):
     })
 
 @api_view(["GET"])
-#@permission_classes([IsAuthenticated])  # Uncommented for security
+@permission_classes([IsAuthenticated]) 
 def parent_profile(request):
     user = request.user
-    
-    parent = CustomUser.objects.filter(role__role='Parent').all()
-    serializer = CustomUserSerializer(parent, many=True)
 
+    if not user.role or user.role.role.lower() != "parent":
+        return Response(
+            {"error": "Access denied. Only parents can view this information."},
+            status=status.HTTP_403_FORBIDDEN,
+        )
 
-    # Check if user has a role and if it's 'Parent'
-
-    return Response(
-       serializer.data, status=status.HTTP_200_OK
-    )
-
+    serializer = CustomUserSerializer(user)
+    return Response(serializer.data, status=status.HTTP_200_OK)

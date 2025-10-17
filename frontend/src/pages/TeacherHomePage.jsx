@@ -7,12 +7,35 @@ import usercontrol from "../assets/Teacherhomepage/pangapat.png";
 import UploadContents from "../assets/Teacherhomepage/pangatlo.png";
 import { Link } from 'react-router-dom'
 import Logout from "../components/Logout";
+import { useEffect,useState } from "react";
+import api from "../api.js";
+
 
 function TeacherHomePage() {
+const [name, setName] = useState(null);
+
+useEffect(() => {
+  const fetchUserName = async () => {
+    try {
+      const res = await api.get("/api/user-profile/");
+      setName(res.data.last_name);
+    }
+    catch (err) {
+      console.error("Error fetching user name:", err);
+    }
+  };
+  fetchUserName();
+
+},[])
+
+
   return (
        
     <div className="hidden md:inline md:absolute h-screen w-screen overflow-x-hidden ">
+
+      <div className="bg-red-500 text-4xl">Welcome {name}</div>
       <div className="md:absolute"><Logout/></div>
+      
       
         <img src="./Bg/bground.png" alt="background" className="w-full"/>
 

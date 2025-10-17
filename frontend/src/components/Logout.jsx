@@ -5,6 +5,8 @@ function Logout(){
   const [loading, setLoading] = useState(true);
   const navigate = useNavigate();
 
+  const [role, setRole] = useState(null);  
+
   useEffect(() => {
     const checkUser = async () => {
       try {
