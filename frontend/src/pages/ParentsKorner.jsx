@@ -1,8 +1,14 @@
 
-import parentsoverview from "../assets/Parents/parentsoverview.png"
+import kidsregister from '../assets/Parents/kidsregister.webp';
+import kidzkornerbutton from '../assets/Parents/kidzkornerbutton.webp'
+import dashboardparentz from '../assets/Parents/dashboardparentz.webp'
 import { Link,useNavigate } from 'react-router-dom';
+<<<<<<< HEAD
+import bg from "../assets/Parents/bgparentskorner.webp"
+=======
 import { useState,useEffect } from "react";
 import bg from "../assets/Parents/parentsbg.png"
+>>>>>>> 2c881f07f0677e9271c9f4312edee0885396f401
 import Logout from "../components/Logout";
 import api from '../api';
 
@@ -28,26 +34,34 @@ function ParentsKorner(){
   return(<>
 
   <div className="hidden md:inline md:absolute h-screen w-screen bg-cover bg-top bg-no-repeat" style={{backgroundImage:`url(${bg})`}}>
+<<<<<<< HEAD
+            <Link to="/ParentsChildRegistration" >
+=======
            <div className="text-4xl bg-amber-500">
               Welcome {checkUser}!
            </div>
            
             <Link to="/overview" >
+>>>>>>> 2c881f07f0677e9271c9f4312edee0885396f401
               <img 
-                src={parentsoverview}
-                alt="Overview Button for Parents"
-                className="absolute left-[38%] top-[70%] h-auto w-auto cursor-pointer"/>
+                src={kidsregister}
+                alt="Registration Button for Parents"
+                className="absolute left-[42%] top-[34%] h-auto w-auto cursor-pointer"/>
+            </Link>
+            <Link to="/home" >
+              <img 
+                src={kidzkornerbutton}
+                alt="Entire Games for Kidz"
+                className="absolute left-[10%] top-[34%] h-auto w-auto cursor-pointer"/>
+            </Link>
+            <Link to="/dashboardparentz" >
+              <img 
+                src={dashboardparentz}
+                alt="Dashboard for Parents"
+                className="absolute left-[77%] top-[34%] h-auto w-auto cursor-pointer"/>
             </Link>
             
-            <Link to="/home">
-              <div className='h-30 w-60 flex items-center justify-center bg-amber-500 absolute top-80 right-150'>
-                To StudentPage
-              </div>
-            </Link>
-
-            <Link to="/childRegistration">
-              <div className="h-30 w-60 lex items-center justify-center bg-pink-500 absolute top-40 right-150"> To Child Registration</div>
-            </Link>
+           
             
             <Logout/>
         </div>

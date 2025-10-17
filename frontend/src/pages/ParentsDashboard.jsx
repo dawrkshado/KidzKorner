@@ -7,6 +7,16 @@ import { useState, useEffect } from 'react';
 import popUp from "../assets/Parents/showsUp.webp";
 import api from '../api';
 
+<<<<<<< HEAD:frontend/src/pages/ParentsDashboard.jsx
+function ParentsDashboard(){
+  const [Clicked, setClicked] = useState(false);
+  
+  const handleClick = () => {
+    setClicked(true);
+  }
+  const handleClose = () => {
+    setClicked(false);
+=======
 function ParentsOverview() {
   const [parentData, setParentData] = useState(null);
   const [clicked, setClicked] = useState(false);
@@ -39,6 +49,7 @@ function ParentsOverview() {
         Loading...
       </div>
     );
+>>>>>>> 2c881f07f0677e9271c9f4312edee0885396f401:frontend/src/pages/ParentsOverview.jsx
   }
 
   return (
@@ -103,4 +114,8 @@ function ParentsOverview() {
   );
 }
 
+<<<<<<< HEAD:frontend/src/pages/ParentsDashboard.jsx
+export default ParentsDashboard;
+=======
 export default ParentsOverview;
+>>>>>>> 2c881f07f0677e9271c9f4312edee0885396f401:frontend/src/pages/ParentsOverview.jsx
