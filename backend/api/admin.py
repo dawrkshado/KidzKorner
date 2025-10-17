@@ -40,7 +40,7 @@ class UserChildAdmin(admin.ModelAdmin):
 
 
 class GameAdmin(admin.ModelAdmin):
-    list_display = ['game', 'time', 'star']
+    list_display = ['child','game', 'time', 'star']
     search_fields = ['game__game']
 
 admin.site.register(Game)

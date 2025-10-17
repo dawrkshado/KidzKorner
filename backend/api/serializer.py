@@ -15,6 +15,7 @@ class CustomUserSerializer(serializers.ModelSerializer):
 
 
 class gameSerializer(serializers.ModelSerializer):
+    child = UserChildSerializer(read_only=True)
     class Meta:
         model = TimeCompletion
-        fields = ['game', 'time', 'star']
+        fields = ['child','game', 'time', 'star']
