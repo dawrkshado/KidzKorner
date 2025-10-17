@@ -167,8 +167,11 @@ function App() {
       </div>
 <div className="hidden md:block font-[coiny]">
       <Routes>
-        <Route path="/" element={<Navigate to="/home" />} />
-        <Route path="/home" element={<Home/>} />
+                {role === "Parent" && <Route path="/" element={<Navigate to="/parentsKorner"/>} />}
+        {role === "Teacher" && <Route path="/" element={<Navigate to="/teacher"/>} />}
+        {!role && <Route path="/" element={<Navigate to="/login"/>} />} 
+       
+        <Route path="/home" element={<ProtectedRoute><Home/></ProtectedRoute>} />
         <Route path="/login" element={<Login />} />
         <Route path="/about" element={<About />} />
         <Route path="/stories" element={<Stories />} />
