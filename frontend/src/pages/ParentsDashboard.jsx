@@ -6,7 +6,7 @@ import numberButton from "../assets/Parents/number.webp"
 import { useState } from 'react';
 import popUp from "../assets/Parents/showsUp.webp"
 
-function ParentsOverview(){
+function ParentsDashboard(){
   const [Clicked, setClicked] = useState(false);
   
   const handleClick = () => {
@@ -47,4 +47,4 @@ function ParentsOverview(){
   )
 }
 
-export default ParentsOverview;
+export default ParentsDashboard;

@@ -1,9 +1,17 @@
-import Form from "../components/Forms"
-function Login(){
+import Form from "../components/Forms";
+import Bg from "../assets/loginbg.webp";
 
-    return(
-         <Form route="/api/token/" method="login"/>)
- 
-
+function Login() {
+  return (
+    <div
+      className="min-h-screen flex items-center justify-center bg-cover bg-center bg-no-repeat"
+      style={{ backgroundImage: `url(${Bg})` }}
+    >
+     <div className="translate-y-26"> 
+    <Form route="/api/token/" method="login" />
+  </div>
+    </div>
+  );
 }
-  export default Login
+
+export default Login;

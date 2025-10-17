@@ -78,7 +78,6 @@ import TeacherHomePage from "./pages/TeacherHomePage.jsx"
 import UploadContents from "./pages/UploadContents.jsx"
 import DashBoard from "./pages/DashBoard.jsx"
 import StudentManagement from "./pages/StudentManagement.jsx"
-import Overview from "./pages/Overview.jsx"
 import UserAccControl from "./pages/UserAccControl.jsx"
 import ProtectedRoute from "../src/components/ProtectedRoute.jsx"
 import Form from "./components/Forms.jsx"
@@ -100,8 +99,9 @@ import ColorGame from "./pages/ColorGame.jsx"
 import NumberGame from "./pages/NumberGame.jsx"
 
 import ParentsKorner from "./pages/ParentsKorner.jsx"
-import ParentsOverview from "./pages/ParentsOverview.jsx"
-import ChildRegistration from "./pages/ParentsChildRegistration.jsx"
+import ParentsChildRegistration from "./pages/ParentsChildRegistration.jsx"
+import ParentsDashboard from "./pages/ParentsDashboard.jsx"
+
 
 const Alphabets = React.lazy(() => import("./pages/Alphabets.jsx"))
 
@@ -250,10 +250,11 @@ function App() {
 
          {role === "Parent" && <>
               <Route path="/parentskorner" element={<ParentsKorner/>}/>
-            
-              <Route path="/childRegistration" element={<ChildRegistration/>}/>
+              <Route path="/dashboardparentz" element={<ParentsDashboard/>}/>
+              <Route path="/ParentsChildRegistration" element={<ParentsChildRegistration/>}/>
+             
           </>}
-            <Route path="/overview" element={<ParentsOverview/>}/>
+           
           
 
 
