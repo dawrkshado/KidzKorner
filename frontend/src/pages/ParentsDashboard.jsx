@@ -7,17 +7,8 @@ import { useState, useEffect } from 'react';
 import popUp from "../assets/Parents/showsUp.webp";
 import api from '../api';
 
-<<<<<<< HEAD:frontend/src/pages/ParentsDashboard.jsx
-function ParentsDashboard(){
-  const [Clicked, setClicked] = useState(false);
-  
-  const handleClick = () => {
-    setClicked(true);
-  }
-  const handleClose = () => {
-    setClicked(false);
-=======
-function ParentsOverview() {
+
+function ParentsDashboard() {
   const [parentData, setParentData] = useState(null);
   const [clicked, setClicked] = useState(false);
   const [loading, setLoading] = useState(true);
@@ -49,7 +40,7 @@ function ParentsOverview() {
         Loading...
       </div>
     );
->>>>>>> 2c881f07f0677e9271c9f4312edee0885396f401:frontend/src/pages/ParentsOverview.jsx
+
   }
 
   return (
@@ -75,11 +66,7 @@ function ParentsOverview() {
             <div className="absolute bg-white/90 p-6 rounded-xl max-w-md shadow-xl">
               <div className="text-2xl bg-amber-500 p-4 rounded-xl text-center">
                 <p>
-                  Welcome{" "}
-                  <span className="font-semibold">
-                    {parentData.first_name} {parentData.last_name}
-                  </span>
-                  !
+                  Welcome {parentData.first_name} {parentData.last_name}!
                 </p>
 
                 <div className="mt-4 text-lg bg-white text-black p-4 rounded">
@@ -88,9 +75,9 @@ function ParentsOverview() {
                   {parentData.children && parentData.children.length > 0 ? (
                     <ul className="space-y-2 text-left">
                       {parentData.children.map((child) => (
-                        <li key={child.id || child.first_name} className="border-b pb-2">
-                          👶 {child.first_name} {child.last_name} — born on{" "}
-                          {new Date(child.birth_date).toLocaleDateString()}
+                        <li className="border-b pb-2">
+                             {child.first_name} {child.last_name} — born on{" "}
+                          {child.birth_date}.
                         </li>
                       ))}
                     </ul>
@@ -114,8 +101,4 @@ function ParentsOverview() {
   );
 }
 
-<<<<<<< HEAD:frontend/src/pages/ParentsDashboard.jsx
 export default ParentsDashboard;
-=======
-export default ParentsOverview;
->>>>>>> 2c881f07f0677e9271c9f4312edee0885396f401:frontend/src/pages/ParentsOverview.jsx

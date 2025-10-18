@@ -170,23 +170,7 @@ function App() {
       <Routes>
 
 
-         {role === "Teacher" && <>
-            <Route path="/teacher" element={<TeacherHomePage />} />
-            <Route path="/uploadcontents" element={<UploadContents />} />
-            <Route path="/dashboard" element={<DashBoard />} />
-            <Route path="/studentmanagement" element={<StudentManagement />} />
-            <Route path="/usercontrol" element={<UserAccControl />} />
-            <Route path="/" element={<Navigate to="/teacher"/>} />
-        </>}
-
-         {role === "Parent" && <>
-              <Route path="/parentskorner" element={<ParentsKorner/>}/>
-              <Route path="/overview" element={<ParentsOverview/>}/>
-              <Route path="/childRegistration" element={<ChildRegistration/>}/>
-              <Route path="/" element={<Navigate to="/parentsKorner"/>} />
-          </>}
-          
-        {!role && <Route path="/" element={<Navigate to="/login"/>} />}
+        
        
         <Route path="/home" element={<ProtectedRoute><Home/></ProtectedRoute>} />
         <Route path="/login" element={<Login />} />
@@ -258,21 +242,23 @@ function App() {
         <Route path="/Z" element={<Z />} />
 
 
-        {role === "Teacher" && <>
+           {role === "Teacher" && <>
             <Route path="/teacher" element={<TeacherHomePage />} />
             <Route path="/uploadcontents" element={<UploadContents />} />
             <Route path="/dashboard" element={<DashBoard />} />
             <Route path="/studentmanagement" element={<StudentManagement />} />
             <Route path="/usercontrol" element={<UserAccControl />} />
+            <Route path="/" element={<Navigate to="/teacher"/>} />
         </>}
 
          {role === "Parent" && <>
               <Route path="/parentskorner" element={<ParentsKorner/>}/>
               <Route path="/dashboardparentz" element={<ParentsDashboard/>}/>
-              <Route path="/ParentsChildRegistration" element={<ParentsChildRegistration/>}/>
-             
+              <Route path="/childRegistration" element={<ParentsChildRegistration/>}/>
+              <Route path="/" element={<Navigate to="/parentsKorner"/>} />
           </>}
           
+        {!role && <Route path="/" element={<Navigate to="/login"/>} />}
 
         <Route path="/color" element={<Color/>}/>
         <Route path="/colorgame" element={<ColorGame/>} />

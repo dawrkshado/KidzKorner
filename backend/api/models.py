@@ -30,7 +30,7 @@ class UserChild(models.Model):
     birth_date = models.DateField(null=True, blank=True)
 
     def __str__(self):
-        return f"{self.first_name} {self.last_name}"
+        return f"{self.first_name} {self.last_name} "
     
 class Game(models.Model):
     game_Choices = [
@@ -66,7 +66,7 @@ class Game(models.Model):
     )
 
     def __str__(self):
-        return self.game
+        return f"{self.game} {self.difficulty}"
 
 class TimeCompletion(models.Model):
 
@@ -83,7 +83,6 @@ class TimeCompletion(models.Model):
     game = models.ForeignKey(Game, related_name="time_complete", on_delete= models.CASCADE)
     time = models.IntegerField(default = 0)
     star = models.IntegerField(default= 0, choices=STAR_CHOICES, validators=[MinValueValidator(0), MaxValueValidator(3)])
-
 
     def calculate_stars(self):
         """Calculate stars based on time"""
