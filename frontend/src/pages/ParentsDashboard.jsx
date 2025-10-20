@@ -6,6 +6,7 @@ import numberButton from "../assets/Parents/number.webp";
 import { useState, useEffect } from 'react';
 import popUp from "../assets/Parents/showsUp.webp";
 import api from '../api';
+import { useLocation,useNavigate } from "react-router-dom";
 
 
 function ParentsDashboard() {
@@ -13,12 +14,19 @@ function ParentsDashboard() {
   const [clicked, setClicked] = useState(false);
   const [loading, setLoading] = useState(true);
 
+  const navigate = useNavigate();const location = useLocation();
+  const child = location.state?.child;
+
+
+ 
+  const [childRecord,setChildRecord] = useState([]);
+
+ 
   useEffect(() => {
     const fetchParentData = async () => {
       try {
         const res = await api.get("/api/parent/");
-        console.log("Fetched data:", res.data);
-
+       
         const data = Array.isArray(res.data) ? res.data[0] : res.data;
         setParentData(data);
       } catch (err) {
@@ -27,8 +35,34 @@ function ParentsDashboard() {
         setLoading(false);
       }
     };
-
     fetchParentData();
+  }, []);
+
+
+
+
+  useEffect(() =>{
+    const fetchGameData = async () =>{
+      try{
+        const res = await api.get("/api/time_completions/")
+        console.log("ChildData:", res.data);
+
+
+        const filteredRecords = res.data.filter(
+        (record) => record.child.id === child.id
+      );
+
+
+      
+         setChildRecord(filteredRecords);
+      }
+      catch(err){
+        console.error("Error fetching parent data:", err);
+      }
+    }
+    fetchGameData();
+
+
   }, []);
 
   const handleClick = () => setClicked(true);
@@ -45,6 +79,7 @@ function ParentsDashboard() {
 
   return (
     <>
+    
       <Back />
       <div
         className="hidden md:flex md:absolute items-center justify-center h-screen w-screen bg-cover bg-no-repeat"
@@ -63,30 +98,49 @@ function ParentsDashboard() {
           <div className="flex justify-center items-center h-fit w-fit absolute">
             <img src={popUp} alt="Pop up background" className="w-[85%]" />
 
-            <div className="absolute bg-white/90 p-6 rounded-xl max-w-md shadow-xl">
-              <div className="text-2xl bg-amber-500 p-4 rounded-xl text-center">
-                <p>
-                  Welcome {parentData.first_name} {parentData.last_name}!
+                  
+                <p className='absolute z-10 top-50 text-4xl'>
                 </p>
 
-                <div className="mt-4 text-lg bg-white text-black p-4 rounded">
-                  <p className="font-bold mb-2">Children:</p>
-
-                  {parentData.children && parentData.children.length > 0 ? (
-                    <ul className="space-y-2 text-left">
-                      {parentData.children.map((child) => (
-                        <li className="border-b pb-2">
-                             {child.first_name} {child.last_name} — born on{" "}
-                          {child.birth_date}.
-                        </li>
-                      ))}
-                    </ul>
-                  ) : (
+                <div className="absolute h-[100%] w-[100%] content-end  justify-items-center mt-4 text-lg text-black p-4 rounded">
+                  {parentData.children && parentData.children.length > 0 ? <>
+                       <div className=' absolute top-[20%] overflow-y-auto bg-amber-200 max-h-[60%] h-[60%] w-[80%] text-center '>
+                    <table className='h-[100%] w-[100%] '>
+                      <thead className='border-4'>
+                      <tr>
+                        <th>Difficulty</th>
+                        <th>Level</th>
+                        <th>Time</th>
+                        <th>Star</th>
+                      </tr>
+                      </thead>
+                   
+                      <tbody className='border-4'>
+                 
+                      {childRecord.map((record,id) =>
+                        (
+                          <tr key={id} >
+                            <td>{record.game_level.difficulty}</td>
+                            <td>{record.game_level.level}</td>
+                            <td>{record.time}</td>
+                            <td>{record.star} ⭐</td>
+                          </tr>
+                        ))}
+                         
+                      </tbody>
+                    </table>
+                     </div>
+                  
+                  <div>
+                    {child.first_name}
+                  </div>
+          
+        
+                 </> : (
                     <p className="text-gray-500">No children registered.</p>
                   )}
                 </div>
-              </div>
-            </div>
+
 
             <button
               className="h-10 w-10 bg-red-500 text-white absolute top-4 right-8 z-10 rounded-full hover:bg-red-600 flex items-center justify-center"

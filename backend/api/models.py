@@ -66,32 +66,33 @@ class Game(models.Model):
     )
 
     def __str__(self):
-        return f"{self.game} {self.difficulty}"
+        return f"{self.game} - {self.difficulty} - Level {self.level}"
+
+
 
 class TimeCompletion(models.Model):
-
     STAR_CHOICES = [
-    (0, ' No Stars'),
-    (1, ' 1 Star'),
-    (2, ' 2 Stars'),
-    (3, ' 3 Stars'),
+        (0, 'No Stars'),
+        (1, '1 Star'),
+        (2, '2 Stars'),
+        (3, '3 Stars'),
     ]
 
-
-
     child = models.ForeignKey(UserChild, on_delete=models.CASCADE, related_name='child_name', default=1)
-    game = models.ForeignKey(Game, related_name="time_complete", on_delete= models.CASCADE)
-    time = models.IntegerField(default = 0)
-    star = models.IntegerField(default= 0, choices=STAR_CHOICES, validators=[MinValueValidator(0), MaxValueValidator(3)])
+    game_level = models.ForeignKey(Game, on_delete=models.CASCADE, related_name='time_completions')
+    time = models.IntegerField(default=0)
+    star = models.IntegerField(default=0, choices=STAR_CHOICES, validators=[MinValueValidator(0), MaxValueValidator(3)])
 
     def calculate_stars(self):
-        """Calculate stars based on time"""
+        """Calculate stars based on the time and game_level thresholds."""
+        if not self.game_level:
+            return 0  # safety check if game_level is missing
 
-        if self.time <=  self.game.three_star_time:
+        if self.time <= self.game_level.three_star_time:
             return 3
-        elif self.time <= self.game.two_star_time and self.time > self.game.three_star_time:
+        elif self.time <=  self.game_level.two_star_time and self.time > self.game_level.three_star_timee:
             return 2
-        elif self.time > self.game.one_star_time:
+        elif self.time > self.game_level.one_star_time:
             return 1
         else:
             return 0
@@ -102,5 +103,5 @@ class TimeCompletion(models.Model):
         super().save(*args, **kwargs)
 
     def __str__(self):
-        return f'{self.game.game}: {self.time} seconds {self.star} star'
+        return f'{self.game_level.game} - {self.game_level.difficulty} - Level {self.game_level.level}: {self.time}s, {self.star} star(s)'
         

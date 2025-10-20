@@ -8,8 +8,13 @@ import { Link } from 'react-router-dom'
 import { useEffect, useState } from "react";
 import api from "../api";
 import Back from "../components/Back.jsx";
+import { useLocation } from "react-router-dom";
 
 function Home(){
+
+  const location = useLocation();
+  const child = location.state?.child;
+
 
   useEffect(() => {
     const checkUser = async () => {
@@ -28,10 +33,13 @@ function Home(){
   
   
     return(
-    <>
+    <>  
 
     
     <div className="hidden w-[100vw] md:inline md:absolute h-[100%] overflow-hidden">
+      <div>
+      <h1>Welcome {child ? child.first_name : "Guest"}!</h1>
+    </div>
       <Link to="/parentskorner"><div className="bg-black flex  h-30 w-30 justify-center items-center text-white absolute">To Parent</div></Link>
         <img src="./Bg/kidzBackground.webp" alt="background" className="w-full"/>
           

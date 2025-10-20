@@ -1,5 +1,5 @@
 import Back from "../components/Back";
-import bg from "../assets/Parents/registrationBg.png";
+import bg from "../assets/Parents/registrationBg.webp";
 import { useState } from "react";
 import api from "../api"; 
 import { ACCESS_TOKEN } from "../constants"; 
@@ -11,6 +11,7 @@ function ParentsChildRegistration() {
   const [message, setMessage] = useState("");
   const [showMessage, setShowMessage] = useState();
 
+  
   const clearForm = () => {
     setFirstName("");
     setLastName("");
