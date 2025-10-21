@@ -250,6 +250,7 @@ function App() {
               <Route path="/Y" element={<Y />} />
               <Route path="/Z" element={<Z />} />
               <Route path="/parentskorner" element={<ParentsKorner/>}/>
+
               <Route path="/dashboardparentz" element={<ParentsDashboard/>}/>
               <Route path="/childRegistration" element={<ParentsChildRegistration/>}/>
               <Route path="/" element={<Navigate to="/parentsKorner"/>} />
@@ -267,8 +268,6 @@ function App() {
           </>}
           
         {!role && <Route path="/" element={<Navigate to="/login"/>} />}
-
-        
         
         <Route path="*" element={<NotFound />} />
 

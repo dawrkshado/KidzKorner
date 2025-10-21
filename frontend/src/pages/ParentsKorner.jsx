@@ -1,9 +1,11 @@
 import kidsregister from '../assets/Parents/kidsregister.webp';
+
 import kidzkornerbutton from '../assets/Parents/kidzkornerbutton.webp';
 import dashboardparentz from '../assets/Parents/dashboardparentz.webp';
 import { Link, useNavigate } from 'react-router-dom';
 import { useState, useEffect } from 'react';
 import bg from "../assets/Parents/bgparentskorner.webp";
+
 import Logout from "../components/Logout";
 import api from '../api';
 
@@ -13,7 +15,9 @@ function ParentsKorner() {
   const [parentData, setParentData] = useState(null);
   const [loading, setLoading] = useState(true);
   const [hoveredItem, setHoveredItem] = useState();
-  const [activeAction, setActiveAction] = useState(null); 
+
+  const [activeAction, setActiveAction] = useState(null);
+
 
   const navigate = useNavigate();
 
@@ -90,6 +94,7 @@ function ParentsKorner() {
       >
         <div className="text-3xl h-fit w-fit absolute top-60 left-97.5">
           Welcome, <br /> {checkUser}!
+
         </div>
 
         <Link to="/childRegistration">
