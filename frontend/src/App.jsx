@@ -181,8 +181,8 @@ function App() {
 
          {role === "Parent" && <>
               <Route path="/parentskorner" element={<ParentsKorner/>}/>
-              <Route path="/overview" element={<ParentsOverview/>}/>
-              <Route path="/childRegistration" element={<ChildRegistration/>}/>
+              <Route path="/dashboardparentz    " element={<ParentsDashboard/>}/>
+              <Route path="/ParentschildRegistration" element={<ParentsChildRegistration/>}/>
               <Route path="/" element={<Navigate to="/parentsKorner"/>} />
           </>}
           
@@ -257,22 +257,6 @@ function App() {
         <Route path="/Y" element={<Y />} />
         <Route path="/Z" element={<Z />} />
 
-
-        {role === "Teacher" && <>
-            <Route path="/teacher" element={<TeacherHomePage />} />
-            <Route path="/uploadcontents" element={<UploadContents />} />
-            <Route path="/dashboard" element={<DashBoard />} />
-            <Route path="/studentmanagement" element={<StudentManagement />} />
-            <Route path="/usercontrol" element={<UserAccControl />} />
-        </>}
-
-         {role === "Parent" && <>
-              <Route path="/parentskorner" element={<ParentsKorner/>}/>
-              <Route path="/dashboardparentz" element={<ParentsDashboard/>}/>
-              <Route path="/ParentsChildRegistration" element={<ParentsChildRegistration/>}/>
-             
-          </>}
-          
 
         <Route path="/color" element={<Color/>}/>
         <Route path="/colorgame" element={<ColorGame/>} />

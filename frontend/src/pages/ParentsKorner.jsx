@@ -3,12 +3,8 @@ import kidsregister from '../assets/Parents/kidsregister.webp';
 import kidzkornerbutton from '../assets/Parents/kidzkornerbutton.webp'
 import dashboardparentz from '../assets/Parents/dashboardparentz.webp'
 import { Link,useNavigate } from 'react-router-dom';
-<<<<<<< HEAD
 import bg from "../assets/Parents/bgparentskorner.webp"
-=======
-import { useState,useEffect } from "react";
-import bg from "../assets/Parents/parentsbg.png"
->>>>>>> 2c881f07f0677e9271c9f4312edee0885396f401
+import { useState, useEffect } from 'react';
 import Logout from "../components/Logout";
 import api from '../api';
 
@@ -34,15 +30,13 @@ function ParentsKorner(){
   return(<>
 
   <div className="hidden md:inline md:absolute h-screen w-screen bg-cover bg-top bg-no-repeat" style={{backgroundImage:`url(${bg})`}}>
-<<<<<<< HEAD
-            <Link to="/ParentsChildRegistration" >
-=======
+
            <div className="text-4xl bg-amber-500">
               Welcome {checkUser}!
            </div>
            
-            <Link to="/overview" >
->>>>>>> 2c881f07f0677e9271c9f4312edee0885396f401
+            <Link to="/ParentsChildRegistration" >
+
               <img 
                 src={kidsregister}
                 alt="Registration Button for Parents"
