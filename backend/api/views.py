@@ -49,6 +49,32 @@ def logout_api(request):
         return Response({"error": str(e)}, status=status.HTTP_400_BAD_REQUEST)
     
 
+@api_view(["POST"])
+@permission_classes([IsAuthenticated])
+def child_register(request):
+    user = request.user
+    first_name = request.data.get('first_name')
+    last_name =  request.data.get('last_name')
+    birth_date = request.data.get('birth_date')
+
+    if not all([first_name, last_name, birth_date]):
+        return Response(
+            {"error": "All fields are required."},
+            status=status.HTTP_400_BAD_REQUEST
+            )
+
+    child = UserChild.objects.create(
+        parent=user,
+        first_name=first_name,
+        last_name=last_name,
+        birth_date=birth_date
+    )
+    
+
+    serializer = UserChildSerializer(child)
+
+    return Response(serializer.data, status=status.HTTP_201_CREATED)
+
 @api_view(["GET"])
 @permission_classes([IsAuthenticated])
 def user_profile(request):
@@ -65,6 +91,18 @@ def user_profile(request):
         "role": role,
       
     })
+
+@api_view(["GET"])
+@permission_classes([IsAuthenticated])
+def time_completions(request):
+    user = request.user
+    children = UserChild.objects.filter(parent=user)
+    completions = TimeCompletion.objects.filter(child__in=children)
+    serializer = gameSerializer(completions, many=True)
+    
+    return Response(serializer.data, status=status.HTTP_200_OK)
+
+
 
 @api_view(["GET"])
 @permission_classes([IsAuthenticated]) 

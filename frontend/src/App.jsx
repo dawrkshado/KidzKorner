@@ -167,10 +167,11 @@ function App() {
       </div>
 <div className="hidden md:block font-[coiny]">
   
-      <Routes>
+      <Routes>    
+            <Route path="/login" element={<Login />} />
 
+           {role === "Teacher" && <>
 
-         {role === "Teacher" && <>
             <Route path="/teacher" element={<TeacherHomePage />} />
             <Route path="/uploadcontents" element={<UploadContents />} />
             <Route path="/dashboard" element={<DashBoard />} />
@@ -180,95 +181,91 @@ function App() {
         </>}
 
          {role === "Parent" && <>
+              <Route path="/home" element={<ProtectedRoute><Home/></ProtectedRoute>} />
+     
+              <Route path="/about" element={<About />} />
+              <Route path="/stories" element={<Stories />} />
+              <Route path="/stories/story1" element={<Story1 />} />
+              <Route path="/stories/story2" element={<Story2 />} />
+              <Route path="/stories/story3" element={<Story3 />} />
+              <Route path="/shapes" element={<Shapes />} />
+              <Route path="/shapes/easy" element={<ShapesEasy />} />
+              <Route path="/shapes/easy/level1" element={<ShapesEasylevel1 />} />
+              <Route path="/shapes/easy/level2" element={<ShapesEasylevel2 />} />
+              <Route path="/shapes/easy/level3" element={<ShapesEasylevel3 />} />
+              <Route path="/shapes/medium" element={<ShapesMedium />} />
+              <Route path="/shapes/medium/level1" element={<ShapesMediumLevel1 />} />
+              <Route path="/shapes/medium/level2" element={<ShapesMediumLevel2 />} />
+              <Route path="/shapes/hard" element={<ShapesHard />} />
+              <Route path="/shapes/hard/level1" element={<ShapesHardLevel1 />} />
+              <Route path="/shapesgame" element={<ShapesGame />} />
+
+              <Route path="/number" element={<Number />} />
+              <Route path="/numbereasy" element={<NumbersEasy />} />
+              <Route path="/number/easy/level1" element={<NumberGameEasy1 />} />
+              <Route path="/number/easy/level2" element={<NumberGameEasy2 />} />
+              <Route path="/number/easy/level3" element={<NumberGameEasy3 />} />
+              <Route path="/numbermedium" element={<NumbersMedium />} />
+              <Route path="/number/medium/level1" element={<NumberGameMed1 />} />
+              <Route path="/number/medium/level2" element={<NumberGameMed2 />} />
+              <Route path="/numberhard" element={<NumbersHard />} />
+              <Route path="/number/hard/level1" element={<NumberHard1 />} />
+              <Route path="/numbergame" element={<NumberGame />} />
+
+              <Route path="/alphabets" element={<Alphabets />} />
+              <Route path="/alphabeteasy" element={<AlphabetEasy/>}/>
+              <Route path="/alphabetmedium" element={<AlphabetMedium/>}/>
+              <Route path="/alphabethard" element={<AlphabetHard/>}/>
+              <Route path="/alphabets/easy/level1" element={<AlphabetEasy1/>}/>
+              <Route path="/alphabets/easy/level2" element={<AlphabetEasy2/>}/>
+              <Route path="/alphabets/easy/level3" element={<AlphabetEasy3/>}/>
+              <Route path="/alphabets/medium/level1" element={<AlphabetMedium1/>}/>
+              <Route path="/alphabets/medium/level2" element={<AlphabetMedium2/>}/>
+              <Route path="/alphabets/hard/level1" element={<AlphabetHard1/>}/>
+              <Route path="/alphabets/play" element={<AlphabetsPlay />} />
+              <Route path="/A" element={<A />} />
+              <Route path="/B" element={<B />} />
+              <Route path="/C" element={<C />} />
+              <Route path="/D" element={<D />} />
+              <Route path="/E" element={<E />} />
+              <Route path="/F" element={<F />} />
+              <Route path="/G" element={<G />} />
+              <Route path="/H" element={<H />} />
+              <Route path="/I" element={<I />} />
+              <Route path="/J" element={<J />} />
+              <Route path="/K" element={<K />} />
+              <Route path="/L" element={<L />} />
+              <Route path="/M" element={<M />} />
+              <Route path="/N" element={<N />} />
+              <Route path="/O" element={<O />} />
+              <Route path="/P" element={<P />} />
+              <Route path="/Q" element={<Q />} />
+              <Route path="/R" element={<R />} />
+              <Route path="/S" element={<S />} />
+              <Route path="/T" element={<T />} />
+              <Route path="/U" element={<U />} />
+              <Route path="/V" element={<V />} />
+              <Route path="/W" element={<W />} />
+              <Route path="/X" element={<X />} />
+              <Route path="/Y" element={<Y />} />
+              <Route path="/Z" element={<Z />} />
               <Route path="/parentskorner" element={<ParentsKorner/>}/>
-              <Route path="/dashboardparentz    " element={<ParentsDashboard/>}/>
-              <Route path="/ParentschildRegistration" element={<ParentsChildRegistration/>}/>
+
               <Route path="/" element={<Navigate to="/parentsKorner"/>} />
+              <Route path="/color" element={<Color/>}/>
+              <Route path="/colorgame" element={<ColorGame/>} />
+              <Route path="/color/easy" element= {<ColorEasy/>}/>
+              <Route path="/color/easy/level1" element={<ColorGameEasyLevel1/>}/>
+              <Route path="/color/easy/level2" element={<ColorGameEasyLevel2/>}/>
+              <Route path="/color/easy/level3" element={<ColorGameEasyLevel3/>}/>
+              <Route path="/color/medium" element={<ColorMedium/>}/>
+              <Route path="/color/medium/level1" element={<ColorGameMedLevel1/>}/>
+              <Route path="/color/medium/level2" element={<ColorGameMedLevel2/>}/>
+              <Route path="/color/hard" element={<ColorHard/>}/>
+              <Route path="/color/hard/level1" element={<ColorGameHardLevel1/>}/>
           </>}
           
         {!role && <Route path="/" element={<Navigate to="/login"/>} />}
-       
-        <Route path="/home" element={<ProtectedRoute><Home/></ProtectedRoute>} />
-        <Route path="/login" element={<Login />} />
-        <Route path="/about" element={<About />} />
-        <Route path="/stories" element={<Stories />} />
-        <Route path="/stories/story1" element={<Story1 />} />
-        <Route path="/stories/story2" element={<Story2 />} />
-        <Route path="/stories/story3" element={<Story3 />} />
-        <Route path="/shapes" element={<Shapes />} />
-        <Route path="/shapes/easy" element={<ShapesEasy />} />
-        <Route path="/shapes/easy/level1" element={<ShapesEasylevel1 />} />
-        <Route path="/shapes/easy/level2" element={<ShapesEasylevel2 />} />
-        <Route path="/shapes/easy/level3" element={<ShapesEasylevel3 />} />
-        <Route path="/shapes/medium" element={<ShapesMedium />} />
-        <Route path="/shapes/medium/level1" element={<ShapesMediumLevel1 />} />
-        <Route path="/shapes/medium/level2" element={<ShapesMediumLevel2 />} />
-        <Route path="/shapes/hard" element={<ShapesHard />} />
-        <Route path="/shapes/hard/level1" element={<ShapesHardLevel1 />} />
-        <Route path="/shapesgame" element={<ShapesGame />} />
-
-        <Route path="/number" element={<Number />} />
-        <Route path="/numbereasy" element={<NumbersEasy />} />
-        <Route path="/number/easy/level1" element={<NumberGameEasy1 />} />
-        <Route path="/number/easy/level2" element={<NumberGameEasy2 />} />
-        <Route path="/number/easy/level3" element={<NumberGameEasy3 />} />
-        <Route path="/numbermedium" element={<NumbersMedium />} />
-        <Route path="/number/medium/level1" element={<NumberGameMed1 />} />
-        <Route path="/number/medium/level2" element={<NumberGameMed2 />} />
-        <Route path="/numberhard" element={<NumbersHard />} />
-        <Route path="/number/hard/level1" element={<NumberHard1 />} />
-        <Route path="/numbergame" element={<NumberGame />} />
-
-        <Route path="/alphabets" element={<Alphabets />} />
-        <Route path="/alphabeteasy" element={<AlphabetEasy/>}/>
-        <Route path="/alphabetmedium" element={<AlphabetMedium/>}/>
-        <Route path="/alphabethard" element={<AlphabetHard/>}/>
-        <Route path="/alphabets/easy/level1" element={<AlphabetEasy1/>}/>
-        <Route path="/alphabets/easy/level2" element={<AlphabetEasy2/>}/>
-        <Route path="/alphabets/easy/level3" element={<AlphabetEasy3/>}/>
-        <Route path="/alphabets/medium/level1" element={<AlphabetMedium1/>}/>
-        <Route path="/alphabets/medium/level2" element={<AlphabetMedium2/>}/>
-        <Route path="/alphabets/hard/level1" element={<AlphabetHard1/>}/>
-        <Route path="/alphabets/play" element={<AlphabetsPlay />} />
-        <Route path="/A" element={<A />} />
-        <Route path="/B" element={<B />} />
-        <Route path="/C" element={<C />} />
-        <Route path="/D" element={<D />} />
-        <Route path="/E" element={<E />} />
-        <Route path="/F" element={<F />} />
-        <Route path="/G" element={<G />} />
-        <Route path="/H" element={<H />} />
-        <Route path="/I" element={<I />} />
-        <Route path="/J" element={<J />} />
-        <Route path="/K" element={<K />} />
-        <Route path="/L" element={<L />} />
-        <Route path="/M" element={<M />} />
-        <Route path="/N" element={<N />} />
-        <Route path="/O" element={<O />} />
-        <Route path="/P" element={<P />} />
-        <Route path="/Q" element={<Q />} />
-        <Route path="/R" element={<R />} />
-        <Route path="/S" element={<S />} />
-        <Route path="/T" element={<T />} />
-        <Route path="/U" element={<U />} />
-        <Route path="/V" element={<V />} />
-        <Route path="/W" element={<W />} />
-        <Route path="/X" element={<X />} />
-        <Route path="/Y" element={<Y />} />
-        <Route path="/Z" element={<Z />} />
-
-
-        <Route path="/color" element={<Color/>}/>
-        <Route path="/colorgame" element={<ColorGame/>} />
-        <Route path="/color/easy" element= {<ColorEasy/>}/>
-        <Route path="/color/easy/level1" element={<ColorGameEasyLevel1/>}/>
-        <Route path="/color/easy/level2" element={<ColorGameEasyLevel2/>}/>
-        <Route path="/color/easy/level3" element={<ColorGameEasyLevel3/>}/>
-        <Route path="/color/medium" element={<ColorMedium/>}/>
-        <Route path="/color/medium/level1" element={<ColorGameMedLevel1/>}/>
-        <Route path="/color/medium/level2" element={<ColorGameMedLevel2/>}/>
-        <Route path="/color/hard" element={<ColorHard/>}/>
-        <Route path="/color/hard/level1" element={<ColorGameHardLevel1/>}/>
         
         <Route path="*" element={<NotFound />} />
 
