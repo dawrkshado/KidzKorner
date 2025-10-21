@@ -1,17 +1,11 @@
 import kidsregister from '../assets/Parents/kidsregister.webp';
-<<<<<<< HEAD
-import kidzkornerbutton from '../assets/Parents/kidzkornerbutton.webp'
-import dashboardparentz from '../assets/Parents/dashboardparentz.webp'
-import { Link,useNavigate } from 'react-router-dom';
-import bg from "../assets/Parents/bgparentskorner.webp"
-import { useState, useEffect } from 'react';
-=======
+
 import kidzkornerbutton from '../assets/Parents/kidzkornerbutton.webp';
 import dashboardparentz from '../assets/Parents/dashboardparentz.webp';
 import { Link, useNavigate } from 'react-router-dom';
 import { useState, useEffect } from 'react';
 import bg from "../assets/Parents/bgparentskorner.webp";
->>>>>>> c5e84547f54da0505c8e5cf50084e5f0c481f066
+
 import Logout from "../components/Logout";
 import api from '../api';
 
@@ -21,7 +15,7 @@ function ParentsKorner() {
   const [parentData, setParentData] = useState(null);
   const [loading, setLoading] = useState(true);
   const [hoveredItem, setHoveredItem] = useState();
-  const [activeAction, setActiveAction] = useState(null); // NEW ✅
+  const [activeAction, setActiveAction] = useState(null);
 
   const navigate = useNavigate();
 
@@ -54,37 +48,6 @@ function ParentsKorner() {
     fetchUserName();
   }, []);
 
-<<<<<<< HEAD
-  <div className="hidden md:inline md:absolute h-screen w-screen bg-cover bg-top bg-no-repeat" style={{backgroundImage:`url(${bg})`}}>
-
-           <div className="text-4xl bg-amber-500">
-              Welcome {checkUser}!
-           </div>
-           
-            <Link to="/ParentsChildRegistration" >
-
-              <img 
-                src={kidsregister}
-                alt="Registration Button for Parents"
-                className="absolute left-[42%] top-[34%] h-auto w-auto cursor-pointer"/>
-            </Link>
-            <Link to="/home" >
-              <img 
-                src={kidzkornerbutton}
-                alt="Entire Games for Kidz"
-                className="absolute left-[10%] top-[34%] h-auto w-auto cursor-pointer"/>
-            </Link>
-            <Link to="/dashboardparentz" >
-              <img 
-                src={dashboardparentz}
-                alt="Dashboard for Parents"
-                className="absolute left-[77%] top-[34%] h-auto w-auto cursor-pointer"/>
-            </Link>
-            
-           
-            
-            <Logout/>
-=======
 
   const handleChildClick = (child) => {
     localStorage.setItem("selectedChild", JSON.stringify(child));
@@ -129,7 +92,7 @@ function ParentsKorner() {
       >
         <div className="text-3xl h-fit w-fit absolute top-60 left-97.5">
           Welcome, <br /> {checkUser}!
->>>>>>> c5e84547f54da0505c8e5cf50084e5f0c481f066
+
         </div>
 
         <Link to="/childRegistration">

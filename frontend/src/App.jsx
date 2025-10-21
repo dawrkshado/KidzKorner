@@ -251,6 +251,8 @@ function App() {
               <Route path="/Z" element={<Z />} />
               <Route path="/parentskorner" element={<ParentsKorner/>}/>
 
+              <Route path="/dashboardparentz" element={<ParentsDashboard/>}/>
+              <Route path="/childRegistration" element={<ParentsChildRegistration/>}/>
               <Route path="/" element={<Navigate to="/parentsKorner"/>} />
               <Route path="/color" element={<Color/>}/>
               <Route path="/colorgame" element={<ColorGame/>} />
