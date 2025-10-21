@@ -13,13 +13,9 @@ function ParentsDashboard() {
   const [parentData, setParentData] = useState(null);
   const [clicked, setClicked] = useState(false);
   const [loading, setLoading] = useState(true);
-
-  const navigate = useNavigate();const location = useLocation();
-  const child = location.state?.child;
-
-
- 
   const [childRecord,setChildRecord] = useState([]);
+
+  const [] = useState
 
  
   useEffect(() => {
@@ -65,7 +61,11 @@ function ParentsDashboard() {
 
   }, []);
 
-  const handleClick = () => setClicked(true);
+  const handleClick = (id) => {
+    setClicked(true)
+
+    
+  };
   const handleClose = () => setClicked(false);
 
   if (loading) {
@@ -97,14 +97,13 @@ function ParentsDashboard() {
         {clicked && parentData && (
           <div className="flex justify-center items-center h-fit w-fit absolute">
             <img src={popUp} alt="Pop up background" className="w-[85%]" />
-
-                  
                 <p className='absolute z-10 top-50 text-4xl'>
                 </p>
 
                 <div className="absolute h-[100%] w-[100%] content-end  justify-items-center mt-4 text-lg text-black p-4 rounded">
                   {parentData.children && parentData.children.length > 0 ? <>
                        <div className=' absolute top-[20%] overflow-y-auto bg-amber-200 max-h-[60%] h-[60%] w-[80%] text-center '>
+                    
                     <table className='h-[100%] w-[100%] '>
                       <thead className='border-4'>
                       <tr>

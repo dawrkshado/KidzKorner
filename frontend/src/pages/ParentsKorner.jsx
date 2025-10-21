@@ -13,7 +13,7 @@ function ParentsKorner() {
   const [parentData, setParentData] = useState(null);
   const [loading, setLoading] = useState(true);
   const [hoveredItem, setHoveredItem] = useState();
-  const [activeAction, setActiveAction] = useState(null); // NEW ✅
+  const [activeAction, setActiveAction] = useState(null); 
 
   const navigate = useNavigate();
 
