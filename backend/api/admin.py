@@ -22,17 +22,15 @@ class CustomUserAdmin(UserAdmin):
 
 
 class UserChildAdmin(admin.ModelAdmin):
-    list_display = ['id','first_name', 'last_name', 'birth_date', 'parent', 'get_parent_first_name', 'get_parent_last_name']
+    list_display = ['id', 'first_name', 'last_name', 'birth_date', 'get_parent_full_name']
     list_filter = ['parent']
     search_fields = ['first_name', 'last_name', 'parent__first_name', 'parent__last_name']
 
-    def get_parent_first_name(self, obj):
-        return obj.parent.first_name if obj.parent else '-'
-    get_parent_first_name.short_description = "Parent First Name"
-
-    def get_parent_last_name(self, obj):
-        return obj.parent.last_name if obj.parent else '-'
-    get_parent_last_name.short_description = "Parent Last Name"
+    def get_parent_full_name(self, obj):
+        if obj.parent:
+            return f"{obj.parent.first_name} {obj.parent.last_name}"
+        return '-'
+    get_parent_full_name.short_description = "Parent Full Name"
 
 
 class GameAdmin(admin.ModelAdmin):

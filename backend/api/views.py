@@ -2,13 +2,15 @@ from rest_framework.decorators import api_view, permission_classes
 from rest_framework.permissions import IsAuthenticated
 from rest_framework.response import Response
 from rest_framework import status
-from django.contrib.auth import authenticate
+from django.contrib.auth import authenticate,  get_user_model
 from rest_framework_simplejwt.tokens import RefreshToken
 from .models import * 
 from .serializer import *
+from rest_framework.permissions import AllowAny
 
 # Create your views here.
 @api_view(['POST'])
+@permission_classes([AllowAny])
 def login_view(request):
     username = request.data.get('username')
     password = request.data.get('password')
@@ -16,7 +18,7 @@ def login_view(request):
 
     if user is not None:
         refresh = RefreshToken.for_user(user)
-
+       
         role = user.role.role if user.role else 'Student'
 
         return Response({
@@ -79,7 +81,6 @@ def child_register(request):
 @permission_classes([IsAuthenticated])
 def user_profile(request):
     user = request.user
- 
     role = user.role.role if user.role else 'Student'
 
     return Response({
@@ -89,8 +90,9 @@ def user_profile(request):
         "username": user.username,
         "email": user.email,
         "role": role,
-      
     })
+
+
 
 @api_view(["GET"])
 @permission_classes([IsAuthenticated])
@@ -109,11 +111,26 @@ def time_completions(request):
 def parent_profile(request):
     user = request.user
 
-    if not user.role or user.role.role.lower() != "parent":
+    if not user.role or user.role.role.lower() not in ["parent","teacher","admin"]:
         return Response(
             {"error": "Access denied. Only parents can view this information."},
             status=status.HTTP_403_FORBIDDEN,
         )
 
     serializer = CustomUserSerializer(user)
+    return Response(serializer.data, status=status.HTTP_200_OK)
+
+
+@api_view(["GET"])
+@permission_classes([IsAuthenticated]) 
+def parent_profile_teacherview(request):
+    user = request.user
+    users = CustomUser.objects.filter(role__role="Parent") 
+    serializer = CustomUserSerializer(users, many=True) 
+
+    if not user.role or user.role.role.lower() not in ["teacher","admin"]:
+        return Response(
+            {"error": "Access denied. Only parents can view this information."},
+            status=status.HTTP_403_FORBIDDEN,
+        )
     return Response(serializer.data, status=status.HTTP_200_OK)

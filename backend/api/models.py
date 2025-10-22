@@ -23,6 +23,7 @@ class CustomUser(AbstractUser):
         return f"{self.username} ({self.role})"
     
 
+    
 class UserChild(models.Model):
     parent = models.ForeignKey(CustomUser, on_delete=models.CASCADE, related_name='children')
     first_name = models.CharField(max_length=30)
@@ -90,7 +91,7 @@ class TimeCompletion(models.Model):
 
         if self.time <= self.game_level.three_star_time:
             return 3
-        elif self.time <=  self.game_level.two_star_time and self.time > self.game_level.three_star_timee:
+        elif self.time <=  self.game_level.two_star_time and self.time > self.game_level.three_star_time:
             return 2
         elif self.time > self.game_level.one_star_time:
             return 1
@@ -105,3 +106,5 @@ class TimeCompletion(models.Model):
     def __str__(self):
         return f'{self.game_level.game} - {self.game_level.difficulty} - Level {self.game_level.level}: {self.time}s, {self.star} star(s)'
         
+
+     

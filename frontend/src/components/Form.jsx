@@ -5,20 +5,21 @@ import { ACCESS_TOKEN, REFRESH_TOKEN } from "../constants";
 import "../components/Form.css";
 import LoadingIndicator from "./LoadingIndicator.jsx";
 
-function Form({ route, method }) {
+function Form() {
   const [username, setUsername] = useState("");
   const [password, setPassword] = useState("");
   const [loading, setLoading] = useState(false);
   const navigate = useNavigate();
+  const [error,setError] = useState()
 
-  const name = method === "login" ? "Login" : "Register";
+
 
   const handleSubmit = async (e) => {
-    e.preventDefault();
-    setLoading(true);
 
+       setLoading(true);
+        e.preventDefault();
+        setError(null)
     try {
- 
       const res = await api.post("/api/token/", { username, password });
       localStorage.setItem(ACCESS_TOKEN, res.data.access);
       localStorage.setItem(REFRESH_TOKEN, res.data.refresh);
@@ -37,17 +38,21 @@ function Form({ route, method }) {
       } else if (role === "Parent") {
         navigate("/parentskorner");
       } else {
-        navigate("/home");
+            navigate("/login")
       }
     } catch (err) {
-      console.error("Login failed:", err);
-      setError("Invalid username or password");
+        console.error("Login failed:", err);
+        alert("Invalid username or password.");
     }
+     finally {
+            setLoading(false)
+        }
+    
   };
 
   return (
     <form onSubmit={handleSubmit} className="form-container">
-      <h1>{name}</h1>
+      <h1>Login</h1>
       <input
         className="form-input"
         type="text"
@@ -64,7 +69,7 @@ function Form({ route, method }) {
       />
       {loading && <LoadingIndicator />}
       <button className="form-button" type="submit">
-        {name}
+        Login
       </button>
     </form>
   );

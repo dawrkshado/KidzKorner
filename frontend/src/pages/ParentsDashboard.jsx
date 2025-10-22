@@ -18,20 +18,24 @@ function ParentsDashboard() {
   const child = location.state?.child;
   const [category,setCategory] = useState();
 
- 
-
   const [childRecord,setChildRecord] = useState([]);
-
-  const [] = useState
 
  
   useEffect(() => {
     const fetchParentData = async () => {
+
+      const token = localStorage.getItem("access");
+      if (!token) {
+        setRole(null);
+        setLoading(false);
+        return;
+      }
+
       try {
         const res = await api.get("/api/parent/");
-       
         const data = Array.isArray(res.data) ? res.data[0] : res.data;
         setParentData(data);
+        console.log(data)
       } catch (err) {
         console.error("Error fetching parent data:", err);
       } finally {
@@ -66,7 +70,6 @@ function ParentsDashboard() {
   }, []);
 
   const handleClick = (id) => {
-
     setCategory(id)
     setClicked(true)
     console.log(id)
@@ -101,15 +104,15 @@ function ParentsDashboard() {
         </div>
 
         {/* Pop-up */}
-        {clicked  && category === "Alphabet" && (
+          {clicked  && category === "Alphabet" && (
           <div className="flex justify-center items-center h-fit w-fit absolute">
             <img src={popUp} alt="Pop up background" className="w-[85%]" />
-                <p className='absolute z-10 top-50 text-4xl'>
+                 <p className='absolute z-10 top-10 text-6xl'>
+                  {category}
                 </p>
                 <div className="absolute h-[100%] w-[100%] content-end  justify-items-center mt-4 text-lg text-black p-4 rounded">
                   {parentData.children && parentData.children.length > 0 ? <>
                        <div className=' absolute top-[20%] overflow-y-auto bg-amber-200 max-h-[60%] h-[60%] w-[80%] text-center '>
-                    
                     <table className='h-[100%] w-[100%] '>
                       <thead className='border-4'>
                       <tr>
@@ -124,7 +127,7 @@ function ParentsDashboard() {
                         {childRecord.filter(childRecord => childRecord.game_type === "Alphabet")
                               .map((record, id) => (
                               <tr key={id}>
-                         
+                      
                               <td>{record.game_level.difficulty}</td>
                               <td>{record.game_level.level}</td>
                               <td>{record.time}</td>
@@ -136,13 +139,13 @@ function ParentsDashboard() {
                     </table>
                      </div>
                   
-                  <div>
+                   <div className="text-5xl bottom-0 absolute">
                     {child.first_name}
                   </div>
                  </> : (
                     <p className="text-gray-500">No children registered.</p>
                   )}
-                </div>
+             </div>
             <button
               className="h-10 w-10 bg-red-500 text-white absolute top-4 right-8 z-10 rounded-full hover:bg-red-600 flex items-center justify-center"
               onClick={handleClose}
@@ -157,7 +160,8 @@ function ParentsDashboard() {
         {clicked  && category === "Color" && (
           <div className="flex justify-center items-center h-fit w-fit absolute">
             <img src={popUp} alt="Pop up background" className="w-[85%]" />
-                <p className='absolute z-10 top-50 text-4xl'>
+                 <p className='absolute z-10 top-10 text-6xl'>
+                  {category}
                 </p>
                 <div className="absolute h-[100%] w-[100%] content-end  justify-items-center mt-4 text-lg text-black p-4 rounded">
                   {parentData.children && parentData.children.length > 0 ? <>
@@ -188,7 +192,7 @@ function ParentsDashboard() {
                     </table>
                      </div>
                   
-                  <div>
+                  <div className="text-5xl bottom-0 absolute">
                     {child.first_name}
                   </div>
                  </> : (
@@ -207,7 +211,8 @@ function ParentsDashboard() {
        {clicked  && category === "Shape" && (
           <div className="flex justify-center items-center h-fit w-fit absolute">
             <img src={popUp} alt="Pop up background" className="w-[85%]" />
-                <p className='absolute z-10 top-50 text-4xl'>
+                 <p className='absolute z-10 top-10 text-6xl'>
+                  {category}
                 </p>
                 <div className="absolute h-[100%] w-[100%] content-end  justify-items-center mt-4 text-lg text-black p-4 rounded">
                   {parentData.children && parentData.children.length > 0 ? <>
@@ -238,7 +243,7 @@ function ParentsDashboard() {
                     </table>
                      </div>
                   
-                  <div>
+                   <div className="text-5xl bottom-0 absolute">
                     {child.first_name}
                   </div>
                  </> : (
@@ -257,7 +262,8 @@ function ParentsDashboard() {
                {clicked  && category === "Number" && (
           <div className="flex justify-center items-center h-fit w-fit absolute">
             <img src={popUp} alt="Pop up background" className="w-[85%]" />
-                <p className='absolute z-10 top-50 text-4xl'>
+                 <p className='absolute z-10 top-10 text-6xl'>
+                  {category}
                 </p>
                 <div className="absolute h-[100%] w-[100%] content-end  justify-items-center mt-4 text-lg text-black p-4 rounded">
                   {parentData.children && parentData.children.length > 0 ? <>
@@ -288,7 +294,7 @@ function ParentsDashboard() {
                     </table>
                      </div>
                   
-                  <div>
+                  <div className="text-5xl bottom-0 absolute">
                     {child.first_name}
                   </div>
                  </> : (
@@ -302,11 +308,7 @@ function ParentsDashboard() {
               <span className="text-2xl font-bold">×</span>
             </button>
           </div>
-        )}
-
-
-
-        
+        )}      
       </div>
     </>
   );

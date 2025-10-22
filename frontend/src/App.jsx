@@ -80,8 +80,7 @@ import DashBoard from "./pages/DashBoard.jsx"
 import StudentManagement from "./pages/StudentManagement.jsx"
 import UserAccControl from "./pages/UserAccControl.jsx"
 import ProtectedRoute from "../src/components/ProtectedRoute.jsx"
-import Form from "./components/Forms.jsx"
-
+import Overview from "./pages/overview.jsx"
 
 import Color from "./pages/Color.jsx"
 import ColorEasy from "./pages/ColorEasy.jsx"
@@ -103,9 +102,8 @@ import ParentsChildRegistration from "./pages/ParentsChildRegistration.jsx"
 import ParentsDashboard from "./pages/ParentsDashboard.jsx"
 
 
+
 const Alphabets = React.lazy(() => import("./pages/Alphabets.jsx"))
-
-
 
 function App() {
 
@@ -120,7 +118,6 @@ function App() {
       setLoading(false);
       return;
     }
-
     try {
       const res = await api.get("/api/user-profile/");
       const userRole = res.data.role;
@@ -158,9 +155,7 @@ function App() {
 
   return(
   <>  
-
     <ScrollToTop/>
- 
       <div className="bg-[#3DA8CC] font-[coiny] justify-items-center align-middle h-screen w-screen content-center md:hidden">
         <img src="/responsive.png" alt="rotate Phone Background" />
         <h1 className="text-white">Rotate Phone to experience</h1>
@@ -171,13 +166,13 @@ function App() {
             <Route path="/login" element={<Login />} />
 
            {role === "Teacher" && <>
-
             <Route path="/teacher" element={<TeacherHomePage />} />
             <Route path="/uploadcontents" element={<UploadContents />} />
             <Route path="/dashboard" element={<DashBoard />} />
             <Route path="/studentmanagement" element={<StudentManagement />} />
             <Route path="/usercontrol" element={<UserAccControl />} />
             <Route path="/" element={<Navigate to="/teacher"/>} />
+            <Route path="overview" element={<Overview/>}></Route>
         </>}
 
          {role === "Parent" && <>
@@ -267,7 +262,6 @@ function App() {
               <Route path="/color/hard/level1" element={<ColorGameHardLevel1/>}/>
           </>}
           
-        {!role && <Route path="/" element={<Navigate to="/login"/>} />}
         
         <Route path="*" element={<NotFound />} />
 

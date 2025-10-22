@@ -17,13 +17,19 @@ function ParentsKorner() {
   const [hoveredItem, setHoveredItem] = useState();
 
   const [activeAction, setActiveAction] = useState(null);
-
-
   const navigate = useNavigate();
 
 
   useEffect(() => {
     const fetchParentData = async () => {
+        
+        const token = localStorage.getItem("access");
+        if (!token) {
+        setRole(null);
+        setLoading(false);
+        return;
+        }
+
       try {
         const res = await api.get("/api/parent/");
         const data = Array.isArray(res.data) ? res.data[0] : res.data;
@@ -36,7 +42,6 @@ function ParentsKorner() {
     };
     fetchParentData();
   }, []);
-
 
   useEffect(() => {
     const fetchUserName = async () => {
