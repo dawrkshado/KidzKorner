@@ -134,3 +134,48 @@ def parent_profile_teacherview(request):
             status=status.HTTP_403_FORBIDDEN,
         )
     return Response(serializer.data, status=status.HTTP_200_OK)
+
+
+@api_view(["POST"])
+@permission_classes([IsAuthenticated])
+def upload_file(request):
+    user = request.user
+
+    # Only allow teachers to upload
+    if user.role.role != "Teacher":
+        return Response({"error": "Only teachers can upload files."}, status=status.HTTP_403_FORBIDDEN)
+
+    file = request.FILES.get("file")
+    title = request.data.get("title", "Untitled")
+
+    if not file:
+        return Response({"error": "No file uploaded"}, status=status.HTTP_400_BAD_REQUEST)
+
+    uploaded = UploadedFile.objects.create(uploader=user, title=title, file=file)
+    serializer = UploadedFileSerializer(uploaded)
+    return Response(serializer.data, status=status.HTTP_201_CREATED)
+
+
+@api_view(["GET"])
+@permission_classes([IsAuthenticated])
+def list_files(request):
+    # Everyone can view files (students, teachers, parents)
+    files = UploadedFile.objects.all().order_by("-uploaded_at")
+    serializer = UploadedFileSerializer(files, many=True)
+    return Response(serializer.data)
+
+
+@api_view(["DELETE"])
+@permission_classes([IsAuthenticated])
+def delete_file(request, pk):
+    try:
+        file = UploadedFile.objects.get(pk=pk)
+    except UploadedFile.DoesNotExist:
+        return Response({"error": "File not found"}, status=status.HTTP_404_NOT_FOUND)
+
+    # Only the uploader or an admin can delete
+    if request.user != file.uploader and not request.user.is_staff:
+        return Response({"error": "Not allowed to delete this file"}, status=status.HTTP_403_FORBIDDEN)
+
+    file.delete()
+    return Response({"message": "File deleted successfully"}, status=status.HTTP_204_NO_CONTENT)

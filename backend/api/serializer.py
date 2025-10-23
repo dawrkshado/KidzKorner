@@ -36,3 +36,12 @@ class gameSerializer(serializers.ModelSerializer):
     class Meta:
         model = TimeCompletion
         fields = ['child','game_type', 'difficulty','game_level','time', 'star']
+
+
+
+class UploadedFileSerializer(serializers.ModelSerializer):
+    uploader_name = serializers.CharField(source='uploader.username', read_only=True)
+
+    class Meta:
+        model = UploadedFile
+        fields = ['id', 'title', 'file', 'uploaded_at', 'uploader_name']

@@ -25,7 +25,7 @@ function StudentFilesPage() {
             <strong>{file.title}</strong>
             <p className="text-sm text-gray-600">By: {file.uploader_name}</p>
             <a
-              href={file.file}
+              href={`http://127.0.0.1:8000${file.file}`}
               target="_blank"
               rel="noreferrer"
               className="text-blue-600 underline"

@@ -107,4 +107,19 @@ class TimeCompletion(models.Model):
         return f'{self.game_level.game} - {self.game_level.difficulty} - Level {self.game_level.level}: {self.time}s, {self.star} star(s)'
         
 
+class UploadedFile(models.Model):
+    uploader = models.ForeignKey(
+        CustomUser,
+        on_delete=models.CASCADE,
+        related_name='uploaded_files'
+    )
+    title = models.CharField(max_length=255)
+    file = models.FileField(upload_to='uploads/')
+    uploaded_at = models.DateTimeField(auto_now_add=True)
+
+    def __str__(self):
+        return f"{self.title} (by {self.uploader.username})"
+
+
+
      

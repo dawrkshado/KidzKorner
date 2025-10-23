@@ -13,5 +13,8 @@ urlpatterns = [
     path("parent/", parent_profile, name="parent-profile"),
     path("child_register/", child_register, name="register_child"),
     path("time_completions/", time_completions,name="time_completions" ),
+    path("upload_file/", upload_file, name="upload-file"),
+    path("files/", list_files, name="list-files"),
+    path("delete_file/<int:pk>/", delete_file, name="delete_file"),
 
 ]
