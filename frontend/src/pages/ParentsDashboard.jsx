@@ -124,7 +124,7 @@ function ParentsDashboard() {
                       </thead>
                    
                       <tbody className='border-4'>
-                        {childRecord.filter(childRecord => childRecord.game_type === "Alphabet")
+                        {childRecord.filter(record => record.game_level.game_name === "Alphabet")
                               .map((record, id) => (
                               <tr key={id}>
                       
@@ -177,7 +177,7 @@ function ParentsDashboard() {
                       </thead>
                    
                       <tbody className='border-4'>
-                        {childRecord.filter(childRecord => childRecord.game_type === "Color")
+                        {childRecord.filter(record => record.game_level.game_name === "Color")
                               .map((record, id) => (
                               <tr key={id}>
                       
@@ -228,7 +228,7 @@ function ParentsDashboard() {
                       </thead>
                    
                       <tbody className='border-4'>
-                        {childRecord.filter(childRecord => childRecord.game_type === "Shape")
+                        {childRecord.filter(record => record.game_level.game_name === "Shape")
                               .map((record, id) => (
                               <tr key={id}>
                     
@@ -279,7 +279,7 @@ function ParentsDashboard() {
                       </thead>
                    
                       <tbody className='border-4'>
-                        {childRecord.filter(childRecord => childRecord.game_type === "Number")
+                        {childRecord.filter(record => record.game_level.game_name === "Number")
                               .map((record, id) => (
                               <tr key={id}>
                    

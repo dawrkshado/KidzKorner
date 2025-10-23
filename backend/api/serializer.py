@@ -7,7 +7,7 @@ class UserChildSerializer(serializers.ModelSerializer):
     parent_full_name = serializers.SerializerMethodField()
     class Meta:
         model = UserChild
-        fields = ['first_name', 'last_name', 'birth_date', 'parent_full_name']
+        fields = ['id','first_name', 'last_name', 'birth_date', 'parent_full_name']
     def get_parent_full_name(self, obj):
         parent = obj.parent
         return f"{parent.first_name} {parent.last_name}"
@@ -24,7 +24,7 @@ class CustomUserSerializer(serializers.ModelSerializer):
 class Game(serializers.ModelSerializer):
     class Meta:
         model = Game
-        fields = ['game','difficulty','level']
+        fields = ['game_name','difficulty','level']
 
 class gameSerializer(serializers.ModelSerializer):
     child = UserChildSerializer(read_only=True)

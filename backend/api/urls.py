@@ -16,5 +16,7 @@ urlpatterns = [
     path("upload_file/", upload_file, name="upload-file"),
     path("files/", list_files, name="list-files"),
     path("delete_file/<int:pk>/", delete_file, name="delete_file"),
+    path("save_progress/", save_progress, name="save-progress"),
+
 
 ]

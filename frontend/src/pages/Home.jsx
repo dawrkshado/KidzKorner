@@ -12,8 +12,18 @@ import { useLocation } from "react-router-dom";
 
 function Home(){
 
-  const location = useLocation();
-  const child = location.state?.child;
+    const location = useLocation();
+  const [child, setChild] = useState(location.state?.child || null);
+
+  
+  useEffect(() => {
+    if (!child) {
+      const storedChild = localStorage.getItem("selectedChild");
+      if (storedChild) {
+        setChild(JSON.parse(storedChild));
+      }
+    }
+  }, [child]);
 
 
   useEffect(() => {

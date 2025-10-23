@@ -4,8 +4,10 @@ from rest_framework.response import Response
 from rest_framework import status
 from django.contrib.auth import authenticate,  get_user_model
 from rest_framework_simplejwt.tokens import RefreshToken
-from .models import * 
-from .serializer import *
+from .models import Game, TimeCompletion, UserChild, UploadedFile, CustomUser
+from .serializer import CustomUserSerializer, UploadedFileSerializer, UserChildSerializer, gameSerializer
+
+
 from rest_framework.permissions import AllowAny
 
 # Create your views here.
@@ -179,3 +181,44 @@ def delete_file(request, pk):
 
     file.delete()
     return Response({"message": "File deleted successfully"}, status=status.HTTP_204_NO_CONTENT)
+
+
+@api_view(['POST'])
+@permission_classes([IsAuthenticated])
+def save_progress(request):
+    try:
+        child_id = request.data.get('child_id')
+        game_name = request.data.get('game')
+        difficulty = request.data.get('difficulty')
+        level = request.data.get('level')
+        time = request.data.get('time')
+
+        if not all([child_id, game_name, difficulty, level, time]):
+            return Response({"error": "Missing fields"}, status=status.HTTP_400_BAD_REQUEST)
+
+
+        try:
+            game = Game.objects.get(game_name=game_name, difficulty=difficulty, level=level)
+        except Game.DoesNotExist:
+            return Response({"error": "Game level not found"}, status=status.HTTP_404_NOT_FOUND)
+
+        try:
+            print("DEBUG — Game type is:", Game)
+            child = UserChild.objects.get(id=child_id)
+        except UserChild.DoesNotExist:
+            return Response({"error": "Child not found"}, status=status.HTTP_404_NOT_FOUND)
+
+        completion = TimeCompletion.objects.create(
+            child=child,
+            game_level=game,
+            time=time
+        )
+
+        serializer = gameSerializer(completion)
+        return Response(serializer.data, status=status.HTTP_201_CREATED)
+
+    except Exception as e:
+        import traceback
+        print("SAVE PROGRESS ERROR:", e)
+        traceback.print_exc()  
+        return Response({"error": str(e)}, status=status.HTTP_500_INTERNAL_SERVER_ERROR)

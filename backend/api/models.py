@@ -48,7 +48,7 @@ class Game(models.Model):
     ]
 
 
-    game = models.CharField( choices=game_Choices, max_length=20)
+    game_name = models.CharField( choices=game_Choices, max_length=20)
     difficulty = models.CharField(max_length=10, choices=difficulty_Choices, default='Easy')
     level = models.IntegerField(default=1, validators=[MinValueValidator(1), MaxValueValidator(10)])
     
@@ -67,7 +67,7 @@ class Game(models.Model):
     )
 
     def __str__(self):
-        return f"{self.game} - {self.difficulty} - Level {self.level}"
+        return f"{self.game_name} - {self.difficulty} - Level {self.level}"
 
 
 
@@ -104,7 +104,7 @@ class TimeCompletion(models.Model):
         super().save(*args, **kwargs)
 
     def __str__(self):
-        return f'{self.game_level.game} - {self.game_level.difficulty} - Level {self.game_level.level}: {self.time}s, {self.star} star(s)'
+        return f'{self.game_level.game_name} - {self.game_level.difficulty} - Level {self.game_level.level}: {self.time}s, {self.star} star(s)'
         
 
 class UploadedFile(models.Model):

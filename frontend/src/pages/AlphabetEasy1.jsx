@@ -9,8 +9,15 @@ import OneStar from "../assets/Done/OneStar.webp";
 import TwoStar from "../assets/Done/TwoStar.webp"; 
 import ThreeStar from "../assets/Done/ThreeStar.webp"; 
 
+import api from "../api";
+
 import ReplayNBack from "../components/ReplayNBack";
 function ShapesEasyLevel1() {
+
+ const selectedChild = JSON.parse(localStorage.getItem("selectedChild"));
+  const childId = selectedChild?.id;
+   
+
   const clickables = [
     {
       Answer: "A",
@@ -22,8 +29,6 @@ function ShapesEasyLevel1() {
       ]
     }
   ];
-
-
   const [isGameFinished,setGameFinished]= useState(false);
 
   const [count, setCount] = useState(0);
@@ -49,8 +54,38 @@ function ShapesEasyLevel1() {
     }
   };
 
+
+ 
+  useEffect(() => {
+    if (!isGameFinished) return;
+
+     
+    if (!childId) {
+      console.warn("No child selected!");
+      return;
+    }
+
+
+
+    const data = {
+      child_id: childId,
+      game: "Alphabet",
+      difficulty: "Easy",
+      level: 1,
+      time: count,
+    };
+
+    api.post("/api/save_progress/", data)
+      .then((res) => console.log("Progress saved:", res.data))
+      .catch((err) => console.error("Error saving progress:", err));
+  }, [isGameFinished]);
+
   return (
     <><div className="font-[coiny]">
+
+
+
+      {childId}
     <img src={bg} alt="background" className="w-full"/>
     <h1 className="absolute top-15 right-112 text-3xl text-white">Can You Find Letter  {clickables[index].Answer}</h1>
     {!isGameFinished && (<>
