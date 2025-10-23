@@ -41,6 +41,9 @@ function Home(){
       <h1>Welcome {child ? child.first_name : "Guest"}!</h1>
     </div>
       <Link to="/parentskorner"><div className="bg-black flex  h-30 w-30 justify-center items-center text-white absolute">To Parent</div></Link>
+       
+       <Link to="/uploadedFiles"><div className="absolute h-30 w-30 bg-amber-500 text-amber-50 right-100">files</div></Link>
+       
         <img src="./Bg/kidzBackground.webp" alt="background" className="w-full"/>
           
         <Link to="/color"><img src={redmonster} alt="Monster Button for color page" className="absolute right-[22%] bottom-[10%] h-[35%] hover:opacity-85 motion-preset-pulse-sm motion-duration-2000 "/></Link>

@@ -100,7 +100,7 @@ import NumberGame from "./pages/NumberGame.jsx"
 import ParentsKorner from "./pages/ParentsKorner.jsx"
 import ParentsChildRegistration from "./pages/ParentsChildRegistration.jsx"
 import ParentsDashboard from "./pages/ParentsDashboard.jsx"
-
+import StudentFilesPage from "./pages/StudentFilePage.jsx"
 
 
 const Alphabets = React.lazy(() => import("./pages/Alphabets.jsx"))
@@ -163,7 +163,8 @@ function App() {
 <div className="hidden md:block font-[coiny]">
   
       <Routes>    
-            <Route path="/login" element={<Login />} />
+            <Route path="/" element={<Navigate to="/login"/>} />
+            <Route path="/login" element={<Login/>}/>
 
            {role === "Teacher" && <>
             <Route path="/teacher" element={<TeacherHomePage />} />
@@ -177,7 +178,7 @@ function App() {
 
          {role === "Parent" && <>
               <Route path="/home" element={<ProtectedRoute><Home/></ProtectedRoute>} />
-     
+              <Route path="/uploadedFiles" element={<StudentFilesPage/>}/>
               <Route path="/about" element={<About />} />
               <Route path="/stories" element={<Stories />} />
               <Route path="/stories/story1" element={<Story1 />} />
