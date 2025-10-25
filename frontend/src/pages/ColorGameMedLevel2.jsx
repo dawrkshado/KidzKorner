@@ -51,13 +51,12 @@ function ColorGameMedLevel2() {
     { id: "watermelon", type: "watermelon", img: watermelon, correctJar: "red",x: 1060, y: 200}
 
     
-
   
   ];
 
   const starImages = { one: OneStar, two: TwoStar, three: ThreeStar };
 
-  return <SortingGame jars={jars} itemsData={itemsData} starImages={starImages} />;
+  return <SortingGame jars={jars} itemsData={itemsData} starImages={starImages} gamelevel={2} />;
 }
 
 

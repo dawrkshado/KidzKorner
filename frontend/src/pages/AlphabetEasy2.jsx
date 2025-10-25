@@ -26,7 +26,7 @@ function ShapesEasyLevel2() {
 
   const [isGameFinished,setGameFinished]= useState(false);
   
-    const [count, setCount] = useState(0);
+    const [count, setCount] = useState(1);
           
             useEffect(() => {
               if (isGameFinished) return; 

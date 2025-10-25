@@ -45,7 +45,8 @@ function ColorGameMedLevel1() {
 
   const starImages = { one: OneStar, two: TwoStar, three: ThreeStar };
 
-  return <SortingGame jars={jars} itemsData={itemsData} starImages={starImages} />;
+
+  return <SortingGame jars={jars} itemsData={itemsData} starImages={starImages} gamelevel={1}/>;
 }
 
 

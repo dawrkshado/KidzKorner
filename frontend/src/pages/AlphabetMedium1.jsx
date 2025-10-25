@@ -15,6 +15,8 @@ import TwoStar from "../assets/Done/TwoStar.webp";
 import ThreeStar from "../assets/Done/ThreeStar.webp"; 
 
 import ReplayNBack from "../components/ReplayNBack";
+import api from "../api";
+
 
 function Droppable({ id, placedShape, shape }) {
   const { isOver, setNodeRef } = useDroppable({ id });
@@ -57,7 +59,6 @@ function Draggable({ id, disabled = false, shape }) {
 }
 
 function AlphabetMedium1() {
-  const [dropped, setDropped] = useState({});
 
   function handleDragEnd(event) {
     if (event.over) {
@@ -73,11 +74,13 @@ function AlphabetMedium1() {
     }
   }
 
-
+  const [dropped, setDropped] = useState({});
+  const selectedChild = JSON.parse(localStorage.getItem("selectedChild"));
+  const childId = selectedChild?.id;
   const isGameFinished =
     dropped["m"] && dropped["n"] && dropped["o"] && dropped["p"] && dropped["q"];
 
-   const [count, setCount] = useState(0);
+   const [count, setCount] = useState(1);
 
   useEffect(() => {
     if (isGameFinished) return; 
@@ -87,6 +90,28 @@ function AlphabetMedium1() {
     }, 1000);
 
     return () => clearInterval(interval); 
+  }, [isGameFinished]);
+
+
+  useEffect(() => {
+    if (!isGameFinished) return;
+    
+    if (!childId) {
+      console.warn("No child selected!");
+      return;
+    }
+
+    const data = {
+      child_id: childId,
+      game: "Alphabet",
+      difficulty: "Medium",
+      level: 1,
+      time: count,
+    };
+
+    api.post("/api/save_progress/", data)
+      .then((res) => console.log("Progress saved:", res.data))
+      .catch((err) => console.error("Error saving progress:", err));
   }, [isGameFinished]);
 
 
@@ -102,7 +127,7 @@ function AlphabetMedium1() {
       
               {/* Draggables */}
               <div className="flex absolute  gap-30 mt-10 w-[100vw] h-[300px] justify-center z-10 top-100 lg:top-115 p-4 rounded-lg ">
-            
+
 
                 {!dropped["n"] && (
                   <Draggable

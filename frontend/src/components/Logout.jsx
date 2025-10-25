@@ -44,7 +44,7 @@ function Logout(){
   if (loading) return <div>Loading...</div>;
 
 
-  return (<div className="bg-blue-400 text-3xl w-fit h-fit hover:cursor-pointer hover:text-amber-500 " onClick={handleLogout}><p >Logout</p></div>
+  return (<div className="bg-red-500 text-2xl w-fit h-fit hover:cursor-pointer hover:opacity-80  rounded-lg" onClick={handleLogout}><p >Logout</p></div>
   );
 
 }

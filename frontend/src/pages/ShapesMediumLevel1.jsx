@@ -18,6 +18,7 @@ import TwoStar from "../assets/Done/TwoStar.webp";
 import ThreeStar from "../assets/Done/ThreeStar.webp"; 
 
 import Bone from "../assets/Shapes/ShapesMedium/level1/bone.webp"
+import api from "../api.js";
 
 
 function Droppable({ id, placedShape, shape }) {
@@ -61,6 +62,9 @@ function Draggable({ id, disabled = false, shape }) {
 }
 
 function ShapesMediumLevel1() {
+  const selectedChild = JSON.parse(localStorage.getItem("selectedChild"));
+  const childId = selectedChild?.id;
+
   const [dropped, setDropped] = useState({});
 
   function handleDragEnd(event) {
@@ -91,6 +95,25 @@ function ShapesMediumLevel1() {
     }, 1000);
 
     return () => clearInterval(interval); 
+  }, [isGameFinished]);
+
+
+      useEffect(() => {
+    if (!isGameFinished || !childId) return;
+
+
+    const data = {
+      child_id: childId,
+      game: "Shape",
+      difficulty: "Medium",
+      level: 1,
+      time: count,
+    };
+
+
+    api.post("/api/save_progress/", data)
+      .then((res) => console.log("Progress saved:", res.data))
+      .catch((err) => console.error("Error saving progress:", err));
   }, [isGameFinished]);
 
 

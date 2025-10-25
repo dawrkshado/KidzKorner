@@ -14,10 +14,13 @@ import TwoStar from "../assets/Done/TwoStar.webp";
 import ThreeStar from "../assets/Done/ThreeStar.webp"; 
 
 import ReplayNBack from "../components/ReplayNBack";
+import api from "../api";
     
 function ShapesHardLevel1() {
   const [clicked, setClicked] = useState([]);
   const [showWrong, setShowWrong] = useState(false);
+  const selectedChild = JSON.parse(localStorage.getItem("selectedChild"));
+  const childId = selectedChild?.id;
 
   const numbers = [
   { value: "triangle", img: triangle, top: 575, left: 395, width: 60, height: 60 },
@@ -50,7 +53,7 @@ function ShapesHardLevel1() {
 
   const isGameFinished = clicked.length === numbers.length;
 
-   const [count, setCount] = useState(0);
+   const [count, setCount] = useState(1);
       
         useEffect(() => {
           if (isGameFinished) return; 
@@ -61,6 +64,38 @@ function ShapesHardLevel1() {
       
           return () => clearInterval(interval); 
         }, [isGameFinished]);
+
+        useEffect(() => {
+    if (isGameFinished) return;
+
+    const interval = setInterval(() => {
+      setCount((prev) => prev + 1);
+    }, 1000);
+
+    return () => clearInterval(interval);
+  }, [isGameFinished]);
+
+
+
+    useEffect(() => {
+    if (!isGameFinished || !childId) return;
+
+
+    const data = {
+      child_id: childId,
+      game: "Shape",
+      difficulty: "Hard",
+      level: 1,
+      time: count,
+    };
+
+    console.log("Saving progress:", data);
+
+    api.post("/api/save_progress/", data)
+      .then((res) => console.log("Progress saved:", res.data))
+      .catch((err) => console.error("Error saving progress:", err));
+  }, [isGameFinished]);
+
 
 
   return (
@@ -102,47 +137,33 @@ function ShapesHardLevel1() {
     </div>
   )}
 
-{/*Result*/}
+    {/* Results */}
+      {isGameFinished && count <= 10 && (
+        <div className="absolute inset-0 flex items-center h-full w-full justify-center bg-opacity-50 z-20">
+          <img src={ThreeStar} alt="Game Completed!" className="h-[300px] animate-bounce" />
+          <div className="absolute bottom-[20%]">
+            <ReplayNBack />
+          </div>
+        </div>
+      )}
 
-  {isGameFinished && count <= 10 && count < 20  &&(
-                    <div className="absolute inset-0 flex items-center justify-center bg-opacity-50 z-20">
-                      <img
-                        src={ThreeStar}
-                        alt="Game Completed!"
-                        className="h-[300px] animate-bounce"
-                      />
+      {isGameFinished && count <= 15 && count > 10 && (
+        <div className="absolute inset-0 flex items-center justify-center bg-opacity-50 z-20">
+          <img src={TwoStar} alt="Game Completed!" className="h-[300px] animate-bounce" />
+          <div className="absolute bottom-[20%]">
+            <ReplayNBack />
+          </div>
+        </div>
+      )}
 
-                      <div className="absolute bottom-[20%] ">
-                        <ReplayNBack/>
-                      </div>
-                    </div>
-                  )}
-        
-                    {isGameFinished && count >= 20 && count <30 &&(
-                    <div className="absolute inset-0 flex items-center justify-center bg-opacity-50 z-20">
-                      <img
-                        src={TwoStar}
-                        alt="Game Completed!"
-                        className="h-[300px] animate-bounce"
-                      />
-                      <div className="absolute bottom-[20%] ">
-                          <ReplayNBack/>
-                      </div>
-                    </div>
-                  )}
-        
-                  {isGameFinished && count > 30 &&  (
-                    <div className="absolute inset-0 flex items-center justify-center bg-opacity-50 z-20">
-                      <img
-                        src={OneStar}
-                        alt="Game Completed!"
-                        className="h-[300px] animate-bounce"
-                      />
-                      <div className="absolute bottom-[20%] ">
-                        <ReplayNBack/>
-                      </div>
-                    </div>
-                  )}
+      {isGameFinished && count > 15 && (
+        <div className="absolute inset-0 flex items-center justify-center bg-opacity-50 z-20">
+          <img src={OneStar} alt="Game Completed!" className="h-[300px] animate-bounce" />
+          <div className="absolute bottom-[20%]">
+            <ReplayNBack />
+          </div>
+        </div>
+      )}
       
     </div>
   );

@@ -2,6 +2,8 @@ import { useState, useEffect } from "react";
 import { DndContext, useDraggable, useDroppable, pointerWithin } from "@dnd-kit/core";
 import bg from "../assets/Color/Medium/bg.webp"
 import ReplayNBack from "./ReplayNBack";
+import api from "../api";
+
 
 function Draggable({ id, img, x, y }) {
   const { attributes, listeners, setNodeRef, transform } = useDraggable({ id });
@@ -43,8 +45,12 @@ function Droppable({ id, placedItems, jarImg }) {
   );
 }
 
-function SortingGame({ itemsData, jars, starImages }) {
+function SortingGame({ itemsData, jars, starImages, gamelevel }) {
   const [items, setItems] = useState(itemsData);
+  const selectedChild = JSON.parse(localStorage.getItem("selectedChild"));
+  const childId = selectedChild?.id;
+
+  const level = (gamelevel)
 
   const [dropped, setDropped] = useState(
     Object.fromEntries(jars.map((jar) => [jar.id, []]))
@@ -73,11 +79,31 @@ function SortingGame({ itemsData, jars, starImages }) {
   const isGameFinished = items.length === 0;
 
 
-  const [count, setCount] = useState(0);
+  const [count, setCount] = useState(1);
   useEffect(() => {
     if (isGameFinished) return;
     const interval = setInterval(() => setCount((prev) => prev + 1), 1000);
     return () => clearInterval(interval);
+  }, [isGameFinished]);
+
+
+   useEffect(() => {
+    if (!isGameFinished || !childId) return;
+
+
+    const data = {
+      child_id: childId,
+      game: "Color",
+      difficulty: "Medium",
+      level: level,
+      time: count,
+    };
+
+    console.log("Saving progress:", data);
+
+    api.post("/api/save_progress/", data)
+      .then((res) => console.log("Progress saved:", res.data))
+      .catch((err) => console.error("Error saving progress:", err));
   }, [isGameFinished]);
 
   return (

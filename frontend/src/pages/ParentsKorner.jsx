@@ -17,6 +17,11 @@ function ParentsKorner() {
   const [hoveredItem, setHoveredItem] = useState();
 
   const [activeAction, setActiveAction] = useState(null);
+
+  const [logout, setLogout]= useState();
+
+  const [clickedLogout, setClickedLogout] = useState();
+  
   const navigate = useNavigate();
 
 
@@ -74,9 +79,16 @@ function ParentsKorner() {
     setClicked(true);
   };
 
+  const logoutClick = (logout) => {
+      setClickedLogout(true)
+      setLogout(logout)
+
+  }
+
   const handleExit = () => {
     setClicked(false);
     setActiveAction(null);
+    setClickedLogout(false)
   };
 
   const handleHover = (id) => {
@@ -187,8 +199,25 @@ function ParentsKorner() {
             </div>
           </>
         )}
+        <div className='text-4xl hover:text-amber-500 hover:cursor-pointer' onClick={() => logoutClick("logout")}>Logout</div>
 
-        <Logout />
+        {clickedLogout && logout === "logout" && <>
+        <div className='absolute flex justify-center items-center h-[100vh] w-[100vw]  z-100'>
+
+        <div className=' h-[100%] w-[100%] bg-gray-800 opacity-50'>       
+        </div>
+         <div className='flex justify-center items-center absolute h-[40%] w-[40%] bg-blue-200 rounded-2xl'>
+          <div>
+             <h1 className='text-2xl'>Are you sure you want to <span className='font-bold'>LOGOUT?</span></h1>
+            <div className='flex gap-20 justify-center'><Logout/> <h1 className='text-2xl bg-green-500 rounded-lg hover:cursor-pointer' onClick={handleExit}>Cancel</h1></div>
+         </div> 
+               
+         </div>
+   
+        </div>
+      
+        </>}
+
       </div>
     </>
   );

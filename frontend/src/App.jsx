@@ -101,6 +101,7 @@ import ParentsKorner from "./pages/ParentsKorner.jsx"
 import ParentsChildRegistration from "./pages/ParentsChildRegistration.jsx"
 import ParentsDashboard from "./pages/ParentsDashboard.jsx"
 import StudentFilesPage from "./pages/StudentFilePage.jsx"
+import { ACCESS_TOKEN } from "./constants";
 
 
 const Alphabets = React.lazy(() => import("./pages/Alphabets.jsx"))
@@ -112,7 +113,7 @@ function App() {
 
   useEffect(() => {
   const checkUser = async () => {
-    const token = localStorage.getItem("access");
+    const token = localStorage.getItem(ACCESS_TOKEN);
     if (!token) {
       setRole(null);
       setLoading(false);

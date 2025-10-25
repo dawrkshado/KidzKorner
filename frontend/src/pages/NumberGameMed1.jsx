@@ -20,6 +20,7 @@ import ThreeStar from "../assets/Done/ThreeStar.webp";
 import ReplayNBack from "../components/ReplayNBack";
 
 import wrongImage from "../assets/Alphabets/Hard/cross.gif" 
+import api from "../api";
 
 function Droppable({ id, placedShape, shape }) {
   const { isOver, setNodeRef } = useDroppable({ id });
@@ -64,7 +65,8 @@ function Draggable({ id, disabled = false, shape }) {
 
 function NumberGameMed1() {
   const [dropped, setDropped] = useState({});
-
+  const selectedChild = JSON.parse(localStorage.getItem("selectedChild"));
+  const childId = selectedChild?.id;
   function handleDragEnd(event) {
     if (event.over) {
       const draggedId = event.active.id;
@@ -94,6 +96,25 @@ function NumberGameMed1() {
     return () => clearInterval(interval); 
   }, [isGameFinished]);
 
+ {/*Saving*/}
+  useEffect(() => {
+    if (!isGameFinished || !childId) return;
+
+
+    const data = {
+      child_id: childId,
+      game: "Number",
+      difficulty: "Medium",
+      level: 1,
+      time: count,
+    };
+
+    console.log("Saving progress:", data);
+
+    api.post("/api/save_progress/", data)
+      .then((res) => console.log("Progress saved:", res.data))
+      .catch((err) => console.error("Error saving progress:", err));
+  }, [isGameFinished]);
 
 
   return (
