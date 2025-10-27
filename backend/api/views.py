@@ -60,6 +60,8 @@ def child_register(request):
     first_name = request.data.get('first_name')
     last_name =  request.data.get('last_name')
     birth_date = request.data.get('birth_date')
+    section = request.data.get('section')
+    class_sched = request.data.get('class_sched')
 
     if not all([first_name, last_name, birth_date]):
         return Response(
@@ -71,7 +73,9 @@ def child_register(request):
         parent=user,
         first_name=first_name,
         last_name=last_name,
-        birth_date=birth_date
+        birth_date=birth_date,
+        section=section,
+        class_sched=class_sched
     )
     
 
@@ -100,9 +104,18 @@ def user_profile(request):
 @permission_classes([IsAuthenticated])
 def time_completions(request):
     user = request.user
-    children = UserChild.objects.filter(parent=user)
-    completions = TimeCompletion.objects.filter(child__in=children)
+
+    if user.role.role == "Parent" :
+        children = UserChild.objects.filter(parent=user)
+        completions = TimeCompletion.objects.filter(child__in=children)
+    elif user.role.role == "Teacher" :
+        completions = TimeCompletion.objects.all()
+    else:
+        completions = TimeCompletion.objects.none()
+
     serializer = gameSerializer(completions, many=True)
+
+  
     
     return Response(serializer.data, status=status.HTTP_200_OK)
 
@@ -136,6 +149,22 @@ def parent_profile_teacherview(request):
             status=status.HTTP_403_FORBIDDEN,
         )
     return Response(serializer.data, status=status.HTTP_200_OK)
+
+@api_view(["GET"])
+@permission_classes([IsAuthenticated]) 
+def student_profile_teacherview(request):
+    user = request.user
+    users =  UserChild.objects.all()  
+    serializer = UserChildSerializer(users,many=True) 
+
+    if not user.role or user.role.role.lower() not in ["teacher","admin"]:
+        return Response(
+            {"error": "Access denied. Only parents can view this information."},
+            status=status.HTTP_403_FORBIDDEN,
+        )
+    return Response(serializer.data, status=status.HTTP_200_OK)
+
+
 
 
 @api_view(["POST"])

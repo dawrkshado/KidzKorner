@@ -48,7 +48,7 @@ const [loading, setLoading] = useState(true);
             <div className=" absolute top-20 justify-self-center overflow-y-auto max-h-[80%]  h-[80%] w-[100%] ">
               <table className="border-2 absolute h-[100%] w-[100%] text-center ">
                 <thead>
-                  <tr>
+                  <tr className="font-bold text-2xl">
                     <td className="border-2 ">Name</td>
                     <td className="border-2">Email</td>
                     <td className="border-2">Children</td>
@@ -56,7 +56,7 @@ const [loading, setLoading] = useState(true);
                 </thead>
                 <tbody>
                     {parentData.map((parentDetails, id) => (
-                    <tr key={id} className="h-[100px] max-h-[100px]">
+                    <tr key={id} className="h-[20%] max-h-[20%]">
                       <td className="border-2">{parentDetails.first_name} {parentDetails.last_name}</td>
                       <td className="border-2">{parentDetails.email}</td>
                       <td className="border-2">

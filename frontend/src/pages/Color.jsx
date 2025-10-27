@@ -1,4 +1,4 @@
-import TopBar from "../components/TopBar.jsx";
+
 import apple from "../assets/Color/apple.png"
 import avocado from "../assets/Color/avocado.png"
 import banana from "../assets/Color/banana.png"
@@ -22,7 +22,6 @@ const speak = (text) => {
 function Color(){
     return(
         <> <div className="hidden w-full md:inline md:absolute h-[100%]">
-      <TopBar/>
       <Back/>
       <img 
       src="./Bg/Color/colorgamebg.webp"

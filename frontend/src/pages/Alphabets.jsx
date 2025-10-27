@@ -1,4 +1,3 @@
-import TopBar from "../components/TopBar";
 import A from "../assets/Alphabets/A.webp";
 import B from "../assets/Alphabets/B.webp";
 import C from "../assets/Alphabets/C.webp";
@@ -34,7 +33,6 @@ import { Link } from 'react-router-dom'
 function Alphabets(){   
     return(
 <>  
-            <TopBar/>
             <Back/>
 <div className="hidden w-full md:inline md:absolute h-[100%]">
         <img src="./Bg/Alphabets/alphabetbg.webp" alt="chalkBoard Background" className="w-full"/>

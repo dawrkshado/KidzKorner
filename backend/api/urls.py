@@ -17,6 +17,6 @@ urlpatterns = [
     path("files/", list_files, name="list-files"),
     path("delete_file/<int:pk>/", delete_file, name="delete_file"),
     path("save_progress/", save_progress, name="save-progress"),
-
+    path("child_profile/", student_profile_teacherview, name="child_profile")
 
 ]

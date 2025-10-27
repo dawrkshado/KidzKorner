@@ -12,7 +12,7 @@ import { useLocation } from "react-router-dom";
 
 function Home(){
 
-    const location = useLocation();
+  const location = useLocation();
   const [child, setChild] = useState(location.state?.child || null);
 
   
@@ -26,18 +26,18 @@ function Home(){
   }, [child]);
 
 
-  useEffect(() => {
-    const checkUser = async () => {
-      try {
-        const res = await api.get("/api/user-profile/");
-        console.log(res.data)
-      } catch (err) {
-        console.error("Not logged in:", err);
-      }
-    };
+    useEffect(() => {
+      const checkUser = async () => {
+        try {
+          const res = await api.get("/api/user-profile/");
+          console.log(res.data)
+        } catch (err) {
+          console.error("Not logged in:", err);
+        }
+      };
 
-    checkUser();
-  }, []);
+      checkUser();
+    }, []);
 
 
   

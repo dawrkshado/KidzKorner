@@ -10,12 +10,16 @@ function ParentsChildRegistration() {
   const [birthDate, setBirthDate] = useState("");
   const [message, setMessage] = useState("");
   const [showMessage, setShowMessage] = useState();
+  const [section,setSection] = useState("");
+   const [schedule,setSchedule] = useState("");
 
   
   const clearForm = () => {
     setFirstName("");
     setLastName("");
     setBirthDate("");
+    setSection("")
+    setSchedule("")
   };
 
   const handleSubmit = async (e) => {
@@ -27,7 +31,10 @@ function ParentsChildRegistration() {
         {
           first_name: firstName,
           last_name: lastName,
+          section: section,
+          class_sched: schedule,
           birth_date: birthDate,
+
         },
       );
       setTimeout(() => setShowMessage(), 2000);
@@ -77,6 +84,31 @@ function ParentsChildRegistration() {
                 onChange={(e) => setLastName(e.target.value)}
                 className="w-full p-2 rounded-md border"
               />
+            </div>
+
+               <div className="m-3">
+              <label className="block mb-1">Section:</label>
+              <input
+                required
+                type="text"
+                value={section}
+                onChange={(e) => setSection(e.target.value)}
+                className="w-full p-2 rounded-md border"
+              />
+            </div>
+
+                <div className="m-3">
+              <label className="block mb-1">Class Schedule</label>
+              <select
+                required
+                value={schedule}
+                onChange={(e) => setSchedule(e.target.value)}
+                className="w-full p-2 rounded-md border"
+              >
+                  <option value="">-- Select Schedule --</option>
+                  <option value="8:00 AM to 11:00 AM"> Morning: 8:00 AM to 11:00 AM</option>
+                  <option value="8:00 AM to 11:00 AM"> Noon: 11:00 AM to 1:00 PM</option>
+              </select>
             </div>
 
             <div className="m-3">

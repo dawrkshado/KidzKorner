@@ -175,6 +175,7 @@ function App() {
             <Route path="/usercontrol" element={<UserAccControl />} />
             <Route path="/" element={<Navigate to="/teacher"/>} />
             <Route path="overview" element={<Overview/>}></Route>
+               <Route path="/dashboardparentz" element={<ParentsDashboard/>}/>
         </>}
 
          {role === "Parent" && <>

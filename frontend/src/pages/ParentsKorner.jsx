@@ -15,13 +15,9 @@ function ParentsKorner() {
   const [parentData, setParentData] = useState(null);
   const [loading, setLoading] = useState(true);
   const [hoveredItem, setHoveredItem] = useState();
-
   const [activeAction, setActiveAction] = useState(null);
-
   const [logout, setLogout]= useState();
-
   const [clickedLogout, setClickedLogout] = useState();
-  
   const navigate = useNavigate();
 
 

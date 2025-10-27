@@ -22,7 +22,7 @@ class CustomUserAdmin(UserAdmin):
 
 
 class UserChildAdmin(admin.ModelAdmin):
-    list_display = ['id', 'first_name', 'last_name', 'birth_date', 'get_parent_full_name']
+    list_display = ['id', 'first_name', 'last_name', 'section', 'class_sched','birth_date', 'get_parent_full_name']
     list_filter = ['parent']
     search_fields = ['first_name', 'last_name', 'parent__first_name', 'parent__last_name']
 
@@ -47,10 +47,9 @@ class TimeCompletionAdmin(admin.ModelAdmin):
     readonly_fields = ['star']
 
     def get_game_type(self, obj):
-        return obj.game_level.game_name   # ✅ FIXED
+        return obj.game_level.game_name   
     get_game_type.short_description = 'Game Type'
-    get_game_type.admin_order_field = 'game_level__game_name'  # ✅ FIXED
-
+    get_game_type.admin_order_field = 'game_level__game_name'  
     def get_difficulty(self, obj):
         return obj.game_level.difficulty
     get_difficulty.short_description = 'Difficulty'

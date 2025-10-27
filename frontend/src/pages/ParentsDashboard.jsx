@@ -14,13 +14,16 @@ function ParentsDashboard() {
   const [clicked, setClicked] = useState(false);
   const [loading, setLoading] = useState(true);
 
-  const navigate = useNavigate();const location = useLocation();
-  const child = location.state?.child;
+  const location = useLocation();
+  const child = location.state?.child || JSON.parse(localStorage.getItem("selectedChild"));
+  const passedCompletions = location.state?.timeCompletions || JSON.parse(localStorage.getItem("timeCompletions"));
   const [category,setCategory] = useState();
 
   const [childRecord,setChildRecord] = useState([]);
 
  
+
+  
   useEffect(() => {
     const fetchParentData = async () => {
 
@@ -36,6 +39,7 @@ function ParentsDashboard() {
         const data = Array.isArray(res.data) ? res.data[0] : res.data;
         setParentData(data);
         console.log(data)
+        console.log(passedCompletions)
       } catch (err) {
         console.error("Error fetching parent data:", err);
       } finally {
@@ -48,27 +52,14 @@ function ParentsDashboard() {
 
 
 
-  useEffect(() =>{
-    const fetchGameData = async () =>{
-      try{
-        const res = await api.get("/api/time_completions/")
-        console.log("ChildData:", res.data);
-
-        const filteredRecords = res.data.filter(
-        (record) => record.child.id === child.id
-      );
-
-         setChildRecord(filteredRecords);
-      }
-      catch(err){
-        console.error("Error fetching parent data:", err);
-      }
-    }
-    fetchGameData();
-
-
-  }, []);
-
+  useEffect(() => {
+  if (passedCompletions && child) {
+    const filteredRecords = passedCompletions.filter(
+      (record) => record.child.id === child.id
+    );
+    setChildRecord(filteredRecords);
+  }
+}, [passedCompletions, child]);
   const handleClick = (id) => {
     setCategory(id)
     setClicked(true)
@@ -90,21 +81,26 @@ function ParentsDashboard() {
   return (
     <>
     
-      <Back />
+           <Back/>
       <div
         className="hidden md:flex md:absolute items-center justify-center h-screen w-screen bg-cover bg-no-repeat"
         style={{ backgroundImage: `url("./Bg/parentsoverviewbg.png")` }}
       >
+     
+        
         {/* Buttons */}
         <div className="h-[100vh] w-fit flex flex-col items-center justify-center">
+       
           <img src={alphabetButton} onClick={()=> handleClick ("Alphabet")} alt="Alphabet Button" className="cursor-pointer" />
           <img src={colorButton} onClick={()=> handleClick ("Color")} alt="Color Button" className="cursor-pointer" />
           <img src={shapeButton} onClick={()=> handleClick ("Shape")} alt="Shape Button" className="cursor-pointer" />
           <img src={numberButton} onClick={()=> handleClick ("Number")} alt="Number Button" className="cursor-pointer" />
+
         </div>
 
         {/* Pop-up */}
-          {clicked  && category === "Alphabet" && (
+          {clicked  && category === "Alphabet" && <><div className='flex justify-center items-center z-1000 h-[100vh] w-[100vw] absolute'>
+          <div className=' bg-black absolute h-[100%] w-[100%] opacity-50 '></div>
           <div className="flex justify-center items-center h-fit w-fit absolute">
             <img src={popUp} alt="Pop up background" className="w-[85%]" />
                  <p className='absolute z-10 top-10 text-6xl'>
@@ -116,10 +112,10 @@ function ParentsDashboard() {
                     <table className='h-[100%] w-[100%] '>
                       <thead className='border-4'>
                       <tr>
-                        <th>Difficulty</th>
-                        <th>Level</th>
-                        <th>Time</th>
-                        <th>Star</th>
+                        <th className='border-r-4'>Difficulty</th>
+                        <th className='border-r-4'>Level</th>
+                        <th className='border-r-4'>Time</th>
+                        <th className='border-r-4'>Star</th>
                       </tr>
                       </thead>
                    
@@ -128,10 +124,10 @@ function ParentsDashboard() {
                               .map((record, id) => (
                               <tr key={id}>
                       
-                              <td>{record.game_level.difficulty}</td>
-                              <td>{record.game_level.level}</td>
-                              <td>{record.time}</td>
-                              <td>{record.star} ⭐</td>
+                              <td className='border-r-4'>{record.game_level.difficulty}</td>
+                              <td className='border-r-4'>{record.game_level.level}</td>
+                              <td className='border-r-4'>{record.time}</td>
+                              <td className='border-r-4'>{record.star} ⭐</td>
                               </tr>
                         ))}
                          
@@ -153,11 +149,13 @@ function ParentsDashboard() {
               <span className="text-2xl font-bold">×</span>
             </button>
           </div>
-        )}
+          </div>
+        </>}
 
 
 
-        {clicked  && category === "Color" && (
+        {clicked  && category === "Color" && (<div className='flex justify-center items-center z-1000 h-[100vh] w-[100vw] absolute'>
+          <div className=' bg-black absolute h-[100%] w-[100%]  opacity-50'></div>
           <div className="flex justify-center items-center h-fit w-fit absolute">
             <img src={popUp} alt="Pop up background" className="w-[85%]" />
                  <p className='absolute z-10 top-10 text-6xl'>
@@ -169,10 +167,10 @@ function ParentsDashboard() {
                     <table className='h-[100%] w-[100%] '>
                       <thead className='border-4'>
                       <tr>
-                        <th>Difficulty</th>
-                        <th>Level</th>
-                        <th>Time</th>
-                        <th>Star</th>
+                        <th className='border-r-4'>Difficulty</th>
+                        <th className='border-r-4'>Level</th>
+                        <th className='border-r-4'>Time</th>
+                        <th className='border-r-4'>Star</th>
                       </tr>
                       </thead>
                    
@@ -206,9 +204,11 @@ function ParentsDashboard() {
               <span className="text-2xl font-bold">×</span>
             </button>
           </div>
+          </div>
         )}
 
-       {clicked  && category === "Shape" && (
+       {clicked  && category === "Shape" && (<div className='flex justify-center items-center z-1000 h-[100vh] w-[100vw] absolute'>
+        <div className=' bg-black absolute h-[100%] w-[100%]  opacity-50'></div>
           <div className="flex justify-center items-center h-fit w-fit absolute">
             <img src={popUp} alt="Pop up background" className="w-[85%]" />
                  <p className='absolute z-10 top-10 text-6xl'>
@@ -220,10 +220,10 @@ function ParentsDashboard() {
                     <table className='h-[100%] w-[100%] '>
                       <thead className='border-4'>
                       <tr>
-                        <th>Difficulty</th>
-                        <th>Level</th>
-                        <th>Time</th>
-                        <th>Star</th>
+                        <th className='border-r-4'>Difficulty</th>
+                        <th className='border-r-4'>Level</th>
+                        <th className='border-r-4'>Time</th>
+                        <th className='border-r-4'>Star</th>
                       </tr>
                       </thead>
                    
@@ -232,10 +232,10 @@ function ParentsDashboard() {
                               .map((record, id) => (
                               <tr key={id}>
                     
-                              <td>{record.game_level.difficulty}</td>
-                              <td>{record.game_level.level}</td>
-                              <td>{record.time}</td>
-                              <td>{record.star} ⭐</td>
+                              <td className='border-r-4'>{record.game_level.difficulty}</td>
+                              <td className='border-r-4'>{record.game_level.level}</td>
+                              <td className='border-r-4'>{record.time}</td>
+                              <td className='border-r-4'>{record.star} ⭐</td>
                               </tr>
                         ))}
                          
@@ -257,9 +257,11 @@ function ParentsDashboard() {
               <span className="text-2xl font-bold">×</span>
             </button>
           </div>
+          </div>
         )}
 
-               {clicked  && category === "Number" && (
+               {clicked  && category === "Number" && (<div className='flex justify-center items-center z-1000 h-[100vh] w-[100vw] absolute'>
+                <div className=' bg-black absolute h-[100%] w-[100%] opacity-50 '></div>
           <div className="flex justify-center items-center h-fit w-fit absolute">
             <img src={popUp} alt="Pop up background" className="w-[85%]" />
                  <p className='absolute z-10 top-10 text-6xl'>
@@ -270,23 +272,23 @@ function ParentsDashboard() {
                        <div className=' absolute top-[20%] overflow-y-auto bg-amber-200 max-h-[60%] h-[60%] w-[80%] text-center '>
                     <table className='h-[100%] w-[100%] '>
                       <thead className='border-4'>
-                      <tr>
-                        <th>Difficulty</th>
-                        <th>Level</th>
-                        <th>Time</th>
-                        <th>Star</th>
+                      <tr >
+                        <th className='border-4'>Difficulty</th>
+                        <th className='border-4'>Level</th>
+                        <th className='border-4'>Time</th>
+                        <th className='border-4'>Star</th>
                       </tr>
                       </thead>
                    
                       <tbody className='border-4'>
                         {childRecord.filter(record => record.game_level.game_name === "Number")
                               .map((record, id) => (
-                              <tr key={id}>
+                              <tr key={id}    >
                    
-                              <td>{record.game_level.difficulty}</td>
-                              <td>{record.game_level.level}</td>
-                              <td>{record.time}</td>
-                              <td>{record.star} ⭐</td>
+                              <td className='border-r-4'>{record.game_level.difficulty}</td>
+                              <td className='border-r-4'>{record.game_level.level}</td>
+                              <td className='border-r-4'>{record.time}</td>
+                              <td className='border-r-4'>{record.star} ⭐</td>
                               </tr>
                         ))}
                          
@@ -307,6 +309,7 @@ function ParentsDashboard() {
             >
               <span className="text-2xl font-bold">×</span>
             </button>
+          </div>
           </div>
         )}      
       </div>
