@@ -7,6 +7,7 @@ import { useState, useEffect } from 'react';
 import popUp from "../assets/Parents/showsUp.webp";
 import api from '../api';
 import { useLocation,useNavigate } from "react-router-dom";
+import { ACCESS_TOKEN } from "../constants";
 
 
 function ParentsDashboard() {
@@ -21,25 +22,23 @@ function ParentsDashboard() {
 
   const [childRecord,setChildRecord] = useState([]);
 
- 
 
   
   useEffect(() => {
     const fetchParentData = async () => {
 
-      const token = localStorage.getItem("access");
+      const token = localStorage.getItem(ACCESS_TOKEN)
       if (!token) {
-        setRole(null);
         setLoading(false);
         return;
       }
-
       try {
         const res = await api.get("/api/parent/");
         const data = Array.isArray(res.data) ? res.data[0] : res.data;
         setParentData(data);
-        console.log(data)
-        console.log(passedCompletions)
+        console.log("child:", child); 
+        console.log("passedCompletions:", passedCompletions);
+
       } catch (err) {
         console.error("Error fetching parent data:", err);
       } finally {
@@ -51,19 +50,20 @@ function ParentsDashboard() {
 
 
 
-
-  useEffect(() => {
+ useEffect(() => {
   if (passedCompletions && child) {
     const filteredRecords = passedCompletions.filter(
       (record) => record.child.id === child.id
+      
     );
     setChildRecord(filteredRecords);
+    setLoading(false);
   }
-}, [passedCompletions, child]);
+}, []); 
+
   const handleClick = (id) => {
     setCategory(id)
     setClicked(true)
-    console.log(id)
   };
     
 
@@ -107,7 +107,7 @@ function ParentsDashboard() {
                   {category}
                 </p>
                 <div className="absolute h-[100%] w-[100%] content-end  justify-items-center mt-4 text-lg text-black p-4 rounded">
-                  {parentData.children && parentData.children.length > 0 ? <>
+                  {childRecord.length  > 0 ? <>
                        <div className=' absolute top-[20%] overflow-y-auto bg-amber-200 max-h-[60%] h-[60%] w-[80%] text-center '>
                     <table className='h-[100%] w-[100%] '>
                       <thead className='border-4'>
@@ -130,7 +130,6 @@ function ParentsDashboard() {
                               <td className='border-r-4'>{record.star} ⭐</td>
                               </tr>
                         ))}
-                         
                       </tbody>
                     </table>
                      </div>
@@ -139,7 +138,7 @@ function ParentsDashboard() {
                     {child.first_name}
                   </div>
                  </> : (
-                    <p className="text-gray-500">No children registered.</p>
+                    <p className="text-gray-500">No Records Yet!</p>
                   )}
              </div>
             <button

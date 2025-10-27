@@ -33,7 +33,6 @@ const [logout,setLogout] = useState()
       try {
         const res = await api.get("/api/user-profile");
         const data =  res.data;
-        console.log(data)
         setName(data.first_name)
       } catch (err) {
         console.error("Error fetching parent data:", err);
@@ -48,7 +47,7 @@ const [logout,setLogout] = useState()
 const handleClick = (click) => {
   setLogout(click)
   setClickedLogout(true)
-  console.log(click)
+
 }
 
 const handleCancel = () =>{

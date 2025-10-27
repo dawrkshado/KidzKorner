@@ -164,6 +164,19 @@ def student_profile_teacherview(request):
         )
     return Response(serializer.data, status=status.HTTP_200_OK)
 
+@api_view(['DELETE'])
+def delete_child(request):
+    child_id = request.data.get("child_id")
+    if not child_id:
+        return Response({"error": "Child ID is required"}, status=400)
+
+    try:
+        child = UserChild.objects.get(id=child_id)
+        child.delete()
+        return Response({"message": "Child deleted successfully"}, status=200)
+    except UserChild.DoesNotExist:
+        return Response({"error": "Child not found"}, status=404)
+
 
 
 
@@ -211,6 +224,8 @@ def delete_file(request, pk):
     file.delete()
     return Response({"message": "File deleted successfully"}, status=status.HTTP_204_NO_CONTENT)
 
+
+    
 
 @api_view(['POST'])
 @permission_classes([IsAuthenticated])

@@ -26,7 +26,6 @@ function ParentsKorner() {
         
         const token = localStorage.getItem("access");
         if (!token) {
-        setRole(null);
         setLoading(false);
         return;
         }
@@ -90,6 +89,9 @@ function ParentsKorner() {
   const handleHover = (id) => {
     setHoveredItem(id);
   };
+
+  
+
 
   if (loading) {
     return (
@@ -195,7 +197,7 @@ function ParentsKorner() {
             </div>
           </>
         )}
-        <div className='text-4xl hover:text-amber-500 hover:cursor-pointer' onClick={() => logoutClick("logout")}>Logout</div>
+        <div className='text-4xl h-fit hover:text-amber-500 hover:cursor-pointer' onClick={() => logoutClick("logout")}>Logout</div>
 
         {clickedLogout && logout === "logout" && <>
         <div className='absolute flex justify-center items-center h-[100vh] w-[100vw]  z-100'>

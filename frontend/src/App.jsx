@@ -167,6 +167,8 @@ function App() {
             <Route path="/" element={<Navigate to="/login"/>} />
             <Route path="/login" element={<Login/>}/>
 
+            {!role && <Route path="*" element={<Navigate to="/login" replace />} />}
+
            {role === "Teacher" && <>
             <Route path="/teacher" element={<TeacherHomePage />} />
             <Route path="/uploadcontents" element={<UploadContents />} />
