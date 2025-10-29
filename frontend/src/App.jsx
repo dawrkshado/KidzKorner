@@ -269,13 +269,15 @@ function App() {
               <Route path="/color/hard" element={<ColorHard/>}/>
               <Route path="/color/hard/level1" element={<ColorGameHardLevel1/>}/>
           </>}
+          {role == "Admin" && <>
+              <Route path="/admin" element={<Admin/>}/>
+              <Route path="/manageaccounts" element={<ManageAcc/>}/>
+              <Route path="/createaccounts" element={<CreateAcc/>}/>
+          </>}
           
         
         <Route path="*" element={<NotFound />} />
 
-        <Route path="/admin" element={<Admin/>}/>
-        <Route path="/manageaccounts" element={<ManageAcc/>}/>
-        <Route path="/createaccounts" element={<CreateAcc/>}/>
 
       </Routes>
 </div>

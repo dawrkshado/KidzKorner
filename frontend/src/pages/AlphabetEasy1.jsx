@@ -80,7 +80,7 @@ function AlphabetEasyLevel1() {
     const data = {
       child_id: childId,
       game: "Alphabet",
-      difficulty: "Medium",
+      difficulty: "Easy",
       level: 1,
       time: count,
     };

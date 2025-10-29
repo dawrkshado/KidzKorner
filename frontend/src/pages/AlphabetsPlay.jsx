@@ -1,4 +1,3 @@
-import TopBar from "../components/TopBar"
 import { Link } from "react-router-dom"
 import easyalpha from "../assets/Alphabets/easyalpha.png";
 import mediumalpha from "../assets/Alphabets/mediumalpha.png";
@@ -11,7 +10,6 @@ function AlphabetsPlay(){
 
 <div className="hidden w-full md:inline md:absolute h-[100%]">
 
-        <TopBar/>
           <Back/>
         <img
         src="/Bg/Alphabets/alphabetsgamepage.webp"

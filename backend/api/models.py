@@ -26,8 +26,8 @@ class CustomUser(AbstractUser):
     
 class UserChild(models.Model):
     schedule_choices = [
-        ('morning', '8:00 AM to 11:00 AM'),
-        ('noon', '11:00 AM to 1:00 PM')
+        ('8:00 AM to 11:00 AM', '8:00 AM to 11:00 AM'),
+        ('11:00 AM to 1:00 PM', '11:00 AM to 1:00 PM')
     ]
     
     parent = models.ForeignKey(CustomUser, on_delete=models.CASCADE, related_name='children')
