@@ -102,6 +102,9 @@ import ParentsKorner from "./pages/ParentsKorner.jsx"
 import ParentsChildRegistration from "./pages/ParentsChildRegistration.jsx"
 import ParentsDashboard from "./pages/ParentsDashboard.jsx"
 
+import Admin from "./pages/Admin.jsx"
+import CreateAcc from "./pages/CreateAcc.jsx"
+import ManageAcc from "./pages/ManageAcc.jsx"
 
 const Alphabets = React.lazy(() => import("./pages/Alphabets.jsx"))
 
@@ -270,6 +273,10 @@ function App() {
         {!role && <Route path="/" element={<Navigate to="/login"/>} />}
         
         <Route path="*" element={<NotFound />} />
+
+        <Route path="/admin" element={<Admin/>}/>
+        <Route path="/manageaccounts" element={<ManageAcc/>}/>
+        <Route path="/createaccounts" element={<CreateAcc/>}/>
 
       </Routes>
 </div>

@@ -1,11 +1,9 @@
 import kidsregister from '../assets/Parents/kidsregister.webp';
-
 import kidzkornerbutton from '../assets/Parents/kidzkornerbutton.webp';
 import dashboardparentz from '../assets/Parents/dashboardparentz.webp';
 import { Link, useNavigate } from 'react-router-dom';
 import { useState, useEffect } from 'react';
 import bg from "../assets/Parents/bgparentskorner.webp";
-
 import Logout from "../components/Logout";
 import api from '../api';
 
@@ -18,7 +16,6 @@ function ParentsKorner() {
   const [activeAction, setActiveAction] = useState(null);
 
   const navigate = useNavigate();
-
 
   useEffect(() => {
     const fetchParentData = async () => {
@@ -35,7 +32,6 @@ function ParentsKorner() {
     fetchParentData();
   }, []);
 
-
   useEffect(() => {
     const fetchUserName = async () => {
       try {
@@ -48,7 +44,6 @@ function ParentsKorner() {
     fetchUserName();
   }, []);
 
-
   const handleChildClick = (child) => {
     localStorage.setItem("selectedChild", JSON.stringify(child));
 
@@ -58,9 +53,8 @@ function ParentsKorner() {
       navigate("/dashboardparentz", { state: { child } });
     }
 
-    setClicked(false); 
+    setClicked(false);
   };
-
 
   const openModal = (action) => {
     setActiveAction(action);
@@ -92,7 +86,6 @@ function ParentsKorner() {
       >
         <div className="text-3xl h-fit w-fit absolute top-60 left-97.5">
           Welcome, <br /> {checkUser}!
-
         </div>
 
         <Link to="/childRegistration">
@@ -110,7 +103,6 @@ function ParentsKorner() {
           </div>
         </Link>
 
-
         <div
           onMouseEnter={() => handleHover("Check children progress")}
           onMouseLeave={() => setHoveredItem()}
@@ -125,11 +117,10 @@ function ParentsKorner() {
           )}
         </div>
 
-
         <div
           onMouseEnter={() => handleHover("Play games")}
           onMouseLeave={() => setHoveredItem()}
-          onClick={() => openModal("KidzKorner")} 
+          onClick={() => openModal("KidzKorner")}
           className="absolute flex justify-center items-center left-[10%] top-[34%] h-auto w-auto cursor-pointer"
         >
           <img src={kidzkornerbutton} alt="Entire Games for Kidz" />
@@ -139,7 +130,6 @@ function ParentsKorner() {
             </div>
           )}
         </div>
-
 
         {clicked && (
           <>
@@ -159,7 +149,7 @@ function ParentsKorner() {
                   onClick={handleExit}
                 >
                   x
-                </button> 
+                </button>
 
                 {parentData.children && parentData.children.length > 0 ? (
                   <div className="h-[70%] w-[100%] text-center content-center text-5xl bg-blue-300">
@@ -180,6 +170,15 @@ function ParentsKorner() {
             </div>
           </>
         )}
+
+        {/* Temporary Admin Button */}
+        <div className="absolute bottom-10 right-10 z-50">
+          <Link to="/admin">
+            <button className="bg-blue-600 text-white px-4 py-2 rounded-lg hover:bg-blue-700 shadow-md">
+              Admin
+            </button>
+          </Link>
+        </div>
 
         <Logout />
       </div>
