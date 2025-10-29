@@ -6,8 +6,9 @@ import numberButton from "../assets/Parents/number.webp";
 import { useState, useEffect } from 'react';
 import popUp from "../assets/Parents/showsUp.webp";
 import api from '../api';
-import { useLocation,useNavigate } from "react-router-dom";
+import { useLocation } from "react-router-dom";
 import { ACCESS_TOKEN } from "../constants";
+import LoadingIndicator from '../components/LoadingIndicator';
 
 
 function ParentsDashboard() {
@@ -21,7 +22,29 @@ function ParentsDashboard() {
   const [category,setCategory] = useState();
 
   const [childRecord,setChildRecord] = useState([]);
+  
+  const [timeCompletions, setTimeCompletions] = useState([]);
 
+
+
+useEffect(() => {
+  const loadCompletions = async () => {
+
+    if (passedCompletions && passedCompletions.length > 0) {
+      setTimeCompletions(passedCompletions);
+      return;
+    }
+
+    try {
+      const res = await api.get("/api/time_completions/");
+      setTimeCompletions(res.data);
+    } catch (err) {
+      console.error("Error fetching completions:", err);
+    }
+  };
+
+  loadCompletions();
+}, []);
 
   
   useEffect(() => {
@@ -50,16 +73,16 @@ function ParentsDashboard() {
 
 
 
- useEffect(() => {
-  if (passedCompletions && child) {
-    const filteredRecords = passedCompletions.filter(
+useEffect(() => {
+  if (timeCompletions.length > 0 && child) {
+    const filteredRecords = timeCompletions.filter(
       (record) => record.child.id === child.id
-      
     );
     setChildRecord(filteredRecords);
-    setLoading(false);
   }
-}, []); 
+}, [timeCompletions, child]);
+
+
 
   const handleClick = (id) => {
     setCategory(id)
@@ -69,16 +92,10 @@ function ParentsDashboard() {
 
   const handleClose = () => setClicked(false);
 
-  if (loading) {
-    return (
-      <div className="flex items-center justify-center h-screen text-xl text-[#3DA8CC]">
-        Loading...
-      </div>
-    );
 
-  }
 
   return (
+
     <>
     
            <Back/>
@@ -135,7 +152,7 @@ function ParentsDashboard() {
                      </div>
                   
                    <div className="text-5xl bottom-0 absolute">
-                    {child.first_name}
+                    {child.child_full_name}
                   </div>
                  </> : (
                     <p className="text-gray-500">No Records Yet!</p>
@@ -193,7 +210,7 @@ function ParentsDashboard() {
                     {child.first_name}
                   </div>
                  </> : (
-                    <p className="text-gray-500">No children registered.</p>
+                    <p className="text-gray-500">No Records Yet!</p>
                   )}
              </div>
             <button
@@ -246,7 +263,7 @@ function ParentsDashboard() {
                     {child.first_name}
                   </div>
                  </> : (
-                    <p className="text-gray-500">No children registered.</p>
+                    <p className="text-gray-500">No Records Yet!</p>
                   )}
              </div>
             <button
@@ -299,7 +316,7 @@ function ParentsDashboard() {
                     {child.first_name}
                   </div>
                  </> : (
-                    <p className="text-gray-500">No children registered.</p>
+                    <p className="text-gray-500">No Records Yet!</p>
                   )}
              </div>
             <button
@@ -312,6 +329,7 @@ function ParentsDashboard() {
           </div>
         )}      
       </div>
+      {loading && <LoadingIndicator/>}
     </>
   );
 }

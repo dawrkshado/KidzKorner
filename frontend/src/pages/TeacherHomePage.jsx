@@ -1,5 +1,5 @@
 
-import TopBar from "../components/TopBar";
+
 import dashboard from "../assets/Teacherhomepage/una.png";
 import studentmanagement from "../assets/Teacherhomepage/pangalawa.png";
 import overview from "../assets/Teacherhomepage/panglima.png";
@@ -9,12 +9,11 @@ import { Link } from 'react-router-dom'
 import Logout from "../components/Logout";
 import { useEffect,useState } from "react";
 import api from "../api.js";
-import { useNavigate,useLocation } from "react-router-dom";
 
 
 function TeacherHomePage() {
 const [name, setName] = useState(null);
-const [parentData, setTeacherData] = useState(null);
+
 const [loading, setLoading] = useState(true);
 const [clickedLogout, setClickedLogout] = useState(false);
 const [logout,setLogout] = useState() 
@@ -116,6 +115,8 @@ const handleCancel = () =>{
         </div>
       
         </>}
+
+   
 
     </div>
     

@@ -143,7 +143,7 @@ def parent_profile_teacherview(request):
     users = CustomUser.objects.filter(role__role="Parent") 
     serializer = CustomUserSerializer(users, many=True) 
 
-    if not user.role or user.role.role.lower() not in ["teacher","admin"]:
+    if not user.role or user.role.role.lower() not in ["teacher","admin",]:
         return Response(
             {"error": "Access denied. Only parents can view this information."},
             status=status.HTTP_403_FORBIDDEN,

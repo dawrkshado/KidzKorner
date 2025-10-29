@@ -5,13 +5,17 @@ from .models import *
 class UserChildSerializer(serializers.ModelSerializer):
     birth_date = serializers.DateField(format="%d %B, %Y")
     parent_full_name = serializers.SerializerMethodField()
+    child_full_name = serializers.SerializerMethodField()
 
     class Meta:
         model = UserChild
-        fields = ['id','first_name', 'last_name', 'section','class_sched','birth_date', 'parent_full_name']
+        fields = ['id','child_full_name', 'section','class_sched','birth_date', 'parent_full_name']
     def get_parent_full_name(self, obj):
         parent = obj.parent
         return f"{parent.first_name} {parent.last_name}"
+    
+    def get_child_full_name(self, obj):
+        return f"{obj.first_name} {obj.last_name}"
     
 
 class CustomUserSerializer(serializers.ModelSerializer):
