@@ -12,9 +12,19 @@ import bg from "../assets/Shapes/ShapesEasy/lvl2.webp"
 
 import ReplayNBack from "../components/ReplayNBack";
 
+import backgroundMusic from "../assets/Sounds/background.mp3";
+
 import OneStar from "../assets/Done/OneStar.webp"; 
 import TwoStar from "../assets/Done/TwoStar.webp"; 
 import ThreeStar from "../assets/Done/ThreeStar.webp"; 
+
+import applause from "../assets/Sounds/applause.wav"
+import { useWithSound } from "../components/useWithSound";
+import { useNavigate } from "react-router-dom";
+
+
+import { motion } from "framer-motion";
+
 
 function Droppable({id, placedShape,shape}) {
   const { isOver, setNodeRef } = useDroppable({ id });
@@ -57,38 +67,111 @@ function Draggable({ id, disabled = false, shape }) {
   );
 }
 
-function ShapesEasyLevel2() {
-  const [dropped, setDropped] = useState({}); 
+function saveProgress(level) {
+  const progress = JSON.parse(localStorage.getItem("shapesEasyProgress")) || {
+    level1: false,
+    level2: false,
+    level3: false,
+  };
+  progress[level] = true;
+  localStorage.setItem("shapesEasyProgress", JSON.stringify(progress));
+}
 
+
+function ShapesEasyLevel2() {
+  const navigate = useNavigate();
+  const { playSound: playApplause, stopSound: stopApplause } = useWithSound(applause); 
+
+  const [dropped, setDropped] = useState({});
+  const [count, setCount] = useState(0);
+
+
+  const isGameFinished = 
+    dropped["star"] === "star" && 
+    dropped["oval"] === "oval" && 
+    dropped["heart"] === "heart";
+
+  useEffect(() => {
+    const bgSound = new Audio(backgroundMusic);
+    bgSound.loop = true; 
+    bgSound.volume = 0.3; 
+    
+    bgSound.play().catch((err) => {
+      console.log("Autoplay blocked by browser (user interaction required):", err);
+    });
+
+ 
+    return () => {
+      bgSound.pause();
+      bgSound.currentTime = 0;
+    };
+  }, []); 
+
+
+  useEffect(() => {
+    let soundTimeout;
+
+    if (isGameFinished) {
+      playApplause(); 
+
+       saveProgress("level2")
+
+      soundTimeout = setTimeout(() => {
+        stopApplause();
+      }, 8000); 
+    }
+
+  
+    return () => {
+      clearTimeout(soundTimeout);
+      stopApplause();
+    };
+  }, [isGameFinished, playApplause, stopApplause]);
+
+
+  
+  useEffect(() => {
+    if (isGameFinished) return;
+
+    const interval = setInterval(() => {
+      setCount((prev) => prev + 1);
+    }, 1000);
+
+    return () => clearInterval(interval);
+  }, [isGameFinished]);
+  
+ 
   function handleDragEnd(event) {
-    if (event.over) {
+    if (event.over && event.active.id === event.over.id) { 
       const draggedId = event.active.id;
       const droppedId = event.over.id;
 
-      if (draggedId === droppedId) {
-        setDropped((prev) => ({
-          ...prev,
-          [draggedId]: droppedId, 
-        }));
-      }
+      setDropped((prev) => ({
+        ...prev,
+        [draggedId]: droppedId,
+      }));
     }
   }
 
-  const isGameFinished =
-      dropped["star"] && dropped["oval"] && dropped["heart"];
-  
-     const [count, setCount] = useState(0);
-  
-    useEffect(() => {
-      if (isGameFinished) return; 
-  
-      const interval = setInterval(() => {
-        setCount((prev) => prev + 1);
-      }, 1000);
-  
-      return () => clearInterval(interval); 
-    }, [isGameFinished]);
-  
+  const resetGame = () => {
+    setDropped({}); 
+    setCount(0);
+
+  };
+
+  const handleReplay = () => {
+    stopApplause(); 
+    resetGame();
+  };
+
+  const handleBack = () => {
+    stopApplause(); 
+    
+    navigate("/shapes");
+  };
+
+  const isPlaced= (id) => dropped[id] === id;
+
 
   return (
     <div className="flex h-[100vh] w-[100vw]  [&>*]:flex absolute overflow-hidden [&>*]:font-[coiny]">
@@ -158,50 +241,56 @@ function ShapesEasyLevel2() {
    <div className="absolute top-0 right-0 text-white">Your Time: {count}</div>
       
                   
-        
-        {/*Results*/}
-        {isGameFinished && count <= 10 &&(
-          <div className="absolute inset-0 flex items-center h-full w-full justify-center bg-opacity-50 z-20  ">
-            <img
+         
+                {/*Results*/}
+        {isGameFinished && count <= 10 && (
+          <div className="absolute inset-0 flex items-center h-full w-full justify-center bg-opacity-50 z-20">
+            
+            <motion.img
               src={ThreeStar}
               alt="Game Completed!"
-              className="h-[300px] animate-bounce"
+              className="h-[300px]"
+              initial={{ scale: 0, opacity: 0 }}
+              animate={{ scale: 1, opacity: 1 }}
+              transition={{ duration: 0.8, ease: "easeOut" }}
             />
-
-            <div className="absolute bottom-[20%] ">
-                <ReplayNBack/>
-            </div>
-
-     
+             <div className="absolute bottom-[20%]">
+             <ReplayNBack />
+              </div>
           </div>
         )}
 
-    {isGameFinished && count <= 15 && count > 10 &&(
+    {isGameFinished && count <= 15 && count > 10 && (
         <div className="absolute inset-0 flex items-center justify-center bg-opacity-50 z-20">
-          <img
-            src={TwoStar}
-            alt="Game Completed!"
-            className="h-[300px] animate-bounce"
-          />
-             <div className="absolute bottom-[20%] ">
-                <ReplayNBack/>
-            </div>
-        </div>
-    )}
+             
+            <motion.img
+              src={TwoStar}
+              alt="Game Completed!"
+              className="h-[300px]"
+              initial={{ scale: 0, opacity: 0 }}
+              animate={{ scale: 1, opacity: 1 }}
+              transition={{ duration: 0.8, ease: "easeOut" }}
+            />
+             <div className="absolute bottom-[20%]">
+              <ReplayNBack /></div>
+          </div>
+        )}
 
-    {isGameFinished && count > 15 &&(
-    <div className="absolute inset-0 flex items-center justify-center bg-opacity-50 z-20">
-    <img
+{isGameFinished && count > 15 && (
+  <div className="absolute inset-0 flex items-center justify-center bg-opacity-50 z-20">
+     <motion.img
       src={OneStar}
       alt="Game Completed!"
-      className="h-[300px] animate-bounce"
+      className="h-[300px]"
+     initial={{ scale: 0, opacity: 0 }}
+     animate={{ scale: 1, opacity: 1 }}
+      transition={{ duration: 0.8, ease: "easeOut" }}
     />
-            <div className="absolute bottom-[20%] ">
-                <ReplayNBack/>
-            </div>
+    <div className="absolute bottom-[20%] ">
+      <ReplayNBack/>
     </div>
-    )}
-
+  </div>
+)}
 
       </DndContext>
     </div>

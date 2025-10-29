@@ -1,9 +1,9 @@
 import React, { useState } from "react";
 import TopBar from "../components/TopBar";
 import Back from "../components/Back";
-import numberhard from "../assets/number/hardnumberbutton1.png";
-import tutorialVideo from "../assets/videos/NumberHardTutorial.mp4";  // ✅ Updated video path
 import { Link } from "react-router-dom";
+import hardnumberbutton1 from "../assets/Number/hardnumberbutton1.png";
+import tutorialVideo from "../assets/videos/NumberHardTutorial.mp4";
 import { motion, AnimatePresence } from "framer-motion";
 
 function NumberHard() {
@@ -59,11 +59,11 @@ function NumberHard() {
                 className="w-full"
               />
 
-              <Link to={"/number/hard/level1"}>
+              <Link to="/number/hard/level1">
                 <img
-                  src={hardbuttoncolor}
-                  alt="Button for Level 1 Number Hard"
-                  className="absolute left-[50%] top-[30%] w-auto cursor-pointer h-auto"
+                  src={hardnumberbutton1}
+                  alt="Button for Level 1 Number"
+                  className="absolute left-[50%] top-[50%] w-auto cursor-pointer h-auto"
                 />
               </Link>
             </div>

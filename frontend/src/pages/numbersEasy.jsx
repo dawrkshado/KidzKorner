@@ -1,26 +1,44 @@
-import React, { useState } from "react";
+import React, { useState, useEffect } from "react";
 import TopBar from "../components/TopBar";
 import Back from "../components/Back";
-import ReplayNBack from "../components/ReplayNBack";
 import numbereasy from "../assets/Number/numbereasy.png";
 import numbermedium from "../assets/Number/numbermedium.png";
 import numberhard from "../assets/Number/numberhard.png";
-import tutorialVideo from "../assets/videos/NumberEasyTutorial.mp4"; // ✅ Add this file
+import tutorialVideo from "../assets/videos/NumberEasyTutorial.mp4";
 import { Link } from "react-router-dom";
 import { motion, AnimatePresence } from "framer-motion";
 
+import useSound from "use-sound";
+import clickSfx from "../assets/Sounds/button_click_sound.mp3";
+import backgroundMusic from "../assets/Sounds/background.mp3";
+
 function NumberEasy() {
   const [showTutorial, setShowTutorial] = useState(true);
+  const handleVideoEnd = () => setShowTutorial(false);
 
-  const handleVideoEnd = () => {
-    setShowTutorial(false);
-  };
+  // 🎵 Sounds
+  const [playClick] = useSound(clickSfx, { volume: 0.5 });
+
+  useEffect(() => {
+    const bgSound = new Audio(backgroundMusic);
+    bgSound.loop = true;
+    bgSound.volume = 0.2;
+
+    bgSound.play().catch((err) => {
+      console.log("Autoplay blocked. User must interact to enable sound.", err);
+    });
+
+    return () => {
+      bgSound.pause();
+      bgSound.currentTime = 0;
+    };
+  }, []);
 
   return (
     <div className="relative w-full h-screen bg-green-100 overflow-hidden">
       <AnimatePresence mode="wait">
         {showTutorial ? (
-          // 🎬 Tutorial video plays first
+          // 🎬 Tutorial section
           <motion.div
             key="tutorial"
             initial={{ opacity: 0 }}
@@ -45,7 +63,7 @@ function NumberEasy() {
             </div>
           </motion.div>
         ) : (
-          // 🎮 After video ends — show the NumberGame menu
+          // 🎮 Menu after tutorial
           <motion.div
             key="menu"
             initial={{ opacity: 0 }}
@@ -57,12 +75,12 @@ function NumberEasy() {
               <TopBar />
               <Back />
               <img
-                src="/Bg/Number/numbergamebg.png"
-                alt="background"
+                src="/Bg/Number/numbereasybg.png"
+                alt="Number easy game background"
                 className="w-full"
               />
 
-              <Link to="/numbereasy">
+              <Link to="/numbereasy" onClick={playClick}>
                 <img
                   src={numbereasy}
                   alt="Easy Button"
@@ -70,7 +88,7 @@ function NumberEasy() {
                 />
               </Link>
 
-              <Link to="/numbermedium">
+              <Link to="/numbermedium" onClick={playClick}>
                 <img
                   src={numbermedium}
                   alt="Medium Button"
@@ -78,14 +96,13 @@ function NumberEasy() {
                 />
               </Link>
 
-              <Link to="/numberhard">
+              <Link to="/numberhard" onClick={playClick}>
                 <img
                   src={numberhard}
                   alt="Hard Button"
                   className="absolute left-[55%] top-[73%] w-auto h-[25%] cursor-pointer"
                 />
               </Link>
-
             </div>
           </motion.div>
         )}

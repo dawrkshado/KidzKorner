@@ -1,7 +1,6 @@
 import { useState,useEffect } from "react";
 import { DndContext, useDraggable, useDroppable, pointerWithin } from "@dnd-kit/core";
 
-import api from "../api";
 import draggableNumber1 from "../assets/Number/Hard/draggable1.webp"
 import draggableNumber2 from "../assets/Number/Hard/draggable2.webp"
 import draggableNumber3 from "../assets/Number/Hard/draggable3.webp"
@@ -33,6 +32,15 @@ import Back from "../components/Back";
 import Restart from "../components/Restart";
 
 import bg from "../assets/Number/Hard/bg.webp";
+
+import backgroundMusic from "../assets/Sounds/background.mp3";
+
+import applause from "../assets/Sounds/applause.wav"
+import { useWithSound } from "../components/useWithSound";
+import { useNavigate } from "react-router-dom";
+
+import { motion } from "framer-motion";
+    
 
 function Droppable({ id, placedShape, shape }) {
   const { isOver, setNodeRef } = useDroppable({ id });
@@ -76,8 +84,8 @@ function Draggable({ id, disabled = false, shape }) {
 
 function NumberGameHard() {
   const [dropped, setDropped] = useState({});
-   const selectedChild = JSON.parse(localStorage.getItem("selectedChild"));
-  const childId = selectedChild?.id;
+    const { playSound: playApplause, stopSound: stopApplause } = useWithSound(applause);
+  
 
   function handleDragEnd(event) {
     if (event.over) {
@@ -99,36 +107,47 @@ const isGameFinished =
 
    const [count, setCount] = useState(0);
 
-  useEffect(() => {
-    if (isGameFinished) return; 
+   useEffect(() => {
+        if (isGameFinished) return; 
 
-    const interval = setInterval(() => {
-      setCount((prev) => prev + 1);
-    }, 1000);
+        const interval = setInterval(() => {
+            setCount((prev) => prev + 1);
+        }, 1000);
 
-    return () => clearInterval(interval); 
-  }, [isGameFinished]);
+        return () => clearInterval(interval);
+    }, [isGameFinished]);
 
-
-    {/*Saving*/}
-  useEffect(() => {
-    if (!isGameFinished || !childId) return;
-
-
-    const data = {
-      child_id: childId,
-      game: "Number",
-      difficulty: "Hard",
-      level: 1,
-      time: count,
-    };
-
-    console.log("Saving progress:", data);
-
-    api.post("/api/save_progress/", data)
-      .then((res) => console.log("Progress saved:", res.data))
-      .catch((err) => console.error("Error saving progress:", err));
-  }, [isGameFinished]);
+    useEffect(() => {
+          const bgSound = new Audio(backgroundMusic);
+           bgSound.loop = true;
+           bgSound.volume = 0.2;
+   
+           bgSound.play().catch((err) => {
+               console.log("Autoplay blocked. User must interact to enable sound.", err);
+           });
+   
+           return () => {
+               bgSound.pause();
+               bgSound.currentTime = 0;
+           };
+       }, []); 
+   
+       useEffect(() => {
+           let soundTimeout;
+   
+           if (isGameFinished) {
+               playApplause();
+   
+               soundTimeout = setTimeout(() => {
+                   stopApplause();
+               }, 8000);
+           }
+   
+           return () => {
+               clearTimeout(soundTimeout);
+               stopApplause();
+           };
+       }, [isGameFinished, playApplause, stopApplause]);
 
   return (
     <>
@@ -355,10 +374,13 @@ const isGameFinished =
      {/*Results*/}
         {isGameFinished && count < 10 && count <= 20  &&(
           <div className="absolute inset-0 flex items-center h-full w-full justify-center bg-opacity-50 z-20  ">
-            <img
-              src={ThreeStar}
-              alt="Game Completed!"
-              className="h-[300px] animate-bounce"
+              <motion.img
+                         src={ThreeStar}
+                         alt="Game Completed!"
+                         className="h-[300px]"
+                         initial={{ scale: 0, opacity: 0 }}
+                         animate={{ scale: 1, opacity: 1 }}
+                         transition={{ duration: 0.8, ease: "easeOut" }}
             />
 
             <div  className="absolute bottom-35 gap-20 flex h-25  w-50 ">
@@ -369,21 +391,22 @@ const isGameFinished =
             <div>
                <Restart/>
             </div>
-
           </div>
-
-     
           </div>
         )}
 
     {isGameFinished && count >= 20 && count <= 30 &&(
         <div className="absolute inset-0 flex items-center justify-center bg-opacity-50 z-20">
-          <img
-            src={TwoStar}
-            alt="Game Completed!"
-            className="h-[300px] animate-bounce"
-          />
-          <div  className="absolute bottom-35 gap-20 flex h-25  w-50 ">
+         <motion.img
+                         src={TwoStar}
+                         alt="Game Completed!"
+                         className="h-[300px]"
+                         initial={{ scale: 0, opacity: 0 }}
+                         animate={{ scale: 1, opacity: 1 }}
+                         transition={{ duration: 0.8, ease: "easeOut" }}
+            />
+
+            <div  className="absolute bottom-35 gap-20 flex h-25  w-50 ">
                <div>
               <Back/>
             </div>
@@ -398,12 +421,16 @@ const isGameFinished =
 
     {isGameFinished && count > 30 &&(
     <div className="absolute inset-0 flex items-center justify-center bg-opacity-50 z-20">
-    <img
-      src={OneStar}
-      alt="Game Completed!"
-      className="h-[300px] animate-bounce"
-    />
-      <div  className="absolute bottom-35 gap-20 flex h-25  w-50 ">
+   <motion.img
+                         src={OneStar}
+                         alt="Game Completed!"
+                         className="h-[300px]"
+                         initial={{ scale: 0, opacity: 0 }}
+                         animate={{ scale: 1, opacity: 1 }}
+                         transition={{ duration: 0.8, ease: "easeOut" }}
+            />
+
+            <div  className="absolute bottom-35 gap-20 flex h-25  w-50 ">
                <div>
               <Back/>
             </div>

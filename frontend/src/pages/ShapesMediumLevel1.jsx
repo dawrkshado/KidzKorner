@@ -10,6 +10,7 @@ import squareDroppable from "../assets/Shapes/ShapesMedium/level1/droppableSquar
 import triangleDraggable from "../assets/Shapes/ShapesMedium/level1/draggableTriangle.webp";
 import triangleDroppable from "../assets/Shapes/ShapesMedium/level1/droppableTriangle.webp";
 
+import api from "../api.js";
 
 import ReplayNBack from "../components/ReplayNBack.jsx";
 
@@ -18,7 +19,15 @@ import TwoStar from "../assets/Done/TwoStar.webp";
 import ThreeStar from "../assets/Done/ThreeStar.webp"; 
 
 import Bone from "../assets/Shapes/ShapesMedium/level1/bone.webp"
-import api from "../api.js";
+
+import backgroundMusic from "../assets/Sounds/background.mp3";
+
+import applause from "../assets/Sounds/applause.wav"
+import { useWithSound } from "../components/useWithSound";
+import { useNavigate } from "react-router-dom";
+
+import { motion } from "framer-motion";
+
 
 
 function Droppable({ id, placedShape, shape }) {
@@ -61,61 +70,110 @@ function Draggable({ id, disabled = false, shape }) {
   );
 }
 
+function saveProgress(level) {
+  const progress = JSON.parse(localStorage.getItem("shapesMediumProgress")) || {
+    level1: false,
+    level2: false,
+  };
+  progress[level] = true;
+  localStorage.setItem("shapesMediumProgress", JSON.stringify(progress));
+}
+
+
 function ShapesMediumLevel1() {
-  const selectedChild = JSON.parse(localStorage.getItem("selectedChild"));
-  const childId = selectedChild?.id;
+    const [dropped, setDropped] = useState({});
+    const [count, setCount] = useState(0);
 
-  const [dropped, setDropped] = useState({});
+   
+    const navigate = useNavigate();
+    
+    const { playSound: playApplause, stopSound: stopApplause } = useWithSound(applause);
+   
+    const isGameFinished =
+        dropped["circle"] && dropped["square"] && dropped["triangle"];
 
-  function handleDragEnd(event) {
-    if (event.over) {
-      const draggedId = event.active.id;
-      const droppedId = event.over.id;
 
-      if (draggedId === droppedId) {
-        setDropped((prev) => ({
-          ...prev,
-          [draggedId]: droppedId,
-        }));
-      }
+    function handleDragEnd(event) {
+        if (event.over) {
+            const draggedId = event.active.id;
+            const droppedId = event.over.id;
+
+            if (draggedId === droppedId) {
+                setDropped((prev) => ({
+                    ...prev,
+                    [draggedId]: droppedId,
+                }));
+            }
+        }
     }
-  }
 
-
-  const isGameFinished =
-    dropped["circle"] && dropped["square"] && dropped["triangle"];
-
-   const [count, setCount] = useState(0);
-
-  useEffect(() => {
-    if (isGameFinished) return; 
-
-    const interval = setInterval(() => {
-      setCount((prev) => prev + 1);
-    }, 1000);
-
-    return () => clearInterval(interval); 
-  }, [isGameFinished]);
-
-
-      useEffect(() => {
-    if (!isGameFinished || !childId) return;
-
-
-    const data = {
-      child_id: childId,
-      game: "Shape",
-      difficulty: "Medium",
-      level: 1,
-      time: count,
+    const isPlaced = (id) => dropped[id] === id; 
+    
+    const resetGame = () => {
+        setDropped({});
+        setCount(0);
+     
     };
 
+    const handleReplay = () => {
+        stopApplause();
+        resetGame();
+    };
 
-    api.post("/api/save_progress/", data)
-      .then((res) => console.log("Progress saved:", res.data))
-      .catch((err) => console.error("Error saving progress:", err));
-  }, [isGameFinished]);
+    const handleBack = () => {
+        stopApplause();
+        navigate("/shapes");
+    };
 
+    const handleBackgroundClick = () => {};
+    const handleBoardClick = () => {};
+
+
+    useEffect(() => {
+        if (isGameFinished) return; 
+
+        const interval = setInterval(() => {
+            setCount((prev) => prev + 1);
+        }, 1000);
+
+        return () => clearInterval(interval);
+    }, [isGameFinished]);
+
+
+    useEffect(() => {
+        const bgSound = new Audio(backgroundMusic);
+        bgSound.loop = true;
+        bgSound.volume = 0.3;
+
+       
+        bgSound.play().catch((err) => {
+            console.log("Autoplay blocked by browser (user interaction required):", err);
+        });
+
+        return () => {
+            bgSound.pause();
+            bgSound.currentTime = 0;
+        };
+    }, []);
+
+
+    useEffect(() => {
+        let soundTimeout;
+
+        if (isGameFinished) {
+            playApplause();
+            saveProgress("level1");
+
+            soundTimeout = setTimeout(() => {
+                stopApplause();
+            }, 8000);
+        }
+
+        return () => {
+            clearTimeout(soundTimeout);
+            stopApplause();
+        };
+    }, [isGameFinished, playApplause, stopApplause]);
 
   return (
     <>
@@ -219,32 +277,38 @@ function ShapesMediumLevel1() {
       
                 <div className="absolute top-0 right-0 text-white">Your Time: {count}</div>
                 
-            </>
-
-       
+            </>     
                  
-     {/*Results*/}
+ 
+               
+   {/*Results*/}
 {isGameFinished && count <= 15 &&(
   <div className="absolute inset-0 flex items-center h-full w-full justify-center bg-opacity-50 z-20  ">
-      <img src={ThreeStar}
-      alt="Game Completed!"
-      className="h-[300px] animate-bounce"
-  />
+       <motion.img
+          src={ThreeStar}
+           alt="Game Completed!"
+           className="h-[300px]"
+           initial={{ scale: 0, opacity: 0 }}
+           animate={{ scale: 1, opacity: 1 }}
+           transition={{ duration: 0.8, ease: "easeOut" }}
+       />
 
       <div className="absolute bottom-[20%] ">
         <ReplayNBack/>
       </div>
-
-
   </div>
 )}
 
 {isGameFinished && count <= 20 && count > 15 &&(
   <div className="absolute inset-0 flex items-center justify-center bg-opacity-50 z-20">
-      <img
-      src={TwoStar}
-      alt="Game Completed!"
-      className="h-[300px] animate-bounce"/>
+  <motion.img
+          src={TwoStar}
+          alt="Game Completed!"
+          className="h-[300px]"
+          initial={{ scale: 0, opacity: 0 }}
+          animate={{ scale: 1, opacity: 1 }}
+          transition={{ duration: 0.8, ease: "easeOut" }}
+      />
       <div className="absolute bottom-[20%] ">
         <ReplayNBack/>
       </div>
@@ -253,21 +317,22 @@ function ShapesMediumLevel1() {
 
 {isGameFinished && count > 25 &&(
   <div className="absolute inset-0 flex items-center justify-center bg-opacity-50 z-20">
-    <img
-    src={OneStar}
-    alt="Game Completed!"
-    className="h-[300px] animate-bounce"
+    <motion.img
+            src={OneStar}
+            alt="Game Completed!"
+            className="h-[300px]"
+            initial={{ scale: 0, opacity: 0 }}
+            animate={{ scale: 1, opacity: 1 }}
+            transition={{ duration: 0.8, ease: "easeOut" }}
     />
     <div className="absolute bottom-[20%] ">
       <ReplayNBack/>
     </div>
   </div>
 )}
-
         </DndContext>
       </div>
     </>
   );
 }
-
 export default ShapesMediumLevel1;

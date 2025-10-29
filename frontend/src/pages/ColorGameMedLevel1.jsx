@@ -16,15 +16,88 @@ import OneStar from "../assets/Done/OneStar.webp";
 import TwoStar from "../assets/Done/TwoStar.webp"; 
 import ThreeStar from "../assets/Done/ThreeStar.webp"; 
 
+import backgroundMusic from "../assets/Sounds/background.mp3";
+
+import { motion } from "framer-motion";
+
+import applause from "../assets/Sounds/applause.wav"
+import { useWithSound } from "../components/useWithSound";
+import { useNavigate } from "react-router-dom";
+
+
 function ColorGameMedLevel1() {
-{/* jars*/}
+  const navigate = useNavigate();
+  const { playSound: playApplause, stopSound: stopApplause } = useWithSound(applause); 
+   const [isGameFinished,setGameFinished]= useState(false);
+    const [count, setCount] = useState(0);
+
   const jars = [
     { id: "red", img: redJar },
     { id: "yellow", img: yellowJar },
-    { id: "blue", img:  blueJar },
+    { id: "blue", img:  blueJar },      
 
   ];
+  
+useEffect(() => {
+                          if (isGameFinished) return; 
+                      
+                          const interval = setInterval(() => {
+                            setCount((prev) => prev + 1);
+                          }, 1000);
+                      
+                          return () => clearInterval(interval); 
+                        }, [isGameFinished]);
+                
+              
+            
+              const [index] = useState(0);
+            
+              const logic = (choice) => {
+                if (choice === clickables[index].Answer) {
+                  setGameFinished(true);
+                } else {
+                  alert("wrong!");
+                }
+              };
+             useEffect(() => {
+                const bgSound = new Audio(backgroundMusic);
+                bgSound.loop = true; 
+                bgSound.volume = 0.3; 
+                
+                bgSound.play().catch((err) => {
+                  console.log("Autoplay blocked by browser (user interaction required):", err);
+                });
+            
+             
+                return () => {
+                  bgSound.pause();
+                  bgSound.currentTime = 0;
+                };
+              }, []); 
+               
+              useEffect(() => {
+        let soundTimeout;
+
+        if (isGameFinished) {
+            console.log("Game finished! Playing applause.");
+            playApplause(); 
+
+            soundTimeout = setTimeout(() => {
+                stopApplause();
+            }, 8000); 
+        }
+
+        return () => {
+            clearTimeout(soundTimeout);
+            stopApplause();
+        };
+    }, [isGameFinished, playApplause, stopApplause]);
+            
+           
+            
+
 {/* draggables*/}
+
   const itemsData = [
     { id: "apple-1", type: "apple", img: apple, correctJar: "red", x: 120, y: 200 },
     { id: "balloon-1", type: "balloon", img: balloon, correctJar: "blue", x: 260, y: 50 },
@@ -45,9 +118,10 @@ function ColorGameMedLevel1() {
 
   const starImages = { one: OneStar, two: TwoStar, three: ThreeStar };
 
-
-  return <div className="overflow-hidden" ><SortingGame jars={jars} itemsData={itemsData} starImages={starImages} gamelevel={1}/></div> ;
+  return <SortingGame jars={jars} itemsData={itemsData} starImages={starImages} />;
 }
 
-
 export default ColorGameMedLevel1;
+
+            
+           

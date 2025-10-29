@@ -14,6 +14,11 @@ import eight from "../assets/Number/eight.png";
 import nine from "../assets/Number/nine.png";
 import ten from "../assets/Number/ten.png";
 import numberplay from "../assets/Number/numberplay.png";
+import useSound from 'use-sound';
+import clickSfx from '../assets/Sounds/button_click_sound.mp3'; 
+import backgroundMusic from "../assets/Sounds/background.mp3"; 
+
+import { useState,useEffect } from "react";
 
 import oneRec from "../assets/Sounds/oneRec.mp3";
 import twoRec from "../assets/Sounds/twoRec.mp3";
@@ -37,18 +42,33 @@ const playSound = (soundFile) => {
   currentAudio.play();
 };
 
-function Number() {
-  return (
-    <>
-      <div className="hidden w-full md:inline md:absolute h-[100%]">
-        <TopBar />
-        <Back />
 
-        <img
-          src="./Bg/Number/numberpagebg.png"
-          alt="background"
-          className="w-full h-full"
-        />
+function Number(){
+  
+const [playClick] = useSound(clickSfx, { volume: 0.5 });
+
+   useEffect(() => {
+               const bgSound = new Audio(backgroundMusic);
+                bgSound.loop = true;
+                bgSound.volume = 0.2; 
+        
+                bgSound.play().catch((err) => {
+                    console.log("Autoplay blocked. User must interact to enable sound.", err);
+                });
+        
+                return () => {
+                    bgSound.pause();
+                    bgSound.currentTime = 0;
+                };
+            }, []); 
+  return(
+  <><div className="hidden w-full h-full md:inline md:absolute">
+    <TopBar/>
+    <Back/>
+    <img
+    src="./Bg/Number/numberpagebg.png"
+    alt="background"
+    className="w-full h-full"/>
 
         <img
           src={one}
@@ -120,15 +140,17 @@ function Number() {
           className="absolute left-[90%] top-[47%] w-auto cursor-pointer h-auto"
         />
 
-        <Link to="/numbergame">
-          <img
-            src={numberplay}
-            alt="Buttons for Number Game"
-            className="absolute left-[38%] top-[87%] w-auto cursor-pointer h-auto"
-          />
-        </Link>
-      </div>
-    </>
+
+    <Link to="/numbergame">
+    <img
+    src={numberplay} onClick={() =>[playClick()]}
+    alt="Buttons for Number Game"
+    className="absolute left-[35%] top-[81%] w-auto cursor pointer h-auto"/>
+
+    </Link>
+  </div>
+  </>
+
   );
 }
 

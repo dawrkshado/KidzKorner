@@ -1,5 +1,3 @@
-
-
 import apple from "../assets/Color/apple.png"
 import avocado from "../assets/Color/avocado.png"
 import banana from "../assets/Color/banana.png"
@@ -10,7 +8,13 @@ import orange from "../assets/Color/orange.png"
 import colorbutton from "../assets/Color/colorbutton.png"
 
 import { Link } from "react-router-dom";
+import 'react-router-dom'
+import useSound from 'use-sound';
+import clickSfx from '../assets/Sounds/button_click.mp3';
+import backgroundMusic from "../assets/Sounds/background.mp3"; 
+
 import Back from "../components/Back.jsx";
+import { useState,useEffect } from "react";
 
 
 import redrec from "../assets/Sounds/redrec.mp3";
@@ -33,8 +37,26 @@ const playSound = (soundFile) => {
 };
 
 function Color(){
+    const [playClick] = useSound(clickSfx, { volume: 0.5 });
+
+     useEffect(() => {
+               const bgSound = new Audio(backgroundMusic);
+                bgSound.loop = true;
+                bgSound.volume = 0.2; 
+        
+                bgSound.play().catch((err) => {
+                    console.log("Autoplay blocked. User must interact to enable sound.", err);
+                });
+        
+                return () => {
+                    bgSound.pause();
+                    bgSound.currentTime = 0;
+                };
+            }, []); 
+        
     return(
-        <> <div className="hidden w-full md:inline md:absolute h-[100%]">
+        <> <div className="hidden w-full md:inline md:absolute h-full ">
+      <TopBar/>
       <Back/>
       <img 
       src="./Bg/Color/colorgamebg.webp"

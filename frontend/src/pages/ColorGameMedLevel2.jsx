@@ -25,9 +25,18 @@ import watermelon from "../assets/Color/Medium/watermelon.webp"
 import OneStar from "../assets/Done/OneStar.webp"; 
 import TwoStar from "../assets/Done/TwoStar.webp"; 
 import ThreeStar from "../assets/Done/ThreeStar.webp"; 
+import backgroundMusic from "../assets/Sounds/background.mp3";
+
+import { motion } from "framer-motion";
+
+import applause from "../assets/Sounds/applause.wav"
+import { useWithSound } from "../components/useWithSound";
+import { useNavigate } from "react-router-dom";
 
 function ColorGameMedLevel2() {
-{/* jars*/}
+  const { playSound: playApplause, stopSound: stopApplause } = useWithSound(applause); 
+    const [isGameFinished, setGameFinished] = useState(false);
+
   const jars = [
     { id: "red", img: redJar },
     { id: "yellow", img: yellowJar },
@@ -49,14 +58,65 @@ function ColorGameMedLevel2() {
     { id: "basketball", type: "basketball", img: basketball, correctJar: "orange",x: 720, y: 20},
     { id: "key", type: "key", img: key, correctJar: "yellow", x:1000, y: 20},
     { id: "watermelon", type: "watermelon", img: watermelon, correctJar: "red",x: 1060, y: 200}
-
-    
   
   ];
 
-  const starImages = { one: OneStar, two: TwoStar, three: ThreeStar };
+ const starImages = { one: OneStar, two: TwoStar, three: ThreeStar };
 
-  return <SortingGame jars={jars} itemsData={itemsData} starImages={starImages} gamelevel={2} />;
+    const handleGameCompletion = () => {
+        setGameFinished(true);
+    };
+    
+    useEffect(() => {
+        const bgSound = new Audio(backgroundMusic);
+        bgSound.loop = true; 
+        bgSound.volume = 0.3; 
+        
+        bgSound.play().catch((err) => {
+            console.log("Autoplay blocked by browser (user interaction required):", err);
+        });
+
+        return () => {
+            bgSound.pause();
+            bgSound.currentTime = 0;
+        };
+    }, []); 
+
+ 
+    useEffect(() => {
+    if (isGameFinished) {
+        playApplause(); 
+    }
+
+}, [isGameFinished, playApplause, stopApplause]);
+    useEffect(() => {
+        let soundTimeout;
+
+        if (isGameFinished) {
+            console.log("Game finished! Playing applause.");
+            playApplause(); 
+
+            soundTimeout = setTimeout(() => {
+                stopApplause();
+            }, 8000); 
+        }
+
+  
+        return () => {
+            clearTimeout(soundTimeout);
+            stopApplause();
+        };
+    }, [isGameFinished, playApplause, stopApplause]);
+
+return (
+        <SortingGame 
+            jars={jars} 
+            itemsData={itemsData} 
+            starImages={starImages} 
+            onGameFinished={handleGameCompletion} 
+            stopApplause={stopApplause}
+        />
+    );
 }
 
 

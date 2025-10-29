@@ -1,17 +1,38 @@
-import React, { useState } from "react";
+import React, { useState, useEffect } from "react";
 import TopBar from "../components/TopBar";
 import Back from "../components/Back";
 import hardbuttoncolor from "../assets/color/hardbuttoncolor.png";
-import tutorialVideo from "../assets/videos/ColorsHardTutorial.mp4"; // ✅ Tutorial video path
+import tutorialVideo from "../assets/videos/ColorsHardTutorial.mp4"; 
 import { Link } from "react-router-dom";
 import { motion, AnimatePresence } from "framer-motion";
 
+import backgroundMusic from "../assets/Sounds/background.mp3"; 
+import useSound from "use-sound";
+import clickSfx from "../assets/Sounds/button_click.mp3"; 
+
 function ColorHard() {
   const [showTutorial, setShowTutorial] = useState(true);
-
   const handleVideoEnd = () => {
     setShowTutorial(false);
   };
+
+  // 🎵 Sound setup
+  const [playClick] = useSound(clickSfx, { volume: 0.5 });
+
+  useEffect(() => {
+    const bgSound = new Audio(backgroundMusic);
+    bgSound.loop = true;
+    bgSound.volume = 0.2;
+
+    bgSound.play().catch((err) => {
+      console.log("Autoplay blocked. User must interact to enable sound.", err);
+    });
+
+    return () => {
+      bgSound.pause();
+      bgSound.currentTime = 0;
+    };
+  }, []);
 
   return (
     <div className="relative w-full h-screen bg-green-100 overflow-hidden">
@@ -59,7 +80,7 @@ function ColorHard() {
                 className="w-full"
               />
 
-              <Link to={"/color/hard/level1"}>
+              <Link to="/color/hard/level1" onClick={playClick}>
                 <img
                   src={hardbuttoncolor}
                   alt="Button for Level 1 Color"

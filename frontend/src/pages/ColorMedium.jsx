@@ -1,6 +1,4 @@
-
-import React, { useState } from "react";
-
+import React, { useState, useEffect } from "react";
 import TopBar from "../components/TopBar";
 import Back from "../components/Back";
 import avebutton1 from "../assets/color/avebutton1.png";
@@ -9,18 +7,39 @@ import tutorialVideo from "../assets/videos/ColorsMediumTutorial.mp4";
 import { Link } from "react-router-dom";
 import { motion, AnimatePresence } from "framer-motion";
 
+import backgroundMusic from "../assets/Sounds/background.mp3";
+import useSound from "use-sound";
+import clickSfx from "../assets/Sounds/button_click.mp3";
+
 function ColorMedium() {
   const [showTutorial, setShowTutorial] = useState(true);
-
   const handleVideoEnd = () => {
     setShowTutorial(false);
   };
+
+  // 🎵 Sound setup
+  const [playClick] = useSound(clickSfx, { volume: 0.5 });
+
+  useEffect(() => {
+    const bgSound = new Audio(backgroundMusic);
+    bgSound.loop = true;
+    bgSound.volume = 0.2;
+
+    bgSound.play().catch((err) => {
+      console.log("Autoplay blocked. User must interact to enable sound.", err);
+    });
+
+    return () => {
+      bgSound.pause();
+      bgSound.currentTime = 0;
+    };
+  }, []);
 
   return (
     <div className="relative w-full h-screen bg-green-100 overflow-hidden">
       <AnimatePresence mode="wait">
         {showTutorial ? (
-         
+          // 🎬 Tutorial video first
           <motion.div
             key="tutorial"
             initial={{ opacity: 0 }}
@@ -45,7 +64,7 @@ function ColorMedium() {
             </div>
           </motion.div>
         ) : (
-          // 🎨 Main Medium Color Level Menu
+          // 🎨 Medium Color Menu
           <motion.div
             key="menu"
             initial={{ opacity: 0 }}
@@ -62,7 +81,7 @@ function ColorMedium() {
                 className="w-full"
               />
 
-              <Link to={"/color/medium/level1"}>
+              <Link to="/color/medium/level1" onClick={playClick}>
                 <img
                   src={avebutton1}
                   alt="Button for Level 1 Color"
@@ -70,7 +89,7 @@ function ColorMedium() {
                 />
               </Link>
 
-              <Link to={"/color/medium/level2"}>
+              <Link to="/color/medium/level2" onClick={playClick}>
                 <img
                   src={avebutton2}
                   alt="Button for Level 2 Color"

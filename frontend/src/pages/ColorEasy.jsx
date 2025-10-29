@@ -1,34 +1,63 @@
-
-import React, { useState } from "react";
-
-import TopBar from "../components/TopBar";
-import Back from "../components/Back";
-import easycolorl1 from "../assets/color/easycolorl1.png";
-import easycolorl2 from "../assets/color/easycolorl2.png";
-import easycolorl3 from "../assets/color/easycolorl3.png";
-import tutorialVideo from "../assets/videos/ColordEasyTutorial.mp4"; // ✅ Video path
+import React, { useState, useEffect } from "react";
 import { Link } from "react-router-dom";
 import { motion, AnimatePresence } from "framer-motion";
 
+import TopBar from "../components/TopBar";
+import Back from "../components/Back";
+
+import easycolorl1 from "../assets/color/easycolorl1.png";
+import easycolorl2 from "../assets/color/easycolorl2.png";
+import easycolorl3 from "../assets/color/easycolorl3.png";
+import tutorialVideo from "../assets/videos/ColordEasyTutorial.mp4";
+
+import backgroundMusic from "../assets/Sounds/background.mp3";
+import useSound from "use-sound";
+import clickSfx from "../assets/Sounds/button_click_sound.mp3";
+
 function ColorEasy() {
   const [showTutorial, setShowTutorial] = useState(true);
+  const [playClick] = useSound(clickSfx, { volume: 0.5 });
 
+  // 🎬 Handles when video ends or Skip button clicked
   const handleVideoEnd = () => {
     setShowTutorial(false);
   };
 
+  // 🎵 Background music setup
+  useEffect(() => {
+    const bgSound = new Audio(backgroundMusic);
+    bgSound.loop = true;
+    bgSound.volume = 0.2;
+
+    // Only play music after user interacts (browser autoplay restriction)
+    const enableSound = () => {
+      bgSound.play().catch((err) =>
+        console.log("Autoplay blocked until user interaction:", err)
+      );
+      window.removeEventListener("click", enableSound);
+    };
+
+    window.addEventListener("click", enableSound);
+
+    return () => {
+      bgSound.pause();
+      bgSound.currentTime = 0;
+      window.removeEventListener("click", enableSound);
+    };
+  }, []);
+
   return (
-    <div className="relative w-full h-screen bg-green-100 overflow-hidden">
+    <div className="relative w-full h-screen overflow-hidden">
       <AnimatePresence mode="wait">
         {showTutorial ? (
-          // 🎬 Tutorial video plays first
+          // 🎬 Tutorial video screen
           <motion.div
             key="tutorial"
             initial={{ opacity: 0 }}
             animate={{ opacity: 1 }}
             exit={{ opacity: 0 }}
             transition={{ duration: 0.8 }}
-            className="flex justify-center items-center w-full h-full"
+            className="flex justify-center items-center w-full h-full bg-black"
           >
             <div className="relative w-[80%]">
               <video
@@ -46,7 +75,7 @@ function ColorEasy() {
             </div>
           </motion.div>
         ) : (
-          // 🎨 After video ends — show the ColorEasy menu
+          // 🎨 Menu screen after tutorial
           <motion.div
             key="menu"
             initial={{ opacity: 0 }}
@@ -54,7 +83,7 @@ function ColorEasy() {
             transition={{ duration: 0.8 }}
             className="w-full h-full"
           >
-            <div className="hidden w-full md:inline md:absolute h-auto">
+            <div className="hidden md:inline absolute w-full h-auto">
               <TopBar />
               <Back />
               <img
@@ -63,7 +92,7 @@ function ColorEasy() {
                 className="w-full"
               />
 
-              <Link to={"/color/easy/level1"}>
+              <Link to="/color/easy/level1" onClick={playClick}>
                 <img
                   src={easycolorl1}
                   alt="Button for Level 1 Color"
@@ -71,7 +100,7 @@ function ColorEasy() {
                 />
               </Link>
 
-              <Link to={"/color/easy/level2"}>
+              <Link to="/color/easy/level2" onClick={playClick}>
                 <img
                   src={easycolorl2}
                   alt="Button for Level 2 Color"
@@ -79,7 +108,7 @@ function ColorEasy() {
                 />
               </Link>
 
-              <Link to={"/color/easy/level3"}>
+              <Link to="/color/easy/level3" onClick={playClick}>
                 <img
                   src={easycolorl3}
                   alt="Button for Level 3 Color"

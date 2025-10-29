@@ -1,4 +1,4 @@
-import TopBar from "../components/TopBar.jsx";
+
 import circle from "../assets/Shapes/circle.png";
 import star from "../assets/Shapes/star.png";
 import rectangle from "../assets/Shapes/rectangle.png";
@@ -7,6 +7,10 @@ import square from "../assets/Shapes/square.png";
 import sbuttons from "../assets/Shapes/sbuttons.png";
 import Back from "../components/Back.jsx";
 import { Link } from "react-router-dom";
+import { useState,useEffect } from "react";
+import backgroundMusic from "../assets/Sounds/background.mp3"; 
+import useSound from 'use-sound';
+import clickSfx from '../assets/Sounds/button_click_sound.mp3'; 
 
 
 import CircleRec from "../assets/Sounds/CircleRec.mp3";
@@ -22,11 +26,26 @@ const playSound = (soundFile) => {
 };
 
 function Shapes() {
+  const [playClick] = useSound(clickSfx, { volume: 0.5 });
+ useEffect(() => {
+               const bgSound = new Audio(backgroundMusic);
+                bgSound.loop = true;
+                bgSound.volume = 0.2; 
+        
+                bgSound.play().catch((err) => {
+                    console.log("Autoplay blocked. User must interact to enable sound.", err);
+                });
+        
+                return () => {
+                    bgSound.pause();
+                    bgSound.currentTime = 0;
+                };
+            }, []); 
+
   return (
     <>
       <div className="absolute hidden w-full h-full md:inline md:absolute overflow-x-hidden">
-        <TopBar />
-        <div className="top-0">
+       <div className="top-0">
           <Back />
         </div>
 
@@ -72,7 +91,7 @@ function Shapes() {
           className="absolute left-[45%] xl:top-[47%] xl2:top[58%] w-auto cursor-pointer h-auto"
         />
 
-        <Link to="/shapesgame">
+        <Link to="/shapesgame" onClick={playClick}>
           <img
             src={sbuttons}
             alt="Play Shapes Game"
