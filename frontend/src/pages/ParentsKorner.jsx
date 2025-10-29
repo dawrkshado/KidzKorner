@@ -167,7 +167,7 @@ function ParentsKorner() {
                       : "Who will play?"}
                   </h1>
                 </div>
-
+                
                 <button
                   className="h-10 w-10 bg-red-500 text-white absolute font-bold text-3xl top-4 right-8 z-10 rounded-full hover:bg-red-600 flex items-center justify-center"
                   onClick={handleExit}

@@ -1,7 +1,7 @@
 import adminbg from "../assets/adminbg.png";
-import logoutbutton from "../assets/Admin/logoutbuton.png";
-import managebutton from "../assets/Admin/managebutton.png";
-import createbutton from "../assets/Admin/createbutton.png";
+import logoutbutton from "../assets/Admin/logoutbuton.webp";
+import managebutton from "../assets/Admin/managebutton.webp";
+import createbutton from "../assets/Admin/createbutton.webp";
 import { Link, useNavigate } from "react-router-dom";
 
 function Admin() {

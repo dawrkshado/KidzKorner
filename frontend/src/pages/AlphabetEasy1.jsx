@@ -130,7 +130,6 @@ function AlphabetEasyLevel1() {
         </div>
       )}
 
-
       {isGameFinished && count <= 15 && count > 10 && (
         <div className="absolute inset-0 flex items-center justify-center bg-opacity-50 z-20">
           <img src={TwoStar} alt="Game Completed!" className="h-[300px] animate-bounce" />
