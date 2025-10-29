@@ -17,10 +17,10 @@ function AlphabetEasy() {
   };
 
   return (
-    <div className="relative w-full h-screen bg-green-100 overflow-hidden">
+    <div className="relative w-full h-screen bg-green-100 overflow-x-hidden">
       <AnimatePresence mode="wait">
         {showTutorial ? (
-          // 🎬 Tutorial video plays first
+
           <motion.div
             key="tutorial"
             initial={{ opacity: 0 }}
@@ -45,7 +45,7 @@ function AlphabetEasy() {
             </div>
           </motion.div>
         ) : (
-          // 🎮 After video ends — show the AlphabetEasy menu
+ 
           <motion.div
             key="menu"
             initial={{ opacity: 0 }}
@@ -54,7 +54,6 @@ function AlphabetEasy() {
             className="w-full h-full"
           >
             <div className="hidden w-full md:inline md:absolute h-auto">
-              <TopBar />
               <Back />
               <img
                 src="/Bg/Alphabets/alphabeteasybg.webp"

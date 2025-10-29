@@ -10,8 +10,12 @@ import TwoStar from "../assets/Done/TwoStar.webp";
 import ThreeStar from "../assets/Done/ThreeStar.webp"; 
 
 import ReplayNBack from "../components/ReplayNBack";
+import api from "../api";
 
 function ShapesEasyLevel2() {
+
+const selectedChild = JSON.parse(localStorage.getItem("selectedChild"));
+const childId = selectedChild?.id;
   const clickables = [
     {
       Answer: "H",
@@ -49,6 +53,28 @@ function ShapesEasyLevel2() {
       alert("wrong!");
     }
   };
+
+
+   {/*Saving*/}
+  useEffect(() => {
+    if (!isGameFinished || !childId) return;
+
+
+    const data = {
+      child_id: childId,
+      game: "Alphabet",
+      difficulty: "Easy",
+      level: 1,
+      time: count,
+    };
+
+    console.log("Saving progress:", data);
+
+    api.post("/api/save_progress/", data)
+      .then((res) => console.log("Progress saved:", res.data))
+      .catch((err) => console.error("Error saving progress:", err));
+  }, [isGameFinished]);
+
 
   return (
     <>
