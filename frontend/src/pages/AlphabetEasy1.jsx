@@ -1,5 +1,4 @@
 import { useState, useEffect } from "react";
-
 import a from "../assets/Alphabets/Easy/letterA.webp";
 import b from "../assets/Alphabets/Easy/letterB.webp";
 import c from "../assets/Alphabets/Easy/letterC.webp";
@@ -15,6 +14,7 @@ import ReplayNBack from "../components/ReplayNBack";
 
 
 function AlphabetEasyLevel1() {
+
   const selectedChild = JSON.parse(localStorage.getItem("selectedChild"));
   const childId = selectedChild?.id;
 
@@ -78,7 +78,6 @@ function AlphabetEasyLevel1() {
 
   return (
 
-
     <div className="font-[coiny]">
       <img src={bg} alt="background" className="w-full" />
       <h1 className="absolute top-15 right-112 text-3xl text-white">
@@ -134,4 +133,6 @@ function AlphabetEasyLevel1() {
   );
 }
 
+
 export default AlphabetEasyLevel1;
+

@@ -52,7 +52,11 @@ function ShapesEasyLevel2() {
     <img src={bg} alt="background" className="w-full "/>
 
      <div className="absolute top-0 right-0 text-white">Your Time: {count}</div>
+<<<<<<< HEAD
       <div className="flex justify-evenly justify-self-center w-150 gap-20 absolute top-110 right-65">
+=======
+      <div className="flex justify-evenly justify-self-center w-150 gap-20 absolute top-55 right-35">
+>>>>>>> 0b2d8e4be0cf3c8d80bfe466e3965a96eac7b42e
         
         {clickables[index].choices.map((choice, i) => (
           <img

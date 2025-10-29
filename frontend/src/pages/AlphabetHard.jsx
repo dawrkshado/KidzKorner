@@ -1,4 +1,5 @@
 
+
 import React, { useState } from "react";
 import TopBar from "../components/TopBar";
 import Back from "../components/Back";
@@ -10,6 +11,7 @@ import { motion, AnimatePresence } from "framer-motion";
 
 
 import 'react-router-dom'
+
 
 function AlphabetHard() {
   const [showTutorial, setShowTutorial] = useState(true);
@@ -80,3 +82,4 @@ function AlphabetHard() {
 }
 
 export default AlphabetHard;
+

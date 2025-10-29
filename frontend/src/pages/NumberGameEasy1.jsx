@@ -22,11 +22,13 @@ function NumberGameEasy1() {
   const childId = selectedChild?.id;
 
   const numbers = [
-  { value: 1, img: one, top: 575, left: 395, width: 40, height: 45 },
-  { value: 2, img: two, top: 450, left: 250, width: 40, height: 45 },
-  { value: 3, img: three, top: 60, left: 70, width: 100, height: 69},
+
+  { value: 1, img: one, top: 575, left: 395, width: 35, height: 35 },
+  { value: 2, img: two, top: 450, left: 250, width: 25, height: 25 },
+  { value: 3, img: three, top: 60, left: 70, width: 40, height: 40 },
   { value: 4, img: four, top: 80, left: 1090, width: 45, height: 45 },
-  { value: 5, img: five, top: 490, left: 1150, width: 40, height: 45},
+  { value: 5, img: five, top: 490, left: 1150, width: 40, height: 40},
+
   ];
 
 

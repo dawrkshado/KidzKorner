@@ -11,7 +11,7 @@ import ThreeStar from "../assets/Done/ThreeStar.webp";
 
 import bg from "../assets/Alphabets/Hard/bg.webp"
 import wrongImage from "../assets/Alphabets/Hard/cross.gif" 
-import hardalphabutton1 from "../assets/Alphabets/hardalphabutton1.png";
+
 import ReplayNBack from "../components/ReplayNBack";
 import api from "../api";
 
