@@ -10,7 +10,6 @@ function AlphabetsPlay(){
 
 <div className="hidden w-full md:inline md:absolute h-[100%]">
 
-
           <Back/>
         <img
         src="/Bg/Alphabets/alphabetsgamepage.webp"

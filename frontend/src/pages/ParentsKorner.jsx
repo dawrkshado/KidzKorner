@@ -214,14 +214,6 @@ function ParentsKorner() {
       
         </>}
 
-        {/* Temporary Admin Button */}
-        <div className="absolute bottom-10 right-10 z-50">
-          <Link to="/admin">
-            <button className="bg-blue-600 text-white px-4 py-2 rounded-lg hover:bg-blue-700 shadow-md">
-              Admin
-            </button>
-          </Link>
-        </div>
 
      
 
