@@ -5,7 +5,7 @@ import TopBar from "../components/TopBar";
 import Back from "../components/Back";
 import avebutton1 from "../assets/color/avebutton1.png";
 import avebutton2 from "../assets/color/avebutton2.png";
-import tutorialVideo from "../assets/videos/ColorsMediumTutorial.mp4"; // ✅ your video path
+import tutorialVideo from "../assets/videos/ColorsMediumTutorial.mp4";
 import { Link } from "react-router-dom";
 import { motion, AnimatePresence } from "framer-motion";
 
@@ -20,7 +20,7 @@ function ColorMedium() {
     <div className="relative w-full h-screen bg-green-100 overflow-hidden">
       <AnimatePresence mode="wait">
         {showTutorial ? (
-          // 🎬 Tutorial video screen
+         
           <motion.div
             key="tutorial"
             initial={{ opacity: 0 }}

@@ -223,7 +223,7 @@ function ParentsKorner() {
           </Link>
         </div>
 
-        <Logout />
+     
 
       </div>
     </>
