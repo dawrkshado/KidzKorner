@@ -45,7 +45,8 @@ function ColorGameMedLevel1() {
 
   const starImages = { one: OneStar, two: TwoStar, three: ThreeStar };
 
-  return <SortingGame jars={jars} itemsData={itemsData} starImages={starImages} />;
+
+  return <div className="overflow-hidden" ><SortingGame jars={jars} itemsData={itemsData} starImages={starImages} gamelevel={1}/></div> ;
 }
 
 

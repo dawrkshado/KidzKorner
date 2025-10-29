@@ -1,4 +1,4 @@
-import Form from "../components/Forms";
+import Form from "../components/Form";
 import Bg from "../assets/loginbg.webp";
 
 function Login() {

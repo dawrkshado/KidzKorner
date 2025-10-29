@@ -7,6 +7,7 @@ import bg from "../assets/Parents/bgparentskorner.webp";
 import Logout from "../components/Logout";
 import api from '../api';
 
+import logoutImg from "../assets/logout.webp"
 function ParentsKorner() {
   const [clicked, setClicked] = useState(false);
   const [checkUser, setCheckUser] = useState(null);
@@ -14,11 +15,19 @@ function ParentsKorner() {
   const [loading, setLoading] = useState(true);
   const [hoveredItem, setHoveredItem] = useState();
   const [activeAction, setActiveAction] = useState(null);
-
+  const [logout, setLogout]= useState();
+  const [clickedLogout, setClickedLogout] = useState();
   const navigate = useNavigate();
 
   useEffect(() => {
     const fetchParentData = async () => {
+        
+        const token = localStorage.getItem("access");
+        if (!token) {
+        setLoading(false);
+        return;
+        }
+
       try {
         const res = await api.get("/api/parent/");
         const data = Array.isArray(res.data) ? res.data[0] : res.data;
@@ -61,14 +70,24 @@ function ParentsKorner() {
     setClicked(true);
   };
 
+  const logoutClick = (logout) => {
+      setClickedLogout(true)
+      setLogout(logout)
+
+  }
+
   const handleExit = () => {
     setClicked(false);
     setActiveAction(null);
+    setClickedLogout(false)
   };
 
   const handleHover = (id) => {
     setHoveredItem(id);
   };
+
+  
+
 
   if (loading) {
     return (
@@ -81,11 +100,16 @@ function ParentsKorner() {
   return (
     <>
       <div
-        className="hidden md:flex md:absolute h-screen w-screen bg-cover bg-top bg-no-repeat"
+        className="hidden justify-center md:flex md:absolute h-screen  w-screen bg-cover bg-top bg-no-repeat"
         style={{ backgroundImage: `url(${bg})` }}
       >
-        <div className="text-3xl h-fit w-fit absolute top-60 left-97.5">
-          Welcome, <br /> {checkUser}!
+
+
+         <div className='text-4xl h-[5%] w-[5%] hover:text-amber-500 hover:cursor-pointer absolute left-[1%] top-[1%]' onClick={() => logoutClick("logout")}> <img src={logoutImg} alt="logout button" /></div>
+       
+        <div className="text-4xl h-fit w-fit absolute top-[12%]">
+          Welcome {checkUser}!
+
         </div>
 
         <Link to="/childRegistration">
@@ -159,7 +183,7 @@ function ParentsKorner() {
                         onClick={() => handleChildClick(child)}
                         className="bg-amber-50 first:mb-5 last:mt-5 cursor-pointer hover:bg-amber-200 transition"
                       >
-                        {child.first_name} {child.last_name}
+                        {child.child_full_name}
                       </div>
                     ))}
                   </div>
@@ -168,8 +192,27 @@ function ParentsKorner() {
                 )}
               </div>
             </div>
-          </>
+          </>  
         )}
+       
+
+
+        {clickedLogout && logout === "logout" && <>
+        <div className='transition transform absolute flex justify-center items-center h-[100vh] w-[100vw]  z-100'>
+
+        <div className=' h-[100%] w-[100%] bg-gray-800 opacity-50'>       
+        </div>
+         <div className='flex justify-center items-center absolute h-[40%] w-[40%] bg-blue-200 rounded-2xl'>
+          <div>
+             <h1 className='text-2xl'>Are you sure you want to <span className='font-bold'>LOGOUT?</span></h1> 
+            <div className='flex gap-20 justify-center'><Logout/> <h1 className='text-2xl bg-green-500 hover:bg-green-400 transition transform hover:scale-110 rounded-lg hover:cursor-pointer' onClick={handleExit}>Cancel</h1></div>
+         </div> 
+               
+         </div>
+   
+        </div>
+      
+        </>}
 
         {/* Temporary Admin Button */}
         <div className="absolute bottom-10 right-10 z-50">
@@ -181,6 +224,7 @@ function ParentsKorner() {
         </div>
 
         <Logout />
+
       </div>
     </>
   );

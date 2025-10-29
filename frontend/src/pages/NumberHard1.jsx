@@ -1,6 +1,7 @@
 import { useState,useEffect } from "react";
 import { DndContext, useDraggable, useDroppable, pointerWithin } from "@dnd-kit/core";
 
+import api from "../api";
 import draggableNumber1 from "../assets/Number/Hard/draggable1.webp"
 import draggableNumber2 from "../assets/Number/Hard/draggable2.webp"
 import draggableNumber3 from "../assets/Number/Hard/draggable3.webp"
@@ -75,7 +76,8 @@ function Draggable({ id, disabled = false, shape }) {
 
 function NumberGameHard() {
   const [dropped, setDropped] = useState({});
-  
+   const selectedChild = JSON.parse(localStorage.getItem("selectedChild"));
+  const childId = selectedChild?.id;
 
   function handleDragEnd(event) {
     if (event.over) {
@@ -107,6 +109,26 @@ const isGameFinished =
     return () => clearInterval(interval); 
   }, [isGameFinished]);
 
+
+    {/*Saving*/}
+  useEffect(() => {
+    if (!isGameFinished || !childId) return;
+
+
+    const data = {
+      child_id: childId,
+      game: "Number",
+      difficulty: "Hard",
+      level: 1,
+      time: count,
+    };
+
+    console.log("Saving progress:", data);
+
+    api.post("/api/save_progress/", data)
+      .then((res) => console.log("Progress saved:", res.data))
+      .catch((err) => console.error("Error saving progress:", err));
+  }, [isGameFinished]);
 
   return (
     <>

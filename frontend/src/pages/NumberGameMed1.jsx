@@ -20,6 +20,7 @@ import ThreeStar from "../assets/Done/ThreeStar.webp";
 import ReplayNBack from "../components/ReplayNBack";
 
 import wrongImage from "../assets/Alphabets/Hard/cross.gif" 
+import api from "../api";
 
 function Droppable({ id, placedShape, shape }) {
   const { isOver, setNodeRef } = useDroppable({ id });
@@ -64,7 +65,8 @@ function Draggable({ id, disabled = false, shape }) {
 
 function NumberGameMed1() {
   const [dropped, setDropped] = useState({});
-
+  const selectedChild = JSON.parse(localStorage.getItem("selectedChild"));
+  const childId = selectedChild?.id;
   function handleDragEnd(event) {
     if (event.over) {
       const draggedId = event.active.id;
@@ -94,6 +96,25 @@ function NumberGameMed1() {
     return () => clearInterval(interval); 
   }, [isGameFinished]);
 
+ {/*Saving*/}
+  useEffect(() => {
+    if (!isGameFinished || !childId) return;
+
+
+    const data = {
+      child_id: childId,
+      game: "Number",
+      difficulty: "Medium",
+      level: 1,
+      time: count,
+    };
+
+    console.log("Saving progress:", data);
+
+    api.post("/api/save_progress/", data)
+      .then((res) => console.log("Progress saved:", res.data))
+      .catch((err) => console.error("Error saving progress:", err));
+  }, [isGameFinished]);
 
 
   return (
@@ -137,7 +158,9 @@ function NumberGameMed1() {
 
           {/* Droppables */}
           <div className="flex h-120 w-250 gap-6 absolute xl:top-30 xl:right-40 z-0 xl2:right-45">
+
             <div className="absolute top-55 left-60 motion-preset-pulse-sm motion-duration-2000 xl2:left-30 xl2:top-65">
+
               <Droppable
               id="two"
               shape={<img src={droppableFish1} alt="fish image" />}

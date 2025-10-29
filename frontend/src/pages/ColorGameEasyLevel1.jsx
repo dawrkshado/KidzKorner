@@ -8,6 +8,8 @@ import TwoStar from "../assets/Done/TwoStar.webp";
 import ThreeStar from "../assets/Done/ThreeStar.webp"; 
 
 import ReplayNBack from "../components/ReplayNBack";
+import api from "../api";
+
 
 function ShapesEasyLevel1() {
   const clickables = [
@@ -20,10 +22,11 @@ function ShapesEasyLevel1() {
       ]
     }
   ];
+   const selectedChild = JSON.parse(localStorage.getItem("selectedChild"));
+  const childId = selectedChild?.id;
 
   const [isGameFinished,setGameFinished]= useState(false);
-  
-    const [count, setCount] = useState(0);
+  const [count, setCount] = useState(1);
           
             useEffect(() => {
               if (isGameFinished) return; 
@@ -47,6 +50,25 @@ function ShapesEasyLevel1() {
     }
   };
 
+    useEffect(() => {
+    if (!isGameFinished || !childId) return;
+
+
+    const data = {
+      child_id: childId,
+      game: "Color",
+      difficulty: "Easy",
+      level: 1,
+      time: count,
+    };
+
+    console.log("Saving progress:", data);
+
+    api.post("/api/save_progress/", data)
+      .then((res) => console.log("Progress saved:", res.data))
+      .catch((err) => console.error("Error saving progress:", err));
+  }, [isGameFinished]);
+
   return (
     <>
 
@@ -54,7 +76,9 @@ function ShapesEasyLevel1() {
     <img src={bg} alt="background" className="w-full "/>
 
        <div className="absolute top-0 right-0 text-white">Your Time: {count}</div>
+
       <div className="flex justify-evenly justify-self-center w-150 gap-20 absolute top-55 right-35">
+
         {clickables[index].choices.map((choice, i) => (
           <img
             key={i}

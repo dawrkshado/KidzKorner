@@ -7,6 +7,7 @@ import squareDraggable from "../assets/Shapes/ShapesEasy/squareDraggable.webp";
 import squareDroppable from "../assets/Shapes/ShapesEasy/squareDroppable.webp";
 import triangleDraggable from "../assets/Shapes/ShapesEasy/triangleDraggable.webp";
 import triangleDroppable from "../assets/Shapes/ShapesEasy/triangleDroppable.webp";
+import api from "../api";
 
 import bg from "../assets/Shapes/ShapesEasy/lvl1Bg.webp";
 
@@ -64,7 +65,6 @@ function Draggable({ id, disabled = false, shape }) {
 }
 
 function ShapesEasyLevel1() {
-
   const [dropped, setDropped] = useState({});
   const [count, setCount] = useState(0);
   
@@ -103,6 +103,26 @@ function ShapesEasyLevel1() {
     return () => clearInterval(interval);
   }, [isGameFinished]);
 
+  const selectedChild = JSON.parse(localStorage.getItem("selectedChild"));
+  const childId = selectedChild?.id;
+
+    useEffect(() => {
+    if (!isGameFinished || !childId) return;
+
+
+    const data = {
+      child_id: childId,
+      game: "Shape",
+      difficulty: "Easy",
+      level: 1,
+      time: count,
+    };
+
+
+    api.post("/api/save_progress/", data)
+      .then((res) => console.log("Progress saved:", res.data))
+      .catch((err) => console.error("Error saving progress:", err));
+  }, [isGameFinished]);
 
   return (
     <>

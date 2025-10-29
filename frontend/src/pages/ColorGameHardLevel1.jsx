@@ -18,6 +18,8 @@ import bg from "../assets/Color/Hard/bg.webp";
 import OneStar from "../assets/Done/OneStar.webp"; 
 import TwoStar from "../assets/Done/TwoStar.webp"; 
 import ThreeStar from "../assets/Done/ThreeStar.webp"; 
+import api from "../api";
+
 
 function Droppable({ id, placedShape, shape }) {
   const { isOver, setNodeRef } = useDroppable({ id });
@@ -61,12 +63,14 @@ function Draggable({ id, disabled = false, shape }) {
 
 function NumberGameMed2() {
   const [dropped, setDropped] = useState({});
+  const selectedChild = JSON.parse(localStorage.getItem("selectedChild"));
+  const childId = selectedChild?.id;
 
   const isGameFinished =
       dropped["red"] && dropped["orange"] && dropped["yellow"] && dropped["green"] 
       && dropped["blue"] && dropped["indigo"] && dropped["violet"];
   
-     const [count, setCount] = useState(0);
+     const [count, setCount] = useState(1);
   
     useEffect(() => {
       if (isGameFinished) return; 
@@ -91,6 +95,27 @@ function NumberGameMed2() {
       }
     }
   }
+
+   {/*Saving*/}
+  useEffect(() => {
+    if (!isGameFinished || !childId) return;
+
+
+    const data = {
+      child_id: childId,
+      game: "Alphabet",
+      difficulty: "Hard",
+      level: 1,
+      time: count,
+    };
+
+    console.log("Saving progress:", data);
+
+    api.post("/api/save_progress/", data)
+      .then((res) => console.log("Progress saved:", res.data))
+      .catch((err) => console.error("Error saving progress:", err));
+  }, [isGameFinished]);
+
 
   return (
     <>

@@ -13,17 +13,22 @@ import TwoStar from "../assets/Done/TwoStar.webp";
 import ThreeStar from "../assets/Done/ThreeStar.webp"; 
 
 import ReplayNBack from "../components/ReplayNBack";
+import api from "../api";
     
 function NumberGameEasy1() {
   const [clicked, setClicked] = useState([]);
   const [showWrong, setShowWrong] = useState(false);
+  const selectedChild = JSON.parse(localStorage.getItem("selectedChild"));
+  const childId = selectedChild?.id;
 
   const numbers = [
+
   { value: 1, img: one, top: 575, left: 395, width: 35, height: 35 },
   { value: 2, img: two, top: 450, left: 250, width: 25, height: 25 },
   { value: 3, img: three, top: 60, left: 70, width: 40, height: 40 },
   { value: 4, img: four, top: 80, left: 1090, width: 45, height: 45 },
   { value: 5, img: five, top: 490, left: 1150, width: 40, height: 40},
+
   ];
 
 
@@ -56,6 +61,27 @@ function NumberGameEasy1() {
           return () => clearInterval(interval); 
         }, [isGameFinished]);
 
+
+
+         {/*Saving*/}
+  useEffect(() => {
+    if (!isGameFinished || !childId) return;
+
+
+    const data = {
+      child_id: childId,
+      game: "Number",
+      difficulty: "Easy",
+      level: 1,
+      time: count,
+    };
+
+    console.log("Saving progress:", data);
+
+    api.post("/api/save_progress/", data)
+      .then((res) => console.log("Progress saved:", res.data))
+      .catch((err) => console.error("Error saving progress:", err));
+  }, [isGameFinished]);
 
   return (
     <div className="absolute w-[100vw] h-[100vh] font-[coiny]" onClick={handleBackgroundClick}>

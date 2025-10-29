@@ -23,11 +23,20 @@ class CustomUser(AbstractUser):
         return f"{self.username} ({self.role})"
     
 
+    
 class UserChild(models.Model):
+    schedule_choices = [
+        ('morning', '8:00 AM to 11:00 AM'),
+        ('noon', '11:00 AM to 1:00 PM')
+    ]
+    
     parent = models.ForeignKey(CustomUser, on_delete=models.CASCADE, related_name='children')
     first_name = models.CharField(max_length=30)
     last_name = models.CharField(max_length=30)
     birth_date = models.DateField(null=True, blank=True)
+    section = models.CharField(null=True, blank=True)
+    class_sched = models.CharField(choices=schedule_choices, max_length=30, blank=True, null=True)
+
 
     def __str__(self):
         return f"{self.first_name} {self.last_name} "
@@ -47,7 +56,7 @@ class Game(models.Model):
     ]
 
 
-    game = models.CharField( choices=game_Choices, max_length=20)
+    game_name = models.CharField( choices=game_Choices, max_length=20)
     difficulty = models.CharField(max_length=10, choices=difficulty_Choices, default='Easy')
     level = models.IntegerField(default=1, validators=[MinValueValidator(1), MaxValueValidator(10)])
     
@@ -66,7 +75,7 @@ class Game(models.Model):
     )
 
     def __str__(self):
-        return f"{self.game} - {self.difficulty} - Level {self.level}"
+        return f"{self.game_name} - {self.difficulty} - Level {self.level}"
 
 
 
@@ -90,7 +99,7 @@ class TimeCompletion(models.Model):
 
         if self.time <= self.game_level.three_star_time:
             return 3
-        elif self.time <=  self.game_level.two_star_time and self.time > self.game_level.three_star_timee:
+        elif self.time <=  self.game_level.two_star_time and self.time > self.game_level.three_star_time:
             return 2
         elif self.time > self.game_level.one_star_time:
             return 1
@@ -103,5 +112,20 @@ class TimeCompletion(models.Model):
         super().save(*args, **kwargs)
 
     def __str__(self):
-        return f'{self.game_level.game} - {self.game_level.difficulty} - Level {self.game_level.level}: {self.time}s, {self.star} star(s)'
+        return f'{self.game_level.game_name} - {self.game_level.difficulty} - Level {self.game_level.level}: {self.time}s, {self.star} star(s)'
         
+
+class UploadedFile(models.Model):
+    uploader = models.ForeignKey(
+        CustomUser,
+        on_delete=models.CASCADE,
+        related_name='uploaded_files'
+    )
+    title = models.CharField(max_length=255)
+    file = models.FileField(upload_to='uploads/')
+    uploaded_at = models.DateTimeField(auto_now_add=True)
+
+    def __str__(self):
+
+        return f"{self.title} (by {self.uploader.username})"
+

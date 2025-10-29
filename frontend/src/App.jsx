@@ -80,8 +80,7 @@ import DashBoard from "./pages/DashBoard.jsx"
 import StudentManagement from "./pages/StudentManagement.jsx"
 import UserAccControl from "./pages/UserAccControl.jsx"
 import ProtectedRoute from "../src/components/ProtectedRoute.jsx"
-import Form from "./components/Forms.jsx"
-
+import Overview from "./pages/overview.jsx"
 
 import Color from "./pages/Color.jsx"
 import ColorEasy from "./pages/ColorEasy.jsx"
@@ -101,14 +100,14 @@ import NumberGame from "./pages/NumberGame.jsx"
 import ParentsKorner from "./pages/ParentsKorner.jsx"
 import ParentsChildRegistration from "./pages/ParentsChildRegistration.jsx"
 import ParentsDashboard from "./pages/ParentsDashboard.jsx"
+import StudentFilesPage from "./pages/StudentFilePage.jsx"
+import { ACCESS_TOKEN } from "./constants";
 
 import Admin from "./pages/Admin.jsx"
 import CreateAcc from "./pages/CreateAcc.jsx"
 import ManageAcc from "./pages/ManageAcc.jsx"
 
 const Alphabets = React.lazy(() => import("./pages/Alphabets.jsx"))
-
-
 
 function App() {
 
@@ -117,13 +116,12 @@ function App() {
 
   useEffect(() => {
   const checkUser = async () => {
-    const token = localStorage.getItem("access");
+    const token = localStorage.getItem(ACCESS_TOKEN);
     if (!token) {
       setRole(null);
       setLoading(false);
       return;
     }
-
     try {
       const res = await api.get("/api/user-profile/");
       const userRole = res.data.role;
@@ -161,9 +159,7 @@ function App() {
 
   return(
   <>  
-
     <ScrollToTop/>
- 
       <div className="bg-[#3DA8CC] font-[coiny] justify-items-center align-middle h-screen w-screen content-center md:hidden">
         <img src="/responsive.png" alt="rotate Phone Background" />
         <h1 className="text-white">Rotate Phone to experience</h1>
@@ -171,21 +167,25 @@ function App() {
 <div className="hidden md:block font-[coiny]">
   
       <Routes>    
-            <Route path="/login" element={<Login />} />
+            <Route path="/" element={<Navigate to="/login"/>} />
+            <Route path="/login" element={<Login/>}/>
+
+            {!role && <Route path="*" element={<Navigate to="/login" replace />} />}
 
            {role === "Teacher" && <>
-
             <Route path="/teacher" element={<TeacherHomePage />} />
             <Route path="/uploadcontents" element={<UploadContents />} />
             <Route path="/dashboard" element={<DashBoard />} />
             <Route path="/studentmanagement" element={<StudentManagement />} />
             <Route path="/usercontrol" element={<UserAccControl />} />
             <Route path="/" element={<Navigate to="/teacher"/>} />
+            <Route path="overview" element={<Overview/>}></Route>
+               <Route path="/dashboardparentz" element={<ParentsDashboard/>}/>
         </>}
 
          {role === "Parent" && <>
               <Route path="/home" element={<ProtectedRoute><Home/></ProtectedRoute>} />
-     
+              <Route path="/uploadedFiles" element={<StudentFilesPage/>}/>
               <Route path="/about" element={<About />} />
               <Route path="/stories" element={<Stories />} />
               <Route path="/stories/story1" element={<Story1 />} />
@@ -270,7 +270,6 @@ function App() {
               <Route path="/color/hard/level1" element={<ColorGameHardLevel1/>}/>
           </>}
           
-        {!role && <Route path="/" element={<Navigate to="/login"/>} />}
         
         <Route path="*" element={<NotFound />} />
 

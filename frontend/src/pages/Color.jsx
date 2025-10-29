@@ -1,12 +1,14 @@
-import TopBar from "../components/TopBar.jsx";
-import apple from "../assets/Color/apple.png";
-import avocado from "../assets/Color/avocado.png";
-import banana from "../assets/Color/banana.png";
-import blueberry from "../assets/Color/blueberry.png";
-import dragonfruit from "../assets/Color/dragonfruit.png";
-import grapes from "../assets/Color/grapes.png";
-import orange from "../assets/Color/orange.png";
-import colorbutton from "../assets/Color/colorbutton.png";
+
+
+import apple from "../assets/Color/apple.png"
+import avocado from "../assets/Color/avocado.png"
+import banana from "../assets/Color/banana.png"
+import blueberry from "../assets/Color/blueberry.png"
+import dragonfruit from "../assets/Color/dragonfruit.png"
+import grapes from "../assets/Color/grapes.png"
+import orange from "../assets/Color/orange.png"
+import colorbutton from "../assets/Color/colorbutton.png"
+
 import { Link } from "react-router-dom";
 import Back from "../components/Back.jsx";
 
@@ -30,18 +32,14 @@ const playSound = (soundFile) => {
   currentAudio.play();
 };
 
-function Color() {
-  return (
-    <>
-      <div className="hidden w-full md:inline md:absolute h-[100%]">
-        <TopBar />
-        <Back />
-
-        <img
-          src="./Bg/Color/colorgamebg.webp"
-          alt="background"
-          className="w-full h-full"
-        />
+function Color(){
+    return(
+        <> <div className="hidden w-full md:inline md:absolute h-[100%]">
+      <Back/>
+      <img 
+      src="./Bg/Color/colorgamebg.webp"
+      alt="background"
+      className="w-full h-full"/>
 
   
         <img

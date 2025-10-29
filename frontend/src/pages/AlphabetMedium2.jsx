@@ -78,7 +78,7 @@ function AlphabetMedium2() {
   const isGameFinished =
     dropped["r"] && dropped["s"] && dropped["t"] && dropped["u"] && dropped["v"];
 
-   const [count, setCount] = useState(0);
+   const [count, setCount] = useState(1);
 
   useEffect(() => {
     if (isGameFinished) return; 
