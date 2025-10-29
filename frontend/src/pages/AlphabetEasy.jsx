@@ -17,7 +17,7 @@ function AlphabetEasy() {
   };
 
   return (
-    <div className="relative w-full h-screen bg-green-100 overflow-hidden">
+    <div className="relative w-full h-screen bg-green-100 overflow-x-hidden">
       <AnimatePresence mode="wait">
         {showTutorial ? (
           // 🎬 Tutorial video plays first
