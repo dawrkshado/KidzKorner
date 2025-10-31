@@ -10,23 +10,45 @@ function ParentsChildRegistration() {
   const [birthDate, setBirthDate] = useState("");
   const [message, setMessage] = useState("");
   const [showMessage, setShowMessage] = useState();
-  const [section,setSection] = useState("");
+
   const [schedule,setSchedule] = useState("");
 
   const capitalizeFirst = str =>{
     return str.charAt(0).toUpperCase() + str.slice(1);
   };
+
+
+  const calculateAge = (birthDate) => {
+  const today = new Date();
+  const birth = new Date(birthDate);
+  let age = today.getFullYear() - birth.getFullYear();
+  const monthDiff = today.getMonth() - birth.getMonth();
+  
+  // Adjust age if birthday hasn't occurred yet this year
+  if (monthDiff < 0 || (monthDiff === 0 && today.getDate() < birth.getDate())) {
+    age--;
+  }
+  
+  return age;
+};
   
   const clearForm = () => {
     setFirstName("");
     setLastName("");
     setBirthDate("");
-    setSection("")
+
     setSchedule("")
   };
 
   const handleSubmit = async (e) => {
     e.preventDefault();
+    const age = calculateAge(birthDate);
+    if (age !== 5) {
+      setMessage(`Child must be 5 years old. Current age: ${age} years old.`);
+      setShowMessage(false);
+      setTimeout(() => setShowMessage(), 3000);
+      return;
+    }
 
     try {
       const response = await api.post(
@@ -34,7 +56,6 @@ function ParentsChildRegistration() {
         {
           first_name: firstName,
           last_name: lastName,
-          section: section,
           class_sched: schedule,
           birth_date: birthDate,
 
@@ -47,11 +68,11 @@ function ParentsChildRegistration() {
       clearForm();
     } catch (error) {
       console.error(error);
-      showMessage(false)
+      setShowMessage(false)
       if (error.response?.data?.error) {
         setMessage(` ${error.response.data.error}`);
       } else {
-        showMessage(false)
+        setShowMessage(false)
         setMessage(" Something went wrong. Please try again.");
       }
     }
@@ -100,16 +121,6 @@ function ParentsChildRegistration() {
               />
             </div>
 
-               <div className="m-3">
-              <label className="block mb-1">Section:</label>
-              <input
-                required
-                type="text"
-                value={section}
-                onChange={(e) => setSection(e.target.value)}
-                className="w-full p-2 rounded-md border "
-              />
-            </div>
 
                 <div className="m-3">
               <label className="block mb-1">Class Schedule</label>
@@ -121,7 +132,7 @@ function ParentsChildRegistration() {
               >
                   <option value="">-- Select Schedule --</option>
                   <option value="8:00 AM to 11:00 AM"> Morning: 8:00 AM to 11:00 AM</option>
-                  <option value="8:00 AM to 11:00 AM"> Noon: 11:00 AM to 1:00 PM</option>
+                  <option value="11:00 AM to 1:00 PM"> Noon: 11:00 AM to 1:00 PM</option>
               </select>
             </div>
 

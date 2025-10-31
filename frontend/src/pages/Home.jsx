@@ -11,11 +11,11 @@ import Back from "../components/Back.jsx";
 import useSound from 'use-sound';
 import clickSfx from '../assets/Sounds/button_click.mp3';
 import backgroundMusic from "../assets/Sounds/background.mp3"; 
+import lessonsupload from "../assets/Parents/lessonsupload.webp";
 
 
 function Home(){
    const [playClick] = useSound(clickSfx, { volume: 0.5 });
-
 
   useEffect(() => {
     const checkUser = async () => {
@@ -52,6 +52,13 @@ function Home(){
 
     
     <div className="hidden w-[100vw] md:inline md:absolute h-[100%] overflow-hidden">
+    <Link to="/lessons">
+      <div className="h-[20%]  w-[10%] absolute bg-amber-300 left-[20%]">
+        to lessons
+      </div>
+    </Link>
+      
+
       <Link to="/parentskorner"><div className="bg-black flex  h-30 w-30 justify-center items-center text-white absolute">To Parent</div></Link>
         <img src="./Bg/kidzBackground.webp" alt="background" className="w-full"/>
           

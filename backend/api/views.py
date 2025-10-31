@@ -5,7 +5,7 @@ from rest_framework import status
 from django.contrib.auth import authenticate,  get_user_model
 from rest_framework_simplejwt.tokens import RefreshToken
 from .models import Game, TimeCompletion, UserChild, UploadedFile, CustomUser
-from .serializer import CustomUserSerializer, UploadedFileSerializer, UserChildSerializer, gameSerializer
+from .serializer import CustomUserSerializer, UploadedFileSerializer, UserChildSerializer, gameSerializer,Roles
 
 
 from rest_framework.permissions import AllowAny
@@ -266,3 +266,54 @@ def save_progress(request):
         print("SAVE PROGRESS ERROR:", e)
         traceback.print_exc()  
         return Response({"error": str(e)}, status=status.HTTP_500_INTERNAL_SERVER_ERROR)
+    
+
+
+
+@api_view(['POST'])
+@permission_classes([AllowAny])
+def register_user(request):
+    username = request.data.get('username')
+    password = request.data.get('password')
+    confirm_password = request.data.get('confirm_password')
+    email = request.data.get('email')
+    first_name = request.data.get('first_name')
+    last_name = request.data.get('last_name')
+    role_name = request.data.get('role')  # e.g. "Parent" or "Teacher"
+
+    if not all([username, password, confirm_password, email, first_name, last_name]):
+        return Response({"error": "All fields are required."}, status=status.HTTP_400_BAD_REQUEST)
+    
+    if password != confirm_password:
+        return Response({"error": "Passwords do not match."}, status=status.HTTP_400_BAD_REQUEST)
+
+    # Get role
+    try:
+        role = Roles.objects.get(role=role_name)
+    except Roles.DoesNotExist:
+        return Response({"error": "Invalid role."}, status=status.HTTP_400_BAD_REQUEST)
+
+    # Check if username exists
+    if CustomUser.objects.filter(username=username).exists():
+        return Response({"error": "Username already exists."}, status=status.HTTP_400_BAD_REQUEST)
+
+    # Create user
+    user = CustomUser.objects.create_user(
+        username=username,
+        email=email,
+        password=password,
+        first_name=first_name,
+        last_name=last_name,
+        role=role
+    )
+
+    return Response({
+        "message": "User registered successfully!",
+        "user": {
+            "id": user.id,
+            "username": user.username,
+            "email": user.email,
+            "role": role.role,
+        }
+    }, status=status.HTTP_201_CREATED)
+

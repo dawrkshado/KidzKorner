@@ -11,7 +11,7 @@ const [childname,setChildName] = useState([])
 const navigate = useNavigate();
 const [timeCompletions, setTimeCompletions] = useState([]);
 const [loading, setLoading] = useState(true);
-const [query,setQuery] = useState(" ")
+const [query,setQuery] = useState("")
 const [searchParameters] = useState(['child_full_name','section'])
 
 

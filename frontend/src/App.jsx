@@ -1,5 +1,6 @@
 import React, { useState,useEffect } from "react"
 import { Route, Routes, Navigate } from "react-router-dom"
+import { Helmet } from "react-helmet"
 import api from "./api.js"
 
 import Home from "./pages/Home.jsx"
@@ -81,6 +82,13 @@ import StudentManagement from "./pages/StudentManagement.jsx"
 import UserAccControl from "./pages/UserAccControl.jsx"
 import ProtectedRoute from "../src/components/ProtectedRoute.jsx"
 import Overview from "./pages/overview.jsx"
+import Lessons from "./pages/Lessons.jsx"
+import Animals from "./pages/Newcontent/Animals.jsx"
+import AnimalsLesson1 from "./pages/Newcontent/AnimalsLesson1.jsx"
+import AnimalsLesson2 from "./pages/Newcontent/AnimalsLesson2.jsx"
+import AnimalsLesson3 from "./pages/Newcontent/AnimalsLesson3.jsx"
+import AnimalsLesson4 from "./pages/Newcontent/AnimalsLesson4.jsx"
+import AnimalsLesson5 from "./pages/Newcontent/AnimalsLesson5.jsx"
 
 import Color from "./pages/Color.jsx"
 import ColorEasy from "./pages/ColorEasy.jsx"
@@ -107,9 +115,25 @@ import Admin from "./pages/Admin.jsx"
 import CreateAcc from "./pages/CreateAcc.jsx"
 import ManageAcc from "./pages/ManageAcc.jsx"
 
+
+
+
 const Alphabets = React.lazy(() => import("./pages/Alphabets.jsx"))
 
 function App() {
+
+   <Helmet>
+        <title>KidzKorner | Fun Learning for Children</title>
+        <meta
+          name="description"
+          content="KidzKorner provides an engaging and educational environment for kids. Enroll now!"
+        />
+        <meta
+          name="keywords"
+          content="child care, preschool, kid learning, daycare"
+        />
+        <meta name="robots" content="index, follow" />
+      </Helmet>
 
   const [role, setRole] = useState(() => localStorage.getItem("userRole"));
   const [loading, setLoading] = useState(true);
@@ -201,7 +225,8 @@ function App() {
               <Route path="/shapes/medium/level2" element={<ShapesMediumLevel2 />} />
               <Route path="/shapes/hard" element={<ShapesHard />} />
               <Route path="/shapes/hard/level1" element={<ShapesHardLevel1 />} />
-              <Route path="/shapesgame" element={<ShapesGame />} />
+              <Route path="/shapesgame" element={<ShapesGame />}/>
+              
 
               <Route path="/number" element={<Number />} />
               <Route path="/numbereasy" element={<NumbersEasy />} />
@@ -253,6 +278,15 @@ function App() {
               <Route path="/Y" element={<Y />} />
               <Route path="/Z" element={<Z />} />
               <Route path="/parentskorner" element={<ParentsKorner/>}/>
+              <Route path="/lessons" element={<Lessons/>}/>
+              <Route path="lessons/animals" element={<Animals/>}/>
+
+              <Route path="/lesson1" element={<AnimalsLesson1/>}/>
+              <Route path="/lesson2" element={<AnimalsLesson2/>}/>
+              <Route path="/lesson3" element={<AnimalsLesson3/>}/>
+              <Route path="/lesson4" element={<AnimalsLesson4/>}/>
+              <Route path="/lesson5" element={<AnimalsLesson5/>}/>
+            
 
               <Route path="/dashboardparentz" element={<ParentsDashboard/>}/>
               <Route path="/childRegistration" element={<ParentsChildRegistration/>}/>

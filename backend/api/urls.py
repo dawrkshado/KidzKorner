@@ -18,6 +18,8 @@ urlpatterns = [
     path("delete_file/<int:pk>/", delete_file, name="delete_file"),
     path("save_progress/", save_progress, name="save-progress"),
     path("child_profile/", student_profile_teacherview, name="child_profile"),
-    path("delete_child/", delete_child, name="delete_child")
+    path("delete_child/", delete_child, name="delete_child"),
+    path('register/', register_user, name='register_user'),
+
 
 ]
