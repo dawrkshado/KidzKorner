@@ -1,5 +1,4 @@
 import React, { useState } from "react";
-import TopBar from "../components/TopBar";
 import Back from "../components/Back";
 import { Link } from "react-router-dom";
 import hardnumberbutton1 from "../assets/Number/hardnumberbutton1.png";
@@ -51,7 +50,6 @@ function NumberHard() {
             className="w-full h-full"
           >
             <div className="hidden w-full md:inline md:absolute h-auto">
-              <TopBar />
               <Back />
               <img
                 src="/Bg/Number/hardnumberbg.png"

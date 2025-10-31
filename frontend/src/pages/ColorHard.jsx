@@ -1,5 +1,5 @@
 import React, { useState, useEffect } from "react";
-import TopBar from "../components/TopBar";
+
 import Back from "../components/Back";
 import hardbuttoncolor from "../assets/color/hardbuttoncolor.png";
 import tutorialVideo from "../assets/videos/ColorsHardTutorial.mp4"; 
@@ -72,7 +72,6 @@ function ColorHard() {
             className="w-full h-full"
           >
             <div className="hidden w-full md:inline md:absolute h-auto">
-              <TopBar />
               <Back />
               <img
                 src="/Bg/Color/hardcolorbg.webp"

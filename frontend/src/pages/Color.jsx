@@ -56,7 +56,6 @@ function Color(){
         
     return(
         <> <div className="hidden w-full md:inline md:absolute h-full ">
-      <TopBar/>
       <Back/>
       <img 
       src="./Bg/Color/colorgamebg.webp"

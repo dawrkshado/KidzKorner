@@ -1,4 +1,3 @@
-import TopBar from "../components/TopBar";
 import { Link } from "react-router-dom";
 import Back from "../components/Back";
 
@@ -63,7 +62,7 @@ const [playClick] = useSound(clickSfx, { volume: 0.5 });
             }, []); 
   return(
   <><div className="hidden w-full h-full md:inline md:absolute">
-    <TopBar/>
+
     <Back/>
     <img
     src="./Bg/Number/numberpagebg.png"

@@ -1,5 +1,4 @@
 import React, { useState, useEffect } from "react";
-import TopBar from "../components/TopBar";
 import Back from "../components/Back";
 import numbereasy from "../assets/Number/numbereasy.png";
 import numbermedium from "../assets/Number/numbermedium.png";

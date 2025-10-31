@@ -1,4 +1,4 @@
-import TopBar from "../components/TopBar";
+
 import Back from "../components/Back";
 import Book1 from "../assets/Stories/Story1.webp"
 import Book2 from "../assets/Stories/Story2.webp"
@@ -11,7 +11,6 @@ import { Link } from 'react-router-dom'
           
             <>
              <div className="hidden w-[100vw] md:inline md:absolute h-[100%] overflow-x-hidden">
-              <TopBar/>
               <Back/>
               <img src="./Bg/storiesbg.png" alt="LibraryBackground" className="w-[100vw] h-[100%]" />
               <Link to={"/stories/story1"}><img src={Book1} alt="ButtonForStory1" className="absolute bottom-[48%] right-[45%] h-[22%] motion-preset-pulse-sm motion-duration-2000"/></Link>

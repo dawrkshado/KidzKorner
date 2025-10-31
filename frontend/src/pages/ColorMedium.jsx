@@ -1,5 +1,4 @@
 import React, { useState, useEffect } from "react";
-import TopBar from "../components/TopBar";
 import Back from "../components/Back";
 import avebutton1 from "../assets/color/avebutton1.png";
 import avebutton2 from "../assets/color/avebutton2.png";
@@ -73,7 +72,6 @@ function ColorMedium() {
             className="w-full h-full"
           >
             <div className="hidden w-full md:inline md:absolute h-auto">
-              <TopBar />
               <Back />
               <img
                 src="/Bg/Color/averagecolorbg.webp"

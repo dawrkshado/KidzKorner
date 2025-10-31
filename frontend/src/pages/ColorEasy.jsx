@@ -2,7 +2,7 @@ import React, { useState, useEffect } from "react";
 import { Link } from "react-router-dom";
 import { motion, AnimatePresence } from "framer-motion";
 
-import TopBar from "../components/TopBar";
+
 import Back from "../components/Back";
 
 import easycolorl1 from "../assets/color/easycolorl1.png";
@@ -84,7 +84,6 @@ function ColorEasy() {
             className="w-full h-full"
           >
             <div className="hidden md:inline absolute w-full h-auto">
-              <TopBar />
               <Back />
               <img
                 src="/Bg/Color/easycolor.webp"
