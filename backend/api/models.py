@@ -38,7 +38,7 @@ class UserChild(models.Model):
 
     section = models.CharField(
         max_length=30,
-        default='Kinder2: Section-A',
+        default='Kinder2: PIAGET',
         editable=False,
         blank=True,
         null=True 
@@ -46,7 +46,7 @@ class UserChild(models.Model):
 
     def save(self, *args, **kwargs):
         if not self.section: 
-            self.section = 'Kinder2: Section-A'
+            self.section = 'Kinder2: PIAGET'
         super().save(*args, **kwargs)
 
     def __str__(self):

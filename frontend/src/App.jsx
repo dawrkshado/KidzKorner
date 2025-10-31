@@ -83,12 +83,28 @@ import UserAccControl from "./pages/UserAccControl.jsx"
 import ProtectedRoute from "../src/components/ProtectedRoute.jsx"
 import Overview from "./pages/overview.jsx"
 import Lessons from "./pages/Lessons.jsx"
-import Animals from "./pages/Newcontent/Animals.jsx"
-import AnimalsLesson1 from "./pages/Newcontent/AnimalsLesson1.jsx"
-import AnimalsLesson2 from "./pages/Newcontent/AnimalsLesson2.jsx"
-import AnimalsLesson3 from "./pages/Newcontent/AnimalsLesson3.jsx"
-import AnimalsLesson4 from "./pages/Newcontent/AnimalsLesson4.jsx"
-import AnimalsLesson5 from "./pages/Newcontent/AnimalsLesson5.jsx"
+import Animals from "./pages/Newcontent/ANIMALS/Animals.jsx"
+import AnimalsLesson1 from "./pages/Newcontent/ANIMALS/Lesson1/AnimalsLesson1.jsx"
+import AnimalsLesson1Activity1 from "./pages/Newcontent/ANIMALS/Lesson1/AnimalsLesson1Activity1.jsx"
+import AnimalsLesson1Activity2 from "./pages/Newcontent/ANIMALS/Lesson1/AnimalsLesson1Activity2.jsx"
+
+import AnimalsLesson2 from "./pages/Newcontent/ANIMALS/Lesson2/AnimalsLesson2.jsx"
+import AnimalsLesson2Activity1 from "./pages/Newcontent/ANIMALS/Lesson2/AnimalsLesson2Activity1.jsx"
+import AnimalsLesson2Activity2 from "./pages/Newcontent/ANIMALS/Lesson2/AnimalsLesson2Activity2.jsx"
+
+import AnimalsLesson3 from "./pages/Newcontent/ANIMALS/Lesson3/AnimalsLesson3.jsx"
+import AnimalsLesson3Activity1 from "./pages/Newcontent/ANIMALS/Lesson3/AnimalsLesson3Activity1.jsx"
+import AnimalsLesson3Activity2 from "./pages/Newcontent/ANIMALS/Lesson3/AnimalsLesson3Activity2.jsx"
+
+import AnimalsLesson4 from "./pages/Newcontent/ANIMALS/Lesson4/AnimalsLesson4.jsx"
+import AnimalsLesson4Activity1 from "./pages/Newcontent/ANIMALS/Lesson4/AnimalsLesson4Activity1.jsx"
+import AnimalsLesson4Activity2 from "./pages/Newcontent/ANIMALS/Lesson4/AnimalsLesson4Activity2.jsx"
+
+import AnimalsLesson5 from "./pages/Newcontent/ANIMALS/Lesson5/AnimalsLesson5.jsx"
+import AnimalsLesson5Activity1 from "./pages/Newcontent/ANIMALS/Lesson5/AnimalsLesson5Activity1.jsx"
+import AnimalsLesson5Activity2 from "./pages/Newcontent/ANIMALS/Lesson5/AnimalsLesson5Activity2.jsx"
+
+
 
 import Color from "./pages/Color.jsx"
 import ColorEasy from "./pages/ColorEasy.jsx"
@@ -281,13 +297,29 @@ function App() {
               <Route path="/lessons" element={<Lessons/>}/>
               <Route path="lessons/animals" element={<Animals/>}/>
 
-              <Route path="/lesson1" element={<AnimalsLesson1/>}/>
-              <Route path="/lesson2" element={<AnimalsLesson2/>}/>
-              <Route path="/lesson3" element={<AnimalsLesson3/>}/>
-              <Route path="/lesson4" element={<AnimalsLesson4/>}/>
-              <Route path="/lesson5" element={<AnimalsLesson5/>}/>
-            
+              <Route path="/lessons/animals/lesson1" element={<AnimalsLesson1/>}/>
+              <Route path="/lessons/animals/lesson1/activity1" element={<AnimalsLesson1Activity1/>}/>
+              <Route path="/lessons/animals/lesson1/activity2" element={<AnimalsLesson1Activity2/>}/>
 
+              <Route path="/lessons/animals/lesson2" element={<AnimalsLesson2/>}/>
+              <Route path="/lessons/animals/lesson2/activity1" element={<AnimalsLesson2Activity1/>}/>
+              <Route path="/lessons/animals/lesson2/activity2" element={<AnimalsLesson2Activity2/>}/>
+
+              <Route path="/lessons/animals/lesson3" element={<AnimalsLesson3/>}/>
+              <Route path="/lessons/animals/lesson3/activity1" element={<AnimalsLesson3Activity1/>}/>
+              <Route path="/lessons/animals/lesson3/activity2" element={<AnimalsLesson3Activity2/>}/>
+
+              <Route path="/lessons/animals/lesson4" element={<AnimalsLesson4/>}/>
+              <Route path="/lessons/animals/lesson4/activity1" element={<AnimalsLesson4Activity1/>}/>
+              <Route path="/lessons/animals/lesson4/activity2" element={<AnimalsLesson4Activity2/>}/>
+
+
+              <Route path="/lessons/animals/lesson5" element={<AnimalsLesson5/>}/>
+              <Route path="/lessons/animals/lesson5/activity1" element={<AnimalsLesson5Activity1/>}/>
+              <Route path="/lessons/animals/lesson5/activity2" element={<AnimalsLesson5Activity2/>}/>
+
+
+              
               <Route path="/dashboardparentz" element={<ParentsDashboard/>}/>
               <Route path="/childRegistration" element={<ParentsChildRegistration/>}/>
               <Route path="/" element={<Navigate to="/parentsKorner"/>} />
