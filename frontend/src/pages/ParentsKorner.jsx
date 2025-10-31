@@ -103,6 +103,9 @@ function ParentsKorner() {
         className="hidden justify-center md:flex md:absolute h-screen  w-screen bg-cover bg-top bg-no-repeat"
         style={{ backgroundImage: `url(${bg})` }}
       >
+          <Link to="/parentalGuidance">
+            <div className='bg-fuchsia-500 h-[25%] w-[25%] absolute z-50 top-0'>Parental Guidance</div>
+          </Link>
 
 
          <div className='text-4xl h-[5%] w-[5%] hover:text-amber-500 hover:cursor-pointer absolute left-[1%] top-[1%]' onClick={() => logoutClick("logout")}> <img src={logoutImg} alt="logout button" /></div>
@@ -206,7 +209,11 @@ function ParentsKorner() {
           <div>
              <h1 className='text-2xl'>Are you sure you want to <span className='font-bold'>LOGOUT?</span></h1> 
             <div className='flex gap-20 justify-center'><Logout/> <h1 className='text-2xl bg-green-500 hover:bg-green-400 transition transform hover:scale-110 rounded-lg hover:cursor-pointer' onClick={handleExit}>Cancel</h1></div>
-         </div> 
+         </div>
+
+       
+
+         {clicked }
                
          </div>
    

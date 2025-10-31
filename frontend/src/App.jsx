@@ -2,6 +2,9 @@ import React, { useState,useEffect } from "react"
 import { Route, Routes, Navigate } from "react-router-dom"
 import { Helmet } from "react-helmet"
 import api from "./api.js"
+import { TimeProvider } from "./TimeProvider.jsx";
+import LockOverlay from "./components/LockOverlay.jsx";
+
 
 import Home from "./pages/Home.jsx"
 import Login from "./pages/Login.jsx"
@@ -122,6 +125,7 @@ import ColorGame from "./pages/ColorGame.jsx"
 import NumberGame from "./pages/NumberGame.jsx"
 
 import ParentsKorner from "./pages/ParentsKorner.jsx"
+import ParentalGuidance from "./pages/ParentalGuidance.jsx"
 import ParentsChildRegistration from "./pages/ParentsChildRegistration.jsx"
 import ParentsDashboard from "./pages/ParentsDashboard.jsx"
 import StudentFilesPage from "./pages/StudentFilePage.jsx"
@@ -130,6 +134,8 @@ import { ACCESS_TOKEN } from "./constants";
 import Admin from "./pages/Admin.jsx"
 import CreateAcc from "./pages/CreateAcc.jsx"
 import ManageAcc from "./pages/ManageAcc.jsx"
+
+
 
 
 
@@ -205,7 +211,7 @@ function App() {
         <h1 className="text-white">Rotate Phone to experience</h1>
       </div>
 <div className="hidden md:block font-[coiny]">
-  
+  <TimeProvider>
       <Routes>    
             <Route path="/" element={<Navigate to="/login"/>} />
             <Route path="/login" element={<Login/>}/>
@@ -319,6 +325,8 @@ function App() {
               <Route path="/lessons/animals/lesson5/activity2" element={<AnimalsLesson5Activity2/>}/>
 
 
+              <Route path="/parentalGuidance" element={<ParentalGuidance/>}/>
+
               
               <Route path="/dashboardparentz" element={<ParentsDashboard/>}/>
               <Route path="/childRegistration" element={<ParentsChildRegistration/>}/>
@@ -346,6 +354,8 @@ function App() {
 
 
       </Routes>
+       <LockOverlay />
+      </TimeProvider>
 </div>
     </>
   )

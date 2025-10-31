@@ -1,8 +1,6 @@
 import { useState,useEffect } from "react";
 import { DndContext, useDraggable, useDroppable, pointerWithin } from "@dnd-kit/core";
 
-
-
 import BG from "../../../../assets/Animals/Lesson1/Activity2BG.webp"
 import Bird from "../../../../assets/Animals/Lesson1/Bird.webp"
 import Horse from "../../../../assets/Animals/Lesson1/Horse.webp"
