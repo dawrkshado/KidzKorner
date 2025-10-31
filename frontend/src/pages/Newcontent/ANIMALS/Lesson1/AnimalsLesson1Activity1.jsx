@@ -8,11 +8,17 @@ import Moo from "../../../../assets/Animals/Lesson1/Moo.webp"
 import Meow from "../../../../assets/Animals/Lesson1/Meow.webp"
 import Arf from "../../../../assets/Animals/Lesson1/Arf.webp"
 
+
 import Pig from "../../../../assets/Animals/Lesson1/Pig.webp"
+import PigDone from "../../../../assets/Animals/Lesson1/PigDone.webp"
 import Cat from "../../../../assets/Animals/Lesson1/Cat.webp"
+import CatDone from "../../../../assets/Animals/Lesson1/CatDone.webp"
 import Cow from "../../../../assets/Animals/Lesson1/Cow.webp"
+import CowDone from "../../../../assets/Animals/Lesson1/CowDone.webp"
 import Dog from "../../../../assets/Animals/Lesson1/Dog.webp"
+import DogDone from "../../../../assets/Animals/Lesson1/DogDone.webp"
 import Duck from "../../../../assets/Animals/Lesson1/Duck.webp"
+import DuckDone from "../../../../assets/Animals/Lesson1/DuckDone.webp"
 
 import OneStar from "../../../../assets/Done/OneStar.webp"; 
 import TwoStar from "../../../../assets/Done/TwoStar.webp"; 
@@ -38,7 +44,7 @@ function Droppable({ id, placedShape, shape }) {
     <div
       ref={setNodeRef}
       style={style}
-      className={`flex items-center justify-center h-[120px] w-[120px]`}
+      className={`flex items-center justify-center h-100 w-100`}
     >
       {placedShape ? placedShape : shape}
     </div>
@@ -201,29 +207,29 @@ const isPlaced= (id) => dropped[id] === id;
       
 
               {/* Droppables */}
-              <div className="flex justify-center gap-30 absolute top-70 left-40 lg:top-85 lg:left-58">
+              <div className="flex absolute top-60 items-center justify-center w-[100vw] h-[40vw] ">
                 <Droppable
-                  id="meow"
-                  shape={<img src={Cat} alt="Where you will drop the arf sound" />}
-                  placedShape={
-                    dropped["meow"] && (
-                      <Draggable
-                        id="meow"
-                        shape={<img src={Meow} alt="arf bubble" className="h-20" />}
-                        disabled={true}
-                      />
-                    )
-                  }
-                />
-
+                          id="meow"
+                          shape={<img src={Cat} alt="Where you will drop the arf sound" className="w-[60%] h-[60%] object-contain" />}
+                          placedShape={
+                            dropped["meow"] && (
+                              <Draggable
+                                id="meow"
+                                shape={<img src={CatDone} alt="letter n" className=" h-70" />}
+                                disabled={true}
+                              />
+                            )
+                          }
+                        />
                 <Droppable
                   id="oink"
-                  shape={<img src={Pig} alt="Where you will drop the smaller letter" />}
+                
+                  shape={<img src={Pig} alt="Where you will drop the smaller letter"   className="w-[60%] h-[60%] object-contain"/>}
                   placedShape={
                     dropped["oink"] && (
                       <Draggable
                         id="oink"
-                        shape={<img src={Oink} alt="letter n"  className="h-20"/>}
+                        shape={<img src={PigDone} alt="letter n"  className="h-70"/>}
                         disabled={true}
                       />
                     )
@@ -231,12 +237,12 @@ const isPlaced= (id) => dropped[id] === id;
                 />
                 <Droppable
                   id="moo"
-                  shape={<img src={Cow} alt="Where you will drop the smaller letter" />}
+                  shape={<img src={Cow} alt="Where you will drop the smaller letter"   className="w-[60%] h-[60%] object-contain"/>}
                   placedShape={
                     dropped["moo"] && (
                       <Draggable
                         id="moo"
-                        shape={<img src={Moo} alt="Letter O" className="h-20" />}
+                        shape={<img src={CowDone} alt="Letter O" className="h-70 " />}
                         disabled={true}
                       />
                     )
@@ -245,12 +251,12 @@ const isPlaced= (id) => dropped[id] === id;
 
                 <Droppable
                   id="quack"
-                  shape={<img src={Duck} alt="Where you will drop the smaller letter" />}
+                  shape={<img src={Duck} alt="Where you will drop the smaller letter"   className="w-[60%] h-[60%] object-contain"/>}
                   placedShape={
                     dropped["quack"] && (
                       <Draggable
                         id="quack"
-                        shape={<img src={Quack} alt="Letter P" className="h-20"/>}
+                        shape={<img src={DuckDone} alt="Letter P" className="h-70"/>}
                         disabled={true}
                       />
                     )
@@ -258,12 +264,12 @@ const isPlaced= (id) => dropped[id] === id;
                 />
                 <Droppable
                   id="arf"
-                  shape={<img src={Dog} alt="Where you will drop the smaller letter" />}
+                  shape={<img src={Dog} alt="Where you will drop the smaller letter"   className="w-[60%] h-[60%] object-contain"/>}
                   placedShape={
                     dropped["arf"] && (
                       <Draggable
                         id="arf"
-                        shape={<img src={Arf} alt="Small Letter Q" className="h-20" />}
+                        shape={<img src={DogDone} alt="Small Letter Q" className="h-70" />}
                         disabled={true}
                       />
                     )
@@ -275,7 +281,7 @@ const isPlaced= (id) => dropped[id] === id;
 
 
                {/* Draggables */}
-              <div className="flex absolute  gap-30 mt-10 w-[100vw] h-[300px] justify-center z-10 top-100 lg:top-115 p-4 rounded-lg ">
+              <div className="flex absolute  gap-30 mt-10 w-[100vw] h-[300px] justify-center z-10 top-70 lg:top-40 p-4 rounded-lg ">
 
                 {!dropped["quack"] && (
                   <Draggable
