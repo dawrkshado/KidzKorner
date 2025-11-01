@@ -241,6 +241,7 @@ function AlphabetEasyLevel1() {
             <div className="absolute bottom-[20%] ">
               <ReplayNBack />
             </div>
+
           </div>
         )}
       </div>
