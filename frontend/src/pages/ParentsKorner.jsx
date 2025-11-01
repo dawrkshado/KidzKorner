@@ -1,11 +1,9 @@
 import kidsregister from '../assets/Parents/kidsregister.webp';
-
 import kidzkornerbutton from '../assets/Parents/kidzkornerbutton.webp';
 import dashboardparentz from '../assets/Parents/dashboardparentz.webp';
 import { Link, useNavigate } from 'react-router-dom';
 import { useState, useEffect } from 'react';
 import bg from "../assets/Parents/bgparentskorner.webp";
-
 import Logout from "../components/Logout";
 import api from '../api';
 
@@ -20,7 +18,6 @@ function ParentsKorner() {
   const [logout, setLogout]= useState();
   const [clickedLogout, setClickedLogout] = useState();
   const navigate = useNavigate();
-
 
   useEffect(() => {
     const fetchParentData = async () => {
@@ -44,8 +41,6 @@ function ParentsKorner() {
     fetchParentData();
   }, []);
 
-
-
   useEffect(() => {
     const fetchUserName = async () => {
       try {
@@ -58,7 +53,6 @@ function ParentsKorner() {
     fetchUserName();
   }, []);
 
-
   const handleChildClick = (child) => {
     localStorage.setItem("selectedChild", JSON.stringify(child));
 
@@ -68,9 +62,8 @@ function ParentsKorner() {
       navigate("/dashboardparentz", { state: { child } });
     }
 
-    setClicked(false); 
+    setClicked(false);
   };
-
 
   const openModal = (action) => {
     setActiveAction(action);
@@ -111,6 +104,7 @@ function ParentsKorner() {
         style={{ backgroundImage: `url(${bg})` }}
       >
 
+
          <div className='text-4xl h-[5%] w-[5%] hover:text-amber-500 hover:cursor-pointer absolute left-[1%] top-[1%]' onClick={() => logoutClick("logout")}> <img src={logoutImg} alt="logout button" /></div>
        
         <div className="text-4xl h-fit w-fit absolute top-[12%]">
@@ -133,7 +127,6 @@ function ParentsKorner() {
           </div>
         </Link>
 
-
         <div
           onMouseEnter={() => handleHover("Check children progress")}
           onMouseLeave={() => setHoveredItem()}
@@ -148,11 +141,10 @@ function ParentsKorner() {
           )}
         </div>
 
-
         <div
           onMouseEnter={() => handleHover("Play games")}
           onMouseLeave={() => setHoveredItem()}
-          onClick={() => openModal("KidzKorner")} 
+          onClick={() => openModal("KidzKorner")}
           className="absolute flex justify-center items-center left-[10%] top-[34%] h-auto w-auto cursor-pointer"
         >
           <img src={kidzkornerbutton} alt="Entire Games for Kidz" />
@@ -162,7 +154,6 @@ function ParentsKorner() {
             </div>
           )}
         </div>
-
 
         {clicked && (
           <>
@@ -182,7 +173,7 @@ function ParentsKorner() {
                   onClick={handleExit}
                 >
                   x
-                </button> 
+                </button>
 
                 {parentData.children && parentData.children.length > 0 ? (
                   <div className="h-[70%] w-[100%] text-center content-center text-5xl bg-blue-300">
@@ -222,6 +213,9 @@ function ParentsKorner() {
         </div>
       
         </>}
+
+
+     
 
       </div>
     </>

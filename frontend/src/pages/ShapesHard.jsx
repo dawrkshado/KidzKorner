@@ -1,8 +1,7 @@
+import React, { useState, useEffect } from "react";
 import Back from "../components/Back";
 import Hard1 from "../assets/Shapes/ShapesHard/level1.webp";
-import TopBar from "../components/TopBar";
 import { Link } from "react-router-dom";
-import { useState, useEffect } from "react";
 import backgroundMusic from "../assets/Sounds/background.mp3";
 import useSound from "use-sound";
 import clickSfx from "../assets/Sounds/button_click.mp3";
@@ -20,9 +19,9 @@ const saveProgress = () => {
 function ShapesHard() {
   const [playClick] = useSound(clickSfx, { volume: 0.5 });
   const [progress, setProgress] = useState({ level1: false });
-
   const [showResetModal, setShowResetModal] = useState(false);
   const [showSuccessToast, setShowSuccessToast] = useState(false);
+  const [showTutorial, setShowTutorial] = useState(true);
 
   const getHardProgress = () => {
     return (
@@ -80,7 +79,6 @@ function ShapesHard() {
     <>
       <div className="absolute flex justify-around overflow-y-hidden h-[100vh] w-[100vw]">
         <div className="absolute top-0 left-0 w-full z-10">
-          <TopBar />
         </div>
 
         <div className="absolute top-12.5 left-0 h-15 w-30 z-10">
@@ -97,11 +95,12 @@ function ShapesHard() {
           </button>
         </div>
 
-
         {showResetModal && (
           <div className="fixed inset-0 bg-black bg-opacity-50 flex items-center justify-center z-50">
             <div className="bg-white p-8 rounded-xl shadow-2xl max-w-sm w-full transform transition-all scale-100 duration-300">
-              <h2 className="text-xl text-green-600 mb-4">Reset Game Confirmation</h2>
+              <h2 className="text-xl text-green-600 mb-4">
+                Reset Game Confirmation
+              </h2>
               <p className="mb-6 text-gray-700">
                 Are you sure you want to reset the game?
               </p>

@@ -10,7 +10,7 @@ import TwoStar from "../assets/Done/TwoStar.webp";
 import ThreeStar from "../assets/Done/ThreeStar.webp"; 
 
 import ReplayNBack from "../components/ReplayNBack";
-
+import api from "../api";
 import backgroundMusic from "../assets/Sounds/background.mp3";
 
 import { motion } from "framer-motion";
@@ -22,6 +22,7 @@ import useSound from 'use-sound';
 import clickSfx from '../assets/Sounds/wrong_effect.mp3'; 
 
 function saveProgress(level) {
+  const PROGRESS_KEY = 'alphabetEasyProgress'; 
   const progress = JSON.parse(localStorage.getItem(PROGRESS_KEY)) || {
     level1: false,
     level2: false,
@@ -35,6 +36,11 @@ function AlphabetEasyLevel2() {
   const [playClick] = useSound(clickSfx, { volume: 0.5 });
   const navigate = useNavigate();
   const { playSound: playApplause, stopSound: stopApplause } = useWithSound(applause); 
+
+
+const selectedChild = JSON.parse(localStorage.getItem("selectedChild"));
+const childId = selectedChild?.id;
+
   const clickables = [
     {
       Answer: "H",
@@ -157,11 +163,33 @@ navigate("/shapes");
                             
 const isPlaced= (id) => dropped[id] === id;
 
+
+   {/*Saving*/}
+  useEffect(() => {
+    if (!isGameFinished || !childId) return;
+
+
+    const data = {
+      child_id: childId,
+      game: "Alphabet",
+      difficulty: "Easy",
+      level: 1,
+      time: count,
+    };
+
+    console.log("Saving progress:", data);
+
+    api.post("/api/save_progress/", data)
+      .then((res) => console.log("Progress saved:", res.data))
+      .catch((err) => console.error("Error saving progress:", err));
+  }, [isGameFinished]);
+
+
   return (
     <>
     <div  className="font-[coiny]">
     <img src={bg} alt="background" className="w-full"  />
-     <h1 className="absolute top-15 right-112 text-3xl text-white">Can You Find Letter {clickables[index].Answer}</h1>
+     <h1 className="absolute top-15 right-149 text-3xl text-white">Can You Find Letter {clickables[index].Answer}</h1>
 
     <div className="absolute top-0 right-0 text-white">Your Time: {count}</div>
       <div className="flex justify-evenly justify-self-center w-150  absolute top-40">

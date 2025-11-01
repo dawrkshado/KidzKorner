@@ -46,7 +46,7 @@ function ShapesHardLevel1() {
   const childId = selectedChild?.id;
 
   const [dropped, setDropped] = useState({});
-  const [count, setCount] = useState(0);
+ 
 
   const numbers = [
     { value: "triangle", img: triangle, top: 575, left: 395, width: 60, height: 60 },
@@ -142,7 +142,6 @@ function ShapesHardLevel1() {
 
   const isPlaced = (id) => dropped[id] === id;
 
-  const isGameFinished = clicked.length === numbers.length;
 
    const [count, setCount] = useState(1);
       

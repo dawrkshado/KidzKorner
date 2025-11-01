@@ -103,6 +103,9 @@ import ParentsDashboard from "./pages/ParentsDashboard.jsx"
 import StudentFilesPage from "./pages/StudentFilePage.jsx"
 import { ACCESS_TOKEN } from "./constants";
 
+import Admin from "./pages/Admin.jsx"
+import CreateAcc from "./pages/CreateAcc.jsx"
+import ManageAcc from "./pages/ManageAcc.jsx"
 
 const Alphabets = React.lazy(() => import("./pages/Alphabets.jsx"))
 
@@ -266,9 +269,15 @@ function App() {
               <Route path="/color/hard" element={<ColorHard/>}/>
               <Route path="/color/hard/level1" element={<ColorGameHardLevel1/>}/>
           </>}
+          {role == "Admin" && <>
+              <Route path="/admin" element={<Admin/>}/>
+              <Route path="/manageaccounts" element={<ManageAcc/>}/>
+              <Route path="/createaccounts" element={<CreateAcc/>}/>
+          </>}
           
         
         <Route path="*" element={<NotFound />} />
+
 
       </Routes>
 </div>

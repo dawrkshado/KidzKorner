@@ -163,7 +163,7 @@ const isPlaced= (id) => dropped[id] === id;
     <><div className="font-[coiny]">
   
     <img src={bg} alt="background" className="w-full h-full"  />
-     <h1 className="absolute top-15 right-112 text-3xl text-white font-[coiny]">Can You Find Letter {clickables[index].Answer}</h1>
+     <h1 className="absolute top-15 right-149 text-3xl text-white font-[coiny]">Can You Find Letter {clickables[index].Answer}</h1>
  
     <div className="absolute top-0 right-0 text-white">Your Time: {count}</div>
       <div className="flex justify-evenly justify-self-center w-150  absolute top-40">

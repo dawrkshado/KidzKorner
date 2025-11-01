@@ -1,4 +1,4 @@
-import TopBar from "../components/TopBar.jsx";
+
 import { Link } from "react-router-dom";
 import Seasy from "../assets/Shapes/Seasy.png";
 import Smedium from "../assets/Shapes/Smedium.png";
@@ -28,7 +28,6 @@ function ShapesGame() {
 
     return (
         <>
-        <TopBar/>
         <div className="hidden w-full h-full md:inline md:absolute h-auto overflow-hidden">
         <div > <Back/></div>
         <img

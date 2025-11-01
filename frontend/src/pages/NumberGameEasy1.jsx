@@ -23,6 +23,7 @@ function saveProgress(level) {
     level1: false,
     level2: false,
     level3: false,
+
   };
   progress[level] = true;
   localStorage.setItem("numberEasyProgress", JSON.stringify(progress));

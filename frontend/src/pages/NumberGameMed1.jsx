@@ -195,7 +195,9 @@ function NumberGameMed1() {
 
           {/* Droppables */}
           <div className="flex h-120 w-250 gap-6 absolute xl:top-30 xl:right-40 z-0 xl2:right-45">
+
             <div className="absolute top-55 left-60 motion-preset-pulse-sm motion-duration-2000 xl2:left-30 xl2:top-65">
+
               <Droppable
               id="two"
               shape={<img src={droppableFish1} alt="fish image" />}

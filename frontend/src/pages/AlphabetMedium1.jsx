@@ -391,7 +391,7 @@ const isPlaced= (id) => dropped[id] === id;
   </div>
 )}
 
-{isGameFinished && count > 25 &&(
+{isGameFinished && count > 20 &&(
   <div className="absolute inset-0 flex items-center justify-center bg-opacity-50 z-20">
     <motion.img
             src={OneStar}

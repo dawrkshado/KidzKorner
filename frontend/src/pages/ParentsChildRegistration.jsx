@@ -11,8 +11,11 @@ function ParentsChildRegistration() {
   const [message, setMessage] = useState("");
   const [showMessage, setShowMessage] = useState();
   const [section,setSection] = useState("");
-   const [schedule,setSchedule] = useState("");
+  const [schedule,setSchedule] = useState("");
 
+  const capitalizeFirst = str =>{
+    return str.charAt(0).toUpperCase() + str.slice(1);
+  };
   
   const clearForm = () => {
     setFirstName("");
@@ -70,8 +73,15 @@ function ParentsChildRegistration() {
                 required
                 type="text"
                 value={firstName}
-                onChange={(e) => setFirstName(e.target.value)}
-                className="w-full p-2 rounded-md border"
+                onChange={
+                  (e) => {
+                    const value = e.target.value;
+                    const capitalized = value.charAt(0).toUpperCase() + value.slice(1);
+                    setFirstName(capitalized);
+                  }
+
+                }
+                className="w-full p-2 rounded-md border capitalize"
               />
             </div>
 
@@ -81,8 +91,12 @@ function ParentsChildRegistration() {
                 required
                 type="text"
                 value={lastName}
-                onChange={(e) => setLastName(e.target.value)}
-                className="w-full p-2 rounded-md border"
+                onChange={(e) => {
+                const value = e.target.value;
+                const capitalized = value.charAt(0).toUpperCase() + value.slice(1);
+                setLastName(capitalized);
+                }}
+                className="w-full p-2 rounded-md border capitalize"
               />
             </div>
 
@@ -93,7 +107,7 @@ function ParentsChildRegistration() {
                 type="text"
                 value={section}
                 onChange={(e) => setSection(e.target.value)}
-                className="w-full p-2 rounded-md border"
+                className="w-full p-2 rounded-md border "
               />
             </div>
 

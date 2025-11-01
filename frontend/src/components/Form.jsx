@@ -35,9 +35,11 @@ function Form() {
 
       if (role === "Teacher") {
         navigate("/teacher");
-      } else if (role === "Parent") {
+      }else if (role === "Parent") {
         navigate("/parentskorner");
-      } else {
+      }else if(role === "Admin"){
+        navigate("/admin")
+      }else {
             navigate("/login")
       }
     } catch (err) {

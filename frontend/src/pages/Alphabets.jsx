@@ -1,4 +1,3 @@
-import TopBar from "../components/TopBar";
 import useSound from 'use-sound';
 import clickSfx from '../assets/Sounds/button_click.mp3'; 
 import { Link } from 'react-router-dom';
@@ -56,7 +55,7 @@ function Alphabets(){
     
     return(
 <>  
-            <TopBar/>
+
             <Back/>
 <div className="hidden w-full md:inline md:absolute h-[100%]">
         <img src="./Bg/Alphabets/alphabetbg.webp" alt="chalkBoard Background" className="w-full"/>
