@@ -1,4 +1,4 @@
-import TopBar from "../components/TopBar"
+
 import { Link } from "react-router-dom"
 import coloreasy from "../assets/Color/coloreasy.png";
 import colormedium from "../assets/Color/colormedium.png";
@@ -32,9 +32,8 @@ function ColorGame(){
             }, []); 
   return(
     <>
-    <div className="hidden w-full md:inline md:absolute h-auto">
+    <div className="hidden w-full md:inline md:absolute h-[100%]">
 
-        <TopBar/>
         <Back/>
         <img
         src="/Bg/Color/colorlevelbg.webp"

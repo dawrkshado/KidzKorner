@@ -8,6 +8,7 @@ import squareDraggable from "../assets/Shapes/ShapesEasy/squareDraggable.webp";
 import squareDroppable from "../assets/Shapes/ShapesEasy/squareDroppable.webp";
 import triangleDraggable from "../assets/Shapes/ShapesEasy/triangleDraggable.webp";
 import triangleDroppable from "../assets/Shapes/ShapesEasy/triangleDroppable.webp";
+import api from "../api";
 
 import bg from "../assets/Shapes/ShapesEasy/lvl1Bg.webp";
 
@@ -77,11 +78,14 @@ function saveProgress(level) {
 }
 
 function ShapesEasyLevel1() {
+<<<<<<< HEAD
   const navigate = useNavigate();
   const { playSound: playApplause, stopSound: stopApplause } = useWithSound(applause); 
 
   
 
+=======
+>>>>>>> 0b2d8e4be0cf3c8d80bfe466e3965a96eac7b42e
   const [dropped, setDropped] = useState({});
   const [count, setCount] = useState(0);
 
@@ -146,6 +150,7 @@ function ShapesEasyLevel1() {
       const draggedId = event.active.id;
       const droppedId = event.over.id;
 
+<<<<<<< HEAD
       setDropped((prev) => ({
         ...prev,
         [draggedId]: droppedId,
@@ -172,6 +177,28 @@ function ShapesEasyLevel1() {
 
   // Helper function to check if a shape has been correctly placed
   const isPlaced= (id) => dropped[id] === id;
+=======
+  const selectedChild = JSON.parse(localStorage.getItem("selectedChild"));
+  const childId = selectedChild?.id;
+
+    useEffect(() => {
+    if (!isGameFinished || !childId) return;
+
+
+    const data = {
+      child_id: childId,
+      game: "Shape",
+      difficulty: "Easy",
+      level: 1,
+      time: count,
+    };
+
+
+    api.post("/api/save_progress/", data)
+      .then((res) => console.log("Progress saved:", res.data))
+      .catch((err) => console.error("Error saving progress:", err));
+  }, [isGameFinished]);
+>>>>>>> 0b2d8e4be0cf3c8d80bfe466e3965a96eac7b42e
 
   return (
     <>

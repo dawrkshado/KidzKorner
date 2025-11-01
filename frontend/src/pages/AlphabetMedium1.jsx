@@ -65,7 +65,6 @@ function Draggable({ id, disabled = false, shape }) {
 
 const PROGRESS_KEY = 'alphabetMediumProgress'; 
 
-// Function to save completion status
 function saveProgress(level) {
   const progress = JSON.parse(localStorage.getItem(PROGRESS_KEY)) || {
     level1: false,

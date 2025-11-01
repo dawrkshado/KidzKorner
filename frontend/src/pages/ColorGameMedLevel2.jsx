@@ -58,11 +58,17 @@ function ColorGameMedLevel2() {
     { id: "basketball", type: "basketball", img: basketball, correctJar: "orange",x: 720, y: 20},
     { id: "key", type: "key", img: key, correctJar: "yellow", x:1000, y: 20},
     { id: "watermelon", type: "watermelon", img: watermelon, correctJar: "red",x: 1060, y: 200}
+<<<<<<< HEAD
+=======
+
+    
+>>>>>>> 0b2d8e4be0cf3c8d80bfe466e3965a96eac7b42e
   
   ];
 
  const starImages = { one: OneStar, two: TwoStar, three: ThreeStar };
 
+<<<<<<< HEAD
     const handleGameCompletion = () => {
         setGameFinished(true);
     };
@@ -111,6 +117,9 @@ return (
             stopApplause={stopApplause}
         />
     );
+=======
+  return <SortingGame jars={jars} itemsData={itemsData} starImages={starImages} gamelevel={2} />;
+>>>>>>> 0b2d8e4be0cf3c8d80bfe466e3965a96eac7b42e
 }
 
 

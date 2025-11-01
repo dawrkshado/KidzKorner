@@ -8,6 +8,8 @@ import TwoStar from "../assets/Done/TwoStar.webp";
 import ThreeStar from "../assets/Done/ThreeStar.webp"; 
 
 import ReplayNBack from "../components/ReplayNBack";
+import api from "../api";
+
 
 import backgroundMusic from "../assets/Sounds/background.mp3";
 
@@ -30,10 +32,11 @@ function ShapesEasyLevel1() {
       ]
     }
   ];
+   const selectedChild = JSON.parse(localStorage.getItem("selectedChild"));
+  const childId = selectedChild?.id;
 
   const [isGameFinished,setGameFinished]= useState(false);
-  
-    const [count, setCount] = useState(0);
+  const [count, setCount] = useState(1);
           
             useEffect(() => {
               if (isGameFinished) return; 
@@ -137,6 +140,25 @@ function ShapesEasyLevel1() {
 
   // Helper function to check if a shape has been correctly placed
   const isPlaced= (id) => dropped[id] === id;
+
+    useEffect(() => {
+    if (!isGameFinished || !childId) return;
+
+
+    const data = {
+      child_id: childId,
+      game: "Color",
+      difficulty: "Easy",
+      level: 1,
+      time: count,
+    };
+
+    console.log("Saving progress:", data);
+
+    api.post("/api/save_progress/", data)
+      .then((res) => console.log("Progress saved:", res.data))
+      .catch((err) => console.error("Error saving progress:", err));
+  }, [isGameFinished]);
 
   return (
     <>

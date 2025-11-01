@@ -48,7 +48,7 @@ const [playClick] = useSound(clickSfx, { volume: 0.5 });
                 };
             }, []); 
   return(
-  <><div className="hidden w-full h-full md:inline md:absolute">
+  <><div className="hidden w-full md:inline md:absolute h-[100%]">
     <TopBar/>
     <Back/>
     <img

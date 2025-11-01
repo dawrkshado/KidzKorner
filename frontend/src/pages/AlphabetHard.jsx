@@ -2,9 +2,13 @@ import Back from "../components/Back";
 import TopBar from "../components/TopBar";
 import hardalphabutton1 from "../assets/Alphabets/hardalphabutton1.png";
 
+
 import useSound from "use-sound";
 import clickSfx from "../assets/Sounds/button_click.mp3";
 import backgroundMusic from "../assets/Sounds/background.mp3";
+
+import 'react-router-dom'
+
 
 import { Link } from "react-router-dom";
 import { useState, useEffect } from "react";
@@ -94,6 +98,7 @@ function AlphabetHard() {
             alt="Level 1"
             className="absolute left-[42%] top-[54%] w-auto cursor-pointer h-auto"
           />
+
         </Link>
 
         {/* ✅ Green check when finished */}

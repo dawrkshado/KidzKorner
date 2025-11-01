@@ -5,6 +5,8 @@ function Logout(){
   const [loading, setLoading] = useState(true);
   const navigate = useNavigate();
 
+  const [role, setRole] = useState(null);  
+
   useEffect(() => {
     const checkUser = async () => {
       try {
@@ -42,7 +44,7 @@ function Logout(){
   if (loading) return <div>Loading...</div>;
 
 
-  return (<div className="bg-blue-400 text-3xl w-fit hover:cursor-pointer hover:text-amber-500 " onClick={handleLogout}><p >Logout</p></div>
+  return (<div className="bg-red-500 hover:bg-red-400 transform transition hover:scale-110 text-2xl w-fit h-fit hover:cursor-pointer  rounded-lg" onClick={handleLogout}><p >Logout</p></div>
   );
 
 }

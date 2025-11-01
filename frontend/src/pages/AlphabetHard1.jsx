@@ -13,6 +13,7 @@ import bg from "../assets/Alphabets/Hard/bg.webp"
 import wrongImage from "../assets/Alphabets/Hard/cross.gif" 
 
 import ReplayNBack from "../components/ReplayNBack";
+import api from "../api";
 
 import backgroundMusic from "../assets/Sounds/background.mp3";
 
@@ -33,6 +34,8 @@ function AlphabetHard() {
   const { playSound: playApplause, stopSound: stopApplause } = useWithSound(applause); 
   const [clicked, setClicked] = useState([]);
   const [showWrong, setShowWrong] = useState(false);
+  const selectedChild = JSON.parse(localStorage.getItem("selectedChild"));
+  const childId = selectedChild?.id;
 
   const numbers = [
     { value: "W", img: letterW, top: 410, left: 650, width: 70, height: 70 },
@@ -153,6 +156,28 @@ navigate("/shapes");
 };
                     
 const isPlaced= (id) => dropped[id] === id;
+
+  useEffect(() => {
+    if (!isGameFinished) return;
+    
+    if (!childId) {
+      console.warn("No child selected!");
+      return;
+    }
+
+    const data = {
+      child_id: childId,
+      game: "Alphabet",
+      difficulty: "Hard",
+      level: 1,
+      time: count,
+    };
+
+    api.post("/api/save_progress/", data)
+      .then((res) => console.log("Progress saved:", res.data))
+      .catch((err) => console.error("Error saving progress:", err));
+  }, [isGameFinished]);
+
 
   return (
     <div 

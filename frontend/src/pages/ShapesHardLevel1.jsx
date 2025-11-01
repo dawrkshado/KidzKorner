@@ -15,6 +15,8 @@ import ThreeStar from "../assets/Done/ThreeStar.webp";
 
 import ReplayNBack from "../components/ReplayNBack";
 
+import api from "../api";
+
 import backgroundMusic from "../assets/Sounds/background.mp3";
 import applause from "../assets/Sounds/applause.wav";
 import { useWithSound } from "../components/useWithSound";
@@ -40,6 +42,8 @@ function ShapesHardLevel1() {
     useWithSound(applause);
   const [clicked, setClicked] = useState([]);
   const [showWrong, setShowWrong] = useState(false);
+  const selectedChild = JSON.parse(localStorage.getItem("selectedChild"));
+  const childId = selectedChild?.id;
 
   const [dropped, setDropped] = useState({});
   const [count, setCount] = useState(0);
@@ -130,12 +134,61 @@ function ShapesHardLevel1() {
     resetGame();
   };
 
+
   const handleBack = () => {
     stopApplause();
     navigate("/shapes");
   };
 
   const isPlaced = (id) => dropped[id] === id;
+
+  const isGameFinished = clicked.length === numbers.length;
+
+   const [count, setCount] = useState(1);
+      
+        useEffect(() => {
+          if (isGameFinished) return; 
+      
+          const interval = setInterval(() => {
+            setCount((prev) => prev + 1);
+          }, 1000);
+      
+          return () => clearInterval(interval); 
+        }, [isGameFinished]);
+
+        useEffect(() => {
+    if (isGameFinished) return;
+
+    const interval = setInterval(() => {
+      setCount((prev) => prev + 1);
+    }, 1000);
+
+    return () => clearInterval(interval);
+  }, [isGameFinished]);
+
+
+
+    useEffect(() => {
+    if (!isGameFinished || !childId) return;
+
+
+    const data = {
+      child_id: childId,
+      game: "Shape",
+      difficulty: "Hard",
+      level: 1,
+      time: count,
+    };
+
+    console.log("Saving progress:", data);
+
+    api.post("/api/save_progress/", data)
+      .then((res) => console.log("Progress saved:", res.data))
+      .catch((err) => console.error("Error saving progress:", err));
+  }, [isGameFinished]);
+
+
+
 
   return (
     <div className="absolute w-[100vw] h-[100vh] font-[coiny]">
@@ -167,20 +220,47 @@ function ShapesHardLevel1() {
         </div>
       )}
 
-      {isGameFinished && (
-        <div className="absolute inset-0 flex items-center justify-center bg-opacity-50 z-20">
-          <motion.img
-            src={count <= 10 ? ThreeStar : count <= 15 ? TwoStar : OneStar}
-            className="h-[300px]"
-            initial={{ scale: 0, opacity: 0 }}
-            animate={{ scale: 1, opacity: 1 }}
-            transition={{ duration: 0.8 }}
-          />
+
+  {/* Wrong Image*/}
+  {showWrong && (
+    <div className="absolute inset-0 flex items-center justify-center  z-30 pointer-events-none h-[100vh] w-[100vw]">
+      <img
+        src={wrongImage}
+        alt="Wrong"
+        className="h-[300px]"
+      />
+    </div>
+  )}
+
+    {/* Results */}
+      {isGameFinished && count <= 10 && (
+        <div className="absolute inset-0 flex items-center h-full w-full justify-center bg-opacity-50 z-20">
+          <img src={ThreeStar} alt="Game Completed!" className="h-[300px] animate-bounce" />
           <div className="absolute bottom-[20%]">
-            <ReplayNBack onReplay={handleReplay} onBack={handleBack} />
+            <ReplayNBack />
           </div>
         </div>
       )}
+
+      {isGameFinished && count <= 15 && count > 10 && (
+        <div className="absolute inset-0 flex items-center justify-center bg-opacity-50 z-20">
+          <img src={TwoStar} alt="Game Completed!" className="h-[300px] animate-bounce" />
+          <div className="absolute bottom-[20%]">
+            <ReplayNBack />
+          </div>
+        </div>
+      )}
+
+      {isGameFinished && count > 15 && (
+        <div className="absolute inset-0 flex items-center justify-center bg-opacity-50 z-20">
+          <img src={OneStar} alt="Game Completed!" className="h-[300px] animate-bounce" />
+          <div className="absolute bottom-[20%]">
+            <ReplayNBack />
+          </div>
+        </div>
+      )}
+      
+
     </div>
   );
 }

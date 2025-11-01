@@ -9,7 +9,6 @@ import backgroundMusic from "../assets/Sounds/background.mp3";
 
 import { Link } from "react-router-dom";
 
-// --- Progression Logic ---
 const PROGRESS_KEY = 'numberMediumProgress'; 
 
 const getProgress = () => {
@@ -27,16 +26,13 @@ function numbersMedium(){
     const [progress, setProgress] = useState(getProgress());
     const [playClick] = useSound(clickSfx, { volume: 0.5 });
     
-    // State for reset modal/toast (copied from AlphabetEasy for completeness)
     const [showResetModal, setShowResetModal] = useState(false);
     const [showSuccessToast, setShowSuccessToast] = useState(false);
 
-    // Load progress on mount
     useEffect(() => {
         setProgress(getProgress());
     }, []);
 
-    // Background Music Effect
     useEffect(() => {
         const bgSound = new Audio(backgroundMusic);
         bgSound.loop = true;
@@ -52,21 +48,19 @@ function numbersMedium(){
         };
     }, []); 
 
-    // Level data structure
     const levels = [
         { id: "level1", image: mednumberl1, path: "/number/medium/level1", left: "20%", top: "50%" },
         { id: "level2", image: mednumberl2, path: "/number/medium/level2", left: "60%", top: "50%" },
     ];
     
-    // Check if a level is unlocked (must complete the previous level)
+
     const isUnlocked = (index) => {
-        if (index === 0) return true; // Level 1 is always unlocked
+        if (index === 0) return true; 
 
         const previousLevelId = levels[index - 1].id; 
         return progress[previousLevelId] === true;
     };
 
-    // --- Reset Game Logic (optional, but good to include for a full game) ---
     const handleResetConfirmed = () => {
         setShowResetModal(false);
         playClick();
@@ -89,10 +83,9 @@ function numbersMedium(){
         playClick(); 
         setShowResetModal(true); 
     };
-    // --- End Reset Game Logic ---
 
 
-    // Function to render a single level button with its state (locked/unlocked/completed)
+
    const renderLevelButton = (lvl, index) => {
  const unlocked = isUnlocked(index);
  const isCompleted = progress[lvl.id];
@@ -148,7 +141,6 @@ key={lvl.id}
                 <TopBar/>
                 <Back/>
 
-                {/* Reset Button (Optional) */}
                 <div className="absolute top-[5px] right-[50px] z-20"> 
                     <button 
                         onClick={promptReset} 
@@ -163,10 +155,9 @@ key={lvl.id}
                     alt="Number medium game background" 
                     className="w-full"/>
 
-                {/* Render Level Buttons using the new logic */}
                 {levels.map((lvl, index) => renderLevelButton(lvl, index))}
 
-                {/* Reset Modal and Toast (copied from AlphabetEasy) */}
+    
                 {showResetModal && (
                     <div className="fixed inset-0 bg-black bg-opacity-50 flex items-center justify-center z-50">
                         <div className="bg-white p-8 rounded-xl shadow-2xl max-w-sm w-full transform transition-all scale-100 duration-300">

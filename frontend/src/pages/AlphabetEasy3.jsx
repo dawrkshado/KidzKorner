@@ -66,10 +66,10 @@ function ShapesEasyLevel3() {
    if (isGameFinished) return;
 
    if (choice === clickables[index].Answer) {
-     // Correct Answer
+
       setGameFinished(true);
  } else {
-     // Wrong Answer
+
       playClick(); 
       setShowWrong(true);
       setTimeout(() => setShowWrong(false), 2500);

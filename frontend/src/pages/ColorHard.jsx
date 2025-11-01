@@ -9,6 +9,7 @@ import clickSfx from '../assets/Sounds/button_click.mp3';
 import { Link } from 'react-router-dom'
 
 function ColorHard(){
+<<<<<<< HEAD
   
 const [playClick] = useSound(clickSfx, { volume: 0.5 });
  useEffect(() => {
@@ -30,6 +31,11 @@ const [playClick] = useSound(clickSfx, { volume: 0.5 });
   return(
   <>
  <div className="hidden w-full md:inline md:absolute h-auto">
+=======
+
+  return(<>
+ <div className="hidden w-full md:inline md:absolute h-[100%]">
+>>>>>>> 0b2d8e4be0cf3c8d80bfe466e3965a96eac7b42e
   <TopBar/>
   <Back/>
   <img src="/Bg/Color/hardcolorbg.webp" 

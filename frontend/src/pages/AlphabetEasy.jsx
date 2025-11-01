@@ -28,6 +28,7 @@ function AlphabetEasy(){
  const [progress, setProgress] = useState(getProgress());
  const [playClick] = useSound(clickSfx, { volume: 0.5 });
 
+
     const [showResetModal, setShowResetModal] = useState(false);
     const [showSuccessToast, setShowSuccessToast] = useState(false);
 

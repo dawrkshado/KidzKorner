@@ -50,7 +50,22 @@ function AlphabetEasyLevel2() {
 
   const [isGameFinished,setGameFinished]= useState(false);
   
+<<<<<<< HEAD
     const [count, setCount] = useState(0);
+=======
+    const [count, setCount] = useState(1);
+          
+            useEffect(() => {
+              if (isGameFinished) return; 
+          
+              const interval = setInterval(() => {
+                setCount((prev) => prev + 1);
+              }, 1000);
+          
+              return () => clearInterval(interval); 
+            }, [isGameFinished]);
+    
+>>>>>>> 0b2d8e4be0cf3c8d80bfe466e3965a96eac7b42e
 
       const handleBackgroundClick = () => {
         if (!isGameFinished) {

@@ -19,6 +19,7 @@ import TwoStar from "../assets/Done/TwoStar.webp";
 import ThreeStar from "../assets/Done/ThreeStar.webp";
 
 import ReplayNBack from "../components/ReplayNBack";
+<<<<<<< HEAD
 import backgroundMusic from "../assets/Sounds/background.mp3";
 import applause from "../assets/Sounds/applause.wav";
 import wrongSfx from "../assets/Sounds/wrong_effect.mp3";
@@ -43,6 +44,15 @@ export default function NumberGameEasy1() {
   const [clicked, setClicked] = useState([]);
   const [showWrong, setShowWrong] = useState(false);
   const [count, setCount] = useState(0);
+=======
+import api from "../api";
+    
+function NumberGameEasy1() {
+  const [clicked, setClicked] = useState([]);
+  const [showWrong, setShowWrong] = useState(false);
+  const selectedChild = JSON.parse(localStorage.getItem("selectedChild"));
+  const childId = selectedChild?.id;
+>>>>>>> 0b2d8e4be0cf3c8d80bfe466e3965a96eac7b42e
 
   const numbers = [
     { value: 1, img: one, top: 575, left: 395, width: 35, height: 35 },
@@ -109,6 +119,27 @@ export default function NumberGameEasy1() {
 
     const timeout = setTimeout(() => stopApplause(), 6000);
     return () => clearTimeout(timeout);
+  }, [isGameFinished]);
+
+
+         {/*Saving*/}
+  useEffect(() => {
+    if (!isGameFinished || !childId) return;
+
+
+    const data = {
+      child_id: childId,
+      game: "Number",
+      difficulty: "Easy",
+      level: 1,
+      time: count,
+    };
+
+    console.log("Saving progress:", data);
+
+    api.post("/api/save_progress/", data)
+      .then((res) => console.log("Progress saved:", res.data))
+      .catch((err) => console.error("Error saving progress:", err));
   }, [isGameFinished]);
 
   return (

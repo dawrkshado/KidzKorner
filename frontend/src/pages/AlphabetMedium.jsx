@@ -24,6 +24,7 @@ const saveProgress = (newProgress) => {
 };
 
 function AlphabetMedium(){
+
  const [playClick] = useSound(clickSfx, { volume: 0.5 });
 const [progress, setProgress] = useState(getProgress());
 
@@ -215,6 +216,7 @@ top: '50%',
  </div>
  </>
  )
+
 }
 
 export default AlphabetMedium

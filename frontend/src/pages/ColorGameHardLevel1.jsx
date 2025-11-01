@@ -19,6 +19,8 @@ import bg from "../assets/Color/Hard/bg.webp";
 import OneStar from "../assets/Done/OneStar.webp"; 
 import TwoStar from "../assets/Done/TwoStar.webp"; 
 import ThreeStar from "../assets/Done/ThreeStar.webp"; 
+import api from "../api";
+
 
 import backgroundMusic from "../assets/Sounds/background.mp3";
 
@@ -72,13 +74,16 @@ function NumberGameMed2() {
   const navigate = useNavigate();
       const { playSound: playApplause, stopSound: stopApplause } = useWithSound(applause); 
   const [dropped, setDropped] = useState({});
+  const selectedChild = JSON.parse(localStorage.getItem("selectedChild"));
+  const childId = selectedChild?.id;
 
   const isGameFinished =
       dropped["red"] && dropped["orange"] && dropped["yellow"] && dropped["green"] 
       && dropped["blue"] && dropped["indigo"] && dropped["violet"];
   
-     const [count, setCount] = useState(0);
+     const [count, setCount] = useState(1);
   
+<<<<<<< HEAD
     
                  useEffect(() => {
                               if (isGameFinished) return; 
@@ -184,6 +189,53 @@ function NumberGameMed2() {
                   const isPlaced= (id) => dropped[id] === id;
                 
     
+=======
+    useEffect(() => {
+      if (isGameFinished) return; 
+  
+      const interval = setInterval(() => {
+        setCount((prev) => prev + 1);
+      }, 1000);
+  
+      return () => clearInterval(interval); 
+    }, [isGameFinished]);
+
+  function handleDragEnd(event) {
+    if (event.over) {
+      const draggedId = event.active.id;
+      const droppedId = event.over.id;
+
+      if (draggedId === droppedId) {
+        setDropped((prev) => ({
+          ...prev,
+          [draggedId]: droppedId,
+        }));
+      }
+    }
+  }
+
+   {/*Saving*/}
+  useEffect(() => {
+    if (!isGameFinished || !childId) return;
+
+
+    const data = {
+      child_id: childId,
+      game: "Alphabet",
+      difficulty: "Hard",
+      level: 1,
+      time: count,
+    };
+
+    console.log("Saving progress:", data);
+
+    api.post("/api/save_progress/", data)
+      .then((res) => console.log("Progress saved:", res.data))
+      .catch((err) => console.error("Error saving progress:", err));
+  }, [isGameFinished]);
+
+
+>>>>>>> 0b2d8e4be0cf3c8d80bfe466e3965a96eac7b42e
   return (
     <>
       <div className="flex h-[100vh] w-[100vw] absolute overflow-hidden font-[coiny]  bg-cover bg-no-repeat" style={{backgroundImage: `url(${bg})`}}>

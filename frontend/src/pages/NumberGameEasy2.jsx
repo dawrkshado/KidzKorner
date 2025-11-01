@@ -24,6 +24,16 @@ import clickSfx from '../assets/Sounds/wrong_effect.mp3';
 
 import { motion } from "framer-motion";
 
+function saveProgress(level) {
+  const progress = JSON.parse(localStorage.getItem("numberEasyProgress")) || {
+    level1: false,
+    level2: false,
+    level3: false,
+  };
+  progress[level] = true;
+  localStorage.setItem("numberEasyProgress", JSON.stringify(progress));
+}
+
 function NumberGameEasy2 () {
      const [playClick] = useSound(clickSfx, { volume: 0.5 });
     const [clicked, setClicked] = useState([]);
@@ -104,6 +114,7 @@ const numbers = [
 
         if (isGameFinished) {
             playApplause();
+            saveProgress("level2");
 
             soundTimeout = setTimeout(() => {
                 stopApplause();

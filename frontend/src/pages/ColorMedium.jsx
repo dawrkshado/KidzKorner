@@ -9,6 +9,7 @@ import useSound from 'use-sound';
 import clickSfx from '../assets/Sounds/button_click.mp3'; 
 
 function ColorMedium(){
+<<<<<<< HEAD
   const [playClick] = useSound(clickSfx, { volume: 0.5 });
 useEffect(() => {
                const bgSound = new Audio(backgroundMusic);
@@ -29,6 +30,11 @@ useEffect(() => {
   return(
   <>
    <div className="hidden w-full md:inline md:absolute h-auto">
+=======
+
+  return(<>
+   <div className="hidden w-full md:inline md:absolute h-[100%]">
+>>>>>>> 0b2d8e4be0cf3c8d80bfe466e3965a96eac7b42e
   <TopBar/>
   <Back/>
   <img src="/Bg/Color/averagecolorbg.webp" 

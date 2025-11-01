@@ -50,7 +50,7 @@ function Shapes() {
         <img
           src="./Bg/Shapes/Shapesbg.webp"
           alt="background"
-          className="w-full h-full"
+          className="hidden w-full md:inline md:absolute h-[100%]"
         />
 
         <img

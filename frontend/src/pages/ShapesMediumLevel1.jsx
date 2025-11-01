@@ -18,6 +18,7 @@ import TwoStar from "../assets/Done/TwoStar.webp";
 import ThreeStar from "../assets/Done/ThreeStar.webp"; 
 
 import Bone from "../assets/Shapes/ShapesMedium/level1/bone.webp"
+import api from "../api.js";
 
 import backgroundMusic from "../assets/Sounds/background.mp3";
 
@@ -81,8 +82,15 @@ function saveProgress(level) {
 
 
 function ShapesMediumLevel1() {
+<<<<<<< HEAD
     const [dropped, setDropped] = useState({});
     const [count, setCount] = useState(0);
+=======
+  const selectedChild = JSON.parse(localStorage.getItem("selectedChild"));
+  const childId = selectedChild?.id;
+
+  const [dropped, setDropped] = useState({});
+>>>>>>> 0b2d8e4be0cf3c8d80bfe466e3965a96eac7b42e
 
    
     const navigate = useNavigate();
@@ -174,6 +182,25 @@ function ShapesMediumLevel1() {
             stopApplause();
         };
     }, [isGameFinished, playApplause, stopApplause]);
+
+      useEffect(() => {
+    if (!isGameFinished || !childId) return;
+
+
+    const data = {
+      child_id: childId,
+      game: "Shape",
+      difficulty: "Medium",
+      level: 1,
+      time: count,
+    };
+
+
+    api.post("/api/save_progress/", data)
+      .then((res) => console.log("Progress saved:", res.data))
+      .catch((err) => console.error("Error saving progress:", err));
+  }, [isGameFinished]);
+
 
   return (
     <>
