@@ -1,4 +1,3 @@
-<<<<<<< HEAD
 import TopBar from "../components/TopBar";
 import useSound from 'use-sound';
 import clickSfx from '../assets/Sounds/button_click.mp3'; 
@@ -6,8 +5,6 @@ import { Link } from 'react-router-dom';
 import backgroundMusic from "../assets/Sounds/background.mp3";
 import { useState,useEffect } from "react"
 
-=======
->>>>>>> 0b2d8e4be0cf3c8d80bfe466e3965a96eac7b42e
 import A from "../assets/Alphabets/A.webp";
 import B from "../assets/Alphabets/B.webp";
 import C from "../assets/Alphabets/C.webp";
@@ -35,13 +32,7 @@ import X from "../assets/Alphabets/X.webp";
 import Y from "../assets/Alphabets/Y.webp";
 import Z from "../assets/Alphabets/Z.webp";
 import Back from "../components/Back";
-<<<<<<< HEAD
 
-=======
-import colorbutton from "../assets/Color/colorbutton.png"
-
-import { Link } from 'react-router-dom'
->>>>>>> 0b2d8e4be0cf3c8d80bfe466e3965a96eac7b42e
 
 
 function Alphabets(){   
@@ -50,14 +41,12 @@ function Alphabets(){
      useEffect(() => {
            const bgSound = new Audio(backgroundMusic);
             bgSound.loop = true;
-            bgSound.volume = 0.2; // Keep it low for background
+            bgSound.volume = 0.2; 
     
-            // Attempt to play, handling potential autoplay restrictions
             bgSound.play().catch((err) => {
                 console.log("Autoplay blocked. User must interact to enable sound.", err);
             });
     
-            // Cleanup function: pause and reset music on unmount
             return () => {
                 bgSound.pause();
                 bgSound.currentTime = 0;
@@ -67,6 +56,7 @@ function Alphabets(){
     
     return(
 <>  
+            <TopBar/>
             <Back/>
 <div className="hidden w-full md:inline md:absolute h-[100%]">
         <img src="./Bg/Alphabets/alphabetbg.webp" alt="chalkBoard Background" className="w-full"/>
@@ -147,20 +137,8 @@ function Alphabets(){
    </Link>
    <Link to="/Z" onClick={playClick}>
        <img src={Z} alt="Button Z" className="absolute top-[82%] left-[55%] bottom-[43%] h-[21%] hover:opacity-85 motion-preset-pulse-sm motion-duration-2000" />
-<<<<<<< HEAD
    </Link >
   <Link to={"/alphabets/play"} onClick={playClick}><div className="h-[20%] w-[20%] bg-fuchsia-600 absolute bottom-0 right-25"><h1 className="text-9xl">PLAY</h1></div></Link>
-=======
-   </Link>
-
-     <Link to={"/alphabets/play"}>
-   
-         <img
-         src={colorbutton}
-         alt="Buttons for Alpha Game"
-         className="absolute left-[70%] top-[82%] w-auto cursor pointer h-auto"/>
-         </Link>
->>>>>>> 0b2d8e4be0cf3c8d80bfe466e3965a96eac7b42e
 </div>
 </>
     );
