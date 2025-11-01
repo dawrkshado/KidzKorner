@@ -4,7 +4,7 @@ import Seasy from "../assets/Shapes/Seasy.png";
 import Smedium from "../assets/Shapes/Smedium.png";
 import Shard from "../assets/Shapes/Shard.png";
 import Back from "../components/Back.jsx";
-import { useState,useEffect } from "react";
+import { useEffect } from "react";
 import backgroundMusic from "../assets/Sounds/background.mp3"; 
 import useSound from 'use-sound';
 import clickSfx from '../assets/Sounds/button_click.mp3'; 

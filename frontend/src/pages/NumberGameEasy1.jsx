@@ -1,216 +1,186 @@
-// ✅ NumberGameEasy1.jsx — Updated & Correct ✅
 import { useState, useEffect } from "react";
-import { useNavigate } from "react-router-dom";
-import useSound from "use-sound";
+import { useNavigate } from "react-router-dom"; // Added for better navigation control
+import useSound from 'use-sound';
 import { motion } from "framer-motion";
 import { useWithSound } from "../components/useWithSound";
-
 import bg from "../assets/Number/Easy/bglvl2.webp";
-import wrongImage from "../assets/Alphabets/Hard/cross.gif";
-
+import wrongImage from "../assets/Alphabets/Hard/cross.gif" 
 import one from "../assets/Number/Easy/One.webp";
 import two from "../assets/Number/Easy/two.webp";
 import three from "../assets/Number/Easy/three.webp";
 import four from "../assets/Number/Easy/four.webp";
 import five from "../assets/Number/Easy/five.webp";
-
-import OneStar from "../assets/Done/OneStar.webp";
-import TwoStar from "../assets/Done/TwoStar.webp";
-import ThreeStar from "../assets/Done/ThreeStar.webp";
-
+import OneStar from "../assets/Done/OneStar.webp"; 
+import TwoStar from "../assets/Done/TwoStar.webp"; 
+import ThreeStar from "../assets/Done/ThreeStar.webp"; 
 import ReplayNBack from "../components/ReplayNBack";
-<<<<<<< HEAD
 import backgroundMusic from "../assets/Sounds/background.mp3";
-import applause from "../assets/Sounds/applause.wav";
-import wrongSfx from "../assets/Sounds/wrong_effect.mp3";
+import applause from "../assets/Sounds/applause.wav"
+import clickSfx from '../assets/Sounds/wrong_effect.mp3'; 
 
-// ✅ Save progress for numbers easy mode
 function saveProgress(level) {
-  const progress = JSON.parse(localStorage.getItem("numbersEasyProgress")) || {
+  const progress = JSON.parse(localStorage.getItem("numberEasyProgress")) || {
     level1: false,
     level2: false,
     level3: false,
   };
   progress[level] = true;
-  localStorage.setItem("numbersEasyProgress", JSON.stringify(progress));
+  localStorage.setItem("numberEasyProgress", JSON.stringify(progress));
 }
 
-export default function NumberGameEasy1() {
-  const [playWrong] = useSound(wrongSfx, { volume: 0.5 });
-  const { playSound: playApplause, stopSound: stopApplause } =
-    useWithSound(applause);
-
-  const navigate = useNavigate();
-  const [clicked, setClicked] = useState([]);
-  const [showWrong, setShowWrong] = useState(false);
-  const [count, setCount] = useState(0);
-=======
-import api from "../api";
+function NumberGameEasy1 () {
+    const [playClick] = useSound(clickSfx, { volume: 0.5 });
+    const navigate = useNavigate();
     
-function NumberGameEasy1() {
-  const [clicked, setClicked] = useState([]);
-  const [showWrong, setShowWrong] = useState(false);
-  const selectedChild = JSON.parse(localStorage.getItem("selectedChild"));
-  const childId = selectedChild?.id;
->>>>>>> 0b2d8e4be0cf3c8d80bfe466e3965a96eac7b42e
+    const [clicked, setClicked] = useState([]);
+    const [showWrong, setShowWrong] = useState(false);
+    const [count, setCount] = useState(0); 
+    const { playSound: playApplause, stopSound: stopApplause } = useWithSound(applause);
+    
 
-  const numbers = [
-    { value: 1, img: one, top: 575, left: 395, width: 35, height: 35 },
-    { value: 2, img: two, top: 450, left: 250, width: 25, height: 25 },
-    { value: 3, img: three, top: 60, left: 70, width: 40, height: 40 },
-    { value: 4, img: four, top: 80, left: 1090, width: 45, height: 45 },
-    { value: 5, img: five, top: 490, left: 1150, width: 40, height: 40 },
-  ];
+    const numbers = [
+      { value: 1, img: one, top: 575, left: 395, width: 35, height: 35 },
+      { value: 2, img: two, top: 450, left: 250, width: 25, height: 25 },
+      { value: 3, img: three, top: 60, left: 70, width: 40, height: 40 },
+      { value: 4, img: four, top: 80, left: 1090, width: 45, height: 45 },
+      { value: 5, img: five, top: 490, left: 1150, width: 40, height: 40},
+    ];
 
-  const isGameFinished = clicked.length === numbers.length;
-  const nextExpectedValue = clicked.length + 1;
+    const isGameFinished = clicked.length === numbers.length;
 
-  const handleWrong = () => {
-    playWrong();
-    setShowWrong(true);
-    setTimeout(() => setShowWrong(false), 900);
-  };
+    const nextExpectedValue = clicked.length + 1;
 
-  const handleNumberClick = (value, e) => {
-    e.stopPropagation();
-    if (clicked.includes(value) || isGameFinished) return;
-    value === nextExpectedValue ? setClicked([...clicked, value]) : handleWrong();
-  };
-
-  const handleBackgroundClick = () => {
-    if (!isGameFinished) handleWrong();
-  };
-
-  const resetGame = () => {
-    setClicked([]);
-    setCount(0);
-    stopApplause();
-    navigate(0);
-  };
-
-  // ✅ Timer
-  useEffect(() => {
-    if (isGameFinished) return;
-    const time = setInterval(() => setCount((prev) => prev + 1), 1000);
-    return () => clearInterval(time);
-  }, [isGameFinished]);
-
-  // ✅ Background Music
-  useEffect(() => {
-    const bgMusic = new Audio(backgroundMusic);
-    bgMusic.loop = true;
-    bgMusic.volume = 0.2;
-
-    bgMusic.play().catch(() =>
-      console.log("User interaction required for autoplay.")
-    );
-
-    return () => {
-      bgMusic.pause();
-      bgMusic.currentTime = 0;
-    };
-  }, []);
-
-  // ✅ Save progress + Play victory sound
-  useEffect(() => {
-    if (!isGameFinished) return;
-    playApplause();
-    saveProgress("level1");
-
-    const timeout = setTimeout(() => stopApplause(), 6000);
-    return () => clearTimeout(timeout);
-  }, [isGameFinished]);
-
-
-         {/*Saving*/}
-  useEffect(() => {
-    if (!isGameFinished || !childId) return;
-
-
-    const data = {
-      child_id: childId,
-      game: "Number",
-      difficulty: "Easy",
-      level: 1,
-      time: count,
+    const triggerWrongClick = () => {
+        playClick();
+        setShowWrong(true);
+        setTimeout(() => setShowWrong(false), 800);
     };
 
-    console.log("Saving progress:", data);
+    const handleBackgroundClick = () => {
+        if (!isGameFinished) {
+            triggerWrongClick();
+        }
+    };
 
-    api.post("/api/save_progress/", data)
-      .then((res) => console.log("Progress saved:", res.data))
-      .catch((err) => console.error("Error saving progress:", err));
-  }, [isGameFinished]);
+    const handleClick = (itemValue, e) => {
+        e.stopPropagation();
+        
+        if (isGameFinished || clicked.includes(itemValue)) return;
+        
+        if (itemValue === nextExpectedValue) {
+            setClicked([...clicked, itemValue]);
+        } else {
+            triggerWrongClick();
+        }
+    };
 
-  return (
-    <div
-      className="absolute w-[100vw] h-[100vh] font-[coiny]"
-      onClick={handleBackgroundClick}
-    >
-      <img src={bg} className="absolute w-full h-full object-cover" />
+    const resetGame = () => {
+        setClicked([]);
+        setCount(0);
+        stopApplause(); 
+        navigate(0);
+    };
 
-      {/* ✅ Timer */}
-      <div className="absolute top-4 right-4 text-white text-3xl z-10">
-        Time: {count}s
-      </div>
+    useEffect(() => {
+        if (isGameFinished) return;
 
-      {/* ✅ Numbers */}
-      {numbers.map((num, i) => (
-        <div
-          key={i}
-          className={`absolute cursor-pointer duration-300 ${
-            num.value === nextExpectedValue && !isGameFinished
-              ? "motion-safe:animate-pulse"
-              : ""
-          }`}
-          style={{
-            top: `${num.top / 12}vh`,
-            left: `${num.left / 12}vw`,
-          }}
-          onClick={(e) => handleNumberClick(num.value, e)}
-        >
-          {!clicked.includes(num.value) && (
-            <img
-              src={num.img}
-              style={{
-                width: `${num.width / 1.5}vw`,
-                height: `${num.height / 1.5}vh`,
-              }}
-              className="object-contain"
-            />
-          )}
-        </div>
-      ))}
+        const interval = setInterval(() => {
+            setCount((prev) => prev + 1);
+        }, 1000);
 
-      {/* ❌ Wrong effect */}
-      {showWrong && (
-        <motion.div
-          className="absolute inset-0 flex items-center justify-center z-30 pointer-events-none"
-          initial={{ opacity: 0 }}
-          animate={{ opacity: 1 }}
-          transition={{ duration: 0.1 }}
-        >
-          <img src={wrongImage} className="h-[300px]" />
-        </motion.div>
-      )}
+        return () => clearInterval(interval);
+    }, [isGameFinished]);
 
-      {/* ✅ Game Completed Screen */}
-      {isGameFinished && (
-        <div className="absolute inset-0 flex flex-col items-center justify-center bg-black bg-opacity-60 z-20">
-          <motion.img
-            src={
-              count <= 10 ? ThreeStar : count <= 15 ? TwoStar : OneStar
-            }
-            className="h-[300px]"
-            initial={{ scale: 0 }}
-            animate={{ scale: 1 }}
-          />
+    useEffect(() => {
+       const bgSound = new Audio(backgroundMusic);
+        bgSound.loop = true;
+        bgSound.volume = 0.2; 
 
-          <div className="absolute bottom-[18%]">
-            <ReplayNBack onReplay={resetGame} />
+        bgSound.play().catch((err) => {
+            console.log("Autoplay blocked. User must interact to enable sound.", err);
+        });
+
+        return () => {
+            bgSound.pause();
+            bgSound.currentTime = 0;
+        };
+    }, []); 
+
+    useEffect(() => {
+        let soundTimeout;
+
+        if (isGameFinished) {  
+            playApplause();
+            saveProgress("level1");
+
+            soundTimeout = setTimeout(() => {
+                stopApplause();
+            }, 8000);
+        }
+
+        return () => {
+            clearTimeout(soundTimeout);
+            stopApplause();
+        };
+    }, [isGameFinished, playApplause, stopApplause]);
+
+    return (
+      <div className="absolute w-[100vw] h-[100vh] font-[coiny] overflow-hidden" onClick={handleBackgroundClick}>
+        <img src={bg} alt="background" className="absolute w-full h-full object-cover" />
+        
+        <div className="absolute top-4 right-4 text-white text-3xl z-10">Time: {count}s</div>
+
+        {numbers.map((num, i) => (
+          <div
+            key={i}
+            className={`absolute cursor-pointer transition-transform duration-300 ${num.value === nextExpectedValue && !isGameFinished ? 'motion-safe:animate-pulse' : ''}`}
+            style={{ 
+                top: `${num.top / 12}vh`, 
+                left: `${num.left / 12}vw`,
+            }}
+            onClick={(e) => handleClick(num.value, e)}
+          >
+            {!clicked.includes(num.value) && (
+              <img
+                src={num.img}
+                alt={`Number ${num.value}`}
+                style={{ width: `${num.width / 1.5}vw`, height: `${num.height / 1.5}vh` }} // Adjusted sizing for better view
+                className="object-contain"
+              />
+            )}
+            
           </div>
-        </div>
-      )}
-    </div>
-  );
+        ))}
+
+        {showWrong && (
+          <motion.div 
+             className="absolute inset-0 flex items-center justify-center z-30 pointer-events-none"
+             initial={{ opacity: 0 }}
+             animate={{ opacity: 1 }}
+             exit={{ opacity: 0 }}
+             transition={{ duration: 0.1 }}
+          >
+            <img src={wrongImage} alt="Wrong" className="h-[300px]" />
+          </motion.div>
+        )}
+
+        {isGameFinished && (
+          <div className="absolute inset-0 flex flex-col items-center justify-center bg-black bg-opacity-50 z-20">
+            <motion.img
+              src={count <= 10 ? ThreeStar : count <= 15 ? TwoStar : OneStar}
+              alt="Game Completed!"
+              className="h-[300px]"
+              initial={{ scale: 0, opacity: 0 }}
+              animate={{ scale: 1, opacity: 1 }}
+              transition={{ duration: 0.8, ease: "easeOut" }}
+            />
+            <div className="absolute bottom-[20%]">
+              <ReplayNBack onReplay={resetGame} /> 
+            </div>
+          </div>
+        )}
+      </div>
+    );
 }
+
+export default NumberGameEasy1;

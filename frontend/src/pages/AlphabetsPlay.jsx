@@ -15,14 +15,12 @@ function AlphabetsPlay(){
    useEffect(() => {
                const bgSound = new Audio(backgroundMusic);
                 bgSound.loop = true;
-                bgSound.volume = 0.2; // Keep it low for background
+                bgSound.volume = 0.2; 
         
-                // Attempt to play, handling potential autoplay restrictions
                 bgSound.play().catch((err) => {
                     console.log("Autoplay blocked. User must interact to enable sound.", err);
                 });
-        
-                // Cleanup function: pause and reset music on unmount
+  
                 return () => {
                     bgSound.pause();
                     bgSound.currentTime = 0;

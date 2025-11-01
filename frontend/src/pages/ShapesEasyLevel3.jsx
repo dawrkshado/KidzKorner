@@ -169,7 +169,6 @@ function ShapesEasyLevel3() {
     navigate("/shapes");
   };
 
-  // Helper function to check if a shape has been correctly placed
   const isPlaced= (id) => dropped[id] === id;
 
   return (

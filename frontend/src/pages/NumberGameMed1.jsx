@@ -29,7 +29,6 @@ import { motion } from "framer-motion";
     
 
 import wrongImage from "../assets/Alphabets/Hard/cross.gif" 
-import api from "../api";
 
 function Droppable({ id, placedShape, shape }) {
   const { isOver, setNodeRef } = useDroppable({ id });
@@ -71,17 +70,26 @@ function Draggable({ id, disabled = false, shape }) {
     </div>
   );
 }
+// --- Progression Logic ---
+const PROGRESS_KEY = 'numberMediumProgress'; 
+
+const getProgress = () => {
+ return JSON.parse(localStorage.getItem(PROGRESS_KEY)) || {
+level1: false,
+ level2: false, 
+ };
+};
+
+const saveProgress = (newProgress) => {
+    localStorage.setItem(PROGRESS_KEY, JSON.stringify(newProgress));
+};
+
 
 function NumberGameMed1() {
   const [dropped, setDropped] = useState({});
-<<<<<<< HEAD
   const { playSound: playApplause, stopSound: stopApplause } = useWithSound(applause);
   
 
-=======
-  const selectedChild = JSON.parse(localStorage.getItem("selectedChild"));
-  const childId = selectedChild?.id;
->>>>>>> 0b2d8e4be0cf3c8d80bfe466e3965a96eac7b42e
   function handleDragEnd(event) {
     if (event.over) {
       const draggedId = event.active.id;
@@ -112,7 +120,6 @@ function NumberGameMed1() {
 
 
   useEffect(() => {
-<<<<<<< HEAD
         const bgSound = new Audio(backgroundMusic);
          bgSound.loop = true;
          bgSound.volume = 0.2;
@@ -132,6 +139,7 @@ function NumberGameMed1() {
  
          if (isGameFinished) {
              playApplause();
+             saveProgress("level 1");
  
              soundTimeout = setTimeout(() => {
                  stopApplause();
@@ -145,37 +153,6 @@ function NumberGameMed1() {
      }, [isGameFinished, playApplause, stopApplause]);
  
  
-=======
-    if (isGameFinished) return; 
-
-    const interval = setInterval(() => {
-      setCount((prev) => prev + 1);
-    }, 1000);
-
-    return () => clearInterval(interval); 
-  }, [isGameFinished]);
-
- {/*Saving*/}
-  useEffect(() => {
-    if (!isGameFinished || !childId) return;
-
-
-    const data = {
-      child_id: childId,
-      game: "Number",
-      difficulty: "Medium",
-      level: 1,
-      time: count,
-    };
-
-    console.log("Saving progress:", data);
-
-    api.post("/api/save_progress/", data)
-      .then((res) => console.log("Progress saved:", res.data))
-      .catch((err) => console.error("Error saving progress:", err));
-  }, [isGameFinished]);
-
->>>>>>> 0b2d8e4be0cf3c8d80bfe466e3965a96eac7b42e
 
   return (
     <>
