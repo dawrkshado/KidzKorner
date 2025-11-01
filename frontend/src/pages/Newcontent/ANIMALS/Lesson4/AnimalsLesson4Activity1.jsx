@@ -1,6 +1,6 @@
 import { useState, useEffect } from "react";
 import { DndContext, useDraggable, useDroppable, pointerWithin } from "@dnd-kit/core";
-import BG from "../../../../assets/Animals/Lesson4/Bg.webp";
+import BG from "../../../../assets/Animals/Lesson4/bg1.webp";
 import Fish from "../../../../assets/Animals/Lesson4/Fish.webp";
 import Lion from "../../../../assets/Animals/Lesson4/Lion.webp";
 import Giraffe from "../../../../assets/Animals/Lesson4/Giraffe.webp";
@@ -29,7 +29,7 @@ function Droppable({ id, placedShape, shape }) {
     <div
       ref={setNodeRef}
       style={style}
-      className="flex items-center justify-center h-100 w-100"
+      className="flex items-center justify-center h-100 w-100  2xl:h-150 2xl:w-150"
     >
       {placedShape ? placedShape : shape}
     </div>
@@ -176,18 +176,18 @@ function AnimalsLesson4Activity1() {
          <div className="flex absolute gap-4 w-[100%] justify-center z-10 bottom-8 p-4">
  
   {!dropped.includes("monkey") && (
-    <Draggable id="monkey" shape={<img src={Monkey} alt="Monkey" className="h-32 w-auto object-contain" />} />
+    <Draggable id="monkey" shape={<img src={Monkey} alt="Monkey" className="h-32 2xl:h-65 w-auto object-contain" />} />
   )}
-   <Draggable id="fish" shape={<img src={Fish} alt="Fish" className="h-32 w-auto object-contain" />} />
+   <Draggable id="fish" shape={<img src={Fish} alt="Fish" className="h-32 2xl:h-65 w-auto object-contain" />} />
   {!dropped.includes("giraffe") && (
-    <Draggable id="giraffe" shape={<img src={Giraffe} alt="Giraffe" className="h-32 w-auto object-contain" />} />
+    <Draggable id="giraffe" shape={<img src={Giraffe} alt="Giraffe" className="h-32 2xl:h-65 w-auto object-contain" />} />
   )}
-   <Draggable id="polarbear" shape={<img src={PolarBear} alt="PolarBear" className="h-32 w-auto object-contain" />} />
+   <Draggable id="polarbear" shape={<img src={PolarBear} alt="PolarBear" className="h-32 2xl:h-65 w-auto object-contain" />} />
   {!dropped.includes("lion") && (
-    <Draggable id="lion" shape={<img src={Lion} alt="Lion" className="h-32 w-auto object-contain" />} />
+    <Draggable id="lion" shape={<img src={Lion} alt="Lion" className="h-32 2xl:h-65 w-auto object-contain" />} />
   )}
  
-  <Draggable id="seal" shape={<img src={Seal} alt="Seal" className="h-32 w-auto object-contain" />} />
+  <Draggable id="seal" shape={<img src={Seal} alt="Seal" className="h-32  2xl:h-65 w-auto object-contain" />} />
 </div>
 
           {/* Results */}
