@@ -19,6 +19,15 @@ import ThreeStar from "../assets/Done/ThreeStar.webp";
 
 import Bone from "../assets/Shapes/ShapesMedium/level1/bone.webp"
 
+import backgroundMusic from "../assets/Sounds/background.mp3";
+
+import applause from "../assets/Sounds/applause.wav"
+import { useWithSound } from "../components/useWithSound";
+import { useNavigate } from "react-router-dom";
+
+import { motion } from "framer-motion";
+
+
 
 function Droppable({ id, placedShape, shape }) {
   const { isOver, setNodeRef } = useDroppable({ id });
@@ -60,39 +69,111 @@ function Draggable({ id, disabled = false, shape }) {
   );
 }
 
+function saveProgress(level) {
+  const progress = JSON.parse(localStorage.getItem("shapesMediumProgress")) || {
+    level1: false,
+    level2: false,
+    level3: false,
+  };
+  progress[level] = true;
+  localStorage.setItem("shapesMediumProgress", JSON.stringify(progress));
+}
+
+
 function ShapesMediumLevel1() {
-  const [dropped, setDropped] = useState({});
+    const [dropped, setDropped] = useState({});
+    const [count, setCount] = useState(0);
 
-  function handleDragEnd(event) {
-    if (event.over) {
-      const draggedId = event.active.id;
-      const droppedId = event.over.id;
+   
+    const navigate = useNavigate();
+    
+    const { playSound: playApplause, stopSound: stopApplause } = useWithSound(applause);
+   
+    const isGameFinished =
+        dropped["circle"] && dropped["square"] && dropped["triangle"];
 
-      if (draggedId === droppedId) {
-        setDropped((prev) => ({
-          ...prev,
-          [draggedId]: droppedId,
-        }));
-      }
+
+    function handleDragEnd(event) {
+        if (event.over) {
+            const draggedId = event.active.id;
+            const droppedId = event.over.id;
+
+            if (draggedId === droppedId) {
+                setDropped((prev) => ({
+                    ...prev,
+                    [draggedId]: droppedId,
+                }));
+            }
+        }
     }
-  }
+
+    const isPlaced = (id) => dropped[id] === id; 
+    
+    const resetGame = () => {
+        setDropped({});
+        setCount(0);
+     
+    };
+
+    const handleReplay = () => {
+        stopApplause();
+        resetGame();
+    };
+
+    const handleBack = () => {
+        stopApplause();
+        navigate("/shapes");
+    };
+
+    const handleBackgroundClick = () => {};
+    const handleBoardClick = () => {};
 
 
-  const isGameFinished =
-    dropped["circle"] && dropped["square"] && dropped["triangle"];
+    useEffect(() => {
+        if (isGameFinished) return; 
 
-   const [count, setCount] = useState(0);
+        const interval = setInterval(() => {
+            setCount((prev) => prev + 1);
+        }, 1000);
 
-  useEffect(() => {
-    if (isGameFinished) return; 
+        return () => clearInterval(interval);
+    }, [isGameFinished]);
 
-    const interval = setInterval(() => {
-      setCount((prev) => prev + 1);
-    }, 1000);
 
-    return () => clearInterval(interval); 
-  }, [isGameFinished]);
+    useEffect(() => {
+        const bgSound = new Audio(backgroundMusic);
+        bgSound.loop = true;
+        bgSound.volume = 0.3;
 
+       
+        bgSound.play().catch((err) => {
+            console.log("Autoplay blocked by browser (user interaction required):", err);
+        });
+
+        return () => {
+            bgSound.pause();
+            bgSound.currentTime = 0;
+        };
+    }, []);
+
+
+    useEffect(() => {
+        let soundTimeout;
+
+        if (isGameFinished) {
+            playApplause();
+            saveProgress("level1");
+
+            soundTimeout = setTimeout(() => {
+                stopApplause();
+            }, 8000);
+        }
+
+        return () => {
+            clearTimeout(soundTimeout);
+            stopApplause();
+        };
+    }, [isGameFinished, playApplause, stopApplause]);
 
   return (
     <>
@@ -196,32 +277,38 @@ function ShapesMediumLevel1() {
       
                 <div className="absolute top-0 right-0 text-white">Your Time: {count}</div>
                 
-            </>
-
-       
+            </>     
                  
-     {/*Results*/}
+ 
+               
+   {/*Results*/}
 {isGameFinished && count <= 15 &&(
   <div className="absolute inset-0 flex items-center h-full w-full justify-center bg-opacity-50 z-20  ">
-      <img src={ThreeStar}
-      alt="Game Completed!"
-      className="h-[300px] animate-bounce"
-  />
+       <motion.img
+          src={ThreeStar}
+           alt="Game Completed!"
+           className="h-[300px]"
+           initial={{ scale: 0, opacity: 0 }}
+           animate={{ scale: 1, opacity: 1 }}
+           transition={{ duration: 0.8, ease: "easeOut" }}
+       />
 
       <div className="absolute bottom-[20%] ">
         <ReplayNBack/>
       </div>
-
-
   </div>
 )}
 
 {isGameFinished && count <= 20 && count > 15 &&(
   <div className="absolute inset-0 flex items-center justify-center bg-opacity-50 z-20">
-      <img
-      src={TwoStar}
-      alt="Game Completed!"
-      className="h-[300px] animate-bounce"/>
+  <motion.img
+          src={TwoStar}
+          alt="Game Completed!"
+          className="h-[300px]"
+          initial={{ scale: 0, opacity: 0 }}
+          animate={{ scale: 1, opacity: 1 }}
+          transition={{ duration: 0.8, ease: "easeOut" }}
+      />
       <div className="absolute bottom-[20%] ">
         <ReplayNBack/>
       </div>
@@ -230,21 +317,22 @@ function ShapesMediumLevel1() {
 
 {isGameFinished && count > 25 &&(
   <div className="absolute inset-0 flex items-center justify-center bg-opacity-50 z-20">
-    <img
-    src={OneStar}
-    alt="Game Completed!"
-    className="h-[300px] animate-bounce"
+    <motion.img
+            src={OneStar}
+            alt="Game Completed!"
+            className="h-[300px]"
+            initial={{ scale: 0, opacity: 0 }}
+            animate={{ scale: 1, opacity: 1 }}
+            transition={{ duration: 0.8, ease: "easeOut" }}
     />
     <div className="absolute bottom-[20%] ">
       <ReplayNBack/>
     </div>
   </div>
 )}
-
         </DndContext>
       </div>
     </>
   );
 }
-
 export default ShapesMediumLevel1;

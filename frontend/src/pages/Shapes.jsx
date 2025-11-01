@@ -6,6 +6,10 @@ import triangle from "../assets/Shapes/triangle.png";
 import square from "../assets/Shapes/square.png";
 import sbuttons from "../assets/Shapes/sbuttons.png";
 import { Link } from "react-router-dom";
+import { useState,useEffect } from "react";
+import backgroundMusic from "../assets/Sounds/background.mp3"; 
+import useSound from 'use-sound';
+import clickSfx from '../assets/Sounds/button_click_sound.mp3'; 
 
 
 import Back from "../components/Back.jsx";
@@ -17,6 +21,22 @@ const speak = (text) => {
 };
 
 function Shapes() {
+  const [playClick] = useSound(clickSfx, { volume: 0.5 });
+ useEffect(() => {
+               const bgSound = new Audio(backgroundMusic);
+                bgSound.loop = true;
+                bgSound.volume = 0.2; 
+        
+                bgSound.play().catch((err) => {
+                    console.log("Autoplay blocked. User must interact to enable sound.", err);
+                });
+        
+                return () => {
+                    bgSound.pause();
+                    bgSound.currentTime = 0;
+                };
+            }, []); 
+
   return (
     <>
 
@@ -68,7 +88,7 @@ function Shapes() {
           className="absolute left-[45%] xl:top-[47%] xl2:top[58%] w-auto cursor-pointer h-auto "
         />
 
-        <Link to="/shapesgame">
+        <Link to="/shapesgame" onClick={playClick}>
           <img
             src={sbuttons}
             alt="Play Shapes Game"

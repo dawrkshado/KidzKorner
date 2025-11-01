@@ -9,8 +9,11 @@ import orange from "../assets/Color/orange.png"
 import colorbutton from "../assets/Color/colorbutton.png"
 import { Link } from "react-router-dom";
 import 'react-router-dom'
-
+import useSound from 'use-sound';
+import clickSfx from '../assets/Sounds/button_click.mp3';
+import backgroundMusic from "../assets/Sounds/background.mp3"; 
 import Back from "../components/Back.jsx";
+import { useState,useEffect } from "react";
 
 const speak = (text) => {
     const utterance = new SpeechSynthesisUtterance(text);
@@ -20,6 +23,25 @@ const speak = (text) => {
 
 
 function Color(){
+    const [playClick] = useSound(clickSfx, { volume: 0.5 });
+
+     useEffect(() => {
+               const bgSound = new Audio(backgroundMusic);
+                bgSound.loop = true;
+                bgSound.volume = 0.2; // Keep it low for background
+        
+                // Attempt to play, handling potential autoplay restrictions
+                bgSound.play().catch((err) => {
+                    console.log("Autoplay blocked. User must interact to enable sound.", err);
+                });
+        
+                // Cleanup function: pause and reset music on unmount
+                return () => {
+                    bgSound.pause();
+                    bgSound.currentTime = 0;
+                };
+            }, []); 
+        
     return(
         <> <div className="hidden w-full md:inline md:absolute h-full ">
       <TopBar/>

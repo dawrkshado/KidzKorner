@@ -1,3 +1,4 @@
+
 import { useState,useEffect } from "react";
 import { DndContext, useDraggable, useDroppable, pointerWithin } from "@dnd-kit/core";
 
@@ -19,6 +20,14 @@ import OneStar from "../assets/Done/OneStar.webp";
 import TwoStar from "../assets/Done/TwoStar.webp"; 
 import ThreeStar from "../assets/Done/ThreeStar.webp"; 
 
+import backgroundMusic from "../assets/Sounds/background.mp3";
+
+import { motion } from "framer-motion";
+
+import applause from "../assets/Sounds/applause.wav"
+import { useWithSound } from "../components/useWithSound";
+import { useNavigate } from "react-router-dom";
+
 function Droppable({ id, placedShape, shape }) {
   const { isOver, setNodeRef } = useDroppable({ id });
   const style = {
@@ -32,7 +41,7 @@ function Droppable({ id, placedShape, shape }) {
       style={style}
       className="flex items-center justify-center "
     >
-      {placedShape ? placedShape : shape}
+  {placedShape ? placedShape : shape}
     </div>
   );
 }
@@ -49,7 +58,7 @@ function Draggable({ id, disabled = false, shape }) {
 
   return (
     <div
-      ref={setNodeRef}
+    ref={setNodeRef}
       style={style}
       {...(!disabled ? attributes : {})}
       {...(!disabled ? listeners : {})}
@@ -60,6 +69,8 @@ function Draggable({ id, disabled = false, shape }) {
 }
 
 function NumberGameMed2() {
+  const navigate = useNavigate();
+      const { playSound: playApplause, stopSound: stopApplause } = useWithSound(applause); 
   const [dropped, setDropped] = useState({});
 
   const isGameFinished =
@@ -68,30 +79,111 @@ function NumberGameMed2() {
   
      const [count, setCount] = useState(0);
   
-    useEffect(() => {
-      if (isGameFinished) return; 
-  
-      const interval = setInterval(() => {
-        setCount((prev) => prev + 1);
-      }, 1000);
-  
-      return () => clearInterval(interval); 
-    }, [isGameFinished]);
-
-  function handleDragEnd(event) {
-    if (event.over) {
-      const draggedId = event.active.id;
-      const droppedId = event.over.id;
-
-      if (draggedId === droppedId) {
-        setDropped((prev) => ({
-          ...prev,
-          [draggedId]: droppedId,
-        }));
-      }
-    }
-  }
-
+    
+                 useEffect(() => {
+                              if (isGameFinished) return; 
+                          
+                              const interval = setInterval(() => {
+                                setCount((prev) => prev + 1);
+                              }, 1000);
+                          
+                              return () => clearInterval(interval); 
+                            }, [isGameFinished]);
+                    
+                  
+                
+                  const [index] = useState(0);
+                
+                  const logic = (choice) => {
+                    if (choice === clickables[index].Answer) {
+                      setGameFinished(true);
+                    } else {
+                      alert("wrong!");
+                    }
+                  };
+                 useEffect(() => {
+                    const bgSound = new Audio(backgroundMusic);
+                    bgSound.loop = true; 
+                    bgSound.volume = 0.3; 
+                    
+                    // handling browser autoplay restrictions
+                    bgSound.play().catch((err) => {
+                      console.log("Autoplay blocked by browser (user interaction required):", err);
+                    });
+                
+                 
+                    return () => {
+                      bgSound.pause();
+                      bgSound.currentTime = 0;
+                    };
+                  }, []); 
+                
+                
+                  // 3. EFFECT FOR APPLAUSE SOUND 
+                  useEffect(() => {
+                    let soundTimeout;
+                
+                    if (isGameFinished) {
+                      playApplause(); 
+                
+                      soundTimeout = setTimeout(() => {
+                        stopApplause();
+                      }, 8000); 
+                    }
+                
+                  
+                    return () => {
+                      clearTimeout(soundTimeout);
+                      stopApplause();
+                    };
+                  }, [isGameFinished, playApplause, stopApplause]);
+                
+                
+                  
+                  useEffect(() => {
+                    if (isGameFinished) return;
+                
+                    const interval = setInterval(() => {
+                      setCount((prev) => prev + 1);
+                    }, 1000);
+                
+                    return () => clearInterval(interval);
+                  }, [isGameFinished]);
+                  
+                 
+                  function handleDragEnd(event) {
+                    if (event.over && event.active.id === event.over.id) { 
+                      const draggedId = event.active.id;
+                      const droppedId = event.over.id;
+                
+                      setDropped((prev) => ({
+                        ...prev,
+                        [draggedId]: droppedId,
+                      }));
+                    }
+                  }
+                
+                  const resetGame = () => {
+                    setDropped({}); 
+                    setCount(0);
+                
+                  };
+                
+                  const handleReplay = () => {
+                    stopApplause(); 
+                    resetGame();
+                  };
+                
+                  const handleBack = () => {
+                    stopApplause(); 
+                    
+                    navigate("/shapes");
+                  };
+                
+                  // Helper function to check if a shape has been correctly placed
+                  const isPlaced= (id) => dropped[id] === id;
+                
+    
   return (
     <>
       <div className="flex h-[100vh] w-[100vw] absolute overflow-hidden font-[coiny]  bg-cover bg-no-repeat" style={{backgroundImage: `url(${bg})`}}>
@@ -273,9 +365,13 @@ function NumberGameMed2() {
  {/*Results*/}
 {isGameFinished && count <= 15 &&(
   <div className="absolute inset-0 flex items-center h-full w-full justify-center bg-opacity-50 z-20  ">
-      <img src={ThreeStar}
-      alt="Game Completed!"
-      className="h-[300px] animate-bounce"
+      <motion.img
+              src={ThreeStar}
+              alt="Game Completed!"
+              className="h-[300px]"
+              initial={{ scale: 0, opacity: 0 }}
+              animate={{ scale: 1, opacity: 1 }}
+              transition={{ duration: 0.8, ease: "easeOut" }}
   />
 
       <div className="absolute bottom-[20%] ">
@@ -288,10 +384,14 @@ function NumberGameMed2() {
 
 {isGameFinished &&  count > 15 && count <= 20 && (
   <div className="absolute inset-0 flex items-center justify-center bg-opacity-50 z-20">
-      <img
-      src={TwoStar}
-      alt="Game Completed!"
-      className="h-[300px] animate-bounce"/>
+     <motion.img
+             src={twoStar}
+             alt="Game Completed!"
+             className="h-[300px]"
+             initial={{ scale: 0, opacity: 0 }}
+             animate={{ scale: 1, opacity: 1 }}
+             transition={{ duration: 0.8, ease: "easeOut" }}
+      />
       <div className="absolute bottom-[20%] ">
         <ReplayNBack/>
       </div>
@@ -300,10 +400,13 @@ function NumberGameMed2() {
 
 {isGameFinished && count > 20 &&(
   <div className="absolute inset-0 flex items-center justify-center bg-opacity-50 z-20">
-    <img
-    src={OneStar}
-    alt="Game Completed!"
-    className="h-[300px] animate-bounce"
+    <motion.img
+            src={OneStar}
+            alt="Game Completed!"
+            className="h-[300px]"
+            initial={{ scale: 0, opacity: 0 }}
+            animate={{ scale: 1, opacity: 1 }}
+            transition={{ duration: 0.8, ease: "easeOut" }}
     />
     <div className="absolute bottom-[20%] ">
       <ReplayNBack/>

@@ -8,8 +8,14 @@ import { Link } from 'react-router-dom'
 import { useEffect, useState } from "react";
 import api from "../api";
 import Back from "../components/Back.jsx";
+import useSound from 'use-sound';
+import clickSfx from '../assets/Sounds/button_click.mp3';
+import backgroundMusic from "../assets/Sounds/background.mp3"; 
+
 
 function Home(){
+   const [playClick] = useSound(clickSfx, { volume: 0.5 });
+
 
   useEffect(() => {
     const checkUser = async () => {
@@ -24,7 +30,23 @@ function Home(){
     checkUser();
   }, []);
 
-
+ useEffect(() => {
+           const bgSound = new Audio(backgroundMusic);
+            bgSound.loop = true;
+            bgSound.volume = 0.2; // Keep it low for background
+    
+            // Attempt to play, handling potential autoplay restrictions
+            bgSound.play().catch((err) => {
+                console.log("Autoplay blocked. User must interact to enable sound.", err);
+            });
+    
+            // Cleanup function: pause and reset music on unmount
+            return () => {
+                bgSound.pause();
+                bgSound.currentTime = 0;
+            };
+        }, []); 
+    
   
   
     return(
@@ -35,15 +57,15 @@ function Home(){
       <Link to="/parentskorner"><div className="bg-black flex  h-30 w-30 justify-center items-center text-white absolute">To Parent</div></Link>
         <img src="./Bg/kidzBackground.webp" alt="background" className="w-full"/>
           
-        <Link to="/color"><img src={redmonster} alt="Monster Button for color page" className="absolute right-[22%] bottom-[10%] h-[35%] hover:opacity-85 motion-preset-pulse-sm motion-duration-2000 "/></Link>
+        <Link to="/color"onClick={playClick}><img src={redmonster} alt="Monster Button for color page" className="absolute right-[22%] bottom-[10%] h-[35%] hover:opacity-85 motion-preset-pulse-sm motion-duration-2000 "/></Link>
 
-        <Link to="/stories"><img src={TvMonster} alt="Monster Button for stories page" className="absolute left-[15%] bottom-[42%] h-[25%] hover:opacity-85 motion-preset-pulse-sm motion-duration-2000" /></Link>
+        <Link to="/stories"onClick={playClick}><img src={TvMonster} alt="Monster Button for stories page" className="absolute left-[15%] bottom-[42%] h-[25%] hover:opacity-85 motion-preset-pulse-sm motion-duration-2000" /></Link>
 
-        <Link to="/number"><img src={bluemonster} alt="Monster Button for numbers page" className="absolute right-[10%] bottom-[0%] h-[35%] hover:opacity-85 motion-preset-pulse-sm motion-duration-2000 "/></Link>
+        <Link to="/number"onClick={playClick}><img src={bluemonster} alt="Monster Button for numbers page" className="absolute right-[10%] bottom-[0%] h-[35%] hover:opacity-85 motion-preset-pulse-sm motion-duration-2000 "/></Link>
         
-        <Link to="/alphabets"><img src={BlueMonster} alt="Monster Button for alphabet page" className="absolute left-[5%] bottom-[0%] h-[41%] hover:opacity-85 motion-preset-pulse-sm motion-duration-2000"/></Link>
+        <Link to="/alphabets" onClick={playClick}><img src={BlueMonster} alt="Monster Button for alphabet page" className="absolute left-[5%] bottom-[0%] h-[41%] hover:opacity-85 motion-preset-pulse-sm motion-duration-2000"/></Link>
 
-        <Link to="/shapes"><img id="shapemonster" src={OrangeMonster} alt="Monster Button for shapes page" className="absolute left-[30%]   bottom-[0%] h-[35%] motion-preset-pulse-sm motion-duration-2000 hover:opacity-85"/></Link>
+        <Link to="/shapes" onClick={playClick}><img id="shapemonster" src={OrangeMonster} alt="Monster Button for shapes page" className="absolute left-[30%]   bottom-[0%] h-[35%] motion-preset-pulse-sm motion-duration-2000 hover:opacity-85"/></Link>
     </div>
     </>
 );

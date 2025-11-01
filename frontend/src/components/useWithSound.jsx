@@ -1,23 +1,31 @@
-import {useRef, useEffect} from 'react'
+import { useEffect, useMemo } from "react";
 
-export const useWithSound = (audioSource) => {
-  const soundRef = useRef();
-
+export const useWithSound = (soundSource) => {
+    const audio = useMemo(() => new Audio(soundSource), [soundSource]);
     useEffect(() => {
-    soundRef.current = new Audio(audioSource);
-  }, []);
+        audio.load();
 
+        return () => {
+            audio.pause();
+            audio.currentTime = 0;
+        };
+    }, [audio]);
+ 
+    const playSound = () => {
+      
+        audio.currentTime = 0; 
+        
+       
+        audio.play().catch(error => {
+            console.error("Audio playback blocked by browser:", error);
+      
+        });
+    };
+    
+    const stopSound = () => {
+        audio.pause();
+        audio.currentTime = 0;
+    };
 
-  const playSound = () => {
-    soundRef.current.play();
-  }
-
-  const pauseSound = () => {
-    soundRef.current.pause();
-  }
-
-  return {     
-    playSound,
-    pauseSound,
-  };
-}
+    return { playSound, stopSound };
+};

@@ -33,6 +33,15 @@ import Restart from "../components/Restart";
 
 import bg from "../assets/Number/Hard/bg.webp";
 
+import backgroundMusic from "../assets/Sounds/background.mp3";
+
+import applause from "../assets/Sounds/applause.wav"
+import { useWithSound } from "../components/useWithSound";
+import { useNavigate } from "react-router-dom";
+
+import { motion } from "framer-motion";
+    
+
 function Droppable({ id, placedShape, shape }) {
   const { isOver, setNodeRef } = useDroppable({ id });
   const style = {
@@ -75,6 +84,7 @@ function Draggable({ id, disabled = false, shape }) {
 
 function NumberGameHard() {
   const [dropped, setDropped] = useState({});
+    const { playSound: playApplause, stopSound: stopApplause } = useWithSound(applause);
   
 
   function handleDragEnd(event) {
@@ -97,16 +107,52 @@ const isGameFinished =
 
    const [count, setCount] = useState(0);
 
-  useEffect(() => {
-    if (isGameFinished) return; 
+   useEffect(() => {
+        if (isGameFinished) return; 
 
-    const interval = setInterval(() => {
-      setCount((prev) => prev + 1);
-    }, 1000);
+        const interval = setInterval(() => {
+            setCount((prev) => prev + 1);
+        }, 1000);
 
-    return () => clearInterval(interval); 
-  }, [isGameFinished]);
+        return () => clearInterval(interval);
+    }, [isGameFinished]);
 
+    useEffect(() => {
+          const bgSound = new Audio(backgroundMusic);
+           bgSound.loop = true;
+           bgSound.volume = 0.2; // Keep it low for background
+   
+           // Attempt to play, handling potential autoplay restrictions
+           bgSound.play().catch((err) => {
+               console.log("Autoplay blocked. User must interact to enable sound.", err);
+           });
+   
+           // Cleanup function: pause and reset music on unmount
+           return () => {
+               bgSound.pause();
+               bgSound.currentTime = 0;
+           };
+       }, []); // Runs once on mount
+   
+       // 3. SOUND INTEGRATION: Applause Sound Effect (from ShapesMediumLevel2)
+       useEffect(() => {
+           let soundTimeout;
+   
+           if (isGameFinished) {
+               // Play the applause sound
+               playApplause();
+   
+               // Stop the applause after 8 seconds (as per your original code)
+               soundTimeout = setTimeout(() => {
+                   stopApplause();
+               }, 8000);
+           }
+   
+           return () => {
+               clearTimeout(soundTimeout);
+               stopApplause();
+           };
+       }, [isGameFinished, playApplause, stopApplause]);
 
   return (
     <>
@@ -333,10 +379,13 @@ const isGameFinished =
      {/*Results*/}
         {isGameFinished && count < 10 && count <= 20  &&(
           <div className="absolute inset-0 flex items-center h-full w-full justify-center bg-opacity-50 z-20  ">
-            <img
-              src={ThreeStar}
-              alt="Game Completed!"
-              className="h-[300px] animate-bounce"
+              <motion.img
+                         src={ThreeStar}
+                         alt="Game Completed!"
+                         className="h-[300px]"
+                         initial={{ scale: 0, opacity: 0 }}
+                         animate={{ scale: 1, opacity: 1 }}
+                         transition={{ duration: 0.8, ease: "easeOut" }}
             />
 
             <div  className="absolute bottom-35 gap-20 flex h-25  w-50 ">
@@ -347,21 +396,22 @@ const isGameFinished =
             <div>
                <Restart/>
             </div>
-
           </div>
-
-     
           </div>
         )}
 
     {isGameFinished && count >= 20 && count <= 30 &&(
         <div className="absolute inset-0 flex items-center justify-center bg-opacity-50 z-20">
-          <img
-            src={TwoStar}
-            alt="Game Completed!"
-            className="h-[300px] animate-bounce"
-          />
-          <div  className="absolute bottom-35 gap-20 flex h-25  w-50 ">
+         <motion.img
+                         src={TwoStar}
+                         alt="Game Completed!"
+                         className="h-[300px]"
+                         initial={{ scale: 0, opacity: 0 }}
+                         animate={{ scale: 1, opacity: 1 }}
+                         transition={{ duration: 0.8, ease: "easeOut" }}
+            />
+
+            <div  className="absolute bottom-35 gap-20 flex h-25  w-50 ">
                <div>
               <Back/>
             </div>
@@ -376,12 +426,16 @@ const isGameFinished =
 
     {isGameFinished && count > 30 &&(
     <div className="absolute inset-0 flex items-center justify-center bg-opacity-50 z-20">
-    <img
-      src={OneStar}
-      alt="Game Completed!"
-      className="h-[300px] animate-bounce"
-    />
-      <div  className="absolute bottom-35 gap-20 flex h-25  w-50 ">
+   <motion.img
+                         src={OneStar}
+                         alt="Game Completed!"
+                         className="h-[300px]"
+                         initial={{ scale: 0, opacity: 0 }}
+                         animate={{ scale: 1, opacity: 1 }}
+                         transition={{ duration: 0.8, ease: "easeOut" }}
+            />
+
+            <div  className="absolute bottom-35 gap-20 flex h-25  w-50 ">
                <div>
               <Back/>
             </div>

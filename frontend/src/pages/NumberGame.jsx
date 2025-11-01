@@ -5,10 +5,32 @@ import numbermedium from "../assets/Number/numbermedium.png";
 import numberhard from "../assets/Number/numberhard.png";
 import Back from "../components/Back";
 import ReplayNBack from "../components/ReplayNBack";
+import useSound from 'use-sound';
+import clickSfx from '../assets/Sounds/button_click.mp3'; 
+import { useState,useEffect } from "react";
+import backgroundMusic from "../assets/Sounds/background.mp3"; 
 
 function NumberGame(){
-
-  return(<>
+ const [playClick] = useSound(clickSfx, { volume: 0.5 });
+ useEffect(() => {
+               const bgSound = new Audio(backgroundMusic);
+                bgSound.loop = true;
+                bgSound.volume = 0.2; // Keep it low for background
+        
+                // Attempt to play, handling potential autoplay restrictions
+                bgSound.play().catch((err) => {
+                    console.log("Autoplay blocked. User must interact to enable sound.", err);
+                });
+        
+                // Cleanup function: pause and reset music on unmount
+                return () => {
+                    bgSound.pause();
+                    bgSound.currentTime = 0;
+                };
+            }, []); 
+  return(
+  <>
+  
 
   <div className="hidden w-full md:inline md:absolute overflow-x-hidden">
         <TopBar/>
@@ -19,21 +41,21 @@ function NumberGame(){
         className="w-full"
         />
 
-    <Link to="/numbereasy">
+    <Link to="/numbereasy" onClick={playClick}>
             <img 
             src={numbereasy} 
             alt="Easy Button"
             className="absolute left-[5%] top-[13%] h-[25%] cursor-pointer" />
             </Link>
 
-    <Link to="/numbermedium">
+    <Link to="/numbermedium" onClick={playClick}>
             <img 
             src={numbermedium} 
             alt="Easy Button"
             className="absolute left-[30%] top-[43%] w-auto h-[25%] cursor-pointer" />
             </Link>
     
-    <Link to="/numberhard">
+    <Link to="/numberhard" onClick={playClick}>
             <img 
             src={numberhard} 
             alt="Easy Button"

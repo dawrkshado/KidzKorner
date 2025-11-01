@@ -19,6 +19,15 @@ import ThreeStar from "../assets/Done/ThreeStar.webp";
 
 import ReplayNBack from "../components/ReplayNBack";
 
+import backgroundMusic from "../assets/Sounds/background.mp3";
+
+import applause from "../assets/Sounds/applause.wav"
+import { useWithSound } from "../components/useWithSound";
+import { useNavigate } from "react-router-dom";
+
+import { motion } from "framer-motion";
+    
+
 import wrongImage from "../assets/Alphabets/Hard/cross.gif" 
 
 function Droppable({ id, placedShape, shape }) {
@@ -64,6 +73,8 @@ function Draggable({ id, disabled = false, shape }) {
 
 function NumberGameMed1() {
   const [dropped, setDropped] = useState({});
+  const { playSound: playApplause, stopSound: stopApplause } = useWithSound(applause);
+  
 
   function handleDragEnd(event) {
     if (event.over) {
@@ -83,18 +94,50 @@ function NumberGameMed1() {
     dropped["two"] && dropped["four"];
 
    const [count, setCount] = useState(0);
+   useEffect(() => {
+        if (isGameFinished) return; 
+
+        const interval = setInterval(() => {
+            setCount((prev) => prev + 1);
+        }, 1000);
+
+        return () => clearInterval(interval);
+    }, [isGameFinished]);
+
 
   useEffect(() => {
-    if (isGameFinished) return; 
-
-    const interval = setInterval(() => {
-      setCount((prev) => prev + 1);
-    }, 1000);
-
-    return () => clearInterval(interval); 
-  }, [isGameFinished]);
-
-
+        const bgSound = new Audio(backgroundMusic);
+         bgSound.loop = true;
+         bgSound.volume = 0.2;
+ 
+         bgSound.play().catch((err) => {
+             console.log("Autoplay blocked. User must interact to enable sound.", err);
+         });
+ 
+         return () => {
+             bgSound.pause();
+             bgSound.currentTime = 0;
+         };
+     }, []); 
+ 
+     useEffect(() => {
+         let soundTimeout;
+ 
+         if (isGameFinished) {
+             playApplause();
+ 
+             soundTimeout = setTimeout(() => {
+                 stopApplause();
+             }, 8000);
+         }
+ 
+         return () => {
+             clearTimeout(soundTimeout);
+             stopApplause();
+         };
+     }, [isGameFinished, playApplause, stopApplause]);
+ 
+ 
 
   return (
     <>
@@ -171,41 +214,50 @@ function NumberGameMed1() {
           </div>
         </DndContext>
 
+
  {/*Results*/}
-{isGameFinished && count <= 15 &&(
-  <div className="absolute inset-0 flex items-center h-full w-full justify-center bg-opacity-50 z-20  ">
-      <img src={ThreeStar}
-      alt="Game Completed!"
-      className="h-[300px] animate-bounce"
-  />
+        {isGameFinished && count <= 15 && (
+          <div className="absolute inset-0 flex items-center h-full w-full justify-center bg-opacity-50 z-20">
+            <motion.img
+              src={ThreeStar}
+              alt="Game Completed!"
+              className="h-[300px]"
+              initial={{ scale: 0, opacity: 0 }}
+              animate={{ scale: 1, opacity: 1 }}
+              transition={{ duration: 0.8, ease: "easeOut" }}
+            />
+             <div className="absolute bottom-[20%]">
+             <ReplayNBack />
+              </div>
+          </div>
+        )}
 
+{isGameFinished && count <= 20 && count > 25 &&(
+  <div className="absolute inset-0 flex items-center justify-center bg-opacity-50 z-20">
+       <motion.img
+       src={TwoStar}
+       alt="Game Completed!"
+       className="h-[300px]"
+       initial={{ scale: 0, opacity: 0 }}
+      animate={{ scale: 1, opacity: 1 }}
+      transition={{ duration: 0.8, ease: "easeOut" }}
+                 />
       <div className="absolute bottom-[20%] ">
         <ReplayNBack/>
       </div>
-
-
   </div>
 )}
 
-{isGameFinished && count <= 20 && count > 15 &&(
+{isGameFinished && count > 25 &&(
   <div className="absolute inset-0 flex items-center justify-center bg-opacity-50 z-20">
-      <img
-      src={TwoStar}
+     <motion.img
+      src={OneStar}
       alt="Game Completed!"
-      className="h-[300px] animate-bounce"/>
-      <div className="absolute bottom-[20%] ">
-        <ReplayNBack/>
-      </div>
-  </div>
-)}
-
-{isGameFinished && count > 20 &&(
-  <div className="absolute inset-0 flex items-center justify-center bg-opacity-50 z-20">
-    <img
-    src={OneStar}
-    alt="Game Completed!"
-    className="h-[300px] animate-bounce"
-    />
+      className="h-[300px]"
+      initial={{ scale: 0, opacity: 0 }}
+      animate={{ scale: 1, opacity: 1 }}
+      transition={{ duration: 0.8, ease: "easeOut" }}
+               />
     <div className="absolute bottom-[20%] ">
       <ReplayNBack/>
     </div>
