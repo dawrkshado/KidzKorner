@@ -30,7 +30,7 @@ function ColorGameMedLevel1() {
   const { playSound: playApplause, stopSound: stopApplause } = useWithSound(applause); 
    const [isGameFinished,setGameFinished]= useState(false);
     const [count, setCount] = useState(0);
-{/* jars*/}
+
   const jars = [
     { id: "red", img: redJar },
     { id: "yellow", img: yellowJar },
@@ -64,7 +64,6 @@ useEffect(() => {
                 bgSound.loop = true; 
                 bgSound.volume = 0.3; 
                 
-                // handling browser autoplay restrictions
                 bgSound.play().catch((err) => {
                   console.log("Autoplay blocked by browser (user interaction required):", err);
                 });
@@ -119,12 +118,10 @@ useEffect(() => {
 
   const starImages = { one: OneStar, two: TwoStar, three: ThreeStar };
 
-
-  return <div className="overflow-hidden" ><SortingGame jars={jars} itemsData={itemsData} starImages={starImages} gamelevel={1}/></div> ;
+  return <SortingGame jars={jars} itemsData={itemsData} starImages={starImages} />;
 }
 
 export default ColorGameMedLevel1;
 
             
-              // 3. EFFECT FOR APPLAUSE SOUND 
            
