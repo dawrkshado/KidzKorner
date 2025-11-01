@@ -2,7 +2,7 @@ import Back from "../components/Back";
 import easyalphabutton1 from "../assets/Alphabets/easyalphabutton1.png";
 import easyalphabutton2 from "../assets/Alphabets/easyalphabutton2.png";
 import easyalphabutton3 from "../assets/Alphabets/easyalphabutton3.png";
-import tutorialVideo from "../assets/videos/AlphabetEasyTutorial.mp4"; // ✅ Video path
+import tutorialVideo from "../assets/videos/AlphabetEasyTutorial.mp4"; 
 import { Link } from "react-router-dom";
 import { motion, AnimatePresence } from "framer-motion";
 
@@ -51,7 +51,7 @@ function AlphabetEasy() {
     <div className="relative w-full h-screen bg-green-100 overflow-x-hidden">
       <AnimatePresence mode="wait">
         {showTutorial ? (
-          // 🎬 Tutorial Video
+  
           <motion.div
             key="tutorial"
             initial={{ opacity: 0 }}

@@ -4,6 +4,7 @@ import { Helmet } from "react-helmet"
 import api from "./api.js"
 import { TimeProvider } from "./TimeProvider.jsx";
 import LockOverlay from "./components/LockOverlay.jsx";
+import UnlockOverlay from "./components/UnlockOverlay";
 
 
 import Home from "./pages/Home.jsx"
@@ -354,8 +355,10 @@ function App() {
 
 
       </Routes>
+      <UnlockOverlay />
        <LockOverlay />
       </TimeProvider>
+
 </div>
     </>
   )

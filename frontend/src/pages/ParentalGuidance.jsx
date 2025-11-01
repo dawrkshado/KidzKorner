@@ -3,7 +3,7 @@ import { motion, AnimatePresence } from "framer-motion";
 import { useNavigate } from "react-router-dom";
 import { useState, useEffect } from "react";
 
-function ParentalGuidance() {
+function UnlockOverlay() {
   const {
     inputHours,
     setInputHours,
@@ -51,34 +51,59 @@ function ParentalGuidance() {
     <div className="flex flex-col items-center justify-center min-h-screen bg-yellow-100 relative overflow-hidden">
       {/* Timer Card */}
       <div className="bg-white p-6 rounded-2xl shadow-xl text-center w-80 z-10">
-        <h1 className="text-2xl font-bold mb-4 text-amber-700">Parental Timer</h1>
+        <h1 className="text-2xl font-bold mb-4 text-amber-700">
+          Parental Timer <br />
+          <span className="text-lg text-red-500">Set Timer to lock Screen</span>
+        </h1>
 
         {/* Timer Inputs */}
         {!isRunning && !showNewSetup && (
           <div className="flex gap-2 justify-center mb-4">
+            {/* Hours Input */}
             <input
               type="number"
               className="border-2 border-amber-300 rounded-lg p-2 w-16 text-center"
               placeholder="HH"
               value={inputHours}
-              onChange={(e) => setInputHours(Number(e.target.value))}
+              onChange={(e) => {
+                const val = e.target.value;
+                if (val === "" || Number(val) >= 0) {
+                  setInputHours(val === "" ? "" : Number(val));
+                }
+              }}
               min="0"
             />
+
+            {/* Minutes Input */}
             <input
               type="number"
               className="border-2 border-amber-300 rounded-lg p-2 w-16 text-center"
               placeholder="MM"
               value={inputMinutes}
-              onChange={(e) => setInputMinutes(Number(e.target.value))}
+              onChange={(e) => {
+                const val = e.target.value;
+                if (val === "" || (val.length <= 2 && Number(val) <= 59)) {
+                  setInputMinutes(val === "" ? "" : Number(val));
+                }
+              }}
               min="0"
+              max="59"
             />
+
+            {/* Seconds Input */}
             <input
               type="number"
               className="border-2 border-amber-300 rounded-lg p-2 w-16 text-center"
               placeholder="SS"
               value={inputSeconds}
-              onChange={(e) => setInputSeconds(Number(e.target.value))}
+              onChange={(e) => {
+                const val = e.target.value;
+                if (val === "" || (val.length <= 2 && Number(val) <= 59)) {
+                  setInputSeconds(val === "" ? "" : Number(val));
+                }
+              }}
               min="0"
+              max="59"
             />
           </div>
         )}
@@ -201,16 +226,28 @@ function ParentalGuidance() {
                   type="number"
                   className="border-2 border-amber-300 rounded-lg p-2 w-16 text-center"
                   value={inputMinutes}
-                  onChange={(e) => setInputMinutes(Number(e.target.value))}
+                  onChange={(e) => {
+                    const val = e.target.value;
+                    if (val === "" || (val.length <= 2 && Number(val) <= 59)) {
+                      setInputMinutes(val === "" ? "" : Number(val));
+                    }
+                  }}
                   min="0"
+                  max="59"
                 />
                 <label className="flex items-center">Seconds:</label>
                 <input
                   type="number"
                   className="border-2 border-amber-300 rounded-lg p-2 w-16 text-center"
                   value={inputSeconds}
-                  onChange={(e) => setInputSeconds(Number(e.target.value))}
+                  onChange={(e) => {
+                    const val = e.target.value;
+                    if (val === "" || (val.length <= 2 && Number(val) <= 59)) {
+                      setInputSeconds(val === "" ? "" : Number(val));
+                    }
+                  }}
                   min="0"
+                  max="59"
                 />
               </div>
 
@@ -236,4 +273,4 @@ function ParentalGuidance() {
   );
 }
 
-export default ParentalGuidance;
+export default UnlockOverlay;

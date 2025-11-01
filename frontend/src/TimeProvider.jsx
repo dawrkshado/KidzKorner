@@ -24,33 +24,45 @@ export function TimeProvider({ children }) {
   });
 
   const [showSetup, setShowSetup] = useState(false);
-  const [code, setCode] = useState(() => localStorage.getItem("parentCode") || "");
   const [enteredCode, setEnteredCode] = useState("");
+
+  // 🧠 Load and persist code
+  const [code, setCode] = useState(() => localStorage.getItem("parentCode") || "");
 
   const totalSeconds = inputHours * 3600 + inputMinutes * 60 + inputSeconds;
 
-  // 🕒 Save timer state
+  // Save important state
   useEffect(() => {
     localStorage.setItem("timeLeft", JSON.stringify(timeLeft));
     localStorage.setItem("isRunning", JSON.stringify(isRunning));
     localStorage.setItem("showLock", JSON.stringify(showLock));
   }, [timeLeft, isRunning, showLock]);
 
-  // ▶️ Start Timer
+  // 🕒 Start Timer (requires code)
   const startTimer = () => {
     if (totalSeconds <= 0) {
       alert("Please set a valid time before starting.");
       return;
     }
+
+    // Require code before starting if not set
+    if (!code) {
+      const newCode = prompt("Enter a 4-letter parental code to lock the timer:");
+      if (!newCode || newCode.length !== 4) {
+        alert("You must enter a 4-letter code to start the timer.");
+        return;
+      }
+      setCode(newCode);
+      localStorage.setItem("parentCode", newCode);
+    }
+
     setTimeLeft(totalSeconds);
     setIsRunning(true);
     setShowSetup(false);
   };
 
-  // ⏸ Stop Timer
   const stopTimer = () => setIsRunning(false);
 
-  // 🔄 Reset Timer
   const resetTimer = () => {
     setIsRunning(false);
     setTimeLeft(0);
@@ -59,7 +71,7 @@ export function TimeProvider({ children }) {
     setInputSeconds(0);
   };
 
-  // ⏰ Countdown logic
+  // ⏳ Countdown logic
   useEffect(() => {
     let timer;
     if (isRunning && timeLeft > 0) {
@@ -79,7 +91,6 @@ export function TimeProvider({ children }) {
     return () => clearInterval(timer);
   }, [isRunning, timeLeft]);
 
-  // 🧮 Format Time
   const formatTime = (secs) => {
     const h = Math.floor(secs / 3600);
     const m = Math.floor((secs % 3600) / 60);
@@ -89,14 +100,19 @@ export function TimeProvider({ children }) {
       .padStart(2, "0")}:${s.toString().padStart(2, "0")}`;
   };
 
-  // 🔓 Verify Code
+  // 🔓 Verify code and reset
   const verifyCode = () => {
     if (enteredCode === code) {
       setShowLock(false);
       localStorage.setItem("showLock", "false");
       setEnteredCode("");
+
+      // 🧹 Clear old code after unlock
+      setCode("");
+      localStorage.removeItem("parentCode");
+
       resetTimer();
-      setShowSetup(true); // ✅ show setup modal after unlocking
+      setShowSetup(true);
     } else {
       alert("Incorrect code. Try again.");
       setEnteredCode("");
