@@ -21,8 +21,6 @@ import { useNavigate } from "react-router-dom";
 import useSound from 'use-sound';
 import clickSfx from '../assets/Sounds/wrong_effect.mp3'; 
 
-const PROGRESS_KEY = 'alphabetEasyProgress'; 
-
 function saveProgress(level) {
   const progress = JSON.parse(localStorage.getItem(PROGRESS_KEY)) || {
     level1: false,
@@ -32,6 +30,7 @@ function saveProgress(level) {
   progress[level] = true;
   localStorage.setItem(PROGRESS_KEY, JSON.stringify(progress));
 }
+
 function AlphabetEasyLevel2() {
   const [playClick] = useSound(clickSfx, { volume: 0.5 });
   const navigate = useNavigate();
@@ -50,22 +49,7 @@ function AlphabetEasyLevel2() {
 
   const [isGameFinished,setGameFinished]= useState(false);
   
-<<<<<<< HEAD
     const [count, setCount] = useState(0);
-=======
-    const [count, setCount] = useState(1);
-          
-            useEffect(() => {
-              if (isGameFinished) return; 
-          
-              const interval = setInterval(() => {
-                setCount((prev) => prev + 1);
-              }, 1000);
-          
-              return () => clearInterval(interval); 
-            }, [isGameFinished]);
-    
->>>>>>> 0b2d8e4be0cf3c8d80bfe466e3965a96eac7b42e
 
       const handleBackgroundClick = () => {
         if (!isGameFinished) {

@@ -1,4 +1,4 @@
-
+import TopBar from "../components/TopBar"
 import { Link } from "react-router-dom"
 import coloreasy from "../assets/Color/coloreasy.png";
 import colormedium from "../assets/Color/colormedium.png";
@@ -17,14 +17,13 @@ function ColorGame(){
    useEffect(() => {
                const bgSound = new Audio(backgroundMusic);
                 bgSound.loop = true;
-                bgSound.volume = 0.2; // Keep it low for background
+                bgSound.volume = 0.2; 
         
-                // Attempt to play, handling potential autoplay restrictions
+                
                 bgSound.play().catch((err) => {
                     console.log("Autoplay blocked. User must interact to enable sound.", err);
                 });
         
-                // Cleanup function: pause and reset music on unmount
                 return () => {
                     bgSound.pause();
                     bgSound.currentTime = 0;
@@ -32,8 +31,9 @@ function ColorGame(){
             }, []); 
   return(
     <>
-    <div className="hidden w-full md:inline md:absolute h-[100%]">
+    <div className="hidden w-full md:inline md:absolute h-auto">
 
+        <TopBar/>
         <Back/>
         <img
         src="/Bg/Color/colorlevelbg.webp"
