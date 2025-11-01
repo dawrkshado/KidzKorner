@@ -1,7 +1,7 @@
 import { useState, useEffect } from "react";
 import { DndContext, useDraggable, useDroppable, pointerWithin } from "@dnd-kit/core";
 import { motion, AnimatePresence } from "framer-motion";
-import BG from "../../../../assets/Animals/Lesson4/bg.webp";
+import BG from "../../../../assets/Animals/Lesson3/bg2.webp";
 import Chick from "../../../../assets/Animals/Lesson3/Chick.webp";
 import Kitten from "../../../../assets/Animals/Lesson3/Kitten.webp";
 import Puppy from "../../../../assets/Animals/Lesson3/Puppy.webp";
@@ -23,6 +23,9 @@ import backgroundMusic from "../../../../assets/Sounds/background.mp3";
 import applause from "../../../../assets/Sounds/applause.wav";
 import { useWithSound } from "../../../../components/useWithSound";
 import { useNavigate } from "react-router-dom";
+import KittenDialogue from "../../../../assets/Animals/Lesson3/KittenDialogue.webp";
+import PuppyDialogue from "../../../../assets/Animals/Lesson3/PuppyDialogue.webp";
+import ChickDialogue from "../../../../assets/Animals/Lesson3/ChickDialogue.webp";
 
 function Droppable({ id, placedShape, shape }) {
   const { isOver, setNodeRef } = useDroppable({ id });
@@ -159,11 +162,15 @@ if (draggedId === "cat") {
 }
                   />
                 </div>
+
                 <div className="flex absolute gap-30 mt-10 w-[8%]  right-[45%] top-[25%] 2xl:right-[45%] 2xl:top-[32%] justify-center  z-10 ">
                   {!dropped["dog"] && (
                     <Draggable id="dog" shape={<img src={Puppy} alt="dog" className="h-[100%]" />} />
                   )}
                 </div>
+
+                <div className="absolute h-[25%] right-[33%] top-[10%] 2xl:right-[33%] 2xl:top-[13%] "><img src={PuppyDialogue} alt="dialogue for a puppy that says i am a puppy who is my mama?" className="h-[100%] "/></div>
+                
               </motion.div>
             )}
 
@@ -177,6 +184,7 @@ if (draggedId === "cat") {
               >
                 {/* Round 2: Cat */}
                 <div className="absolute top-[45%] w-[100vw] flex justify-center gap-20">
+                  
                   <Droppable
                     id="cat"
                     shape={<img src={Cat} className="w-[40%]" />}
@@ -194,6 +202,7 @@ if (draggedId === "cat") {
                     <Draggable id="cat" shape={<img src={Kitten} alt="cat" className="h-[100%]" />} />
                   )}
                 </div>
+                 <div className="absolute h-[25%] right-[33%] top-[10%] 2xl:right-[33%] 2xl:top-[13%] "><img src={KittenDialogue} alt="dialogue for kitten that says i am a kitten who is my mama?" className="h-[100%] "/></div>
               </motion.div>
             )}
 
@@ -224,6 +233,7 @@ if (draggedId === "cat") {
                     <Draggable id="chicken" shape={<img src={Chick} alt="chick" className="h-[90%]" />} />
                   )}
                 </div>
+                <div className="absolute h-[25%] right-[33%] top-[10%] 2xl:right-[33%] 2xl:top-[13%] "><img src={ChickDialogue} alt="dialogue for a chick that says i am a chick who is my mama?" className="h-[100%] "/></div>
               </motion.div>
             )}
           </AnimatePresence>
