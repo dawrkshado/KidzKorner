@@ -18,18 +18,15 @@ function ColorEasy() {
   const [showTutorial, setShowTutorial] = useState(true);
   const [playClick] = useSound(clickSfx, { volume: 0.5 });
 
-  // 🎬 Handles when video ends or Skip button clicked
   const handleVideoEnd = () => {
     setShowTutorial(false);
   };
 
-  // 🎵 Background music setup
   useEffect(() => {
     const bgSound = new Audio(backgroundMusic);
     bgSound.loop = true;
     bgSound.volume = 0.2;
 
-    // Only play music after user interacts (browser autoplay restriction)
     const enableSound = () => {
       bgSound.play().catch((err) =>
         console.log("Autoplay blocked until user interaction:", err)
@@ -50,7 +47,7 @@ function ColorEasy() {
     <div className="relative w-full h-screen overflow-hidden">
       <AnimatePresence mode="wait">
         {showTutorial ? (
-          // 🎬 Tutorial video screen
+        
           <motion.div
             key="tutorial"
             initial={{ opacity: 0 }}
@@ -75,7 +72,7 @@ function ColorEasy() {
             </div>
           </motion.div>
         ) : (
-          // 🎨 Menu screen after tutorial
+         
           <motion.div
             key="menu"
             initial={{ opacity: 0 }}

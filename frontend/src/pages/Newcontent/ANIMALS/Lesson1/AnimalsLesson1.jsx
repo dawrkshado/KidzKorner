@@ -36,29 +36,50 @@ function AnimalLesson1() {
     }
   };
 
-  // 🎵 Play animal sounds
-  const playSound = (soundFile) => {
-    stopSound();
-    const audio = new Audio(soundFile);
-    currentAudioRef.current = audio;
-    audio.volume = 1.0; // ✅ max sound for animal effects
-    audio.play().catch((err) => console.error("Audio error:", err));
+// 🎵 Play animal sounds (5 seconds only)
+const playSound = (soundFile) => {
+  stopSound(); // stop any previous sound
+  const audio = new Audio(soundFile);
+  currentAudioRef.current = audio;
+  audio.volume = 1.0;
+  audio.play().catch((err) => console.error("Audio error:", err));
 
-    audio.onended = () => {
+  // Stop sound after 5 seconds
+  const stopTimeout = setTimeout(() => {
+    if (audio) {
+      audio.pause();
+      audio.currentTime = 0;
       currentAudioRef.current = null;
-    };
+    }
+  }, 5000);
+
+  // Clear timeout if audio ends before 5 seconds
+  audio.onended = () => {
+    clearTimeout(stopTimeout);
+    currentAudioRef.current = null;
   };
+};
 
   const handleClick = (button) => {
     stopSound();
     setClicked(true);
     setClickedID(button);
+
+    // Pause main video when opening popup
+    if (videoRef.current) {
+      videoRef.current.pause();
+    }
   };
 
   const handleExit = () => {
     stopSound();
     setClicked(false);
     setClickedID(null);
+
+    // Resume main video when closing popup
+    if (videoRef.current) {
+      videoRef.current.play();
+    }
   };
 
   const handleNavigation = (path) => {
@@ -126,53 +147,56 @@ function AnimalLesson1() {
       </div>
 
       {/* 🟠 Exercises Popup */}
-      {clicked && clickedID === "Exercises" && (
-        <div
-          className="fixed inset-0 z-50 flex flex-col justify-center items-center gap-10 bg-cover bg-center"
-          style={{ backgroundImage: `url("/Bg/exerciseactivitysound.webp")` }}
-        >
-          <div
-            onClick={handleExit}
-            className="bg-red-600 absolute right-[3%] top-[3%] h-10 w-10 flex justify-center items-center text-white rounded-full cursor-pointer"
-          >
-            X
-          </div>
+{clicked && clickedID === "Exercises" && (
+  <div
+    className="fixed inset-0 z-50 flex flex-col justify-center items-center bg-cover bg-center overflow-auto"
+    style={{ backgroundImage: `url("/Bg/exerciseactivitysound.webp")` }}
+  >
+    {/* Exit button */}
+    <div
+      onClick={handleExit}
+      className="fixed right-4 top-4 bg-red-600 h-10 w-10 flex justify-center items-center text-white rounded-full cursor-pointer z-50"
+    >
+      X
+    </div>
 
-          <div className="relative w-full h-[500px]">
-            <img
-              src={dogsound}
-              alt="Dog"
-              className="absolute top-[100%] left-[10%] hover:scale-105 transition-transform duration-300 cursor-pointer"
-              style={{ transform: "translate(-50%, -50%)" }}
-              onClick={() => playSound(dogbark)}
-            />
-            <img
-              src={catsound}
-              alt="Cat"
-              className="absolute top-[67%] left-[20%] hover:scale-105 transition-transform duration-300 cursor-pointer"
-              onClick={() => playSound(catmeow)}
-            />
-            <img
-              src={cowsound}
-              alt="Cow"
-              className="absolute top-[40%] left-[35%] hover:scale-105 transition-transform duration-300 cursor-pointer"
-              onClick={() => playSound(cowmoo)}
-            />
-            <img
-              src={ducksound}
-              alt="Duck"
-              className="absolute top-[60%] left-[85%] hover:scale-105 transition-transform duration-300 cursor-pointer"
-              onClick={() => playSound(duckquack)}
-            />
-            <img
-              src={pigsound}
-              alt="Pig"
-              className="absolute top-[50%] left-[60%] hover:scale-105 transition-transform duration-300 cursor-pointer"
-              onClick={() => playSound(pigoink)}
-            />
-          </div>
-        </div>
-      )}
+    {/* Animal sounds container */}
+    <div className="relative w-full h-[500px] mt-16">
+      <img
+        src={dogsound}
+        alt="Dog"
+        className="absolute top-[96%] left-[10%] cursor-pointer hover:scale-105 transition-transform duration-300"
+        style={{ transform: "translate(-50%, -50%)" }}
+        onClick={() => playSound(dogbark)}
+      />
+      <img
+        src={catsound}
+        alt="Cat"
+        className="absolute top-[61%] left-[20%] cursor-pointer hover:scale-105 transition-transform duration-300"
+        onClick={() => playSound(catmeow)}
+      />
+      <img
+        src={cowsound}
+        alt="Cow"
+        className="absolute top-[30%] left-[35%] cursor-pointer hover:scale-105 transition-transform duration-300"
+        onClick={() => playSound(cowmoo)}
+      />
+      <img
+        src={ducksound}
+        alt="Duck"
+        className="absolute top-[53%] left-[85%] cursor-pointer hover:scale-105 transition-transform duration-300"
+        onClick={() => playSound(duckquack)}
+      />
+      <img
+        src={pigsound}
+        alt="Pig"
+        className="absolute top-[47%] left-[60%] cursor-pointer hover:scale-105 transition-transform duration-300"
+        onClick={() => playSound(pigoink)}
+      />
+    </div>
+  </div>
+)}
+
 
       {/* 🟣 Activities Popup */}
       {clicked && clickedID === "Activities" && (
