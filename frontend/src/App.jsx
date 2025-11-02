@@ -148,20 +148,6 @@ import ManageChildren from "./pages/ManageChildren.jsx"
 const Alphabets = React.lazy(() => import("./pages/Alphabets.jsx"))
 
 function App() {
-
-   <Helmet>
-        <title>KidzKorner | Fun Learning for Children</title>
-        <meta
-          name="description"
-          content="KidzKorner provides an engaging and educational environment for kids. Enroll now!"
-        />
-        <meta
-          name="keywords"
-          content="child care, preschool, kid learning, daycare"
-        />
-        <meta name="robots" content="index, follow" />
-      </Helmet>
-
   const [role, setRole] = useState(() => localStorage.getItem("userRole"));
   const [loading, setLoading] = useState(true);
 
@@ -210,6 +196,25 @@ function App() {
 
   return(
   <>  
+    <Helmet>
+      <title>KidzKorner | Fun Learning for Children - Educational Games & Activities</title>
+      <meta
+        name="description"
+        content="KidzKorner is an interactive educational platform for children featuring alphabet, numbers, shapes, colors, animals, and story lessons. Engaging games and activities designed to make learning fun and effective."
+      />
+      <meta
+        name="keywords"
+        content="kids learning, educational games, children education, preschool activities, alphabet learning, number games, shape recognition, color learning, animal lessons, children stories, interactive learning, kid educational platform, early childhood education, learning games for kids"
+      />
+      <meta name="robots" content="index, follow" />
+      <meta property="og:title" content="KidzKorner | Fun Learning for Children - Educational Games & Activities" />
+      <meta property="og:description" content="KidzKorner is an interactive educational platform for children featuring alphabet, numbers, shapes, colors, animals, and story lessons. Engaging games and activities designed to make learning fun and effective." />
+      <meta property="og:type" content="website" />
+      <meta name="twitter:card" content="summary_large_image" />
+      <meta name="twitter:title" content="KidzKorner | Fun Learning for Children" />
+      <meta name="twitter:description" content="Interactive educational platform for children with engaging games and activities" />
+      <link rel="canonical" href="https://your-squarespace-domain.squarespace.com" />
+    </Helmet>
     <ScrollToTop/>
       <div className="bg-[#3DA8CC] font-[coiny] justify-items-center align-middle h-screen w-screen content-center md:hidden">
         <img src="/responsive.png" alt="rotate Phone Background" />
