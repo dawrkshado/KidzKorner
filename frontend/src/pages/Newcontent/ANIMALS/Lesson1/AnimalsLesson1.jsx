@@ -17,7 +17,7 @@ import cowmoo from "../../../../assets/Sounds/cowmoo.mp3";
 import duckquack from "../../../../assets/Sounds/duckquack.mp3";
 import pigoink from "../../../../assets/Sounds/pigoink.mp3";
 
-import SoundVideo from "../../../../assets/Animals/ExerciseVideo/SoundVideo.mp4";
+import SoundVideo from "../../../../assets/Animals/ExerciseVideo/Animal Sounds Lesson 1.mp4";
 
 function AnimalLesson1() {
   const [clicked, setClicked] = useState(false);

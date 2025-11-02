@@ -56,12 +56,13 @@ function Home(){
       <div>
   
     </div>
-
-    <Link to="/lessons">
-      <div className="h-[20%]  w-[10%] absolute bg-amber-300 left-[20%]">
-        to lessons
-      </div>
-    </Link>
+<Link to="/lessons" onClick={playClick}>
+  <img
+    src={lessonsupload}
+    alt="Upload Lessons"
+    className="absolute left-[70%] bottom-[40%] h-auto w-auto hover:opacity-85 motion-preset-pulse-sm motion-duration-2000"
+  />
+</Link>
 
 
       <Back/>
